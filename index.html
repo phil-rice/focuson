@@ -118,7 +118,7 @@ Square
     }
 
     console.log("gameJson urls", findAllRenderUrls(gameJson))
-    var cache = new ReactRestCache(loader)
+    var cache = new ReactRestCache(loader, CryptoJS.SHA256)
     cache.loadFromBlob(gameJson).then(theyAreLoaded => {
             console.log("loaded from gameJson")
             let game = new ReactRest(React.createElement, classMap).renderSelf(gameJson);

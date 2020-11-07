@@ -16,13 +16,14 @@
 
 
 <script>
-    let gameUrl = "https://someDomain/api/game/render/%GAMESHA%"
-    let boardUrl = "https://someDomain/api/board/render/%BOARDSHA%"
-    let squareUrl = "https://someDomain/api/square/render/%SQUARESHA%"
-
     var gameCode = `%GAME% `
     let boardCode = `%BOARD%`
     var squareCode = `%SQUARE%`
+
+    let gameUrl = "https://someDomain/api/game/render/"+ CryptoJS.SHA256(gameCode)
+    let boardUrl = "https://someDomain/api/board/render/"+ CryptoJS.SHA256(boardCode)
+    let squareUrl = "https://someDomain/api/square/render/"+ CryptoJS.SHA256(squareCode)
+
 
     let squareClassFromApi = eval(squareCode)
     let boardClassFromApi = eval(boardCode)
@@ -51,7 +52,7 @@
     }
 
     console.log("gameJson urls", findAllRenderUrls(gameJson))
-    var cache = new ReactRestCache(loader)
+    var cache = new ReactRestCache(loader, CryptoJS.SHA256)
     cache.loadFromBlob(gameJson).then(theyAreLoaded => {
             console.log("loaded from gameJson")
             let game = new ReactRest(React.createElement, classMap).renderSelf(gameJson);

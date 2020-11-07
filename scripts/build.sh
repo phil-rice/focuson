@@ -39,15 +39,10 @@ function finish(){
 }
 trap finish EXIT
 
-read boardSha junk <<<$(sha256sum src/board.js)
-read gameSha junk <<<$( sha256sum src/game.js)
-read squareSha junk <<<$(sha256sum src/square.js)
 
 replace src/index.html '%GAME%' src/game.js > $temp1
 replace $temp1 '%BOARD%' src/board.js > $temp2
 replace $temp2 '%SQUARE%' src/square.js > index.html
 
-sed -i "s#%BOARDSHA%#$boardSha#g" index.html
-sed -i "s#%GAMESHA%#$gameSha#g" index.html
-sed -i "s#%SQUARESHA%#$squareSha#g" index.html
+
 
