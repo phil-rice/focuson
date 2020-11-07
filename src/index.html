@@ -30,9 +30,9 @@
     // let gameClassFromApi = eval(gameCode)
 
     let classMap = []
-    classMap[gameUrl] = squareCode
+    classMap[gameUrl] = gameCode
     classMap[boardUrl] = boardCode
-    classMap[squareUrl] = gameCode
+    classMap[squareUrl] = squareCode
 
     function loader(url) {
         return Promise.resolve(classMap[url])
@@ -55,7 +55,7 @@
     var cache = new ReactRestCache(loader, CryptoJS.SHA256)
     cache.loadFromBlob(gameJson).then(theyAreLoaded => {
             console.log("loaded from gameJson")
-            let game = new ReactRest(React.createElement, classMap).renderSelf(gameJson);
+            let game = new ReactRest(React.createElement, cache).renderSelf(gameJson);
             ReactDOM.render(game, document.getElementById('root'))
         }
     )

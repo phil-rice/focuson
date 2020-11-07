@@ -15,6 +15,10 @@ class ReactRestCache {
         return Promise.all(urls.map(url => this.loadifNeededAndCheck(url)))
     }
 
+    getFromCache(url) {
+        return this.cache[url]
+    }
+
     loadifNeededAndCheck(url) {
         console.log("loadIfNeededAndCheck", url, this.cache)
         if (this.cache.hasOwnProperty(url)) {
@@ -26,11 +30,10 @@ class ReactRestCache {
         console.log("url and last segment", url, lastSegment)
 
         return this.httploader(url).then(string => {
-            console.log("loaded " + string)
-            var digest = this.digester(string)
-            console.log("digest is ", digest+ "", lastSegment)
-            // if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
+            var digest = this.digester(string) + ""
+            if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
             var result = eval(string)
+            console.log("result calculated", url, result)
             this.cache[url] = result
             return result
         })
@@ -81,14 +84,9 @@ class ReactRest {
         throw `Cannot find renderUrl for  ${name}`
     }
 
-    renderClass(url, obj) {
-        if (this.reactRestCache.hasOwnProperty(url)) return this.reactRestCache[url]
-        throw `Cannot render ${url}`
-    }
-
     renderUsing(name, obj) {
         var renderUrl = this.renderUrl(name, obj)
-        var renderClass = this.renderClass(renderUrl, obj)
+        var renderClass = this.reactRestCache.getFromCache(renderUrl)
         var newReact = this.withUrls(obj._render)
         return this.create(renderClass, {reactRest: newReact, data: obj})
     }

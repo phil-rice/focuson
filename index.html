@@ -16,10 +16,6 @@
 
 
 <script>
-    let gameUrl = "https://someDomain/api/game/render/6b897c01a8fce476973cc02b92cb022ac8870fccddcdf188a7f584be0402b7ac"
-    let boardUrl = "https://someDomain/api/board/render/8ffda22759019cbe5146d2a181a133c76f8e6fecac2eef1a04d29e57b3d7f6aa"
-    let squareUrl = "https://someDomain/api/square/render/396fef44fd9127225a19cc0a95ff847c2357f60cf204afc793bd478cbe3a0081"
-
     var gameCode = `class Game extends React.Component {
     constructor(props) {
         super(props);
@@ -91,14 +87,19 @@ function Square(props) {
 Square
 `
 
-    let squareClassFromApi = eval(squareCode)
-    let boardClassFromApi = eval(boardCode)
-    let gameClassFromApi = eval(gameCode)
+    let gameUrl = "https://someDomain/api/game/render/"+ CryptoJS.SHA256(gameCode)
+    let boardUrl = "https://someDomain/api/board/render/"+ CryptoJS.SHA256(boardCode)
+    let squareUrl = "https://someDomain/api/square/render/"+ CryptoJS.SHA256(squareCode)
+
+
+    // let squareClassFromApi = eval(squareCode)
+    // let boardClassFromApi = eval(boardCode)
+    // let gameClassFromApi = eval(gameCode)
 
     let classMap = []
-    classMap[gameUrl] = gameClassFromApi
-    classMap[boardUrl] = boardClassFromApi
-    classMap[squareUrl] = squareClassFromApi
+    classMap[gameUrl] = gameCode
+    classMap[boardUrl] = boardCode
+    classMap[squareUrl] = squareCode
 
     function loader(url) {
         return Promise.resolve(classMap[url])
@@ -121,7 +122,7 @@ Square
     var cache = new ReactRestCache(loader, CryptoJS.SHA256)
     cache.loadFromBlob(gameJson).then(theyAreLoaded => {
             console.log("loaded from gameJson")
-            let game = new ReactRest(React.createElement, classMap).renderSelf(gameJson);
+            let game = new ReactRest(React.createElement, cache).renderSelf(gameJson);
             ReactDOM.render(game, document.getElementById('root'))
         }
     )
