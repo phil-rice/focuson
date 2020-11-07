@@ -6,12 +6,10 @@ class ReactRestCache {
         this.httploader = httploader
         this.digester = digester
         this.cache = {}
-        console.log("ReactRestCache", this.cache)
     }
 
     loadFromBlob(jsonBlob) {
         var urls = findAllRenderUrls(jsonBlob)
-        console.log("urls are", urls)
         return Promise.all(urls.map(url => this.loadifNeededAndCheck(url)))
     }
 
@@ -20,27 +18,22 @@ class ReactRestCache {
     }
 
     loadifNeededAndCheck(url) {
-        console.log("loadIfNeededAndCheck", url, this.cache)
         if (this.cache.hasOwnProperty(url)) {
-            console.log("already loaded")
             return Promise.resolve(cache[url])
         }
-        console.log("already loaded")
         var lastSegment = /([^/]+)$/.exec(url)[1]
-        console.log("url and last segment", url, lastSegment)
 
         return this.httploader(url).then(string => {
             var digest = this.digester(string) + ""
             if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
             var result = eval(string)
-            console.log("result calculated", url, result)
             this.cache[url] = result
             return result
         })
     }
 }
 
-//terribly implemented: make more efficient
+//terribly implemented: should make more efficient
 function findAllRenderUrls(jsonBlob) {
     var result = []
     if (typeof jsonBlob === 'array')
@@ -90,4 +83,8 @@ class ReactRest {
         var newReact = this.withUrls(obj._render)
         return this.create(renderClass, {reactRest: newReact, data: obj})
     }
+
+
+
+
 }

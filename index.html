@@ -14,8 +14,8 @@
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
 
-
 <script>
+    //This would normally be 'go get that string from the backend' Here we are hard coding it to allow us to focus on the rendering
     var gameCode = `class Game extends React.Component {
     constructor(props) {
         super(props);
@@ -67,7 +67,6 @@ class Board extends React.Component {
 
     render() {
         const status = 'Next player: ' + this.next();
-        console.log("board0", this.state)
         return (
             e("div", null, e("div", {className: "status"}, status),
                 e("div", {className: "board-row"}, this.renderSquare(0), this.renderSquare(1), this.renderSquare(2)),
@@ -87,9 +86,9 @@ function Square(props) {
 Square
 `
 
-    let gameUrl = "https://someDomain/api/game/render/"+ CryptoJS.SHA256(gameCode)
-    let boardUrl = "https://someDomain/api/board/render/"+ CryptoJS.SHA256(boardCode)
-    let squareUrl = "https://someDomain/api/square/render/"+ CryptoJS.SHA256(squareCode)
+    let gameUrl = "https://someDomain/api/game/render/" + CryptoJS.SHA256(gameCode)
+    let boardUrl = "https://someDomain/api/board/render/" + CryptoJS.SHA256(boardCode)
+    let squareUrl = "https://someDomain/api/square/render/" + CryptoJS.SHA256(squareCode)
 
 
     // let squareClassFromApi = eval(squareCode)
@@ -104,28 +103,46 @@ Square
     function loader(url) {
         return Promise.resolve(classMap[url])
     }
+</script>
 
+<script>
+    var cache = new ReactRestCache(loader, CryptoJS.SHA256)
+
+    function renderIt(json, element) {
+        cache.loadFromBlob(json).then(theyAreLoaded => {
+                let reactComponentClass = new ReactRest(React.createElement, cache).renderSelf(json);
+                ReactDOM.render(reactComponentClass, element)
+            }
+        )
+    }
+</script>
+
+<script>
     let gameJson = {
-        _links: {_self: {href: "domain/game"}},
+        _links: {_self: {href: "someUrl/For/This/Game"}},
         _render: {_self: gameUrl},
         gameData: 'Some game data properties could go here',
         _embedded: {
             board: {
-                _links: {_self: {href: ""}},
+                _links: {_self: {href: "someUrl/For/The/Board"}},
                 _render: {_self: boardUrl, square: squareUrl},
                 squares: [1, 2, 3, 4, 5, 6, 7, 8, 9]
             }
         }
     }
 
-    console.log("gameJson urls", findAllRenderUrls(gameJson))
-    var cache = new ReactRestCache(loader, CryptoJS.SHA256)
-    cache.loadFromBlob(gameJson).then(theyAreLoaded => {
-            console.log("loaded from gameJson")
-            let game = new ReactRest(React.createElement, cache).renderSelf(gameJson);
-            ReactDOM.render(game, document.getElementById('root'))
-        }
-    )
+
+    function restartGame() {
+        console.log("rendering")
+        renderIt(gameJson, document.getElementById('root'))
+    }
+
+    restartGame()
+    // cache.loadFromBlob(gameJson).then(theyAreLoaded => {
+    //         let game = new ReactRest(React.createElement, cache).renderSelf(gameJson);
+    //         ReactDOM.render(game, document.getElementById('root'))
+    //     }
+    // )
 
 
     // let dataThatCameFromApi = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -135,6 +152,6 @@ Square
     // }), document.getElementById('root'))
 
 </script>
-
+<button onclick="restartGame()">Restart</button>
 </body>
 </html>

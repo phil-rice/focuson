@@ -27,7 +27,6 @@ class Board extends React.Component {
 
     render() {
         const status = 'Next player: ' + this.next();
-        console.log("board0", this.state)
         return (
             e("div", null, e("div", {className: "status"}, status),
                 e("div", {className: "board-row"}, this.renderSquare(0), this.renderSquare(1), this.renderSquare(2)),
