@@ -6,7 +6,9 @@
     <LINK href="index.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script type="text/javascript" src="src/reactRest.js"></script>
     <script type="text/javascript" src="node_modules/crypto-js/crypto-js.js"></script>
+
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -14,91 +16,112 @@
 
 
 <script>
-    let squareCode = `
-    const e = React.createElement;
+    let gameUrl = "https://someDomain/api/game/render/6b897c01a8fce476973cc02b92cb022ac8870fccddcdf188a7f584be0402b7ac"
+    let boardUrl = "https://someDomain/api/board/render/8ffda22759019cbe5146d2a181a133c76f8e6fecac2eef1a04d29e57b3d7f6aa"
+    let squareUrl = "https://someDomain/api/square/render/396fef44fd9127225a19cc0a95ff847c2357f60cf204afc793bd478cbe3a0081"
 
-    function Square(props) {
-        return e("button", {className: "square", onClick: () => props.onClick()}, props.value);
+    var gameCode = `class Game extends React.Component {
+    constructor(props) {
+        super(props);
+        this.reactRest = this.props.reactRest
+        this.boardData = props.data._embedded.board
     }
-    Square
-    `
 
-    let boardCode = `
-    const e = React.createElement;
-
-    class Board extends React.Component {
-        constructor(props) {
-            super(props);
-            this.classMap=this.props.classMap
-            this.state = {squares: this.props.squares, xIsNext: true}
-        }
-
-        renderSquare(i) {
-            return e( this.classMap.square, {value: this.state.squares[i], onClick: () => this.handleClick(i)})
-        }
-
-        next() {
-            return this.state.xIsNext ? 'X' : 'O'
-        }
-
-        handleClick(i) {
-            const squares = this.state.squares.slice();
-            squares[i] = this.next()
-            this.setState({squares: squares, xIsNext: !this.state.xIsNext});
-        }
-
-        render() {
-            const status = 'Next player: ' + this.next();
-            return (
-                e("div", null, e("div", {className: "status"}, status),
-                    e("div", {className: "board-row"}, this.renderSquare(0), this.renderSquare(1), this.renderSquare(2)),
-                    e("div", {className: "board-row"}, this.renderSquare(3), this.renderSquare(4), this.renderSquare(5)),
-                    e("div", {className: "board-row"}, this.renderSquare(6), this.renderSquare(7), this.renderSquare(8)))
-            )
-        }
+    render() {
+        console.log("game0")
+        const e = React.createElement;
+        let board = this.reactRest.renderSelf(this.boardData)
+        return (
+            e("div", {className: "game"}, e("div", {className: "game-board"}, board),
+                e("div", {className: "game-info"},
+                    e("div", null),
+                    e("ol", null)))
+        )
     }
-    Board
-    `
+}
 
-    var gameCode = `
-    class Game extends React.Component {
-        constructor(props) {
-            super(props);
-            this.classMap = this.props.classMap
-            this.squares = this.props.squares
-        }
+Game
+ `
+    let boardCode = `const e = React.createElement;
 
-        render() {
-            const e = React.createElement;
-            let board = e(this.classMap.board, {
-                squares: this.squares,
-                classMap: this.classMap
-            });
-            return (
-                e("div", {className: "game"}, e("div", {className: "game-board"}, board),
-                    e("div", {className: "game-info"},
-                        e("div", null),
-                        e("ol", null)))
-            )
-        }
+class Board extends React.Component {
+    constructor(props) {
+        super(props);
+        this.reactRest = this.props.reactRest
+        this.state = {squares: this.props.data.squares, xIsNext: true}
     }
-    Game
-    `
 
-    // require("Game/b691ea7df38c51d418be2ca139f83c3dc40570a636c7797faa9f66602d8391b0")
-    //
-    // console.log("cryto", "" + CryptoJS.SHA256("somethins"))
+    renderSquare(i) {
+        return this.reactRest.renderUsing('square', {
+            index: i,
+            value: this.state.squares[i],
+            onClick: () => this.handleClick(i)
+        })
+    }
+
+    next() {
+        return this.state.xIsNext ? 'X' : 'O'
+    }
+
+    handleClick(i) {
+        const squares = this.state.squares.slice();
+        squares[i] = this.next()
+        this.setState({squares: squares, xIsNext: !this.state.xIsNext});
+    }
+
+    render() {
+        const status = 'Next player: ' + this.next();
+        console.log("board0", this.state)
+        return (
+            e("div", null, e("div", {className: "status"}, status),
+                e("div", {className: "board-row"}, this.renderSquare(0), this.renderSquare(1), this.renderSquare(2)),
+                e("div", {className: "board-row"}, this.renderSquare(3), this.renderSquare(4), this.renderSquare(5)),
+                e("div", {className: "board-row"}, this.renderSquare(6), this.renderSquare(7), this.renderSquare(8)))
+        )
+    }
+}
+
+Board
+`
+    var squareCode = `const e = React.createElement;
+
+function Square(props) {
+    return e("button", {className: "square", onClick: () => props.data.onClick()}, props.data.value);
+}
+Square
+`
 
     let squareClassFromApi = eval(squareCode)
     let boardClassFromApi = eval(boardCode)
     let gameClassFromApi = eval(gameCode)
-    let classMap = {board: boardClassFromApi, game: gameClassFromApi, square: squareClassFromApi}
 
-    let dataThatCameFromApi = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    ReactDOM.render(React.createElement(gameClassFromApi, {
-        classMap: classMap,
-        squares: dataThatCameFromApi
-    }), document.getElementById('root'))
+    let classMap = []
+    classMap[gameUrl] = gameClassFromApi
+    classMap[boardUrl] = boardClassFromApi
+    classMap[squareUrl] = squareClassFromApi
+
+
+    let gameJson = {
+        _links: {_self: {href: "domain/game"}},
+        _render: {_self: gameUrl},
+        gameData: 'Some game data properties could go here',
+        _embedded: {
+            board: {
+                _links: {_self: {href: ""}},
+                _render: {_self: boardUrl, square: squareUrl},
+                squares: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            }
+        }
+    }
+
+    let game = new ReactRest(React.createElement, classMap).renderSelf(gameJson);
+    ReactDOM.render(game, document.getElementById('root'))
+
+    // let dataThatCameFromApi = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    // ReactDOM.render(React.createElement(gameClassFromApi, {
+    //     classMap: classMap,
+    //     squares: dataThatCameFromApi
+    // }), document.getElementById('root'))
 
 </script>
 

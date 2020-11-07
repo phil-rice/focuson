@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>One file no compilation react app</title>
+    <LINK href="index.css" rel="stylesheet" type="text/css">
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script type="text/javascript" src="src/reactRest.js"></script>
+    <script type="text/javascript" src="node_modules/crypto-js/crypto-js.js"></script>
+
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+
+
+<script>
+    let gameUrl = "https://someDomain/api/game/render/%GAMESHA%"
+    let boardUrl = "https://someDomain/api/board/render/%BOARDSHA%"
+    let squareUrl = "https://someDomain/api/square/render/%SQUARESHA%"
+
+    var gameCode = `%GAME% `
+    let boardCode = `%BOARD%`
+    var squareCode = `%SQUARE%`
+
+    let squareClassFromApi = eval(squareCode)
+    let boardClassFromApi = eval(boardCode)
+    let gameClassFromApi = eval(gameCode)
+
+    let classMap = []
+    classMap[gameUrl] = gameClassFromApi
+    classMap[boardUrl] = boardClassFromApi
+    classMap[squareUrl] = squareClassFromApi
+
+
+    let gameJson = {
+        _links: {_self: {href: "domain/game"}},
+        _render: {_self: gameUrl},
+        gameData: 'Some game data properties could go here',
+        _embedded: {
+            board: {
+                _links: {_self: {href: ""}},
+                _render: {_self: boardUrl, square: squareUrl},
+                squares: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            }
+        }
+    }
+
+    let game = new ReactRest(React.createElement, classMap).renderSelf(gameJson);
+    ReactDOM.render(game, document.getElementById('root'))
+
+    // let dataThatCameFromApi = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    // ReactDOM.render(React.createElement(gameClassFromApi, {
+    //     classMap: classMap,
+    //     squares: dataThatCameFromApi
+    // }), document.getElementById('root'))
+
+</script>
+
+</body>
+</html>
