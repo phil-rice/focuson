@@ -39,17 +39,12 @@ I think very little as long as they are familiar with HATEOAS. The same componen
 As before they should be decoupled from each other
 
 # Comments
-It is just a one file app index.html. No server is needed
+It is just a file system served app. No server is needed. Unfortunately we need a build 
 
 ## Why no server
 This is a training playground: I want to understand the lifecycle of the react components.
 Without a server I'm forced to do everything and not use any magic
 
-## What does it do
-We add a _render to hal json. This is the url of the component that will render the json
-
-## Why no promises in classmap
-laziness... The problem is around 'can I use the string safely. Async can be added when we move to having a server'
 
 ## What does the bash script do
 Combines the files in src into one index.html

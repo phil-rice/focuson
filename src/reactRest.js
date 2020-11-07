@@ -1,10 +1,65 @@
+class ReactRestCache {
+
+    /** loader takes a url and returns a promise. The sha of the string is checked against the final segment of the url when loaded,  then evaled
+     * The results are remembered in the cache*/
+    constructor(httploader, digester) {
+        this.httploader = httploader
+        this.digester = digester
+        this.cache = {}
+        console.log("ReactRestCache", this.cache)
+    }
+
+    loadFromBlob(jsonBlob) {
+        var urls = findAllRenderUrls(jsonBlob)
+        console.log("urls are", urls)
+        return Promise.all(urls.map(url => this.loadifNeededAndCheck(url)))
+    }
+
+    loadifNeededAndCheck(url) {
+        console.log("loadIfNeededAndCheck", url, this.cache)
+        if (this.cache.hasOwnProperty(url)) {
+            console.log("already loaded")
+            return Promise.resolve(cache[url])
+        }
+        console.log("already loaded")
+        var lastSegment = /([^/]+)$/.exec(url)[1]
+        console.log("url and last segment", url, lastSegment)
+
+        return this.httploader(url).then(string => {
+            console.log("loaded " + string)
+            // var digest = this.digester(string)
+            // if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
+            var result = eval(string)
+            this.cache[url] = result
+            return result
+        })
+    }
+}
+
+//terribly implemented: make more efficient
+function findAllRenderUrls(jsonBlob) {
+    var result = []
+    if (typeof jsonBlob === 'array')
+        jsonBlob.forEach(child => result = result.concat(findAllRenderUrls(child)))
+    else if (typeof jsonBlob === 'object') {
+        if (jsonBlob.hasOwnProperty("_render")) {
+            for (var key in jsonBlob._render) {
+                result.push(jsonBlob._render[key])
+            }
+        }
+        for (key in jsonBlob) {
+            result = result.concat(findAllRenderUrls(jsonBlob[key]))
+        }
+    }
+    return result
+}
+
 class ReactRest {
     /** Create will usually be React.createElement. Using it via dependency inject to allow testing more easily, and because that decouples this from React
-     * classMap will turn a url into a promise of a string.
-     *    The last segment of the url should be the sha256 of the string, and this will be checked*/
-    constructor(create, classMap, knownUrls) {
+     * reactCache will turn a url into a string. It is 'expected' that this securely changes the url into a string (checking the sha) and has been preloaded because we can't do async in the rendering  */
+    constructor(create, reactRestCache, knownUrls) {
         this.create = create
-        this.classMap = classMap
+        this.reactRestCache = reactRestCache
         this.knownUrls = knownUrls == null ? [] : knownUrls
     }
 
@@ -12,7 +67,7 @@ class ReactRest {
         var newKnownUrls = Object.assign({}, this.knownUrls)
         newKnownUrls = Object.assign(newKnownUrls, newUrls)
         delete newKnownUrls._self
-        return new ReactRest(this.create, this.classMap, newKnownUrls)
+        return new ReactRest(this.create, this.reactRestCache, newKnownUrls)
     }
 
     renderSelf(obj) {
@@ -26,7 +81,7 @@ class ReactRest {
     }
 
     renderClass(url, obj) {
-        if (this.classMap.hasOwnProperty(url)) return this.classMap[url]
+        if (this.reactRestCache.hasOwnProperty(url)) return this.reactRestCache[url]
         throw `Cannot render ${url}`
     }
 
