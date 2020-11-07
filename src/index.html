@@ -25,14 +25,14 @@
     let squareUrl = "https://someDomain/api/square/render/"+ CryptoJS.SHA256(squareCode)
 
 
-    let squareClassFromApi = eval(squareCode)
-    let boardClassFromApi = eval(boardCode)
-    let gameClassFromApi = eval(gameCode)
+    // let squareClassFromApi = eval(squareCode)
+    // let boardClassFromApi = eval(boardCode)
+    // let gameClassFromApi = eval(gameCode)
 
     let classMap = []
-    classMap[gameUrl] = gameClassFromApi
-    classMap[boardUrl] = boardClassFromApi
-    classMap[squareUrl] = squareClassFromApi
+    classMap[gameUrl] = squareCode
+    classMap[boardUrl] = boardCode
+    classMap[squareUrl] = gameCode
 
     function loader(url) {
         return Promise.resolve(classMap[url])
