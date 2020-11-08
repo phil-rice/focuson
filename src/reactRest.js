@@ -80,8 +80,12 @@ class ReactRest {
     renderUsing(name, obj) {
         var renderUrl = this.renderUrl(name, obj)
         var renderClass = this.reactRestCache.getFromCache(renderUrl)
+        console.log("renderingUsing has class", name, renderUrl, renderClass)
         var newReact = this.withUrls(obj._render)
-        return this.create(renderClass, {reactRest: newReact, data: obj})
+        let result = this.create(renderClass, {reactRest: newReact, data: obj});
+        console.log("renderingUsing", name, renderUrl, obj)
+        console.log("creates", result)
+        return result
     }
 
 

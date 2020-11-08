@@ -3,12 +3,13 @@ const e = React.createElement;
 class Board extends React.Component {
     constructor(props) {
         super(props);
-        this.reactRest = this.props.reactRest
-        this.state = {squares: this.props.data.squares, xIsNext: true}
+        console.log("Board.props", props)
+        this.state = {squares: props.data.squares, xIsNext: true, reactRest: props.reactRest}
+        console.log("creating board with", this.state)
     }
 
     renderSquare(i) {
-        return this.reactRest.renderUsing('square', {
+        return this.state.reactRest.renderUsing('square', {
             index: i,
             value: this.state.squares[i],
             onClick: () => this.handleClick(i)
@@ -26,6 +27,8 @@ class Board extends React.Component {
     }
 
     render() {
+        console.log("rnedering board", this.state)
+
         const status = 'Next player: ' + this.next();
         return (
             e("div", null, e("div", {className: "status"}, status),

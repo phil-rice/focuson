@@ -19,10 +19,12 @@
     var gameCode = `%GAME% `
     let boardCode = `%BOARD%`
     var squareCode = `%SQUARE%`
+    var square2Code = `%SQUARE2%`
 
     let gameUrl = "https://someDomain/api/game/render/" + CryptoJS.SHA256(gameCode)
     let boardUrl = "https://someDomain/api/board/render/" + CryptoJS.SHA256(boardCode)
     let squareUrl = "https://someDomain/api/square/render/" + CryptoJS.SHA256(squareCode)
+    let square2Url = "https://someDomain/api/square/render/" + CryptoJS.SHA256(square2Code)
 
 
     // let squareClassFromApi = eval(squareCode)
@@ -33,6 +35,7 @@
     classMap[gameUrl] = gameCode
     classMap[boardUrl] = boardCode
     classMap[squareUrl] = squareCode
+    classMap[square2Url] = square2Code
 
     function loader(url) {
         return Promise.resolve(classMap[url])
@@ -43,9 +46,10 @@
     var cache = new ReactRestCache(loader, CryptoJS.SHA256)
 
     function renderIt(json, element) {
-        cache.loadFromBlob(json).then(theyAreLoaded => {
+        return cache.loadFromBlob(json).then(theyAreLoaded => {
                 let reactComponentClass = new ReactRest(React.createElement, cache).renderSelf(json);
-                ReactDOM.render(reactComponentClass, element)
+                console.log("renderIt", reactComponentClass, json)
+                return ReactDOM.render(reactComponentClass, element)
             }
         )
     }
@@ -64,28 +68,43 @@
             }
         }
     }
-
-
-    function restartGame() {
-        console.log("rendering")
-        renderIt(gameJson, document.getElementById('root'))
+    let game2Json = {
+        _links: {_self: {href: "someUrl/For/This/Game"}},
+        _render: {_self: gameUrl},
+        gameData: 'Some game data properties could go here',
+        _embedded: {
+            board: {
+                _links: {_self: {href: "someUrl/For/The/Board"}},
+                _render: {_self: boardUrl, square: square2Url},
+                squares: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            }
+        }
     }
 
-    restartGame()
-    // cache.loadFromBlob(gameJson).then(theyAreLoaded => {
-    //         let game = new ReactRest(React.createElement, cache).renderSelf(gameJson);
-    //         ReactDOM.render(game, document.getElementById('root'))
-    //     }
-    // )
 
+    function startGame() {
+        console.log("restartGame")
+        var result = renderIt(gameJson, document.getElementById('root'))
+        result.then(r => console.log("resultOfRestartGame", r))
+        return result
+    }
 
-    // let dataThatCameFromApi = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    // ReactDOM.render(React.createElement(gameClassFromApi, {
-    //     classMap: classMap,
-    //     squares: dataThatCameFromApi
-    // }), document.getElementById('root'))
+    console.log(findAllRenderUrls(gameJson))
+    var gamePromise = startGame()
 
+    function changeGameRendering(json) {
+        console.log("renderUrls", findAllRenderUrls(json))
+        cache.loadFromBlob(json)
+        gamePromise.then(game => game.setState(json))
+    }
 </script>
-<button onclick="restartGame()">Restart</button>
+<ul>
+    <li>
+        <button onclick="changeGameRendering(gameJson)">Restart1</button>
+    </li>
+    <li>
+        <button onclick="changeGameRendering(game2Json)">Restart2</button>
+    </li>
+</ul>
 </body>
 </html>

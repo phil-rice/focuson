@@ -42,7 +42,8 @@ trap finish EXIT
 
 replace src/index.html '%GAME%' src/game.js > $temp1
 replace $temp1 '%BOARD%' src/board.js > $temp2
-replace $temp2 '%SQUARE%' src/square.js > index.html
+replace $temp2 '%SQUARE%' src/square.js > $temp3
+replace $temp3 '%SQUARE2%' src/square2.js > index.html
 
 
 
