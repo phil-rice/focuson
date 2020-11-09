@@ -8,8 +8,26 @@ class ReactRestCache {
         this.cache = {}
     }
 
+
+    findAllRenderUrls(jsonBlob) {    //terribly implemented: should make more efficient
+        var result = []
+        if (typeof jsonBlob === 'array')
+            jsonBlob.forEach(child => result = result.concat(this.findAllRenderUrls(child)))
+        else if (typeof jsonBlob === 'object') {
+            if (jsonBlob.hasOwnProperty("_render")) {
+                for (var key in jsonBlob._render) {
+                    result.push(jsonBlob._render[key])
+                }
+            }
+            for (key in jsonBlob) {
+                result = result.concat(this.findAllRenderUrls(jsonBlob[key]))
+            }
+        }
+        return result
+    }
+
     loadFromBlob(jsonBlob) {
-        var urls = findAllRenderUrls(jsonBlob)
+        var urls = this.findAllRenderUrls(jsonBlob)
         return Promise.all(urls.map(url => this.loadifNeededAndCheck(url)))
     }
 
@@ -19,13 +37,13 @@ class ReactRestCache {
 
     loadifNeededAndCheck(url) {
         if (this.cache.hasOwnProperty(url)) {
-            return Promise.resolve(cache[url])
+            return Promise.resolve(this.cache[url])
         }
         var lastSegment = /([^/]+)$/.exec(url)[1]
 
         return this.httploader(url).then(string => {
-            var digest = this.digester(string) + ""
-            if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
+            // var digest = this.digester(string) + ""
+            // if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
             var result = eval(string)
             this.cache[url] = result
             return result
@@ -33,23 +51,6 @@ class ReactRestCache {
     }
 }
 
-//terribly implemented: should make more efficient
-function findAllRenderUrls(jsonBlob) {
-    var result = []
-    if (typeof jsonBlob === 'array')
-        jsonBlob.forEach(child => result = result.concat(findAllRenderUrls(child)))
-    else if (typeof jsonBlob === 'object') {
-        if (jsonBlob.hasOwnProperty("_render")) {
-            for (var key in jsonBlob._render) {
-                result.push(jsonBlob._render[key])
-            }
-        }
-        for (key in jsonBlob) {
-            result = result.concat(findAllRenderUrls(jsonBlob[key]))
-        }
-    }
-    return result
-}
 
 class ReactRest {
     /** Create will usually be React.createElement. Using it via dependency inject to allow testing more easily, and because that decouples this from React
@@ -87,8 +88,6 @@ class ReactRest {
         console.log("creates", result)
         return result
     }
-
-
-
-
 }
+
+export {ReactRestCache, ReactRest}

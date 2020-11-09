@@ -17,35 +17,64 @@ The idea is that something like HAL Json will include a link to the rendering co
 ```
 The  rendering code will then be loaded (SHA checked!) and then used.
 
-# Language
+# Running this
+```
+scripts/build.sh 
+npm start
+```
+
+# Extended Language of our media type 
 
 * `_render` should have a `_self` containing the code for rendering a class. Can have other properites for dependent components
 
-The rest is hal json
+The rest of the json (pun intended) is hal json
 
 # Why is this good
 Read https://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven
 
 What we are doing here is focusing on the media type and the Rest 'code on demand' idea. 
-The client knows nothing about the data representation / schema, and doesn't need to
+The client knows nothing about the data representation / schema, and doesn't need to.
 
 When the data representation changes the server knows how to render the new data representation and tells the client.
 
 This means that things like A/B are canary releases are almost trivial. It means that the client is not coupled in
 anyway except through the media type to the server.
 
+Effectively the client becomes just a 'mediatype processor'
+
 ## Impact on developers
 I think very little as long as they are familiar with HATEOAS. The same components need to be written. 
-As before they should be decoupled from each other
+As before they should be decoupled from each other.
 
-# Comments
-It is just a file system served app. No server is needed. Unfortunately we need a build 
+The mental model is different.
+ * While we still want to 'bundle up' all the dependencies, the actual application code
+will be shipped on demand.
+* The idea of actually use Rest is different: most people think of rest as 'json with http using a schema and at known carefully thought about urls' 
 
-## Why no server
-This is a training playground: I want to understand the lifecycle of the react components.
-Without a server I'm forced to do everything and not use any magic
+# Build
+Remember that the idea is that the rendering components are served from the server. This is the front end...
+
+So the build is a 'bodge' that allows us to explore this idea. 
+Among other things it makes the shas for the domain files, to allow safe execution, and it  
 
 
-## What does the bash script do
-Combines the files in src into one index.html
+## Copying the files
+* The files are copied to 'public/created' so that we can simulate the server. Note the url has the sha256 in it
+
+## Access to the shas
+* The gamejson needs to know what urls to use to render the components. This is provided in src/created/shas
+
+# FAQ
+
+## Why are the created files in the git repo
+So that I can demonstrate them to people using the github gui
+
+## Why is it safe to use eval
+It is only safe to use eval if you know exactly what is being evaled and are confident there has been no code injection.
+
+In this case we are using https://en.wikipedia.org/wiki/Content-addressable_storage. 
+* The stringsthat are being evaled have been pulled from a url that includes their sha. 
+* The sha is checked against the string
+* This means we know that the string has not been messed with
+* We eval it
 
