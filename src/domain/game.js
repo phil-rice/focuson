@@ -1,5 +1,4 @@
 import React from 'react';
-
 class Game extends React.Component {
     constructor(props) {
         super(props);
@@ -10,23 +9,14 @@ class Game extends React.Component {
 
     render() {
         console.log("rendering game0", this.state)
-        const e = React.createElement;
         let board = this.reactRest.renderSelf(this.state)
         console.log("in rendering game", board)
-        return (
-            <div className='game'>
-                <div className='game-board'>
-                    <board></board>
-                </div>
-                <div className='game-info'>
-
-                </div>
-            </div>)
-        //     e("div", {className: "game"}, e("div", {className: "game-board"}, board),
-        //         e("div", {className: "game-info"},
-        //             e("div", null),
-        //             e("ol", null)))
-        // )
+        return (<div className='game'>
+            <div className='game-board'>
+                <board/>
+            </div>
+            <div className='game-info'></div>
+        </div>)
     }
 }
 

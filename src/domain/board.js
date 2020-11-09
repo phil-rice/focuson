@@ -1,6 +1,4 @@
 import React from 'react';
-const e = React.createElement;
-
 class Board extends React.Component {
     constructor(props) {
         super(props);
@@ -28,16 +26,27 @@ class Board extends React.Component {
     }
 
     render() {
-        console.log("rnedering board", this.state)
+        console.log("rendering board", this.state)
 
         const status = 'Next player: ' + this.next();
-        return (
-            e("div", null, e("div", {className: "status"}, status),
-                e("div", {className: "board-row"}, this.renderSquare(0), this.renderSquare(1), this.renderSquare(2)),
-                e("div", {className: "board-row"}, this.renderSquare(3), this.renderSquare(4), this.renderSquare(5)),
-                e("div", {className: "board-row"}, this.renderSquare(6), this.renderSquare(7), this.renderSquare(8)))
-        )
+        return (<div>
+            <div className="status">{status}</div>
+            <div className="board-row">
+                {this.renderSquare(0)}
+                {this.renderSquare(1)}
+                {this.renderSquare(2)}
+            </div>
+            <div className="board-row">
+                {this.renderSquare(3)}
+                {this.renderSquare(4)}
+                {this.renderSquare(5)}
+            </div>
+            <div className="board-row">
+                {this.renderSquare(6)}
+                {this.renderSquare(7)}
+                {this.renderSquare(8)}
+            </div>
+        </div>)
     }
 }
 
-Board
