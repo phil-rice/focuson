@@ -51,7 +51,7 @@ The mental model is different.
 will be shipped on demand.
 * The idea of actually use Rest is different: most people think of rest as 'json with http using a schema and at known carefully thought about urls' 
 
-# Build
+# Build.sh
 Remember that the idea is that the rendering components are served from the server. This is the front end...
 
 So the build is a 'bodge' that allows us to explore this idea. 

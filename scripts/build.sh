@@ -27,19 +27,40 @@ function copyOne(){
   cp $temp "$to"
   url="created/$from/$sha"
   printf '    %s: "%s",\n' $from $url >> "$log"
+  echo $sha
 }
-function removeLastComma(){
-sed -i '$s/,$//' "$1"
 
+function removeLastComma(){
+   sed -i '$s/,$//' "$1"
 }
 
 echo "export let shas={//This is a bodge to avoid needing a server while we are still in the playground" > $log
 
-copyOne game
-copyOne board
-copyOne square
-copyOne square2
+gameSha=$(copyOne game)
+boardSha=$(copyOne board)
+squareSha=$(copyOne square)
+square2Sha=$(copyOne square2)
+
 removeLastComma $log
 
 echo "}" >> $log
 
+function makeGameJson(){
+  jsonName=$1
+  gameSha=$2
+  boardSha=$3
+  squareSha=$4
+echo "{
+    "_links": {"_self": {"href": 'created/$jsonName'}},
+    "_render": {_self: 'created/board/$gameSha'},
+    "gameData": 'Some game data properties could go here',
+    "_embedded": {
+        "board": {
+            _links: {_self: {href: '/not/Used/Yet'}},
+            _render: {_self: 'created/board/$boardSha', square:'created/square/$squareSha'},
+            squares: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        }
+    }" > $targetDir/$jsonName
+}
+makeGameJson gameJson1.json $gameSha $boardSha $squareSha
+makeGameJson gameJson2.json $gameSha $boardSha $square2Sha

@@ -3,8 +3,11 @@ class ReactRestCache {
     /** loader takes a url and returns a promise. The sha of the string is checked against the final segment of the url when loaded,  then evaled
      * The results are remembered in the cache*/
     constructor(httploader, digester) {
+        if (!digester) throw Error('Digester not defined')
+        if (!httploader) throw Error('httploader not defined')
         this.httploader = httploader
         this.digester = digester
+        console.log("ReactRestCache", this.digester)
         this.cache = {}
     }
 
@@ -42,7 +45,11 @@ class ReactRestCache {
         var lastSegment = /([^/]+)$/.exec(url)[1]
 
         return this.httploader(url).then(string => {
+            console.log("httploader", this.digester)
+
             // var digest = this.digester(string) + ""
+            console.log("lastSegment was", lastSegment)
+            // console.log("the digest was", digest)
             // if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
             var result = eval(string)
             this.cache[url] = result
