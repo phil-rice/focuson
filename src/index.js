@@ -17,30 +17,8 @@ let loader = url => {
 var cache = new ReactRestCache(loader, SHA256)
 
 console.log("shas1", shas)
-let gameJson = {
-    _links: {_self: {href: "someUrl/For/This/Game"}},
-    _render: {_self: shas.game},
-    gameData: 'Some game data properties could go here',
-    _embedded: {
-        board: {
-            _links: {_self: {href: "someUrl/For/The/Board"}},
-            _render: {_self: shas.board, square: shas.square},
-            squares: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        }
-    }
-}
-let game2Json = {
-    _links: {_self: {href: "someUrl/For/This/Game"}},
-    _render: {_self: shas.game},
-    gameData: 'Some game data properties could go here',
-    _embedded: {
-        board: {
-            _links: {_self: {href: "someUrl/For/The/Board"}},
-            _render: {_self: shas.board, square: shas.square2},
-            squares: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        }
-    }
-}
+let gameJson1 = fetch("created/gameJson1.json").then(r=>r.json())
+let gameJson2 = fetch("created/gameJson2.json").then(r=>r.json())
 
 
 function renderIt(json, element) {
@@ -53,10 +31,10 @@ function renderIt(json, element) {
 }
 
 function startGame() {
-    return renderIt(gameJson, document.getElementById('root'))
+    return gameJson1.then(j => renderIt(j, document.getElementById('root')))
 }
 
-// console.log(findAllRenderUrls(gameJson))
+// console.log(findAllRenderUrls(gameJson1))
 var gamePromise = startGame()
 
 export function changeGameRendering(json) {

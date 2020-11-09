@@ -65,12 +65,12 @@ function makeGameJson(){
   squareSha=$4
 echo '{
     "_links": {"_self": {"href": "created/'$jsonName'"}},
-    "_render": {"_self": "'created/board/$gameSha'"},
+    "_render": {"_self": "created/game/'$gameSha'"},
     "gameData": "Some game data properties could go here",
     "_embedded": {
         "board": {
             "_links": {"_self": {"href": "/not/Used/Yet"}},
-            "_render": {"_self": "created/board/$boardSha", "square":"created/square/'$squareSha'"},
+            "_render": {"_self": "created/board/'$boardSha'", "square":"created/square/'$squareSha'"},
             "squares": [1, 2, 3, 4, 5, 6, 7, 8, 9]
         }
     }
