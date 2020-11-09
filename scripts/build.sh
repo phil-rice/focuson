@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
 
-targetDir=public/created
-logDir=src/created
+urlRoot=created
+targetDir=public/$urlRoot
+logDir=src/$urlRoot
 
 mkdir -p $targetDir
 mkdir -p $logDir
 
 log="$logDir/shas.js"
 
-temp=$(mktemp)
+tempDir=$(mktemp -d)
+tempOutDir=$(mktemp -d)
 function finish(){
-   rm $temp
+   rm -r $tempDir
+   rm -r $tempOutDir
 }
 
 trap finish EXIT
@@ -20,13 +23,22 @@ function copyOne(){
   file="src/domain/$from.js"
   if [ ! -f "$file" ] ; then echo "Cannot find $file"; exit 2; fi
 
-  tail +2 $file > $temp
-  read sha junk <<< $(sha256sum "$temp")
+  tempFile=$tempDir/$from.js
+  tempOutFile=$tempOutDir/$from.js
   parent="$targetDir/$from"
   mkdir -p $parent
+
+
+  tail +2 $file > $tempFile
+  (
+    cd $tempDir
+    babel $from.js --out-dir $tempOutDir > /dev/null
+  )
+  read sha junk <<< $(sha256sum "$tempOutFile")
+
   to="$parent/$sha"
-  cp $temp "$to"
-  url="created/$from/$sha"
+  cp $tempOutFile $to
+  url="$urlRoot/$from/$sha"
   printf '    %s: "%s",\n' $from $url >> "$log"
   echo $sha
 }
@@ -36,7 +48,7 @@ function removeLastComma(){
 }
 
 echo "export let shas={//This is a bodge to avoid needing a server while we are still in the playground" > $log
-
+#copyOne game
 gameSha=$(copyOne game)
 boardSha=$(copyOne board)
 squareSha=$(copyOne square)

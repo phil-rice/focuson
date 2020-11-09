@@ -7,7 +7,6 @@ class ReactRestCache {
         if (!httploader) throw Error('httploader not defined')
         this.httploader = httploader
         this.digester = digester
-        console.log("ReactRestCache", this.digester)
         this.cache = {}
     }
 
@@ -45,15 +44,10 @@ class ReactRestCache {
         var lastSegment = /([^/]+)$/.exec(url)[1]
 
         return this.httploader(url).then(string => {
-            console.log("httploader", this.digester)
-
             var digest = this.digester(string) + ""
-            console.log("lastSegment was", lastSegment)
-            console.log("the digest was", digest)
             if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
             try {
                 var result = eval(string)
-
                 this.cache[url] = result
                 return result
             } catch (e) {
@@ -95,12 +89,8 @@ class ReactRest {
     renderUsing(name, obj) {
         var renderUrl = this.renderUrl(name, obj)
         var renderClass = this.reactRestCache.getFromCache(renderUrl)
-        console.log("renderingUsing has class", name, renderUrl, renderClass)
         var newReact = this.withUrls(obj._render)
-        let result = this.create(renderClass, {reactRest: newReact, data: obj});
-        console.log("renderingUsing", name, renderUrl, obj)
-        console.log("creates", result)
-        return result
+        return this.create(renderClass, {reactRest: newReact, data: obj})
     }
 }
 

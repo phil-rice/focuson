@@ -7,14 +7,16 @@ import {SHA256} from 'crypto-js'
 
 import {shas} from './created/shas'
 
-let loader = url => fetch(url).then(response => response.text())
+let loader = url => {
+    return fetch(url).then(response => {
+        return response.text();
+    })
+}
 
-console.log(" CryptoJS.SHA256",  SHA256)
 
 var cache = new ReactRestCache(loader, SHA256)
 
 console.log("shas1", shas)
-console.log("shas1.game", shas.game)
 let gameJson = {
     _links: {_self: {href: "someUrl/For/This/Game"}},
     _render: {_self: shas.game},
@@ -45,19 +47,13 @@ function renderIt(json, element) {
     return cache.loadFromBlob(json).then(theyAreLoaded => {
             let reactRest = new ReactRest(React.createElement, cache);
             let reactComponentClass = reactRest.renderSelf(json);
-            console.log("renderIt", reactComponentClass, json)
             return ReactDOM.render(reactComponentClass, element)
         }
     )
 }
 
 function startGame() {
-    console.log("restartGame")
-    console.log("shas", shas)
-    console.log("json", gameJson)
-    var result = renderIt(gameJson, document.getElementById('root'))
-    result.then(r => console.log("resultOfRestartGame", r))
-    return result
+    return renderIt(gameJson, document.getElementById('root'))
 }
 
 // console.log(findAllRenderUrls(gameJson))

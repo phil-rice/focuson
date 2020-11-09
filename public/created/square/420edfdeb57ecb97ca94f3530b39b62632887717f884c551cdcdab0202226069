@@ -1,0 +1,12 @@
+'use strict';
+
+function Square(props) {
+    return React.createElement(
+        'button',
+        { className: 'square', onClick: function () {
+                return props.data.onClick();
+            } },
+        props.data.value
+    );
+}
+Square;

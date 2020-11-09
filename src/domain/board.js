@@ -1,10 +1,9 @@
 import React from 'react';
+
 class Board extends React.Component {
     constructor(props) {
         super(props);
-        console.log("Board.props", props)
         this.state = {squares: props.data.squares, xIsNext: true, reactRest: props.reactRest}
-        console.log("creating board with", this.state)
     }
 
     renderSquare(i) {
@@ -26,8 +25,6 @@ class Board extends React.Component {
     }
 
     render() {
-        console.log("rendering board", this.state)
-
         const status = 'Next player: ' + this.next();
         return (<div>
             <div className="status">{status}</div>
@@ -49,4 +46,6 @@ class Board extends React.Component {
         </div>)
     }
 }
+
+Board
 
