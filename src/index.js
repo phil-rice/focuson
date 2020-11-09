@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {ReactRest, ReactRestCache} from "./reactrest/reactRest";
 
-import SHA256 from 'cryptojs'
+import {SHA256} from 'crypto-js'
 
 import {shas} from './created/shas'
 
@@ -11,7 +11,7 @@ let loader = url => fetch(url).then(response => response.text())
 
 console.log(" CryptoJS.SHA256",  SHA256)
 
-var cache = new ReactRestCache(loader, () => "not yet implemented")
+var cache = new ReactRestCache(loader, SHA256)
 
 console.log("shas1", shas)
 console.log("shas1.game", shas.game)

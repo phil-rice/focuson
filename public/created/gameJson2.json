@@ -1,0 +1,12 @@
+{
+    "_links": {"_self": {"href": "created/gameJson2.json"}},
+    "_render": {"_self": "created/board/376eb93483f2ea9a6bb04b1e2a3f6138ef42d0c403fe51a94b6bf25eb6f8d31a"},
+    "gameData": "Some game data properties could go here",
+    "_embedded": {
+        "board": {
+            "_links": {"_self": {"href": "/not/Used/Yet"}},
+            "_render": {"_self": "created/board/$boardSha", "square":"created/square/962c3f1946fe2772faba6c71d32302df7f1de240e070fe9d314522000d87c2e3"},
+            "squares": [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        }
+    }
+}

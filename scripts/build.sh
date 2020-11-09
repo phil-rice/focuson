@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-targetDir=public
+targetDir=public/created
 logDir=src/created
 
+mkdir -p $targetDir
 mkdir -p $logDir
+
 log="$logDir/shas.js"
 
 temp=$(mktemp)
@@ -20,10 +22,9 @@ function copyOne(){
 
   tail +2 $file > $temp
   read sha junk <<< $(sha256sum "$temp")
-  parent="$targetDir/created/$from"
+  parent="$targetDir/$from"
   mkdir -p $parent
   to="$parent/$sha"
-  echo  copying  "$file" "===>" "$to"
   cp $temp "$to"
   url="created/$from/$sha"
   printf '    %s: "%s",\n' $from $url >> "$log"
@@ -50,17 +51,18 @@ function makeGameJson(){
   gameSha=$2
   boardSha=$3
   squareSha=$4
-echo "{
-    "_links": {"_self": {"href": 'created/$jsonName'}},
-    "_render": {_self: 'created/board/$gameSha'},
-    "gameData": 'Some game data properties could go here',
+echo '{
+    "_links": {"_self": {"href": "created/'$jsonName'"}},
+    "_render": {"_self": "'created/board/$gameSha'"},
+    "gameData": "Some game data properties could go here",
     "_embedded": {
         "board": {
-            _links: {_self: {href: '/not/Used/Yet'}},
-            _render: {_self: 'created/board/$boardSha', square:'created/square/$squareSha'},
-            squares: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            "_links": {"_self": {"href": "/not/Used/Yet"}},
+            "_render": {"_self": "created/board/$boardSha", "square":"created/square/'$squareSha'"},
+            "squares": [1, 2, 3, 4, 5, 6, 7, 8, 9]
         }
-    }" > $targetDir/$jsonName
+    }
+}' > $targetDir/$jsonName
 }
 makeGameJson gameJson1.json $gameSha $boardSha $squareSha
 makeGameJson gameJson2.json $gameSha $boardSha $square2Sha

@@ -47,13 +47,20 @@ class ReactRestCache {
         return this.httploader(url).then(string => {
             console.log("httploader", this.digester)
 
-            // var digest = this.digester(string) + ""
+            var digest = this.digester(string) + ""
             console.log("lastSegment was", lastSegment)
-            // console.log("the digest was", digest)
-            // if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
-            var result = eval(string)
-            this.cache[url] = result
-            return result
+            console.log("the digest was", digest)
+            if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
+            try {
+                var result = eval(string)
+
+                this.cache[url] = result
+                return result
+            } catch (e) {
+                console.log("have an issue with code from the backend", string)
+                console.log("error", e)
+                throw e
+            }
         })
     }
 }
