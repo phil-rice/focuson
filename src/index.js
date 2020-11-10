@@ -7,18 +7,13 @@ import {SHA256} from 'crypto-js'
 
 import {shas} from './created/shas'
 
-let loader = url => {
-    return fetch(url).then(response => {
-        return response.text();
-    })
-}
-
+let loader = url => fetch(url).then(response => response.text())
 
 var cache = new ReactRestCache(loader, SHA256)
 
 console.log("shas1", shas)
-let gameJson1 = fetch("created/gameJson1.json").then(r=>r.json())
-let gameJson2 = fetch("created/gameJson2.json").then(r=>r.json())
+let gameJson1 = fetch("created/gameJson1.json").then(r => r.json())
+let gameJson2 = fetch("created/gameJson2.json").then(r => r.json())
 
 
 function renderIt(json, element) {

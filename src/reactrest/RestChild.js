@@ -6,10 +6,18 @@ import React from 'react';
  *
  * */
 
+export class RestChild extends React.Component {
+    constructor(props) {
+        super(props);
+        this.path = props.path
+        console.log("RestChild/path", this.path)
+        this.data = this.path.split('.').reduce((o, i) => o[i], props.data)
+        console.log("RestChild/data", this.data)
+        this.restReact = props.restReact
+    }
 
+    render() {
+        return this.restReact.renderSelf(this.data)
+    }
 
-export function RestChild({using}) {
-    const value = {} // The value will hold the state and the functions for the children.
-    return (<RestContext.Provider value={value}>{children}</RestContext.Provider>)
 }
-
