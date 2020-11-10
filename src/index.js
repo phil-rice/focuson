@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {ReactRest, ReactRestCache, Rest} from "./reactrest/reactRest";
+import {ReactRest, ReactRestCache, RestRoot} from "./reactrest/reactRest";
 
 import {SHA256} from 'crypto-js'
 
@@ -19,7 +19,7 @@ let gameJson2 = fetch("created/gameJson2.json").then(r => r.json())
 function renderIt(json, element) {
     return cache.loadFromBlob(json).then(theyAreLoaded => {
             let reactRest = new ReactRest(React.createElement, cache);
-            let e = (<Rest reactRest={reactRest} reactCache={cache} json={json} />)
+            let e = (<RestRoot reactRest={reactRest} json={json} />)
             return ReactDOM.render(e, element)
         }
     )

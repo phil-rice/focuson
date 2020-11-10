@@ -92,54 +92,19 @@ export class ReactRest {
         var renderUrl = this.renderUrl(name, obj)
         var renderClass = this.reactRestCache.getFromCache(renderUrl)
         var newReact = this.withUrls(obj._render)
-        return this.create(renderClass, {reactRest: newReact, data: obj})
+        return this.create(renderClass, obj)
     }
 }
 
 
 export const RestContext = React.createContext()
 
-// export function Rest({children}) {
-//     return <RestContext.Provider value={'dark'}>{children}</RestContext.Provider>
-// }
-
-export function Rest(props) {
-    // let value = {reactRest: props.reactRest, json: props.json}
-    return (<RestContext.Provider value={{reactRest: props.reactRest, json: props.json}}>
+export function RestRoot(props) {
+    return (<RestContext.Provider value={{reactRest: props.reactRest}}>
         {props.reactRest.renderSelf(props.json)}
     </RestContext.Provider>)
 }
 
-export function RestChild(props) {
-    return (<RestContext.Consumer>{context => {
-        console.log("RestChild/context", context)
-        let reactRest = context.reactRest
-        let json = context.json
-        console.log("RestChild", reactRest, json)
-        let path = props.path
-        console.log("path", path)
-        let data = path.split('.').reduce((o, i) => o[i], json)
-        console.log("data", data)
-        let e = reactRest.renderSelf(data)
-        return e
-    }}</RestContext.Consumer>)
+export function Rest(props) {
+    return (<RestContext.Consumer>{context => context.reactRest.renderSelf(props.json)}</RestContext.Consumer>)
 }
-
-// export class RestChild extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.restReact= this.context.reactRest
-//         this.path = props.path
-//         console.log("RestChild/value", this.props)
-//         console.log("RestChild/props", this.props)
-//         console.log("RestChild/path", this.path)
-//         this.data = this.path.split('.').reduce((o, i) => o[i], props.data)
-//         console.log("RestChild/data", this.data)
-//         this.restReact = props.restReact
-//     }
-//
-//     render() {
-//         return this.restReact.renderSelf(this.data)
-//     }
-//
-// }

@@ -1,17 +1,21 @@
 import React from 'react';
+import {Rest} from "../reactrest/reactRest";
 
 class Board extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {squares: props.data.squares, xIsNext: true, reactRest: props.reactRest}
+        console.log("board/props", props)
+        this.state = {squares: props.squares, xIsNext: true}
     }
 
     renderSquare(i) {
-        return this.state.reactRest.renderUsing('square', {
+        let squareJson = {
             index: i,
             value: this.state.squares[i],
-            onClick: () => this.handleClick(i)
-        })
+            onClick: () => this.handleClick(i),
+            _render: {_self: this.props._render.square} // bit of a pain... would be nice to make cleaner
+        }
+        return (<Rest json={squareJson}></Rest>)
     }
 
     next() {

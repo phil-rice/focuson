@@ -98,7 +98,27 @@ Suppose we do the following
 
 I don't know how to keep the known urls 'upto date'... Context doesn't help (it's one value global state)
 One option is not to aggregate them: we just use them in the current context. It's not ideal but OK for now
-Let's try that
+
+RestChild is still awkward. We want it to be cascadable. To be cascadable ...we have the getter issue. 
+
+Well ... let's try it. 
+
+App:
+
+<Rest json="" />
+
+Game: 
+The props to game will be the json for game. The context will have a reactRest
+
+<RestChild json={json} path='_embedded.board'/>
+
+Board:
+
+so the props will just be the json
+
+ 
+
+
 
 
 
