@@ -10,7 +10,7 @@ class Game extends React.Component {
     }
 
     render() {
-        let Board = this.reactRest.renderSelf(this.state)
+        // let Board = this.reactRest.renderSelf(this.state)
         return (<div className='game'>
             <div className='game-board'>
                 <RestChild path='_embedded.board'/>

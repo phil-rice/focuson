@@ -18,6 +18,9 @@ function finish(){
 
 trap finish EXIT
 
+function removeImports(){
+   sed -e '/^\s*import/d'
+}
 function copyOne(){
   from=$1
   file="src/domain/$from.js"
@@ -29,7 +32,7 @@ function copyOne(){
   mkdir -p $parent
 
 
-  tail +2 $file > $tempFile
+  removeImports < $file > $tempFile
   (
     cd $tempDir
     babel $from.js --out-dir $tempOutDir > /dev/null

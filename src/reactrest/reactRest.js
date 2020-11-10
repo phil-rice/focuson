@@ -1,4 +1,6 @@
-class ReactRestCache {
+import React from 'react';
+
+export class ReactRestCache {
 
     /** loader takes a url and returns a promise. The sha of the string is checked against the final segment of the url when loaded,  then evaled
      * The results are remembered in the cache*/
@@ -60,7 +62,7 @@ class ReactRestCache {
 }
 
 
-class ReactRest {
+export class ReactRest {
     /** Create will usually be React.createElement. Using it via dependency inject to allow testing more easily, and because that decouples this from React
      * reactCache will turn a url into a string. It is 'expected' that this securely changes the url into a string (checking the sha) and has been preloaded because we can't do async in the rendering  */
     constructor(create, reactRestCache, knownUrls) {
@@ -94,4 +96,50 @@ class ReactRest {
     }
 }
 
-export {ReactRestCache, ReactRest}
+
+export const RestContext = React.createContext()
+
+// export function Rest({children}) {
+//     return <RestContext.Provider value={'dark'}>{children}</RestContext.Provider>
+// }
+
+export function Rest(props) {
+    // let value = {reactRest: props.reactRest, json: props.json}
+    return (<RestContext.Provider value={{reactRest: props.reactRest, json: props.json}}>
+        {props.reactRest.renderSelf(props.json)}
+    </RestContext.Provider>)
+}
+
+export function RestChild(props) {
+    return (<RestContext.Consumer>{context => {
+        console.log("RestChild/context", context)
+        let reactRest = context.reactRest
+        let json = context.json
+        console.log("RestChild", reactRest, json)
+        let path = props.path
+        console.log("path", path)
+        let data = path.split('.').reduce((o, i) => o[i], json)
+        console.log("data", data)
+        let e = reactRest.renderSelf(data)
+        return e
+    }}</RestContext.Consumer>)
+}
+
+// export class RestChild extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.restReact= this.context.reactRest
+//         this.path = props.path
+//         console.log("RestChild/value", this.props)
+//         console.log("RestChild/props", this.props)
+//         console.log("RestChild/path", this.path)
+//         this.data = this.path.split('.').reduce((o, i) => o[i], props.data)
+//         console.log("RestChild/data", this.data)
+//         this.restReact = props.restReact
+//     }
+//
+//     render() {
+//         return this.restReact.renderSelf(this.data)
+//     }
+//
+// }

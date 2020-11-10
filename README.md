@@ -78,3 +78,29 @@ In this case we are using https://en.wikipedia.org/wiki/Content-addressable_stor
 * This means we know that the string has not been messed with
 * We eval it
 
+
+
+# General Musings
+
+## How should Rest & RestChild work
+
+We are constrained quite a lot by Rest. 
+
+There is an antipattern that the reducers are not composible in the sense that they have to get 
+the data from 'all the state' not 'the state of the parent'
+
+Suppose we do the following
+* reactRest is passed using context
+** This gives the injection of behavior, including the cache and 'behavior' for the `RestX` components
+* Into rest and restChild etc we pass
+** json: the subset of the json for us
+** knownUrls... this is the hard bit. 
+
+I don't know how to keep the known urls 'upto date'... Context doesn't help (it's one value global state)
+One option is not to aggregate them: we just use them in the current context. It's not ideal but OK for now
+Let's try that
+
+
+
+
+
