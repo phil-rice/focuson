@@ -65,17 +65,9 @@ export class ReactRestCache {
 export class ReactRest {
     /** Create will usually be React.createElement. Using it via dependency inject to allow testing more easily, and because that decouples this from React
      * reactCache will turn a url into a string. It is 'expected' that this securely changes the url into a string (checking the sha) and has been preloaded because we can't do async in the rendering  */
-    constructor(create, reactRestCache, knownUrls) {
+    constructor(create, reactRestCache) {
         this.create = create
         this.reactRestCache = reactRestCache
-        this.knownUrls = knownUrls == null ? [] : knownUrls
-    }
-
-    withUrls(newUrls) {
-        var newKnownUrls = Object.assign({}, this.knownUrls)
-        newKnownUrls = Object.assign(newKnownUrls, newUrls)
-        delete newKnownUrls._self
-        return new ReactRest(this.create, this.reactRestCache, newKnownUrls)
     }
 
     renderSelf(obj) {
@@ -91,7 +83,6 @@ export class ReactRest {
     renderUsing(name, obj) {
         var renderUrl = this.renderUrl(name, obj)
         var renderClass = this.reactRestCache.getFromCache(renderUrl)
-        var newReact = this.withUrls(obj._render)
         return this.create(renderClass, obj)
     }
 }
@@ -100,8 +91,18 @@ export class ReactRest {
 export const RestContext = React.createContext()
 
 export function RestRoot(props) {
-    return (<RestContext.Provider value={{reactRest: props.reactRest}}>
-        {props.reactRest.renderSelf(props.json)}
+    let reactRest = props.reactRest;
+    const [json, setJson] = React.useState(props.json);
+    let setJsonFromUrl = url => {
+        console.log("getting json from url", url)
+        return fetch(url).then(response => response.json().then(json => {
+                console.log("and got", json)
+                setJson(json)
+            }
+        ))
+    }
+    return (<RestContext.Provider value={{reactRest: reactRest, setJson: setJsonFromUrl}}>
+        {reactRest.renderSelf(json)}
     </RestContext.Provider>)
 }
 

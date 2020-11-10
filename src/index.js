@@ -12,32 +12,53 @@ let loader = url => fetch(url).then(response => response.text())
 var cache = new ReactRestCache(loader, SHA256)
 
 console.log("shas1", shas)
+
+let actions = {
+    loadJson: "LoadJson"
+}
+
+let dispatcher = dispatch => {
+    return {
+        loadJson: (url) => dispatch({type: actions.loadJson, json: url})
+    }
+}
+
+let fetchJson = dispatch => {
+    dispatch()
+}
+
+
+function reducer(state, action) {
+    switch (action.type) {
+        case actions.loadJson:
+            return {...state, json: action.json}
+        default:
+            return state;
+    }
+}
+
+
 let gameJson1 = fetch("created/gameJson1.json").then(r => r.json())
 let gameJson2 = fetch("created/gameJson2.json").then(r => r.json())
 
+//steps:
+// call the api and get the result in a promise... that sounds easy enough
+// set state on the component you are in which forces a redraw
+
 
 function renderIt(json, element) {
+    let reactRest = new ReactRest(React.createElement, cache);
     return cache.loadFromBlob(json).then(theyAreLoaded => {
-            let reactRest = new ReactRest(React.createElement, cache);
-            let e = (<RestRoot reactRest={reactRest} json={json} />)
-            return ReactDOM.render(e, element)
+            return ReactDOM.render(<RestRoot reactRest={reactRest} json={json}/>, element)
         }
     )
 }
 
-//  return cache.loadFromBlob(json).then(theyAreLoaded => {
-//             let e = (<Rest reactRest={reactRest} reactCache={cache}>
-//
-//             </Rest>)
-//             return ReactDOM.render(e, element)
-//         }
-//     )
 
 function startGame() {
     return gameJson1.then(j => renderIt(j, document.getElementById('root')))
 }
 
-// console.log(findAllRenderUrls(gameJson1))
 var gamePromise = startGame()
 
 export function changeGameRendering(json) {
