@@ -4,6 +4,7 @@ import {Rest, RestContext} from "../reactrest/reactRest";
 class Game extends React.Component {
     constructor(props) {
         super(props);
+        this.getter=props.getter
         console.log("Game", props)
         console.log("Game/context-create", this.context)
     }
@@ -13,10 +14,11 @@ class Game extends React.Component {
         return (<RestContext.Consumer>{context => {
             console.log("Game/render/context", context)
             console.log("game/setJson", context.setJson)
-            console.log("game/json", this.props)
+            console.log("game/props", this.props)
+            let json = this.getter(context.json)
             return <div className='game'>
                 <div className='game-board'>
-                    <Rest json={this.props._embedded.board}/>
+                    <Rest getter={j=> j._embedded.board} />
                 </div>
                 <br/>
                 <ul className='game-buttons'>

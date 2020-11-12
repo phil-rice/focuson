@@ -5,17 +5,20 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
         console.log("board/props", props)
-        this.state = {squares: props.squares, xIsNext: true}
+        this.state = {squares: props.json.squares, xIsNext: true}
+        this.getter = props.getter
     }
 
     renderSquare(i) {
-        let squareJson = {
-            index: i,
-            value: this.state.squares[i],
-            onClick: () => this.handleClick(i),
-            _render: {_self: this.props._render.square} // bit of a pain... would be nice to make cleaner
-        }
-        return (<Rest json={squareJson}></Rest>)
+        return (<Rest getter={j => {
+            let json = this.getter(j)
+            let squareJson = {
+                index: i,
+                value: this.state.squares[i],
+                onClick: () => this.handleClick(i),
+                _render: {_self: json._render.square} // bit of a pain... would be nice to make cleaner
+            }
+        }}></Rest>)
     }
 
     next() {

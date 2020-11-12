@@ -15,7 +15,7 @@ export class ReactRestCache {
 
     findAllRenderUrls(jsonBlob) {    //terribly implemented: should make more efficient
         var result = []
-        if (typeof jsonBlob === 'array')
+        if (Array.isArray(jsonBlob))
             jsonBlob.forEach(child => result = result.concat(this.findAllRenderUrls(child)))
         else if (typeof jsonBlob === 'object') {
             if (jsonBlob.hasOwnProperty("_render")) {
@@ -65,25 +65,28 @@ export class ReactRestCache {
 export class ReactRest {
     /** Create will usually be React.createElement. Using it via dependency inject to allow testing more easily, and because that decouples this from React
      * reactCache will turn a url into a string. It is 'expected' that this securely changes the url into a string (checking the sha) and has been preloaded because we can't do async in the rendering  */
-    constructor(create, reactRestCache) {
+    constructor(create, reactRestCache, json) {
         this.create = create
         this.reactRestCache = reactRestCache
+        this.json = json
     }
 
-    renderSelf(obj) {
-        return this.renderUsing("_self", obj)
+    renderSelf(getter) {
+        return this.renderUsing("_self", getter)
     }
 
-    renderUrl(name, obj) {
+    renderUrl(name, getter) {
+        let obj = getter(this.json)
+        console.log("ReactRest.renderUrl", name, getter, obj)
         if (obj._render && name in obj._render) return obj._render[name]
         if (name in this.knownUrls) return this.knownUrls[name]
         throw `Cannot find renderUrl for  ${name}`
     }
 
-    renderUsing(name, obj) {
-        var renderUrl = this.renderUrl(name, obj)
+    renderUsing(name, getter) {
+        var renderUrl = this.renderUrl(name, getter)
         var renderClass = this.reactRestCache.getFromCache(renderUrl)
-        return this.create(renderClass, obj)
+        return this.create(renderClass, {getter: getter})
     }
 }
 
@@ -91,21 +94,29 @@ export class ReactRest {
 export const RestContext = React.createContext()
 
 export function RestRoot(props) {
+    console.log("RestRoot", props)
     let reactRest = props.reactRest;
-    const [json, setJson] = React.useState(props.json);
+    const [state, dispatch] = React.useReducer(RestContext)
+
     let setJsonFromUrl = url => {
         console.log("getting json from url", url)
         return fetch(url).then(response => response.json().then(json => {
                 console.log("and got", json)
-                setJson(json)
+                // setJson(json)
             }
         ))
     }
-    return (<RestContext.Provider value={{reactRest: reactRest, setJson: setJsonFromUrl}}>
-        {reactRest.renderSelf(json)}
+    return (<RestContext.Provider value={{
+        reactRest: reactRest,
+        json: props.json,
+        setJson: setJsonFromUrl
+    }}>
+        {reactRest.renderSelf(j => j)}
     </RestContext.Provider>)
 }
 
 export function Rest(props) {
-    return (<RestContext.Consumer>{context => context.reactRest.renderSelf(props.json)}</RestContext.Consumer>)
+    console.log("Rest", props)
+    return (<RestContext.Consumer>{context => context.reactRest.renderSelf(props)}</RestContext.Consumer>)
 }
+

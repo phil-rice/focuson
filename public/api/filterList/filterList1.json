@@ -1,0 +1,18 @@
+{
+  "_links"   : {"_self": {"href": "api/filterList/filterList1"}},
+  "_render"  : {"_self": "api/render/filterList/someShaOfTheFilterListComponent"},
+  "pageIndex": 0,
+  "pageCount": 3,
+  "values"   : [
+    {"_render": {"_self":  "api/render/simpleFilter/someShaOfTheSimpleFilter"},
+      "filterName" : "filterlist.make",
+      "selected"   : null,
+      "legalValues": ["Audi", "BMW", "Tesla"]
+    },
+    {"_render": {"_self":  "api/render/simpleFilter/someShaOfTheSimpleFilter"},
+      "filterName" : "filterlist.model",
+      "selected"   : null,
+      "legalValues": ["Audi A10", "BMW series 6", "Tesla Roadster"]
+    }
+  ]
+}
