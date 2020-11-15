@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 .idea/
 debug.log
+src/react-app-env.d.ts
 
 public/created/
 out/

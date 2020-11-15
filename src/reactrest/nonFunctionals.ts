@@ -49,6 +49,14 @@ function metrics(metricStore: MetricsStore): PartialProfunctor {
         post(msg, input, output) { metricStore.occured(msg) }
     }
 }
+function debug(logPrinter: LogPrinter): PartialProfunctor {
+    let debug = true
+    return {
+        name: "debug",
+        pre(msg) { },
+        post(msg, input, output) {if (debug) logPrinter(msg, input, output) }
+    }
+}
 
 type Wrapper = <In, Out>(fn: (finp: In) => Out) => (actualIn: In) => Out
 type WrapperK = <In, Out>(fn: (finp: In) => Promise<Out>) => (actualIn: In) => Promise<Out>
@@ -89,17 +97,20 @@ export class NonFunctionalsForFunction {
     metrics: PartialProfunctor;
     logger: PartialProfunctor
     private errorHandler: ErrorHandler;
+    private debug: PartialProfunctor;
     constructor(metricsStore: MetricsStore, errorHandler: ErrorHandler, logPrinter: LogPrinter) {
         this.errorHandler = errorHandler;
         this.metrics = metrics(metricsStore)
         this.logger = logging(logPrinter)
+        this.debug = debug(logPrinter)
     }
 
     addLogging(msg: string): Wrapper {return this.executor.normals(this.logger, msg)}
     addMetrics(msg: string): Wrapper { return this.executor.normals(this.metrics, msg)}
     addErrors(msg: string): Wrapper {return this.executor.errors(this.errorHandler, msg)}
+    addDebug(msg: string): Wrapper {return this.executor.normals(this.debug, msg)}
 
-    addAll(msg: string): Wrapper {return combine(this.addLogging(msg), this.addMetrics(msg), this.addErrors(msg))}
+    addAll(msg: string): Wrapper {return combine(this.addLogging(msg), this.addMetrics(msg), this.addErrors(msg), this.addDebug(msg))}
 
 }
 
@@ -125,16 +136,19 @@ export class NonFunctionalsForPromiseFunctions {
     metrics: PartialProfunctor;
     private errorHandler: ErrorHandler;
     private logger: PartialProfunctor;
+    private debug: PartialProfunctor;
     constructor(metricsStore: MetricsStore, errorHandler: ErrorHandler, logPrinter: LogPrinter) {
         this.errorHandler = errorHandler;
         this.metrics = metrics(metricsStore)
         this.logger = logging(logPrinter)
+        this.debug = debug(logPrinter)
     }
 
     addLogging(msg: string): WrapperK {return this.executor.normals(this.logger, msg)}
     addMetrics(msg: string): WrapperK { return this.executor.normals(this.metrics, msg)}
     addErrors(msg: string): WrapperK {return this.executor.errors(this.errorHandler, msg)}
+    addDebug(msg: string): WrapperK {return this.executor.normals(this.debug, msg)}
 
-    addAll(msg: string): WrapperK {return combineK(this.addLogging(msg), this.addMetrics(msg), this.addErrors(msg))}
+    addAll(msg: string): WrapperK {return combineK(this.addLogging(msg), this.addMetrics(msg), this.addErrors(msg), this.addDebug(msg))}
 
 }
