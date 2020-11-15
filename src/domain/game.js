@@ -1,5 +1,5 @@
 import React from 'react';
-import {Rest, RestContext} from "../reactrest/reactRest";
+import {Rest, RestContext} from "../reactrest/ReactRestElements";
 
 class Game extends React.Component {
     constructor(props) {

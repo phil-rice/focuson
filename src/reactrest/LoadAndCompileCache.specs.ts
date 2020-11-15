@@ -1,12 +1,16 @@
+import {LoadAndCompileCache} from "./LoadAndCompileCache";
 import {ReactFixture} from "./ReactFixtures";
 import {fromMap} from "./utils";
 
 
-describe("ReactRestCache", () => {
+describe("LoadAndCompileCache", () => {
     let fixture = new ReactFixture()
+    function setUp<X>(fn: (cache: LoadAndCompileCache) => X, comp: (s: string) => any = fixture.compiler): X {
+        return fn(new LoadAndCompileCache(fixture.loader, fixture.digestor, comp))
+    }
 
     it("should find all render nameToUrl", () => {
-        fixture.setUp(cache => {
+        setUp(cache => {
             let renderUrls = cache.findAllRenderUrls(fixture.json).sort()
             expect(renderUrls).toEqual(fixture.allUrls)
             expect(cache.cache.size).toEqual(0)
@@ -14,9 +18,7 @@ describe("ReactRestCache", () => {
     })
 
     it("should 'loadFromBlob' which populates the cache", async () => {
-            if (!fixture.loaderData) throw Error('null')
-            return fixture.setUp(async cache => {
-                if (!fixture.loaderData) throw Error('null')
+            return setUp(async cache => {
                 expect(cache.cache.size).toEqual(0);
                 return await cache.loadFromBlob(fixture.json).then(() => {
                     expect(cache.cache.size).toEqual(5)
@@ -30,21 +32,21 @@ describe("ReactRestCache", () => {
     )
 
     it(".getFromCache should load from cache if the cache has a value for the url", () => {
-        return fixture.setUp(async cache => {
+        return setUp(async cache => {
             cache.cache.set("someUrl", "someValue")
             return expect(cache.getFromCache("someUrl")).toBe("someValue")
         })
     })
 
     it(".getFromCache should throw an exception if the cache doesn't have a value for the url", () => {
-        return fixture.setUp(async cache => {
+        return setUp(async cache => {
             cache.cache.set("otherUrl", "someValue")
             return expect(() => cache.getFromCache("someUrl")).toThrow("The cache does not know how to render someUrl\nLegal values are otherUrl")
         })
     })
 
     it(".loadifNeededAndCheck(url) should compile and add to cache if not in", async () => {
-        return fixture.setUp(async cache => {
+        return setUp(async cache => {
             expect(cache.cache.size).toBe(0)
             let expected = fixture.compiler(fixture.classString('game'));
             await expect(cache.loadifNeededAndCheck(fromMap(fixture.nameToUrl, 'game'))).resolves.toBe(expected)
@@ -55,10 +57,15 @@ describe("ReactRestCache", () => {
 
     it(".loadifNeededAndCheck(url) shouldnot compile if already in cache", async () => {
         function dontCompile(s: string) { throw Error('Should not  compile')}
-        return fixture.setUp(async cache => {
+        return setUp(async cache => {
             cache.cache.set("someUrl", "someValue")
             return expect(cache.loadifNeededAndCheck("someUrl")).resolves.toBe("someValue")
         }, dontCompile)
     })
 })
 
+describe("react rest", () => {
+    it("", () => {
+
+    })
+})

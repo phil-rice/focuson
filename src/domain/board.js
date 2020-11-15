@@ -1,5 +1,5 @@
 import React from 'react';
-import {Rest} from "../reactrest/reactRest";
+import {Rest} from "../reactrest/ReactRestElements";
 
 class Board extends React.Component {
     constructor(props) {

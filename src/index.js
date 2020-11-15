@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {ReactRest, ReactRestCache, RestRoot} from "./reactrest/reactRest";
 
 import {SHA256} from 'crypto-js'
 
 import {shas} from './created/shas'
+import {ReactRest} from "./reactrest/reactRest";
+import {LoadAndCompileCache} from "./reactrest/LoadAndCompileCache";
+import {RestRoot} from "./reactrest/ReactRestElements";
 
 let loader = url => fetch(url).then(response => response.text())
 
-var cache = new ReactRestCache(loader, SHA256)
-
-console.log("shas1", shas)
+var cache = new LoadAndCompileCache(loader, SHA256, eval)
 
 let actions = {
     loadJson: "LoadJson"
@@ -49,8 +49,8 @@ let gameJson2 = fetch("created/gameJson2.json").then(r => r.json())
 function renderIt(json, element) {
     let reactRest = new ReactRest(React.createElement, cache);
     return cache.loadFromBlob(json).then(theyAreLoaded => {
-            return ReactDOM.render(<RestRoot reactRest={reactRest} json={json}/>, element)
-        }
+                                             return ReactDOM.render(<RestRoot reactRest={reactRest} json={json}/>, element)
+                                         }
     )
 }
 
@@ -62,7 +62,6 @@ function startGame() {
 var gamePromise = startGame()
 
 export function changeGameRendering(json) {
-    console.log("renderUrls", cache.findAllRenderUrls(json))
     cache.loadFromBlob(json)
     gamePromise.then(game => game.setState(json))
 }
