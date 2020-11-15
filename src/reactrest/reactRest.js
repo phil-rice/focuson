@@ -4,12 +4,13 @@ export class ReactRestCache {
 
     /** loader takes a url and returns a promise. The sha of the string is checked against the final segment of the url when loaded,  then evaled
      * The results are remembered in the cache*/
-    constructor(httploader, digester) {
+    constructor(httploader, digester, compiler) {
         if (!digester) throw Error('Digester not defined')
         if (!httploader) throw Error('httploader not defined')
         this.httploader = httploader
         this.digester = digester
-        this.cache = {}
+        this.compiler = compiler ? compiler : eval
+        this.cache = new Map()
     }
 
 
@@ -36,21 +37,22 @@ export class ReactRestCache {
     }
 
     getFromCache(url) {
-        return this.cache[url]
+        if (this.cache.has(url)) return this.cache.get(url)
+        throw Error(`The cache does not know how to render ${url}\nLegal values are ${Array.from(this.cache.keys()).sort()}`)
     }
 
     loadifNeededAndCheck(url) {
-        if (this.cache.hasOwnProperty(url)) {
-            return Promise.resolve(this.cache[url])
+        if (this.cache.has(url)) {
+            return Promise.resolve(this.cache.get(url))
         }
         var lastSegment = /([^/]+)$/.exec(url)[1]
 
         return this.httploader(url).then(string => {
             var digest = this.digester(string) + ""
-            if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}`)
+            if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}.\nThe string was ${string}`)
             try {
-                var result = eval(string)
-                this.cache[url] = result
+                var result = this.compiler(string)
+                this.cache.set(url, result)
                 return result
             } catch (e) {
                 console.log("have an issue with code from the backend", string)
@@ -101,9 +103,9 @@ export function RestRoot(props) {
     let setJsonFromUrl = url => {
         console.log("getting json from url", url)
         return fetch(url).then(response => response.json().then(json => {
-                console.log("and got", json)
-                // setJson(json)
-            }
+                                                                    console.log("and got", json)
+                                                                    // setJson(json)
+                                                                }
         ))
     }
     return (<RestContext.Provider value={{
