@@ -1,5 +1,5 @@
 import {fromMap, identity} from "./utils";
-import {LoadAndCompileCache} from "./LoadAndCompileCache";
+import {LoadAndCompileCache, UrlAndValueChecker} from "./LoadAndCompileCache";
 
 
 export class ReactFixture {
@@ -7,9 +7,9 @@ export class ReactFixture {
     nameToSha: Map<string, string>;
     nameToUrl: Map<string, string>;
     allUrls: string[];
-    loaderData: Map<string , string>;
+    loaderData: Map<string, string>;
     digestorData: Map<string, string>;
-     json: any;
+    json: any;
 
 
     constructor(names?: string[]) {
@@ -19,7 +19,7 @@ export class ReactFixture {
         this.nameToUrl = this.makeMapsFromNames(identity, name => `api/${name}/${this.nameToSha.get(name)}`)
         this.allUrls = Array.from(this.nameToUrl.values()).sort()
         this.loaderData = this.makeMapsFromNames(n => fromMap(this.nameToUrl, n), this.classString)
-        if (!this.loaderData)throw Error('null')
+        if (!this.loaderData) throw Error('null')
         this.digestorData = this.makeMapsFromNames(this.classString, n => fromMap(this.nameToSha, n))
         this.json = {
             "_links": {"_self": {"href": "created/gameJson1.json"}, "game1": {"href": "created/gameJson1.json"}, "game2": {"href": "created/gameJson2.json"}},
@@ -42,9 +42,9 @@ export class ReactFixture {
     }
 
     loader(url: string): Promise<string> {
-        if (!this) throw Error('this '+ this)
+        if (!this) throw Error('this ' + this)
 
-        if (!this.loaderData) throw Error('this.loaderData '+ this.loaderData)
+        if (!this.loaderData) throw Error('this.loaderData ' + this.loaderData)
         var l = this.loaderData
         return Promise.resolve(fromMap(l, url))
     }
@@ -52,9 +52,9 @@ export class ReactFixture {
     compiler(s: string) {return s + "_compiled"}
 
 
-    setUp<X>(fn: (cache: LoadAndCompileCache) => X, comp: (s: string) => any = this.compiler): X {
+    setUp<X>(fn: (cache: LoadAndCompileCache) => X, comp: (s: string) => any = this.compiler, checker: UrlAndValueChecker = n => {}): X {
         if (!this.loaderData) throw Error(this.loaderData)
-                return fn(new LoadAndCompileCache(url=>this.loader(url), n=>this.digestor(n), comp))
+        return fn(new LoadAndCompileCache(url => this.loader(url), checker, comp))
     }
     makeMapsFromNames<K, V>(keyfn: (name: string) => K, valuefn: (name: string) => V): Map<K, V> {
         let result = new Map<K, V>()

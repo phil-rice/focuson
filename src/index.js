@@ -5,38 +5,13 @@ import './index.css';
 import {SHA256} from 'crypto-js'
 
 import {shas} from './created/shas'
-import {ReactRest} from "./reactrest/reactRest";
+import {ReactRest, RestContext} from "./reactrest/reactRest";
 import {LoadAndCompileCache} from "./reactrest/LoadAndCompileCache";
 import {RestRoot} from "./reactrest/ReactRestElements";
 
 let loader = url => fetch(url).then(response => response.text())
-
-var cache = new LoadAndCompileCache(loader, SHA256, eval)
-
-let actions = {
-    loadJson: "LoadJson"
-}
-
-let dispatcher = dispatch => {
-    return {
-        loadJson: (url) => dispatch({type: actions.loadJson, json: url})
-    }
-}
-
-let fetchJson = dispatch => {
-    dispatch()
-}
-
-
-function reducer(state, action) {
-    switch (action.type) {
-        case actions.loadJson:
-            return {...state, json: action.json}
-        default:
-            return state;
-    }
-}
-
+let cache = new LoadAndCompileCache(loader, SHA256)
+console.log("RestContext", RestContext )//to lock it in
 
 let gameJson1 = fetch("created/gameJson1.json").then(r => r.json())
 let gameJson2 = fetch("created/gameJson2.json").then(r => r.json())
@@ -47,11 +22,8 @@ let gameJson2 = fetch("created/gameJson2.json").then(r => r.json())
 
 
 function renderIt(json, element) {
-    let reactRest = new ReactRest(React.createElement, cache);
-    return cache.loadFromBlob(json).then(theyAreLoaded => {
-                                             return ReactDOM.render(<RestRoot reactRest={reactRest} json={json}/>, element)
-                                         }
-    )
+    let reactRest = new ReactRest(React.createElement, cache, json);
+    return cache.loadFromBlob(json).then(theyAreLoaded => ReactDOM.render(<RestRoot reactRest={reactRest} json={json}/>, element))
 }
 
 

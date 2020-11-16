@@ -1,4 +1,3 @@
-
 export function fromMap<K, V>(map: Map<K, V>, k: K): V {
     if (!map) throw Error('map is undefined')
     let result = map.get(k)

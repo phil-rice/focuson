@@ -1,17 +1,30 @@
+/** blows up if mismatch*/
+export type UrlAndValueChecker = (url: string, value: string) => void
+
+export function digestorChecker(digester: (raw: string) => string): UrlAndValueChecker {
+    return (url, value) => {
+        // @ts-ignore  because the very next line checks for null. In addition I don't think it can actually be null
+        let lastSegment: string = /([^/]+)$/.exec(url)[1]
+        if (lastSegment == null) throw Error(`Last segment of ${url} cannot be extracted`)
+        var digest = digester(value) + ""
+        if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had [${digest}] expected [${lastSegment}].\nThe string was ${value}`)
+    }
+}
+
 export class LoadAndCompileCache {
     private httploader: (url: string) => Promise<string>;
-    private digester: (raw: string) => string;
+    private checker: UrlAndValueChecker
     cache: Map<string, any>;
-    private compiler: (raw: string) => any;
+    private compiler: ((raw: string) => any) | undefined;
 
     /** loader takes a url and returns a promise. The sha of the string is checked against the final segment of the url when loaded,  then evaled
      * The results are remembered in the cache*/
-    constructor(httploader: (url: string) => Promise<string>, digester: (raw: string) => string, compiler: undefined | ((raw: string) => any)) {
-        if (!digester) throw Error('Digester not defined')
+    constructor(httploader: (url: string) => Promise<string>, checker: UrlAndValueChecker, compiler: undefined | ((raw: string) => any)) {
+        if (!checker) throw Error('Checker not defined')
         if (!httploader) throw Error('httploader not defined')
         this.httploader = httploader
-        this.digester = digester
-        this.compiler = compiler ? compiler : eval
+        this.checker = checker
+        this.compiler = compiler = compiler
         this.cache = new Map()
     }
 
@@ -46,15 +59,11 @@ export class LoadAndCompileCache {
         if (this.cache.has(url)) {
             return Promise.resolve(this.cache.get(url))
         }
-        // @ts-ignore
-        let lastSegment: string = /([^/]+)$/.exec(url)[1]
-        if (lastSegment == null) throw Error(`Last segment of ${url} cannot be extracted`)
 
         return this.httploader(url).then(string => {
-            var digest = this.digester(string) + ""
-            if (digest !== lastSegment) throw Error(`Digest mismatch for ${url} actually had ${digest}.\nThe string was ${string}`)
+            this.checker(url, string)
             try {
-                var result = this.compiler(string)
+                var result = this.compiler ? this.compiler(string) : eval(string) //wanted to inject eval but https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval states that the behavior changes
                 this.cache.set(url, result)
                 return result
             } catch (e) {

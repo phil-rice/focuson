@@ -8,8 +8,7 @@ class Game extends React.Component {
         console.log("Game", props)
         console.log("Game/context-create", this.context)
     }
-
-
+    
     render() {
         return (<RestContext.Consumer>{context => {
             console.log("Game/render/context", context)

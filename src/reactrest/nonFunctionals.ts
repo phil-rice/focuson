@@ -5,17 +5,13 @@ export interface PartialProfunctor {
 }
 
 
-export interface ErrorHandler {
-    handle(msg: string, e: any): any
-}
-export class NullErrorHandler implements ErrorHandler {
-    handle(msg: string, e: any): any {
-        throw e;
-    }
-}
+export interface ErrorHandler {handle(msg: string, e: any): any}
+
+export class NullErrorHandler implements ErrorHandler {handle(msg: string, e: any): any { throw e;}}
+
 export class ConsoleLogErrorHandler implements ErrorHandler {
     handle(msg: string, e: any): any {
-        console.log(msg, e)
+        console.log(msg, e);
         throw e;
     }
 }
@@ -33,7 +29,6 @@ function logging(logPrinter: LogPrinter): PartialProfunctor {
 
 export class MetricsStore {
     counts = new Map
-
     occured(msg: string) {
         if (this.counts.has(msg)) {
             this.counts.set(msg, this.counts.get(msg) + 1)
@@ -61,22 +56,10 @@ function debug(logPrinter: LogPrinter): PartialProfunctor {
 type Wrapper = <In, Out>(fn: (finp: In) => Out) => (actualIn: In) => Out
 type WrapperK = <In, Out>(fn: (finp: In) => Promise<Out>) => (actualIn: In) => Promise<Out>
 
-function combine(...wrappers: Wrapper[]) {
-    return <In, Out>(fn: (finp: In) => Out) => {
-        var result = fn
-        wrappers.forEach(w => result = w(result)) //Would love to do with reduce...
-        return result
-    }
 
-}
-function combineK(...wrappers: WrapperK[]) {
-    return <In, Out>(fn: (finp: In) => Promise<Out>) => {
-        var result = fn
-        wrappers.forEach(w => result = w(result)) //Would love to do with reduce...
-        return result
-    }
+function combine(...wrappers: Wrapper[]): Wrapper {return wrappers.reduce((acc, v) => fn => v(acc(fn)))}
+function combineK(...wrappers: WrapperK[]): WrapperK { return wrappers.reduce((acc, v) => fn => v(acc(fn)))}
 
-}
 class NonFunctionalExecutorsForFunctions {
     errors(err: ErrorHandler, msg: string): Wrapper {
         return <In, Out>(fn: (fInp: In) => Out) => (input: In) => {try {return fn(input)} catch (e) {return err.handle(msg, e)}}
@@ -111,7 +94,6 @@ export class NonFunctionalsForFunction {
     addDebug(msg: string): Wrapper {return this.executor.normals(this.debug, msg)}
 
     addAll(msg: string): Wrapper {return combine(this.addLogging(msg), this.addMetrics(msg), this.addErrors(msg), this.addDebug(msg))}
-
 }
 
 

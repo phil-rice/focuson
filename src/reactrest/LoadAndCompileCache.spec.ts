@@ -1,16 +1,28 @@
-import {LoadAndCompileCache} from "./LoadAndCompileCache";
+import {digestorChecker, LoadAndCompileCache} from "./LoadAndCompileCache";
 import {ReactFixture} from "./ReactFixtures";
 import {fromMap} from "./utils";
 
+describe("digestChecker", () => {
+    function digestor(s: String) {return s + "_dig"}
+    let checker = digestorChecker(digestor)
+
+    it("should not cause problems if the last segment is the digest of the value", () => {
+        checker("/a/b/value_dig", "value")
+        checker("/a/value_dig", "value")
+        checker("/value_dig", "value")
+        checker("value_dig", "value")
+    })
+
+    it("should cause an exception if the digest doesn't match", () => {
+        expect(() => checker("value_dig", "wrongvalue")).toThrow("Digest mismatch for value_dig actually had [wrongvalue_dig] expected [value_dig].\nThe string was wrongvalue")
+    })
+})
 
 describe("LoadAndCompileCache", () => {
     let fixture = new ReactFixture()
-    function setUp<X>(fn: (cache: LoadAndCompileCache) => X, comp: (s: string) => any = fixture.compiler): X {
-        return fn(new LoadAndCompileCache(fixture.loader, fixture.digestor, comp))
-    }
 
     it("should find all render nameToUrl", () => {
-        setUp(cache => {
+        fixture.setUp(cache => {
             let renderUrls = cache.findAllRenderUrls(fixture.json).sort()
             expect(renderUrls).toEqual(fixture.allUrls)
             expect(cache.cache.size).toEqual(0)
@@ -18,7 +30,9 @@ describe("LoadAndCompileCache", () => {
     })
 
     it("should 'loadFromBlob' which populates the cache", async () => {
-            return setUp(async cache => {
+            if (!fixture.loaderData) throw Error('null')
+            return fixture.setUp(async cache => {
+                if (!fixture.loaderData) throw Error('null')
                 expect(cache.cache.size).toEqual(0);
                 return await cache.loadFromBlob(fixture.json).then(() => {
                     expect(cache.cache.size).toEqual(5)
@@ -32,21 +46,21 @@ describe("LoadAndCompileCache", () => {
     )
 
     it(".getFromCache should load from cache if the cache has a value for the url", () => {
-        return setUp(async cache => {
+        return fixture.setUp(async cache => {
             cache.cache.set("someUrl", "someValue")
             return expect(cache.getFromCache("someUrl")).toBe("someValue")
         })
     })
 
     it(".getFromCache should throw an exception if the cache doesn't have a value for the url", () => {
-        return setUp(async cache => {
+        return fixture.setUp(async cache => {
             cache.cache.set("otherUrl", "someValue")
             return expect(() => cache.getFromCache("someUrl")).toThrow("The cache does not know how to render someUrl\nLegal values are otherUrl")
         })
     })
 
     it(".loadifNeededAndCheck(url) should compile and add to cache if not in", async () => {
-        return setUp(async cache => {
+        return fixture.setUp(async cache => {
             expect(cache.cache.size).toBe(0)
             let expected = fixture.compiler(fixture.classString('game'));
             await expect(cache.loadifNeededAndCheck(fromMap(fixture.nameToUrl, 'game'))).resolves.toBe(expected)
@@ -57,15 +71,22 @@ describe("LoadAndCompileCache", () => {
 
     it(".loadifNeededAndCheck(url) shouldnot compile if already in cache", async () => {
         function dontCompile(s: string) { throw Error('Should not  compile')}
-        return setUp(async cache => {
+        return fixture.setUp(async cache => {
             cache.cache.set("someUrl", "someValue")
             return expect(cache.loadifNeededAndCheck("someUrl")).resolves.toBe("someValue")
         }, dontCompile)
     })
-})
 
-describe("react rest", () => {
-    it("", () => {
-
+    it("should 'check' using the checker", async () => {
+        let error = Error('should fail with this');
+        return fixture.setUp(async cache => {
+            let url = fromMap(fixture.nameToUrl, 'game');
+            return expect(cache.loadifNeededAndCheck(url)).rejects.toBe(error)
+        }, fixture.compiler, (url, value) => {
+            expect(url).toBe(url)
+            expect(value).toBe(fixture.loaderData.get(url))
+            throw error
+        })
     })
 })
+
