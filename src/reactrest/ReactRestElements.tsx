@@ -1,9 +1,18 @@
 import React from "react";
-import {RestContext} from "./reactRest";
-import {identity} from "./utils";
 
+import {checkIsFunction, identity} from "./utils";
+import {RestContext} from "./LoadAndCompileCache";
+import {HasGetter, ReactRest} from "./reactRest";
+import {isFunction} from "util";
 
-export function RestRoot(props: any) {
+export interface RestRootProperties {
+    json: any,
+    reactRest: ReactRest<React.ReactElement>
+}
+
+export function RestRoot(props: RestRootProperties) {
+    console.log("Rendering RestRoot", props)
+
     let reactRest = props.reactRest;
     // @ts-ignore //TODO Need to understand this and fix it
     const [state, dispatch] = React.useReducer(RestContext)
@@ -20,11 +29,15 @@ export function RestRoot(props: any) {
         json: props.json,
         setJson: setJsonFromUrl
     }}>
-        {reactRest.renderSelf(identity)}
+        {reactRest.renderSelf({getter: identity})}
     </RestContext.Provider>)
 }
 
-export function Rest(props: any) {
+export interface RestProperties extends HasGetter {}
+
+export function Rest(props: RestProperties) {
+    console.log("Rendering Rest", props)
+    checkIsFunction(props.getter)
     return (<RestContext.Consumer>{context => {
         let reactRest = context.reactRest;
         if (!reactRest) throw Error('Context should have a reactRest')

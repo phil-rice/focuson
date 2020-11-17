@@ -1,3 +1,19 @@
+import React from "react";
+import {ReactRestState} from "./ReactRestState";
+import {Rest} from "./ReactRestElements";
+
+export const RestContext: React.Context<ReactRestState> = React.createContext({})
+
+let scope = {
+    'Rest': Rest,
+    'RestContext': RestContext
+}
+
+// @ts-ignore
+window.Rest=Rest
+// @ts-ignore
+window.RestContext=RestContext
+
 /** blows up if mismatch*/
 export type UrlAndValueChecker = (url: string, value: string) => void
 
@@ -15,16 +31,16 @@ export class LoadAndCompileCache {
     private httploader: (url: string) => Promise<string>;
     private checker: UrlAndValueChecker
     cache: Map<string, any>;
-    private compiler: ((raw: string) => any) | undefined;
+    private compiler: ((raw: string) => any)
 
     /** loader takes a url and returns a promise. The sha of the string is checked against the final segment of the url when loaded,  then evaled
      * The results are remembered in the cache*/
-    constructor(httploader: (url: string) => Promise<string>, checker: UrlAndValueChecker, compiler: undefined | ((raw: string) => any)) {
+    constructor(httploader: (url: string) => Promise<string>, checker: UrlAndValueChecker, compiler?: ((raw: string) => any)) {
         if (!checker) throw Error('Checker not defined')
         if (!httploader) throw Error('httploader not defined')
         this.httploader = httploader
         this.checker = checker
-        this.compiler = compiler = compiler
+        this.compiler = compiler ? compiler : (s: string) => Function(s).bind(scope)()
         this.cache = new Map()
     }
 
@@ -63,7 +79,9 @@ export class LoadAndCompileCache {
         return this.httploader(url).then(string => {
             this.checker(url, string)
             try {
-                var result = this.compiler ? this.compiler(string) : eval(string) //wanted to inject eval but https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval states that the behavior changes
+                let result = this.compiler(string)  //wanted to inject eval but https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval states that the behavior changes
+                console.log("compiled", url, string)
+                console.log("resulted in", result)
                 this.cache.set(url, result)
                 return result
             } catch (e) {

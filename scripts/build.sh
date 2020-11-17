@@ -23,6 +23,7 @@ function removeImports(){
 }
 function copyOne(){
   from=$1
+  returnCmd=$2
   file="src/domain/$from.js"
   if [ ! -f "$file" ] ; then echo "Cannot find $file"; exit 2; fi
 
@@ -41,6 +42,7 @@ function copyOne(){
 
   to="$parent/$sha"
   cp $tempOutFile $to
+  echo "return $returnCmd" >> $to
   url="$urlRoot/$from/$sha"
   printf '    %s: "%s",\n' $from $url >> "$log"
   echo $sha
@@ -52,10 +54,10 @@ function removeLastComma(){
 
 echo "export let shas={//This is a bodge to avoid needing a server while we are still in the playground" > $log
 #copyOne game
-gameSha=$(copyOne game)
-boardSha=$(copyOne board)
-squareSha=$(copyOne square)
-square2Sha=$(copyOne square2)
+gameSha=$(copyOne game Game)
+boardSha=$(copyOne board Board)
+squareSha=$(copyOne square Square)
+square2Sha=$(copyOne square2 Square)
 
 removeLastComma $log
 

@@ -1,9 +1,11 @@
 import React, {ReactElement} from 'react';
 import {LoadAndCompileCache} from "./LoadAndCompileCache";
 import {ReactRestState} from "./ReactRestState";
+import {checkIsFunction} from "./utils";
 
 type Getter = (json: any) => any
 
+export interface HasGetter{getter: Getter}
 /** Element is usually React.ReactElement */
 export class ReactRest<Element> {
     private create: (clazz: any, props: any) =>Element;
@@ -17,22 +19,28 @@ export class ReactRest<Element> {
         this.json = json
     }
 
-    renderSelf(getter: Getter): Element {
+    renderSelf(getter: HasGetter): Element {
+        checkIsFunction(getter.getter)
+
         return this.renderUsing("_self", getter)
     }
 
-    renderUrl(name: string, getter: Getter): string {
-        let obj = getter(this.json)
+    renderUrl(name: string, getter: HasGetter): string {
+        checkIsFunction(getter.getter)
+        console.log("about to execute getter", getter)
+        console.log("about to execute getter.getter", getter.getter)
+        let obj = getter.getter(this.json)
         if (obj._render && name in obj._render) return obj._render[name]
         throw `Cannot find renderUrl for  ${name}`
     }
 
-    renderUsing(name: string, getter: Getter): Element {
+    renderUsing(name: string, getter: HasGetter): Element {
+        checkIsFunction(getter.getter)
         var renderUrl = this.renderUrl(name, getter)
         var renderClass = this.loadAndCompileCache.getFromCache(renderUrl)
-        return this.create(renderClass, {getter: getter})
+        return this.create(renderClass, getter)
     }
 }
 
 
-export const RestContext: React.Context<ReactRestState> = React.createContext({} )
+

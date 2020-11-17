@@ -4,7 +4,6 @@ export interface PartialProfunctor {
     post: (msg: string, input: any, output: any) => void
 }
 
-
 export interface ErrorHandler {handle(msg: string, e: any): any}
 
 export class NullErrorHandler implements ErrorHandler {handle(msg: string, e: any): any { throw e;}}
@@ -44,12 +43,12 @@ function metrics(metricStore: MetricsStore): PartialProfunctor {
         post(msg, input, output) { metricStore.occured(msg) }
     }
 }
+export var globalDebug = true
 function debug(logPrinter: LogPrinter): PartialProfunctor {
-    let debug = true
     return {
         name: "debug",
         pre(msg) { },
-        post(msg, input, output) {if (debug) logPrinter(msg, input, output) }
+        post(msg, input, output) {if (globalDebug) logPrinter(msg, input, output) }
     }
 }
 
@@ -59,6 +58,8 @@ type WrapperK = <In, Out>(fn: (finp: In) => Promise<Out>) => (actualIn: In) => P
 
 function combine(...wrappers: Wrapper[]): Wrapper {return wrappers.reduce((acc, v) => fn => v(acc(fn)))}
 function combineK(...wrappers: WrapperK[]): WrapperK { return wrappers.reduce((acc, v) => fn => v(acc(fn)))}
+
+
 
 class NonFunctionalExecutorsForFunctions {
     errors(err: ErrorHandler, msg: string): Wrapper {
