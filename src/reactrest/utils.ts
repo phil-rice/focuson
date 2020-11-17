@@ -13,6 +13,25 @@ export function checkIsFunction(functionToCheck: any) {
 }
 export function identity<T>(t: T): T {return t}
 
+export type Getter<Main, Child> = (main: Main) => Child
+export type Setter<Main, Child> = (main: Main, child: Child) => Main
+
+export interface LensFactory<Main, Child> {
+    get: Getter<Main, Child>,
+    set?: Setter<Main, Child>
+}
+
+export function lens<Main, Child>(get: Getter<Main, Child>, set?: Setter<Main, Child>): Lens<Main, Child> {
+    checkIsFunction(get)
+    if (set) checkIsFunction(set)
+    return new Lens(get, set ? set : (m, c) => {throw Error('Cannot call set on this lens')})
+}
+export function toLens<Main, Child>(f: LensFactory<Main, Child>): Lens<Main, Child> {
+    return lens(f.get, f.set)
+}
+
+export function identityLens<M>(): Lens<M, M> {return lens(m => m, (m, c) => c)}
+
 export class Lens<Main, Child> {
     get: (m: Main) => Child;
     set: (m: Main, newChild: Child) => Main;
@@ -22,7 +41,9 @@ export class Lens<Main, Child> {
     }
 
     andThen<NewChild>(l: Lens<Child, NewChild>): Lens<Main, NewChild> {
-        return new Lens((m: Main) => l.get(this.get(m)), (m: Main, c: NewChild) => this.set(m, l.set(this.get(m), c)))
+        return new Lens(
+            (m: Main) => l.get(this.get(m)),
+            (m: Main, c: NewChild) => this.set(m, l.set(this.get(m), c)))
     }
     transform(fn: (oldChild: Child) => Child): (m: Main) => Main { return m => this.set(m, fn(this.get(m)))}
 }
