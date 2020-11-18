@@ -1,6 +1,6 @@
 export let shas={//This is a bodge to avoid needing a server while we are still in the playground
-    game: "created/game/df6fbeb229e52863015b73ac6c0047574f7fe1fdc612b480e54d3367a001964d",
-    board: "created/board/6d26b734a4f84c40b40793bc6db21224e60eb4e4275792108b735325901953ae",
-    square: "created/square/032265b2d29597a9a7f03a4195370383639db874d3d9de2bfd6cbc2a17b9bd95",
-    square2: "created/square2/3179b5d869df99266a6e29229e64a3637ea1747b7f8fac17959628e98fa52bda"
+    Game: "created/Game/12f9af8bb18ec46fbcbe92d9934b6154b1ce26097d55d16bdba7d60bd6e67edc",
+    Board: "created/Board/8301c92040ac71b496305b5f93e67a9868a5a7eaee2860fb93483e193d01f1ef",
+    Square: "created/Square/fd53f512fd8982d054c126cfdebafe865a5e2363e411e805e971f41e664c71a5",
+    Square2: "created/Square2/6ef0015158ad07a2327153e4e9c2516d60b67c712039612b77bc8f21e0e466fa"
 }

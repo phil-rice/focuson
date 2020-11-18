@@ -1,44 +1,44 @@
-import React, {ReactElement} from 'react';
 import {LoadAndCompileCache} from "./LoadAndCompileCache";
-import {ReactRestState} from "./ReactRestState";
+import {HasRestProperties, RestProperties} from "./ReactRestElements";
 import {checkIsFunction} from "./utils";
 
-type Getter = (json: any) => any
 
-export interface HasGetter{getter: Getter}
-/** Element is usually React.ReactElement */
+export interface MakeRestElement<Element> {<Domain, Main, Child>(rest: RestProperties<Element, Domain, Main, Child>): (props: any) => Element}
+
 export class ReactRest<Element> {
-    private create: (clazz: any, props: any) =>Element;
-    private loadAndCompileCache: LoadAndCompileCache;
-    private json: any;
+    private create: (clazz: any, props: any) => Element;
+    private loadAndCompileCache: LoadAndCompileCache<MakeRestElement<Element>>;
     /** Create will usually be React.createElement. Using it via dependency inject to allow testing more easily, and because that decouples this from React
      * reactCache will turn a url into a string. It is 'expected' that this securely changes the url into a string (checking the sha) and has been preloaded because we can't do async in the rendering  */
-    constructor(create: (clazz: any, props: any) => Element, loadAndCompileCache: LoadAndCompileCache, json: any) {
+    constructor(create: (clazz: any, props: any) => Element, loadAndCompileCache: LoadAndCompileCache<MakeRestElement<Element>>) {
         this.create = create
         this.loadAndCompileCache = loadAndCompileCache
-        this.json = json
     }
 
-    renderSelf(getter: HasGetter): Element {
-        checkIsFunction(getter.getter)
-
-        return this.renderUsing("_self", getter)
+    /** The parent can be 'self' in the case of RestRoot. It has a lens in it that goes from the 'main json' to the 'bit we are interested in'*/
+    renderSelf<Domain, Main, Child>(hasRest: HasRestProperties<Element, Domain, Main, Child>): Element {
+        console.log("renderself", hasRest)
+        let rest = hasRest.rest
+        let renderUrl = this.renderUrl("_self", rest.lens.get(rest.mainJson))
+        return this.renderUsingUrl(renderUrl, hasRest)
     }
 
-    renderUrl(name: string, getter: HasGetter): string {
-        checkIsFunction(getter.getter)
-        console.log("about to execute getter", getter)
-        console.log("about to execute getter.getter", getter.getter)
-        let obj = getter.getter(this.json)
-        if (obj._render && name in obj._render) return obj._render[name]
-        throw `Cannot find renderUrl for  ${name}`
+    renderUrl<Main, Child>(name: string, child: any): string {
+        if (child._render && name in child._render) return child._render[name]
+        throw `Cannot find renderUrl for  [${name}] in [${child}]`
     }
 
-    renderUsing(name: string, getter: HasGetter): Element {
-        checkIsFunction(getter.getter)
-        var renderUrl = this.renderUrl(name, getter)
-        var renderClass = this.loadAndCompileCache.getFromCache(renderUrl)
-        return this.create(renderClass, getter)
+    renderUsingUrl<Domain, Main, Child>(renderUrl: string, hasRest: HasRestProperties<Element, Domain, Main, Child>): Element {
+        console.log("renderusing", renderUrl, hasRest)
+        let rest = hasRest.rest
+        let makeRest: MakeRestElement<Element> = this.loadAndCompileCache.getFromCache(renderUrl)
+        console.log("makeRest", makeRest)
+        let renderFn = makeRest(rest)
+        console.log("renderFn", renderFn)
+        checkIsFunction(renderFn)
+        let element = this.create(renderFn, hasRest); //hasRest is passed because it may hold extra properties
+        console.log("element", element)
+        return element
     }
 }
 

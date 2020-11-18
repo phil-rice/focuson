@@ -52,7 +52,7 @@ export class ReactFixture {
     compiler(s: string) {return s + "_compiled"}
 
 
-    setUp<X>(fn: (cache: LoadAndCompileCache) => X, comp: (s: string) => any = this.compiler, checker: UrlAndValueChecker = n => {}): X {
+    setUp<X>(fn: (cache: LoadAndCompileCache<string>) => X, comp: (s: string) => any = this.compiler, checker: UrlAndValueChecker = n => {}): X {
         if (!this.loaderData) throw Error(this.loaderData)
         return fn(new LoadAndCompileCache(url => this.loader(url), checker, comp))
     }

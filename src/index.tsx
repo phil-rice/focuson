@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import {SHA256} from 'crypto-js'
-import {ReactRest} from "./reactrest/reactRest";
+import {MakeRestElement, ReactRest} from "./reactrest/reactRest";
 import {LoadAndCompileCache} from "./reactrest/LoadAndCompileCache";
-import {RestRoot} from "./reactrest/ReactRestElements";
+import {Rest,RestChild, RestProperties, RestRootProperties} from "./reactrest/ReactRestElements";
+import {Domain, GameData} from "./domain/Domain";
 
 
 let loader = (url: string) => fetch(url).then(response => response.text())
 // @ts-ignore // the actual signature is a HasherHelper, but we want to say something simpler, and it works
-let cache = new LoadAndCompileCache(loader, SHA256)
-
+let cache = new LoadAndCompileCache<MakeRestElement<React.Element>>(loader, SHA256)
 
 
 let gameJson1 = fetch("created/gameJson1.json").then(r => r.json())
@@ -22,8 +22,10 @@ let gameJson2 = fetch("created/gameJson2.json").then(r => r.json())
 // set state on the component you are in which forces a redraw
 
 function renderIt(json: any, element: HTMLElement): Promise<void> {
-    let reactRest = new ReactRest(React.createElement, cache, json);
-    return cache.loadFromBlob(json).then(theyAreLoaded => ReactDOM.render(<RestRoot reactRest={reactRest} json={json}/>, element))
+    let reactRest = new ReactRest(React.createElement, cache);
+    let rootProperties: RestRootProperties<React.ReactElement, Domain, GameData> = {reactRest: reactRest, mainJson: json, domain: new Domain()}
+    let rest = RestProperties.create(rootProperties)
+    return cache.loadFromBlob(json).then(theyAreLoaded => ReactDOM.render(<Rest rest={rest} />, element))
 }
 
 

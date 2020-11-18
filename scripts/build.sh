@@ -24,10 +24,11 @@ function removeImports(){
 function copyOne(){
   from=$1
   returnCmd=$2
-  file="src/domain/$from.js"
+  ext='.tsx'
+  file="src/domain/$from$ext"
   if [ ! -f "$file" ] ; then echo "Cannot find $file"; exit 2; fi
 
-  tempFile=$tempDir/$from.js
+  tempFile=$tempDir/$from$ext
   tempOutFile=$tempOutDir/$from.js
   parent="$targetDir/$from"
   mkdir -p $parent
@@ -36,7 +37,7 @@ function copyOne(){
   removeImports < $file > $tempFile
   (
     cd $tempDir
-    babel $from.js --out-dir $tempOutDir > /dev/null
+    babel $from$ext --out-dir $tempOutDir > /dev/null
   )
   read sha junk <<< $(sha256sum "$tempOutFile")
 
@@ -54,10 +55,11 @@ function removeLastComma(){
 
 echo "export let shas={//This is a bodge to avoid needing a server while we are still in the playground" > $log
 #copyOne game
-gameSha=$(copyOne game Game)
-boardSha=$(copyOne board Board)
-squareSha=$(copyOne square Square)
-square2Sha=$(copyOne square2 Square)
+
+gameSha=$(copyOne Game Game)
+boardSha=$(copyOne Board Board)
+squareSha=$(copyOne Square Square)
+square2Sha=$(copyOne Square2 Square)
 
 removeLastComma $log
 

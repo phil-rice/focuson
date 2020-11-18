@@ -1,6 +1,6 @@
 import React from "react";
 import {ReactRestState} from "./ReactRestState";
-import {Rest} from "./ReactRestElements";
+import {Rest, RestChild} from "./ReactRestElements";
 
 export const RestContext: React.Context<ReactRestState> = React.createContext({})
 
@@ -11,6 +11,8 @@ let scope = {
 
 // @ts-ignore
 window.Rest=Rest
+// @ts-ignore
+window.RestChild=RestChild
 // @ts-ignore
 window.RestContext=RestContext
 
@@ -27,15 +29,15 @@ export function digestorChecker(digester: (raw: string) => string): UrlAndValueC
     }
 }
 
-export class LoadAndCompileCache {
+export class LoadAndCompileCache<Result> {
     private httploader: (url: string) => Promise<string>;
     private checker: UrlAndValueChecker
-    cache: Map<string, any>;
-    private compiler: ((raw: string) => any)
+    cache: Map<string, Result>;
+    private compiler: ((raw: string) => Result)
 
     /** loader takes a url and returns a promise. The sha of the string is checked against the final segment of the url when loaded,  then evaled
      * The results are remembered in the cache*/
-    constructor(httploader: (url: string) => Promise<string>, checker: UrlAndValueChecker, compiler?: ((raw: string) => any)) {
+    constructor(httploader: (url: string) => Promise<string>, checker: UrlAndValueChecker, compiler?: ((raw: string) => Result)) {
         if (!checker) throw Error('Checker not defined')
         if (!httploader) throw Error('httploader not defined')
         this.httploader = httploader
@@ -66,7 +68,8 @@ export class LoadAndCompileCache {
         return Promise.all(urls.map(url => this.loadifNeededAndCheck(url)))
     }
 
-    getFromCache(url: string) {
+    getFromCache(url: string): Result {
+        //@ts-ignore we can safely do this because we are actually checking.
         if (this.cache.has(url)) return this.cache.get(url)
         throw Error(`The cache does not know how to render ${url}\nLegal values are ${Array.from(this.cache.keys()).sort()}`)
     }
@@ -80,8 +83,6 @@ export class LoadAndCompileCache {
             this.checker(url, string)
             try {
                 let result = this.compiler(string)  //wanted to inject eval but https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval states that the behavior changes
-                console.log("compiled", url, string)
-                console.log("resulted in", result)
                 this.cache.set(url, result)
                 return result
             } catch (e) {

@@ -30,9 +30,10 @@ export function toLens<Main, Child>(f: LensFactory<Main, Child>): Lens<Main, Chi
     return lens(f.get, f.set)
 }
 
-export function identityLens<M>(): Lens<M, M> {return lens(m => m, (m, c) => c)}
 
 export class Lens<Main, Child> {
+    static identity<M>(): Lens<M, M> {return lens(m => m, (m, c) => c)}
+    static nth<T>(n: number): Lens<T[], T>{return lens(arr => arr[n], (main, value) => {let result = main.slice(); result[n] = value; return result})}
     get: (m: Main) => Child;
     set: (m: Main, newChild: Child) => Main;
     constructor(get: (m: Main) => Child, set: (m: Main, newChild: Child) => Main) {
