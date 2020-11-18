@@ -1,20 +1,10 @@
-import React from "react";
-import {ReactRestState} from "./ReactRestState";
 import {Rest, RestChild} from "./ReactRestElements";
 
-export const RestContext: React.Context<ReactRestState> = React.createContext({mainJson:{}})
-
-let scope = {
-    'Rest': Rest,
-    'RestContext': RestContext
-}
 
 // @ts-ignore
 window.Rest=Rest
 // @ts-ignore
 window.RestChild=RestChild
-// @ts-ignore
-window.RestContext=RestContext
 
 /** blows up if mismatch*/
 export type UrlAndValueChecker = (url: string, value: string) => void
@@ -42,7 +32,7 @@ export class LoadAndCompileCache<Result> {
         if (!httploader) throw Error('httploader not defined')
         this.httploader = httploader
         this.checker = checker
-        this.compiler = compiler ? compiler : (s: string) => Function(s).bind(scope)()
+        this.compiler = compiler ? compiler : (s: string) => Function(s)()
         this.cache = new Map()
     }
 

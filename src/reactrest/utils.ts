@@ -56,14 +56,3 @@ export class Lens<Main, Child> {
     transform(fn: (oldChild: Child) => Child): (m: Main) => Main { return m => this.set(m, fn(this.get(m)))}
 }
 
-// export function lensTuple<Main, A, B>(lensA: Lens<Main, A>, lensB: Lens<Main, B>): Lens<Main, Tuple<A, B>> {
-//     let get = (main: Main) => ({a: lensA.get(main), b: lensB.get(main)})
-//     let set = (main: Main, tuple: Tuple<A, B>) => lensA.set(lensB.set(main, tuple.b), tuple.a)
-//     return lens(get, set)
-// }
-//
-// interface Tuple<A, B> {
-//     a: A
-//     b: B
-// }
-// export function lensTupleWithA<Main,A,NewA, B>(lens: Lens<Main,Tuple<A,B>>, fn: (a: A) => NewA): Lens<Main,Tuple<A,C>>

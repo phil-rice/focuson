@@ -4,8 +4,8 @@ import './index.css';
 
 import {SHA256} from 'crypto-js'
 import {MakeRestElement, ReactRest} from "./reactrest/reactRest";
-import {LoadAndCompileCache, RestContext} from "./reactrest/LoadAndCompileCache";
-import {Rest, RestChild, RestProperties, RestRoot, RestRootProperties} from "./reactrest/ReactRestElements";
+import {LoadAndCompileCache} from "./reactrest/LoadAndCompileCache";
+import {RestRoot, RestRootProperties} from "./reactrest/ReactRestElements";
 import {Domain, GameData} from "./domain/Domain";
 
 

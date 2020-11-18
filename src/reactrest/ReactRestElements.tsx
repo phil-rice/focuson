@@ -1,7 +1,4 @@
 import React from "react";
-
-
-import {RestContext} from "./LoadAndCompileCache";
 import {ReactRest} from "./reactRest";
 import {Lens} from "./utils";
 
@@ -39,6 +36,7 @@ export class RestProperties<Element, Domain, Main, Child>  {
     }
     withLens<NewChild>(lens: Lens<Child, NewChild>): RestProperties<Element, Domain, Main, NewChild> {return new RestProperties(this.restRoot, this.lens.andThen(lens))}
     json() {return this.lens.get(this.restRoot.mainJson)}
+    domain(){return this.restRoot.domain}
     setJson(child: Child) {
         console.log("setJson", child)
         let newMain = this.lens.set(this.restRoot.mainJson, child);
