@@ -4,14 +4,14 @@ import './index.css';
 
 import {SHA256} from 'crypto-js'
 import {MakeRestElement, ReactRest} from "./reactrest/reactRest";
-import {LoadAndCompileCache} from "./reactrest/LoadAndCompileCache";
+import {digestorChecker, LoadAndCompileCache} from "./reactrest/LoadAndCompileCache";
 import {RestRoot} from "./reactrest/ReactRestElements";
 import {Domain, GameData} from "./domain/Domain";
 
 
 let loader = (url: string) => fetch(url).then(response => response.text())
 // @ts-ignore // the actual signature is a HasherHelper, but we want to say something simpler, and it works
-let cache = new LoadAndCompileCache<MakeRestElement<React.Element>>(loader, SHA256)
+let cache = new LoadAndCompileCache<MakeRestElement<React.Element>>(loader, digestorChecker(SHA256))
 let domain = new Domain()
 let reactRest = new ReactRest(React.createElement, cache);
 

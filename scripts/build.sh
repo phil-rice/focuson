@@ -30,7 +30,7 @@ function copyOne(){
 
   tempFile=$tempDir/$from$ext
   tempOutFile=$tempOutDir/$from.js
-  parent="$targetDir/$from"
+  parent="$targetDir/$returnCmd"
   mkdir -p $parent
 
 
@@ -39,11 +39,12 @@ function copyOne(){
     cd $tempDir
     babel $from$ext --out-dir $tempOutDir > /dev/null
   )
+  echo >>$tempOutFile
+  echo "return $returnCmd" >> $tempOutFile
   read sha junk <<< $(sha256sum "$tempOutFile")
 
   to="$parent/$sha"
   cp $tempOutFile $to
-  echo "return $returnCmd" >> $to
   url="$urlRoot/$from/$sha"
   printf '    %s: "%s",\n' $from $url >> "$log"
   echo $sha
