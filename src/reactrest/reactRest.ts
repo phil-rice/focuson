@@ -1,6 +1,9 @@
 import {LoadAndCompileCache} from "./LoadAndCompileCache";
-import {HasRestProperties, RestProperties} from "./ReactRestElements";
+import {HasRestProperties, RestProperties, RestRoot} from "./ReactRestElements";
 import {checkIsFunction} from "./utils";
+import {GameData} from "../domain/Domain";
+import ReactDOM from "react-dom";
+import React from "react";
 
 
 export interface MakeRestElement<Element> {<Domain, Main, Child>(rest: RestProperties<Element, Domain, Main, Child>): (props: any) => Element}
@@ -15,6 +18,10 @@ export class ReactRest<Element> {
         this.loadAndCompileCache = loadAndCompileCache
     }
 
+    loadAndRender<Main>(url: string, setJson: (m: Main) => void) {
+        fetch(url).then(r => r.json()).then(json => this.loadAndCompileCache.loadFromBlob(json).then(() => setJson(json)))
+    }
+
     /** The parent can be 'self' in the case of RestRoot. It has a lens in it that goes from the 'main json' to the 'bit we are interested in'*/
     renderSelf<Domain, Main, Child>(hasRest: HasRestProperties<Element, Domain, Main, Child>): Element {
         // console.log("renderself", hasRest)
@@ -26,7 +33,7 @@ export class ReactRest<Element> {
     renderUrl<Main, Child>(name: string, child: any): string {
         if (child._render && name in child._render) return child._render[name]
         console.log("cannot find renderurl", name, child)
-        throw `Cannot find renderUrl for  [${name}] in [${JSON.stringify(child,null, 2)}]`
+        throw `Cannot find renderUrl for  [${name}] in [${JSON.stringify(child, null, 2)}]`
     }
 
     renderUsingUrl<Domain, Main, Child>(renderUrl: string, hasRest: HasRestProperties<Element, Domain, Main, Child>): Element {
