@@ -78,7 +78,7 @@ echo '{
         "board": {
             "_links": {"_self": {"href": "/not/Used/Yet"}},
             "_render": {"_self": "created/board/'$boardSha'", "square":"created/square/'$squareSha'"},
-            "squares": [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            "squares": ["", "", "", "", "", "", "", "", ""]
         }
     }
 }' > $targetDir/$jsonName

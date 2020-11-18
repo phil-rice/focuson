@@ -2,7 +2,7 @@ import React from "react";
 import {ReactRestState} from "./ReactRestState";
 import {Rest, RestChild} from "./ReactRestElements";
 
-export const RestContext: React.Context<ReactRestState> = React.createContext({})
+export const RestContext: React.Context<ReactRestState> = React.createContext({mainJson:{}})
 
 let scope = {
     'Rest': Rest,

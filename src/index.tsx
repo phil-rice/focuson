@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
 import {SHA256} from 'crypto-js'
 import {MakeRestElement, ReactRest} from "./reactrest/reactRest";
-import {LoadAndCompileCache} from "./reactrest/LoadAndCompileCache";
-import {Rest,RestChild, RestProperties, RestRootProperties} from "./reactrest/ReactRestElements";
+import {LoadAndCompileCache, RestContext} from "./reactrest/LoadAndCompileCache";
+import {Rest, RestChild, RestProperties, RestRoot, RestRootProperties} from "./reactrest/ReactRestElements";
 import {Domain, GameData} from "./domain/Domain";
 
 
@@ -21,11 +21,16 @@ let gameJson2 = fetch("created/gameJson2.json").then(r => r.json())
 // call the api and get the result in a promise... that sounds easy enough
 // set state on the component you are in which forces a redraw
 
-function renderIt(json: any, element: HTMLElement): Promise<void> {
+function renderIt(json: GameData, element: HTMLElement): Promise<void> {
     let reactRest = new ReactRest(React.createElement, cache);
-    let rootProperties: RestRootProperties<React.ReactElement, Domain, GameData> = {reactRest: reactRest, mainJson: json, domain: new Domain()}
-    let rest = RestProperties.create(rootProperties)
-    return cache.loadFromBlob(json).then(theyAreLoaded => ReactDOM.render(<Rest rest={rest} />, element))
+    let domain = new Domain()
+    function setJson(main: GameData) {
+        console.log("setJson", main)
+        let rest: RestRootProperties<ReactElement, Domain, GameData> = {reactRest: reactRest, mainJson: main, domain: domain, setMainJson: setJson}
+        let f: (main: RestRootProperties<ReactElement, Domain, GameData>) => ReactElement = RestRoot
+        ReactDOM.render(React.createElement(f, rest), element)
+    }
+    return cache.loadFromBlob(json).then(theyAreLoaded => setJson(json))
 }
 
 

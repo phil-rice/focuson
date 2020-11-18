@@ -17,27 +17,28 @@ export class ReactRest<Element> {
 
     /** The parent can be 'self' in the case of RestRoot. It has a lens in it that goes from the 'main json' to the 'bit we are interested in'*/
     renderSelf<Domain, Main, Child>(hasRest: HasRestProperties<Element, Domain, Main, Child>): Element {
-        console.log("renderself", hasRest)
+        // console.log("renderself", hasRest)
         let rest = hasRest.rest
-        let renderUrl = this.renderUrl("_self", rest.lens.get(rest.mainJson))
+        let renderUrl = this.renderUrl("_self", rest.lens.get(rest.restRoot.mainJson))
         return this.renderUsingUrl(renderUrl, hasRest)
     }
 
     renderUrl<Main, Child>(name: string, child: any): string {
         if (child._render && name in child._render) return child._render[name]
-        throw `Cannot find renderUrl for  [${name}] in [${child}]`
+        console.log("cannot find renderurl", name, child)
+        throw `Cannot find renderUrl for  [${name}] in [${JSON.stringify(child,null, 2)}]`
     }
 
     renderUsingUrl<Domain, Main, Child>(renderUrl: string, hasRest: HasRestProperties<Element, Domain, Main, Child>): Element {
-        console.log("renderusing", renderUrl, hasRest)
+        // console.log("renderusing", renderUrl, hasRest)
         let rest = hasRest.rest
         let makeRest: MakeRestElement<Element> = this.loadAndCompileCache.getFromCache(renderUrl)
-        console.log("makeRest", makeRest)
+        // console.log("makeRest", makeRest)
         let renderFn = makeRest(rest)
-        console.log("renderFn", renderFn)
+        // console.log("renderFn", renderFn)
         checkIsFunction(renderFn)
         let element = this.create(renderFn, hasRest); //hasRest is passed because it may hold extra properties
-        console.log("element", element)
+        // console.log("element", element)
         return element
     }
 }

@@ -21,6 +21,7 @@ export interface RestRootProperties<Element, Domain, Main> {
     reactRest: ReactRest<Element>;
     mainJson: Main;
     domain: Domain
+    setMainJson: (main: Main) => void
 }
 export interface CreateRestFn<Element, Domain, Main, Child> {
     (restProperties: RestProperties<Element, Domain, Main, Child>, props: any): Element
@@ -28,20 +29,27 @@ export interface CreateRestFn<Element, Domain, Main, Child> {
 export interface HasRestProperties<Element, Domain, Main, Child> {
     rest: RestProperties<Element, Domain, Main, Child>
 }
-export class RestProperties<Element, Domain, Main, Child> implements RestRootProperties<Element, Domain, Main> {
-    reactRest: ReactRest<Element>;
-    mainJson: Main;
+export class RestProperties<Element, Domain, Main, Child>  {
+    restRoot: RestRootProperties<Element, Domain, Main>
     lens: Lens<Main, Child>;
-    domain: Domain
-    static create<Element, Domain, Main>(props: RestRootProperties<Element, Domain, Main>): RestProperties<Element, Domain, Main, Main> { return new RestProperties(props.domain, props.reactRest, props.mainJson, Lens.identity()) }
-    constructor(domain: Domain, reactRest: ReactRest<Element>, json: Main, lens: Lens<Main, Child>) {
-        this.reactRest = reactRest
-        this.mainJson = json
+
+    constructor(restRoot: RestRootProperties<Element, Domain, Main>, lens: Lens<Main, Child>) {
+        this.restRoot = restRoot
         this.lens = lens
-        this.domain = domain
     }
-    withLens<NewChild>(lens: Lens<Child, NewChild>) {return new RestProperties(this.domain, this.reactRest, this.mainJson, this.lens.andThen(lens))}
-    json() {return this.lens.get(this.mainJson)}
+    withLens<NewChild>(lens: Lens<Child, NewChild>): RestProperties<Element, Domain, Main, NewChild> {return new RestProperties(this.restRoot, this.lens.andThen(lens))}
+    json() {return this.lens.get(this.restRoot.mainJson)}
+    setJson(child: Child) {
+        console.log("setJson", child)
+        let newMain = this.lens.set(this.restRoot.mainJson, child);
+        console.log("newMain", newMain)
+        this.restRoot.setMainJson(newMain)}
+}
+
+/** The top level component */
+export function RestRoot<Element, Domain, Main>(props: RestRootProperties<Element, Domain, Main>) {
+    let rest = new RestProperties(props, Lens.identity())
+    return props.reactRest.renderSelf({rest: rest})
 }
 
 /** This represents a rest element that is rendering a part of the json 'Main'. The part it is rendering is 'Child'.
@@ -49,8 +57,8 @@ export class RestProperties<Element, Domain, Main, Child> implements RestRootPro
  */
 export function Rest<Element, Domain, Main, Child>(rest: HasRestProperties<Element, Domain, Main, Child>) {
     let actualRest = rest.rest
-    console.log("Rendering Rest", actualRest)
-    return actualRest.reactRest.renderSelf(rest)
+    // console.log("Rendering Rest", actualRest)
+    return actualRest.restRoot.reactRest.renderSelf(rest)
 }
 
 
@@ -58,17 +66,19 @@ export interface HasRestChildProperties<Element, Domain, Main, Parent, NewChild>
     rest: RestProperties<Element, Domain, Main, Parent>
     lens: Lens<Parent, NewChild>
     render: string
+    [x: string]: any
 }
 
 /** This represents a rest element that is rendering a part of the json 'Main'. The part it is rendering is 'Child'.
  * Example Main might be an order and Child might be the field representing 'an order item'
  */
 export function RestChild<Element, Domain, Main, Parent, Child>(props: HasRestChildProperties<Element, Domain, Main, Parent, Child>) {
-    console.log("Rendering Rest", props)
+    // console.log("Rendering RestChild", props)
     let parentRest = props.rest
     let j = parentRest.json()
-    let renderUrl = parentRest.reactRest.renderUrl(props.render, j)
+    let reactRest = parentRest.restRoot.reactRest;
+    let renderUrl = reactRest.renderUrl(props.render, j)
     let childRest: RestProperties<Element, Domain, Main, Child> = parentRest.withLens(props.lens)
-    return parentRest.reactRest.renderUsingUrl(renderUrl, {...props, rest: childRest})
+    return reactRest.renderUsingUrl(renderUrl, {...props, rest: childRest})
 }
 

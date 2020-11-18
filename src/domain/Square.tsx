@@ -1,11 +1,12 @@
 import {RestProperties} from "../reactrest/ReactRestElements";
-import {BoardData, Domain, GameData} from "./Domain";
+import {Domain, GameData, NoughtOrCross} from "./Domain";
 import React from "react";
 
 
-function Square(rest: RestProperties<React.ReactElement, Domain, GameData, number>): (props: any) => React.ReactElement {
+function Square(rest: RestProperties<React.ReactElement, Domain, GameData, NoughtOrCross>): (props: any) => React.ReactElement {
+    let onClick = () => rest.setJson(rest.restRoot.domain.getAndToggleNextState())
     return props => {
         console.log("Square", rest, props)
-        return React.createElement('button', {...props, className: 'square'}, rest.json())
+        return (<button className='square' onClick={onClick}>{rest.json()}</button>)
     }
 }
