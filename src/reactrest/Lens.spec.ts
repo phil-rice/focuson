@@ -1,12 +1,17 @@
-import {digestorChecker} from "./LoadAndCompileCache";
-import {lens, Lens} from "./utils";
-import exp from "constants";
+import {lens, Lens, LensBuilder} from "./utils";
 
 let a1b2ca3 = {a: 1, b: 2, c: {a: 3}}
 let list123 = [1, 2, 3]
 let lensToc = lens<any, any>(f => f.c, (m, c) => ({...m, c}))
 let lenscToa = lens<any, any>(f => f.a, (m, a) => ({...m, a}))
 let letnstoca = lensToc.andThen(lenscToa)
+
+let dragon: Dragon = {body: {chest: {stomach: {contents: ["the adventurer"]}}}}
+let dragon2: Dragon = {body: {chest: {stomach: {contents: ["the adventurer", "moreGoodness"]}}}}
+interface Dragon {body: Body}
+interface Body {chest: Chest}
+interface Chest {stomach: Stomach}
+interface Stomach {contents: any []}
 
 describe("Lens", () => {
     describe("identity", () => {
@@ -34,5 +39,27 @@ describe("Lens", () => {
     describe("lens composition", () => {
         expect(letnstoca.get(a1b2ca3)).toEqual(3)
         expect(letnstoca.set(a1b2ca3, 9)).toEqual({a: 1, b: 2, c: {a: 9}})
+        expect(letnstoca.transform(old => {
+            expect(old).toEqual(3);
+            return 9
+        })(a1b2ca3)).toEqual({a: 1, b: 2, c: {a: 9}})
+    })
+    describe("LensBuilder should allow easy constructure of lens", () => {
+        let dragonStomachL: LensBuilder<Dragon, Stomach> = Lens.for<Dragon>().then('body').then('chest').then('stomach')
+        let contentL = dragonStomachL.then('contents')
+        it("allow chained fors", () => {
+            expect(dragonStomachL.get(dragon)).toEqual(({contents: ['the adventurer']}))
+            expect(contentL.transform(old => [...old, 'moreGoodness'])(dragon)).toEqual(dragon2)
+            expect(contentL.build.transform(old => [...old, 'moreGoodness'])(dragon)).toEqual(dragon2)
+            //and nothing should have changed
+            expect(dragonStomachL.get(dragon)).toEqual(({contents: ['the adventurer']}))
+
+        })
+        it("allow the 'for' method to make 'local lens'", () => {
+            let contentL: Lens<Stomach, any[]> = dragonStomachL.for('contents')
+            expect(contentL.get({contents: [1, 2, 3]})).toEqual([1, 2, 3])
+            expect(contentL.set({contents: [1, 2, 3]}, ['a'])).toEqual({contents: ['a']})
+        })
+
     })
 })

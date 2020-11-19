@@ -1,9 +1,6 @@
 import {LoadAndCompileCache} from "./LoadAndCompileCache";
-import {HasRestProperties, RestProperties, RestRoot} from "./ReactRestElements";
+import {HasRestProperties, RestProperties} from "./ReactRestElements";
 import {checkIsFunction} from "./utils";
-import {GameData} from "../domain/Domain";
-import ReactDOM from "react-dom";
-import React from "react";
 
 
 export interface MakeRestElement<Element> {<Domain, Main, Child>(rest: RestProperties<Element, Domain, Main, Child>): (props: any) => Element}
@@ -37,15 +34,11 @@ export class ReactRest<Element> {
     }
 
     renderUsingUrl<Domain, Main, Child>(renderUrl: string, hasRest: HasRestProperties<Element, Domain, Main, Child>): Element {
-        // console.log("renderusing", renderUrl, hasRest)
         let rest = hasRest.rest
         let makeRest: MakeRestElement<Element> = this.loadAndCompileCache.getFromCache(renderUrl)
-        // console.log("makeRest", makeRest)
         let renderFn = makeRest(rest)
-        // console.log("renderFn", renderFn)
         checkIsFunction(renderFn)
         let element = this.create(renderFn, hasRest); //hasRest is passed because it may hold extra properties
-        // console.log("element", element)
         return element
     }
 }

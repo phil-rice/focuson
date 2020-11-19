@@ -79,5 +79,25 @@ function changeAndSend<T>(json: Msg, lens: Lens<Msg, T>, t: T) {
     let newJson = lens.set(json, t)
 }
 
+let dragon = {dragon: {body: {chest: {stomach: {contents: ['the adventurer']}}}}}
+interface Dragon {body: Body}
+interface Body {chest: Chest}
+interface Chest {stomach: Stomach}
+interface Stomach {contents: any[]}
+function eat(dragon: Dragon, item: any): Dragon {
+    return {
+        ...dragon,
+        body: {
+            ...dragon.body,
+            chest: {
+                ...dragon.body.chest,
+                stomach: {
+                    ...dragon.body.chest.stomach,
+                    contents: [...dragon.body.chest.stomach.contents, item]
+                }
+            }
+        }
+    }
+}
 
 

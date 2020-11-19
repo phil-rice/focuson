@@ -28,7 +28,7 @@ export class Domain {
         this.toggleNextState();
         return result;
     }
-    gameToBoardL: Lens<GameData, BoardData> = lens((g: GameData) => g._embedded, (g, _embedded) => ({...g, _embedded})).andThen(lens(g => g.board, (g, board) => ({...g, board})))
+    gameToBoardL= Lens.for<GameData>().then('_embedded').then('board')
     boardToSquaresL: Lens<BoardData, SquareData> = lens(b => b.squares, (b, squares) => ({...b, squares}))
     boardToNthL(n: number): Lens<BoardData, string> {return this.boardToSquaresL.andThen(Lens.nth(n))}
 }
