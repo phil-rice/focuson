@@ -1,15 +1,11 @@
 import React from "react";
-import {GameRest} from "./Domain";
 import {CPQFilter, CPQRest} from "./CpqDomain";
 
 
 function SimpleFilter<Parent>(rest: CPQRest<Parent, CPQFilter>): (props: any) => React.ReactElement {
+    const onChange = (event: any) => { console.log("onChange.target", rest.setJson(event.target.value)};
     return props => {
-        console.log("Got to simple filter", rest)
-        console.log("Got to simple filter with json", rest.json())
-        let json: CPQFilter = rest.json()
-        let values = json.legalValues
-        return (<select >{lega}</select>)
+        return (<select onChange={event => onChange(event)}>{rest.json().legalValues.map(v => (<option key={v}>{v}</option>))}</select>)
     }
 
     let sample = {
