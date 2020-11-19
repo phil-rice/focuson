@@ -15,7 +15,3 @@ function Game<Parent>(rest: GameRest<Parent, GameData>): (props: any) => React.R
         </div>)
     }
 }
-
-
-
-

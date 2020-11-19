@@ -40,7 +40,9 @@ export class LoadAndCompileCache<Result> {
     }
 
     findAllRenderUrls(jsonBlob: any) {    //terribly implemented: should make more efficient
+        console.log("findAllRenderUrls", jsonBlob)
         var result: string[] = []
+        if (jsonBlob===null) return result;
         if (Array.isArray(jsonBlob))
             jsonBlob.forEach(child => result = result.concat(this.findAllRenderUrls(child)))
         else if (typeof jsonBlob === 'object') {
@@ -57,7 +59,9 @@ export class LoadAndCompileCache<Result> {
     }
 
     loadFromBlob(jsonBlob: any) {
+        console.log("in loadfrom blob")
         var urls = this.findAllRenderUrls(jsonBlob)
+        console.log("urls", jsonBlob)
         return Promise.all(urls.map(url => this.loadifNeededAndCheck(url)))
     }
 

@@ -61,6 +61,9 @@ gameSha=$(copyOne Game Game)
 boardSha=$(copyOne Board Board)
 squareSha=$(copyOne Square Square)
 square2Sha=$(copyOne Square2 Square)
+cpqSha=$(copyOne Cpq Cpq)
+simpleFilterSha=$(copyOne SimpleFilter SimpleFilter)
+
 
 removeLastComma $log
 
@@ -86,3 +89,32 @@ echo '{
 }
 makeGameJson gameJson1.json $gameSha $boardSha $squareSha
 makeGameJson gameJson2.json $gameSha $boardSha $square2Sha
+
+
+function makeCpqJson(){
+  jsonName=$1
+  cpqSha=$2
+  makeSha=$3
+  modelSha=$4
+  echo '{
+      "_links": {"_self": {"href": "api/filterList/filterList1"}},
+      "_render": {"_self": "created/Cpq/'$cpqSha'"},
+      "pageIndex": 0,
+      "pageCount": 3,
+      "makeFilter": {
+          "_render": {"_self": "created/simpleFilter/'$makeSha'"},
+          "filterName": "filterlist.make",
+          "selected": null,
+          "legalValues": ["Audi", "BMW", "Tesla"]
+      },
+      "modelFilter": {
+          "_render": {"_self": "created/simpleFilter/'$modelSha'"},
+          "filterName": "filterlist.model",
+          "selected": null,
+          "legalValues": ["Audi A10", "BMW series 6", "Tesla Roadster"]
+      }
+  }' > $targetDir/$jsonName
+}
+
+makeCpqJson cpqJson1.json $cpqSha $simpleFilterSha $simpleFilterSha
+makeCpqJson cpqJson2.json $cpqSha $simpleFilterSha $simpleFilterSha
