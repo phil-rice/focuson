@@ -1,6 +1,6 @@
 import React from "react";
 import {ReactRest} from "./reactRest";
-import {Lens, LensBuilder} from "./utils";
+import {Lens, LensBuilder, Tuple} from "./utils";
 
 //Why all the messing around with 'Element' instead of just using React.Element
 //The answer is threefold
@@ -68,6 +68,12 @@ export class RestProperties<Element, Domain, Main, Child> {
         let newMain = this.lens.set(this.restRoot.mainJson, child);
         console.log("newMain", newMain)
         this.restRoot.setMainJson(newMain)
+    }
+    setFrom2Lens<C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>, fn: (c1: C1, c2: C2) => Tuple<C1, C2>) {
+        let mainJson = this.restRoot.mainJson;
+        let tuple = fn(lens1.get(mainJson), lens2.get(mainJson))
+        let newJson = lens2.set(lens1.set(mainJson, tuple.one), tuple.two)
+        this.restRoot.setMainJson(newJson)
     }
 }
 

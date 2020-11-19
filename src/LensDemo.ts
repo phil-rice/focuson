@@ -79,11 +79,13 @@ function changeAndSend<T>(json: Msg, lens: Lens<Msg, T>, t: T) {
     let newJson = lens.set(json, t)
 }
 
-let dragon : Dragon = {body: {chest: {stomach: {contents: ['the adventurer']}}}}
-interface Dragon {body: Body}
+let dragon: Dragon = {body: {chest: {stomach: {contents: ['the adventurer']}}}, head: {eyeCount: 1}}
+interface Dragon {body: Body, head: Head}
 interface Body {chest: Chest}
+interface Head {eyeCount: number}
 interface Chest {stomach: Stomach}
 interface Stomach {contents: any[]}
+
 
 function eat(dragon: Dragon, item: any): Dragon {
     return {
@@ -100,28 +102,4 @@ function eat(dragon: Dragon, item: any): Dragon {
         }
     }
 }
-
-function damage(dragon: Dragon, item: any): Dragon {
-    return {
-        ...dragon,
-        body: {
-            ...dragon.body,
-            chest: {
-                ...dragon.body.chest,
-                stomach: {
-                    ...dragon.body.chest.stomach,
-                    contents: [...dragon.body.chest.stomach.contents, item]
-                }
-            }
-        }
-    }
-}
-
-
-
-let dragonToStomachContentsL: Lens<Dragon, any[]> = Lens.build<Dragon>().then('body').then('chest').then('stomach').then('contents')
-console.log(dragonToStomachContentsL.get(dragon))
-let newDragon: Dragon = dragonToStomachContentsL.transform( (oldContents: any[]) => [...oldContents, 'newContents'])(dragon)
-
-dragonToStomachContentsL.transform(oldcontents => [...oldcontents, "newThing"])
 

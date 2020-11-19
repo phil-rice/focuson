@@ -31,7 +31,7 @@ export function toLens<Main, Child>(f: LensFactory<Main, Child>): Lens<Main, Chi
     return lens(f.get, f.set)
 }
 
-interface Tuple<T1, T2> {
+export interface Tuple<T1, T2> {
     one: T1,
     two: T2
 }
@@ -39,16 +39,17 @@ interface Tuple<T1, T2> {
 export class Lens<Main, Child> {
     static identity<M>(): Lens<M, M> {return lens(m => m, (m, c) => c)}
     static nth<T>(n: number): Lens<T[], T> {
-        return lens(arr => arr[n], (main, value) => {
-            let result = main.slice();
-            result[n] = value;
-            return result
-        })
+        return lens(arr => arr[n],
+            (main, value) => {
+                let result = main.slice();
+                result[n] = value;
+                return result
+            })
     }
     get: (m: Main) => Child;
     set: (m: Main, newChild: Child) => Main;
 
-    static setTuple<Main, C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>): Lens<Main, Tuple<C1, C2>> {
+    static tuple<Main, C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>): Lens<Main, Tuple<C1, C2>> {
         let get = (main: Main) => ({one: lens1.get(main), two: lens2.get(main)})
         let set = (main: Main, tuple: Tuple<C1, C2>) => lens1.set(lens2.set(main, tuple.two), tuple.one)
         return new Lens(get, set)
@@ -69,6 +70,7 @@ export class Lens<Main, Child> {
             (m: Main, c: NewChild) => this.set(m, l.set(this.get(m), c)))
     }
     transform(fn: (oldChild: Child) => Child): (m: Main) => Main { return m => this.set(m, fn(this.get(m)))}
+    transformInSitu(m: Main, fn: (oldChild: Child) => Child) { return this.set(m, fn(this.get(m)))}
     static build = <Main>(): LensBuilder<Main, Main> => new LensBuilder<Main, Main>(Lens.identity());
 }
 

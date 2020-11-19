@@ -6,8 +6,7 @@ import {SHA256} from 'crypto-js'
 import {MakeRestElement, ReactRest} from "./reactrest/reactRest";
 import {digestorChecker, LoadAndCompileCache} from "./reactrest/LoadAndCompileCache";
 import {RestRoot} from "./reactrest/ReactRestElements";
-import {Domain, GameData} from "./domain/Domain";
-import {CPQ, CPQFilter} from "./domain/CpqDomain";
+import {Domain} from "./domain/Domain";
 
 
 let loader = (url: string) => fetch(url).then(response => response.text())
@@ -16,20 +15,22 @@ let cache = new LoadAndCompileCache<MakeRestElement<React.Element>>(loader, dige
 let domain = new Domain()
 let reactRest = new ReactRest(React.createElement, cache);
 
-// function setJson(element: HTMLElement) {
-//     return (main: GameData) => ReactDOM.render(<RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setJson(element)}/>, element)
+const setJson = (element: HTMLElement) => <Main extends any>(main: Main) =>
+    ReactDOM.render(<RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setJson(element)}/>, element);
+
+// function setCpqJson(element: HTMLElement) {
+//     return (main: CPQ) => {
+//         console.log("setCpqJson", main)
+//         return ReactDOM.render(
+//             <RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setCpqJson(element)}/>, element)
+//     }
 // }
 
-function setCpqJson(element: HTMLElement) {
-    return (main: CPQ) => {
-        console.log("setCpqJson", main)
-        return ReactDOM.render(
-            <RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setCpqJson(element)}/>, element)
-    }
-}
+let game = document.getElementById('game');
+if (game === null) throw Error(`Must have an element called root, and can't find it`)
 
-let root = document.getElementById('root');
+let cpq = document.getElementById('cpq');
+if (cpq === null) throw Error(`Must have an element called cpq, and can't find it`)
 
-if (root === null) throw Error(`Must have an element called root, and can't find it`)
-
-reactRest.loadAndRender("created/cpqJson1.json", setCpqJson(root))
+reactRest.loadAndRender("created/gameJson1.json", setJson(game))
+reactRest.loadAndRender("created/cpqJson1.json", setJson(cpq))

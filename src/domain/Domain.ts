@@ -29,7 +29,7 @@ export interface HasStateLens<Parent> {
 }
 
 export class Domain {
-    invert(n: NoughtOrCross): NoughtOrCross {return (this.nextState === "X") ? "O" : "X"}
+    invert(n: NoughtOrCross): NoughtOrCross {return (n === "X") ? "O" : "X"}
     nextState: NoughtOrCross = "X"
     toggleNextState() {return this.nextState = (this.nextState === "X") ? "O" : "X"}
     getAndToggleNextState(): NoughtOrCross {

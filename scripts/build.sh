@@ -77,6 +77,7 @@ function makeGameJson(){
 echo '{
     "_links": {"_self": {"href": "created/'$jsonName'"}, "game1":{"href":"created/gameJson1.json"}, "game2":{"href":"created/gameJson2.json"}},
     "_render": {"_self": "created/game/'$gameSha'"},
+    "state": "X",
     "gameData": "Some game data properties could go here",
     "_embedded": {
         "board": {
