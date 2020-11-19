@@ -54,7 +54,7 @@ export class Lens<Main, Child> {
             (m: Main, c: NewChild) => this.set(m, l.set(this.get(m), c)))
     }
     transform(fn: (oldChild: Child) => Child): (m: Main) => Main { return m => this.set(m, fn(this.get(m)))}
-    static for = <Main>(): LensBuilder<Main, Main> => new LensBuilder<Main, Main>(Lens.identity());
+    static build = <Main>(): LensBuilder<Main, Main> => new LensBuilder<Main, Main>(Lens.identity());
 }
 
 export class LensBuilder<Main, Child> extends Lens<Main, Child> {
@@ -63,11 +63,11 @@ export class LensBuilder<Main, Child> extends Lens<Main, Child> {
         super(lens.get, lens.set);
         this.build = lens
     }
-    for = <K extends keyof Child>(fieldName: K): Lens<Child, Child[K]> => new Lens<Child, Child[K]>(m => m[fieldName], (m, c) => {
+    field = <K extends keyof Child>(fieldName: K): Lens<Child, Child[K]> => new Lens<Child, Child[K]>(m => m[fieldName], (m, c) => {
         let result = Object.assign({}, m)
         result[fieldName] = c
         return result
     })
-    then = <K extends keyof Child>(fieldName: K): LensBuilder<Main, Child[K]> => new LensBuilder<Main, Child[K]>(this.andThen(this.for(fieldName)));
+    then = <K extends keyof Child>(fieldName: K): LensBuilder<Main, Child[K]> => new LensBuilder<Main, Child[K]>(this.andThen(this.field(fieldName)));
     andThen<NewChild>(l: Lens<Child, NewChild>): Lens<Main, NewChild> { return new LensBuilder(super.andThen(l)) }
 }

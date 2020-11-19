@@ -1,10 +1,13 @@
 import {Rest, RestChild} from "./ReactRestElements";
+import {Lens} from "./utils";
 
 
 // @ts-ignore
 window.Rest=Rest
 // @ts-ignore
 window.RestChild=RestChild
+// @ts-ignore
+window.Lens=Lens
 
 /** blows up if mismatch*/
 export type UrlAndValueChecker = (url: string, value: string) => void

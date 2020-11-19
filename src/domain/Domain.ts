@@ -1,4 +1,7 @@
-import {lens, Lens} from "../reactrest/utils";
+import {RestProperties} from "../reactrest/ReactRestElements";
+import React from "react";
+
+export type GameRest<Parent, Child> = RestProperties<React.ReactElement, Domain, Parent, Child>
 
 export interface Link {
     href: string
@@ -17,7 +20,7 @@ export interface BoardData extends SelfLink {
     squares: SquareData
     _render: { _self: string, square: string }
 }
-export type    SquareData = string[]
+export type SquareData = string[]
 
 
 export class Domain {
@@ -28,8 +31,5 @@ export class Domain {
         this.toggleNextState();
         return result;
     }
-    gameToBoardL= Lens.for<GameData>().then('_embedded').then('board')
-    boardToSquaresL: Lens<BoardData, SquareData> = lens(b => b.squares, (b, squares) => ({...b, squares}))
-    boardToNthL(n: number): Lens<BoardData, string> {return this.boardToSquaresL.andThen(Lens.nth(n))}
 }
 

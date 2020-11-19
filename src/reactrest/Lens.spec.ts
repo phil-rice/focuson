@@ -45,7 +45,7 @@ describe("Lens", () => {
         })(a1b2ca3)).toEqual({a: 1, b: 2, c: {a: 9}})
     })
     describe("LensBuilder should allow easy constructure of lens", () => {
-        let dragonStomachL: LensBuilder<Dragon, Stomach> = Lens.for<Dragon>().then('body').then('chest').then('stomach')
+        let dragonStomachL: LensBuilder<Dragon, Stomach> = Lens.build<Dragon>().then('body').then('chest').then('stomach')
         let contentL = dragonStomachL.then('contents')
         it("allow chained fors", () => {
             expect(dragonStomachL.get(dragon)).toEqual(({contents: ['the adventurer']}))
@@ -56,7 +56,7 @@ describe("Lens", () => {
 
         })
         it("allow the 'for' method to make 'local lens'", () => {
-            let contentL: Lens<Stomach, any[]> = dragonStomachL.for('contents')
+            let contentL: Lens<Stomach, any[]> = dragonStomachL.field('contents')
             expect(contentL.get({contents: [1, 2, 3]})).toEqual([1, 2, 3])
             expect(contentL.set({contents: [1, 2, 3]}, ['a'])).toEqual({contents: ['a']})
         })

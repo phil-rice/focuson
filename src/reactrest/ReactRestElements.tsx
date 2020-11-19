@@ -1,6 +1,6 @@
 import React from "react";
 import {ReactRest} from "./reactRest";
-import {Lens} from "./utils";
+import {Lens, LensBuilder} from "./utils";
 
 //Why all the messing around with 'Element' instead of just using React.Element
 //The answer is threefold
@@ -26,7 +26,7 @@ export interface CreateRestFn<Element, Domain, Main, Child> {
 export interface HasRestProperties<Element, Domain, Main, Child> {
     rest: RestProperties<Element, Domain, Main, Child>
 }
-export class RestProperties<Element, Domain, Main, Child>  {
+export class RestProperties<Element, Domain, Main, Child> {
     restRoot: RestRootProperties<Element, Domain, Main>
     lens: Lens<Main, Child>;
 
@@ -34,14 +34,40 @@ export class RestProperties<Element, Domain, Main, Child>  {
         this.restRoot = restRoot
         this.lens = lens
     }
+    then = <K extends keyof Child>(fieldName: K): RestProperties<Element, Domain, Main, Child[K]> => this.withLens(new LensBuilder(this.lens).field(fieldName))
+    fieldLens = <K extends keyof Child>(fieldName: K): Lens<Child, Child[K]> => Lens.build<Child>().field(fieldName)
+
+    static link(json: any, name: string): undefined | string {
+        let links: any = json['_links']
+        if (links) {
+            let link = links[name]
+            if (link) {
+                let href = link['href']
+                if (href)
+                    return href
+            }
+        }
+        return undefined
+    }
+    loadAndRenderLink(name: string) {
+        let json: any = this.json()
+        let l = RestProperties.link(json, name)
+        if (!l) {
+            console.log('loadAndRenderLink: no link', json);
+            throw Error('No link: ' + JSON.stringify(json))
+        }
+        this.restRoot.reactRest.loadAndRender(l, this.restRoot.setMainJson)
+    }
+
     withLens<NewChild>(lens: Lens<Child, NewChild>): RestProperties<Element, Domain, Main, NewChild> {return new RestProperties(this.restRoot, this.lens.andThen(lens))}
     json() {return this.lens.get(this.restRoot.mainJson)}
-    domain(){return this.restRoot.domain}
+    domain() {return this.restRoot.domain}
     setJson(child: Child) {
         console.log("setJson", child)
         let newMain = this.lens.set(this.restRoot.mainJson, child);
         console.log("newMain", newMain)
-        this.restRoot.setMainJson(newMain)}
+        this.restRoot.setMainJson(newMain)
+    }
 }
 
 /** The top level component */
@@ -61,7 +87,7 @@ export function Rest<Element, Domain, Main, Child>(rest: HasRestProperties<Eleme
 
 
 export interface HasRestChildProperties<Element, Domain, Main, Parent, NewChild> {
-    rest: RestProperties<Element, Domain, Main, Parent>
+    parentRest: RestProperties<Element, Domain, Main, Parent>
     lens: Lens<Parent, NewChild>
     render: string
     [x: string]: any
@@ -72,7 +98,7 @@ export interface HasRestChildProperties<Element, Domain, Main, Parent, NewChild>
  */
 export function RestChild<Element, Domain, Main, Parent, Child>(props: HasRestChildProperties<Element, Domain, Main, Parent, Child>) {
     // console.log("Rendering RestChild", props)
-    let parentRest = props.rest
+    let parentRest = props.parentRest
     let j = parentRest.json()
     let reactRest = parentRest.restRoot.reactRest;
     let renderUrl = reactRest.renderUrl(props.render, j)

@@ -1,11 +1,11 @@
 import React from 'react';
-import {RestChild, RestProperties} from "../reactrest/ReactRestElements";
-import {BoardData, Domain, GameData} from "./Domain";
+import {RestChild} from "../reactrest/ReactRestElements";
+import {BoardData, GameRest} from "./Domain";
+import {Lens} from "../reactrest/utils";
 
-type R<T> = RestProperties<React.ReactElement, Domain, GameData, T>
 
-function Board(rest: R<BoardData>): (props: any) => React.ReactElement {
-    let sq = (n: number) => (<RestChild render='square' rest={rest} lens={rest.domain().boardToNthL(n)}/>)
+function Board<Parent>(rest: GameRest<Parent,BoardData>): (props: any) => React.ReactElement {
+    let sq = (n: number) => (<RestChild render='square' parentRest={rest} lens={rest.fieldLens('squares').andThen(Lens.nth(n))}/>)
     return props => {
         return (
             <div>
