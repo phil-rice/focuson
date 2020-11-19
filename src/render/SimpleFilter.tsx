@@ -1,5 +1,6 @@
 import React from "react";
-import {CPQFilter, CPQRest} from "./CpqDomain";
+import {CPQFilter, CPQRest} from "../domain/CpqDomain";
+
 
 
 function SimpleFilter<Parent>(rest: CPQRest<Parent, CPQFilter>): (props: any) => React.ReactElement {

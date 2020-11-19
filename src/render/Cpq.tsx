@@ -1,6 +1,7 @@
 import React from "react";
-import {CPQ, CPQRest} from "./CpqDomain";
+
 import {Rest} from "../reactrest/ReactRestElements";
+import {CPQ, CPQRest} from "../domain/CpqDomain";
 
 
 function Cpq<Parent>(rest: CPQRest<Parent, CPQ>): (props: any) => React.ReactElement {

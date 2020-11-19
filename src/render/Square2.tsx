@@ -1,4 +1,4 @@
-import {GameData, GameRest, NoughtOrCross} from "./Domain";
+import {GameData, GameRest, NoughtOrCross} from "../domain/Domain";
 import React from "react";
 
 function Square(rest: GameRest<GameData, NoughtOrCross>): (props: any) => React.ReactElement {

@@ -1,7 +1,8 @@
 import React from 'react';
 import {RestChild} from "../reactrest/ReactRestElements";
-import {BoardData, GameRest, HasStateLens} from "./Domain";
+
 import {Lens} from "../reactrest/utils";
+import {BoardData, GameRest, HasStateLens} from "../domain/Domain";
 
 
 function Board<Parent>(rest: GameRest<Parent, BoardData>): (props: HasStateLens<Parent>) => React.ReactElement {

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Rest} from "../reactrest/ReactRestElements";
-import {GameData, GameRest} from "./Domain";
+import {GameData, GameRest} from "../domain/Domain";
+
 
 function Game<Parent>(rest: GameRest<Parent, GameData>): (props: any) => React.ReactElement {
     return props => {

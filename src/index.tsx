@@ -25,12 +25,12 @@ const setJson = (element: HTMLElement) => <Main extends any>(main: Main) =>
 //             <RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setCpqJson(element)}/>, element)
 //     }
 // }
+function get(name: string) {
+    let result = document.getElementById(name);
+    if (result === null) throw Error(`Must have an element called ${name}, and can't find it`)
+    return result
+}
 
-let game = document.getElementById('game');
-if (game === null) throw Error(`Must have an element called root, and can't find it`)
-
-let cpq = document.getElementById('cpq');
-if (cpq === null) throw Error(`Must have an element called cpq, and can't find it`)
-
-reactRest.loadAndRender("created/gameJson1.json", setJson(game))
-reactRest.loadAndRender("created/cpqJson1.json", setJson(cpq))
+reactRest.loadAndRender("created/index.json", setJson(get('nav')))
+reactRest.loadAndRender("created/gameJson1.json", setJson(get('game')))
+reactRest.loadAndRender("created/cpqJson1.json", setJson(get('cpq')))

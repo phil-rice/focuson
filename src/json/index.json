@@ -1,0 +1,23 @@
+{
+  "_render": {
+    "_self"       : "#Nav/render#",
+    "Nav"         : "#Nav/render#",
+    "NavGroup"    : "#NavGroup/render#",
+    "Square"      : "#Square/render#",
+    "Board"       : "#Board/render#",
+    "Game"        : "#Game/render#",
+    "Cpq"         : "#Cpq/render#",
+    "SimpleFilter": "#SimpleFilter/render#"
+  },
+  "groups" : [
+    {
+      "name"     : "game",
+      "jsonFiles": ["created/gameJson1.json", "created/gameJson2.json"],
+      "_render"  : {"_self": "#NavGroup/render#"}
+    }, {
+      "name"     : "cpq",
+      "jsonFiles": ["created/cpqJson1.json", "created/cpqJson2.json"],
+      "_render"  : {"_self": "#NavGroup/render#"}
+    }
+  ]
+}
