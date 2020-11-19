@@ -25,6 +25,7 @@ export interface CreateRestFn<Element, Domain, Main, Child> {
 }
 export interface HasRestProperties<Element, Domain, Main, Child> {
     rest: RestProperties<Element, Domain, Main, Child>
+    [x: string]: any
 }
 export class RestProperties<Element, Domain, Main, Child> {
     restRoot: RestRootProperties<Element, Domain, Main>

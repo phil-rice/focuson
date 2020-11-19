@@ -1,5 +1,6 @@
 import {RestProperties} from "../reactrest/ReactRestElements";
 import React from "react";
+import {Lens} from "../reactrest/utils";
 
 export type GameRest<Parent, Child> = RestProperties<React.ReactElement, Domain, Parent, Child>
 
@@ -11,6 +12,7 @@ export interface SelfLink {
 }
 export type NoughtOrCross = "O" | "X" | ""
 export interface GameData extends SelfLink {
+    state: NoughtOrCross
     _embedded: { board: BoardData }
     _render: { _self: string }
     _links: { _self: Link, game1: Link, game2: Link }
@@ -22,8 +24,12 @@ export interface BoardData extends SelfLink {
 }
 export type SquareData = string[]
 
+export interface HasStateLens<Parent> {
+    stateLens: Lens<Parent, NoughtOrCross>
+}
 
 export class Domain {
+    invert(n: NoughtOrCross): NoughtOrCross {return (this.nextState === "X") ? "O" : "X"}
     nextState: NoughtOrCross = "X"
     toggleNextState() {return this.nextState = (this.nextState === "X") ? "O" : "X"}
     getAndToggleNextState(): NoughtOrCross {

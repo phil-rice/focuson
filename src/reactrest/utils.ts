@@ -31,6 +31,10 @@ export function toLens<Main, Child>(f: LensFactory<Main, Child>): Lens<Main, Chi
     return lens(f.get, f.set)
 }
 
+interface Tuple<T1, T2> {
+    one: T1,
+    two: T2
+}
 
 export class Lens<Main, Child> {
     static identity<M>(): Lens<M, M> {return lens(m => m, (m, c) => c)}
@@ -43,6 +47,17 @@ export class Lens<Main, Child> {
     }
     get: (m: Main) => Child;
     set: (m: Main, newChild: Child) => Main;
+
+    static setTuple<Main, C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>): Lens<Main, Tuple<C1, C2>> {
+        let get = (main: Main) => ({one: lens1.get(main), two: lens2.get(main)})
+        let set = (main: Main, tuple: Tuple<C1, C2>) => lens1.set(lens2.set(main, tuple.two), tuple.one)
+        return new Lens(get, set)
+    }
+
+    static transform<Main, C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>) {
+        return (main: Main, c1: C1, c2: C2) => lens1.set(lens2.set(main, c2), c1)
+
+    }
     constructor(get: (m: Main) => Child, set: (m: Main, newChild: Child) => Main) {
         this.get = get;
         this.set = set;
