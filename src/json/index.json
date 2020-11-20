@@ -16,7 +16,13 @@
       "_render"  : {"_self": "#NavGroup/render#"}
     }, {
       "name"     : "cpq",
-      "jsonFiles": ["created/cpqJson1.json", "created/cpqJson2.json"],
+      "jsonFiles": [
+        "created/cpqNothingSelected.json",
+        "created/cpqMakeSelected.json",
+        "created/cpqMakeAndModelSelected.json",
+        "created/cpqMakeAndModelAndTransmissionSelected.json",
+        "created/cpqMakeAndModelAndTransmissionAndFuelTypeSelected.json"
+      ],
       "_render"  : {"_self": "#NavGroup/render#"}
     }
   ]
