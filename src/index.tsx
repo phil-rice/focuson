@@ -29,10 +29,10 @@ const setJson = <Domain extends any>(domain: Domain, element: HTMLElement) => <M
 
 interface DomainMap {
     game: GameDomain,
-    nav: NavDomain,
+    nav: NavDomain<DomainMap>,
     cpq: CpqDomain
 }
-let domainMap: DomainMap = {game: new GameDomain(), nav: new NavDomain(), cpq: new CpqDomain()}
+let domainMap: DomainMap = {game: new GameDomain(), nav: new NavDomain(loadUrlAndPutInElement, 'target'), cpq: new CpqDomain()}
 
 export function fromMap<M, K extends keyof M>(map: M, key: K): M[K] {
     let domain = map[key]
@@ -49,5 +49,4 @@ function loadUrlAndPutInElement(domainName: keyof DomainMap, url: string, name: 
     reactRest.loadAndRender(url, setJson(fromMap(domainMap, domainName), getElement(name)))
 }
 loadUrlAndPutInElement('nav', "created/index.json", 'nav')
-loadUrlAndPutInElement('game', "created/gameJson1.json", 'game')
-loadUrlAndPutInElement('cpq', "created/cpqJson1.json", 'cpq')
+loadUrlAndPutInElement('cpq', "created/cpqJson1.json", 'root')

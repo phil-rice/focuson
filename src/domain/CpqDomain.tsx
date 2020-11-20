@@ -18,7 +18,7 @@ export interface CqpFilter extends SelfRender {
 }
 
 export class CpqDomain {
-    makeSelected(selected: string | null, values: string[]) {
+    makeOptions(selected: string | null, values: string[]) {
         let option = (value: string) => (selected === value) ?
             (<option key={value} selected>{value}</option>) :
             (<option key={value}>{value}</option>)

@@ -36,7 +36,10 @@ export class ReactRest<Element> {
     renderUsingUrl<Domain, Main, Parent, Child>(renderUrl: string, hasRest: HasRestProperties<Element, Domain, Main, Parent, Child>): Element {
         let rest = hasRest.rest
         let makeRest: MakeRestElement<Element> = this.loadAndCompileCache.getFromCache(renderUrl)
+        let name = renderUrl.split("/").reverse()[1]
         let renderFn = makeRest(rest)
+        // @ts-ignore
+        renderFn.displayName = name
         checkIsFunction(renderFn)
         let element = this.create(renderFn, hasRest); //hasRest is passed because it may hold extra properties
         return element

@@ -3,9 +3,10 @@ import React from "react";
 import {GameData} from "./GameDomain";
 
 export interface NavProperties {
-    loadUrlAndPutInElement: (domainName: string, url: string, name: string) => void}
 
-export type NavRest<Parent, Child> = RestProperties<React.ReactElement, NavDomain, GameData, Parent, Child>
+}
+
+export type NavRest<Parent, Child> = RestProperties<React.ReactElement, NavDomain<any>, GameData, Parent, Child>
 
 interface SelfRender {
     _render: { _self: string }
@@ -21,5 +22,13 @@ export interface NavGroupData extends SelfRender {
     "jsonFiles": string[]
 }
 
-export class NavDomain {}
+export class NavDomain <DomainMap>{
+    loadUrlAndPutInElement: <K extends keyof DomainMap>(domainName: K, url: string, name: string) => void
+    target: string
+
+    constructor(loadUrlAndPutInElement: <K extends keyof DomainMap>(domainName: K, url: string, name: string) => void, target: string) {
+        this.loadUrlAndPutInElement = loadUrlAndPutInElement
+        this.target = target
+    }
+}
 

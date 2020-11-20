@@ -60,7 +60,6 @@ export class RestProperties<Element, Domain, Main, Parent, Child> {
         }
         this.restRoot.reactRest.loadAndRender(l, this.restRoot.setMainJson)
     }
-
     withLens<NewChild>(lens: Lens<Child, NewChild>): RestProperties<Element, Domain, Main, Child, NewChild> {
         return new RestProperties<Element, Domain, Main, Child, NewChild>(this.restRoot, this.lens.andThen(lens))
     }

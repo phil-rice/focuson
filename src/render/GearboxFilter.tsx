@@ -6,10 +6,10 @@ function GearboxFilter<Parent>(rest: CqpRest<Parent, CqpFilter>): (props: any) =
     const onChange = (event: any) => { console.log("onChange.target", event.target.value)};
     let filterJson = rest.json();
     return props => {
-        let options = rest.domain().makeSelected(filterJson.selected, rest.json().legalValues);
-        return (<div>
+        let options = rest.domain().makeOptions(filterJson.selected, rest.json().legalValues);
+        return (<div key={filterJson.filterName}>
             Gearbox Filter
-            <select key={filterJson.filterName} onChange={event => onChange(event)}>{options}</select>
+            <select  onChange={event => onChange(event)}>{options}</select>
         </div>);
     }
 
