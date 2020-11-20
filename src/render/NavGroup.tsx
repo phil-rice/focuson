@@ -1,18 +1,18 @@
 import React from "react";
-
-import {Rest} from "../reactrest/ReactRestElements";
-import {CPQ, CPQRest} from "../domain/CpqDomain";
-import {NavData, NavGroupData, NavRest} from "../domain/NavDomain";
-import {Lens} from "../reactrest/utils";
+import {NavGroupData, NavProperties, NavRest} from "../domain/NavDomain";
+import {checkIsFunction} from "../reactrest/utils";
 
 
-function NavGroup<Parent>(rest: NavRest<Parent, NavGroupData>): (props: any) => React.ReactElement {
+function NavGroup<Parent>(rest: NavRest<Parent, NavGroupData>): (props: NavProperties<Parent>) => React.ReactElement {
     return props => {
+        console.log("loadUrlAndPutInElement", props.loadUrlAndPutInElement)
         let name = rest.json().name
-        let group = rest.json().jsonFiles.map((j, i) => (<li key={i}><a>{j}</a></li>))
-        return (<ul>
-            <li key={-1}>{rest.json().name}</li>
-            {group}
-        </ul>)
+        let group = rest.json().jsonFiles.map((url, i) => (<li key={url}><a onClick={() => props.loadUrlAndPutInElement(url, name)}>{url}</a></li>))
+        return (<React.Fragment>
+            <li key={'groupName'}>{rest.json().name}</li>
+            <ul key={'navGroup' + name}>
+                {group}
+            </ul>
+        </React.Fragment>)
     }
 }

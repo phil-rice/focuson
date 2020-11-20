@@ -39,7 +39,8 @@ function copyOne(){
     babel $from$ext --out-dir $tempOutDir > /dev/null
   )
   echo >>$tempOutFile
-  echo "return $from" >> $tempOutFile
+
+  echo "return $from"| sed -e ' s/Square2/Square/'  >> $tempOutFile
   read sha junk <<< $(sha256sum "$tempOutFile")
 
   to="$parent/$sha"

@@ -3,11 +3,11 @@ import {Lens} from "./utils";
 
 
 // @ts-ignore
-window.Rest=Rest
+window.Rest = Rest
 // @ts-ignore
-window.RestChild=RestChild
+window.RestChild = RestChild
 // @ts-ignore
-window.Lens=Lens
+window.Lens = Lens
 
 /** blows up if mismatch*/
 export type UrlAndValueChecker = (url: string, value: string) => void
@@ -40,9 +40,8 @@ export class LoadAndCompileCache<Result> {
     }
 
     findAllRenderUrls(jsonBlob: any) {    //terribly implemented: should make more efficient
-        console.log("findAllRenderUrls", jsonBlob)
         var result: string[] = []
-        if (jsonBlob===null) return result;
+        if (jsonBlob === null) return result;
         if (Array.isArray(jsonBlob))
             jsonBlob.forEach(child => result = result.concat(this.findAllRenderUrls(child)))
         else if (typeof jsonBlob === 'object') {
@@ -59,9 +58,7 @@ export class LoadAndCompileCache<Result> {
     }
 
     loadFromBlob(jsonBlob: any) {
-        console.log("in loadfrom blob")
         var urls = this.findAllRenderUrls(jsonBlob)
-        console.log("urls", jsonBlob)
         return Promise.all(urls.map(url => this.loadifNeededAndCheck(url)))
     }
 

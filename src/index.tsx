@@ -15,14 +15,16 @@ let cache = new LoadAndCompileCache<MakeRestElement<React.Element>>(loader, dige
 let domain = new Domain()
 let reactRest = new ReactRest(React.createElement, cache);
 
-const setJson = (element: HTMLElement) => <Main extends any>(main: Main) =>
-    ReactDOM.render(<RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setJson(element)}/>, element);
+function loadUrlAndPutInElement(url: string, name: string) { reactRest.loadAndRender(url, setJson(get(name)))}
 
+const setJson = (element: HTMLElement) => <Main extends any>(main: Main) => {
+    ReactDOM.render(<RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setJson(element)} loadUrlAndPutInElement={loadUrlAndPutInElement}/>, element);
+}
 // function setCpqJson(element: HTMLElement) {
 //     return (main: CPQ) => {
 //         console.log("setCpqJson", main)
 //         return ReactDOM.render(
-//             <RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setCpqJson(element)}/>, element)
+//             <RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setCpqJson(element)} loadUrlAndPutInElement={setJson}/>, element)
 //     }
 // }
 function get(name: string) {
@@ -31,6 +33,6 @@ function get(name: string) {
     return result
 }
 
-reactRest.loadAndRender("created/index.json", setJson(get('nav')))
-reactRest.loadAndRender("created/gameJson1.json", setJson(get('game')))
-reactRest.loadAndRender("created/cpqJson1.json", setJson(get('cpq')))
+loadUrlAndPutInElement("created/index.json", 'nav')
+loadUrlAndPutInElement("created/gameJson1.json", 'game')
+loadUrlAndPutInElement("created/cpqJson1.json", 'cpq')

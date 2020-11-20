@@ -19,6 +19,7 @@ export interface RestRootProperties<Element, Domain, Main> {
     mainJson: Main;
     domain: Domain
     setMainJson: (main: Main) => void
+    [a: string]: any
 }
 export interface CreateRestFn<Element, Domain, Main, Child> {
     (restProperties: RestProperties<Element, Domain, Main, Child>, props: any): Element
@@ -80,7 +81,7 @@ export class RestProperties<Element, Domain, Main, Child> {
 /** The top level component */
 export function RestRoot<Element, Domain, Main>(props: RestRootProperties<Element, Domain, Main>) {
     let rest = new RestProperties(props, Lens.identity())
-    return props.reactRest.renderSelf({rest: rest})
+    return props.reactRest.renderSelf({...props, rest: rest})
 }
 
 /** This represents a rest element that is rendering a part of the json 'Main'. The part it is rendering is 'Child'.
