@@ -27,10 +27,10 @@ export class ReactRest<Element> {
         return this.renderUsingUrl(renderUrl, hasRest)
     }
 
-    renderUrl<Main, Child>(name: string, child: any): string {
+    renderUrl(name: string, child: any): string {
         if (child._render && name in child._render) return child._render[name]
         console.log("cannot find renderurl", name, child)
-        throw `Cannot find renderUrl for  [${name}] in [${JSON.stringify(child, null, 2)}]`
+        throw Error(`Cannot find renderUrl for  [${name}] in [${JSON.stringify(child, null, 2)}]`)
     }
 
     renderUsingUrl<Domain, Main, Parent, Child>(renderUrl: string, hasRest: HasRestProperties<Element, Domain, Main, Parent, Child>): Element {

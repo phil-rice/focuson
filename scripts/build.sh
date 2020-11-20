@@ -36,15 +36,16 @@ function copyOne(){
   removeImports < $file > $tempFile
   (
     cd $tempDir
-    babel $from$ext --out-dir $tempOutDir > /dev/null
-  )
+    babel $from$ext --out-dir $tempOutDir --source-maps true> /dev/null
+    )
   echo >>$tempOutFile
-
   echo "return $from"| sed -e ' s/Square2/Square/'  >> $tempOutFile
+
   read sha junk <<< $(sha256sum "$tempOutFile")
 
   to="$parent/$sha"
   cp $tempOutFile $to
+#  cp $tempOutFile.map $to.map   //reenable if you want to have the source maps next to the file
   url="$urlRoot/$from/$sha"
   printf "    -e 's^#$from/render#^$url^g'  "  >> "$shasFile"
   echo "  $sha"
