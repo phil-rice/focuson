@@ -1,6 +1,7 @@
 import {GameData, GameRest, HasStateLens, NoughtOrCross} from "../domain/GameDomain";
 import React from "react";
-import {Lens, Tuple} from "../utils";
+import { Tuple} from "../utils";
+import {Lens} from "../optics/optics";
 
 
 function Square<Main,Parent>(rest: GameRest<Main,Parent, NoughtOrCross>): (props: HasStateLens<Main>) => React.ReactElement {

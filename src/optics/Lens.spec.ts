@@ -1,4 +1,4 @@
-import {lens, Lens, LensBuilder} from "../utils";
+import {lens, Lens, LensBuilder} from "./optics";
 
 let a1b2ca3 = {a: 1, b: 2, c: {a: 3}}
 let list123 = [1, 2, 3]

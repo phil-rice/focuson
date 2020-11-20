@@ -2,7 +2,8 @@ import React from "react";
 
 import {Rest} from "../reactrest/ReactRestElements";
 import {NavData, NavProperties, NavRest} from "../domain/NavDomain";
-import {Lens} from "../utils";
+import {Lens} from "../optics/optics";
+
 
 
 function Nav<Parent>(rest: NavRest<Parent, NavData>): (props: NavProperties) => React.ReactElement {

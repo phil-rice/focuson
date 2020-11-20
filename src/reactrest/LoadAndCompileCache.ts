@@ -1,5 +1,5 @@
 import {Rest, RestChild} from "./ReactRestElements";
-import {Lens} from "../utils";
+import {Lens} from "../optics/optics";
 
 
 // @ts-ignore

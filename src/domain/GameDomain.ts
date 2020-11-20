@@ -1,6 +1,7 @@
 import {RestProperties} from "../reactrest/ReactRestElements";
 import React from "react";
-import {Lens} from "../utils";
+import {Lens} from "../optics/optics";
+
 
 export type GameRest<Main,Parent, Child> = RestProperties<React.ReactElement, GameDomain, Main, Parent, Child>
 

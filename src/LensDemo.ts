@@ -1,4 +1,4 @@
-import {Lens} from "./utils";
+import {Lens} from "./optics/optics";
 
 export interface Msg {order: Order}
 interface Order {

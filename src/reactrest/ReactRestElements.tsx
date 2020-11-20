@@ -1,6 +1,8 @@
 import React from "react";
 import {ReactRest} from "./reactRest";
-import {Lens, LensBuilder, Tuple} from "../utils";
+import {Lens, LensBuilder} from "../optics/optics";
+import {Tuple} from "../utils";
+
 
 //Why all the messing around with 'Element' instead of just using React.Element
 //The answer is threefold

@@ -2,7 +2,8 @@ import React from "react";
 
 import {Rest} from "../reactrest/ReactRestElements";
 import {CqpData, CqpRest} from "../domain/CpqDomain";
-import {Lens} from "../utils";
+import {Lens} from "../optics/optics";
+
 
 
 function Cpq<Parent>(rest: CqpRest<Parent, CqpData>): (props: any) => React.ReactElement {
