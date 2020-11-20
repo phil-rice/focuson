@@ -21,14 +21,14 @@ export interface RestRootProperties<Element, Domain, Main> {
     setMainJson: (main: Main) => void
     [a: string]: any
 }
-export interface CreateRestFn<Element, Domain, Main, Child> {
-    (restProperties: RestProperties<Element, Domain, Main, Child>, props: any): Element
+export interface CreateRestFn<Element, Domain, Main, Parent, Child> {
+    (restProperties: RestProperties<Element, Domain, Main, Parent, Child>, props: any): Element
 }
-export interface HasRestProperties<Element, Domain, Main, Child> {
-    rest: RestProperties<Element, Domain, Main, Child>
+export interface HasRestProperties<Element, Domain, Main, Parent, Child> {
+    rest: RestProperties<Element, Domain, Parent, Main, Child>
     [x: string]: any
 }
-export class RestProperties<Element, Domain, Main, Child> {
+export class RestProperties<Element, Domain, Main, Parent, Child> {
     restRoot: RestRootProperties<Element, Domain, Main>
     lens: Lens<Main, Child>;
 
@@ -36,7 +36,7 @@ export class RestProperties<Element, Domain, Main, Child> {
         this.restRoot = restRoot
         this.lens = lens
     }
-    then = <K extends keyof Child>(fieldName: K): RestProperties<Element, Domain, Main, Child[K]> => this.withLens(new LensBuilder(this.lens).field(fieldName))
+    then = <K extends keyof Child>(fieldName: K): RestProperties<Element, Domain, Main, Parent, Child[K]> => this.withLens(new LensBuilder(this.lens).field(fieldName))
     fieldLens = <K extends keyof Child>(fieldName: K): Lens<Child, Child[K]> => Lens.build<Child>().field(fieldName)
 
     static link(json: any, name: string): undefined | string {
@@ -61,7 +61,9 @@ export class RestProperties<Element, Domain, Main, Child> {
         this.restRoot.reactRest.loadAndRender(l, this.restRoot.setMainJson)
     }
 
-    withLens<NewChild>(lens: Lens<Child, NewChild>): RestProperties<Element, Domain, Main, NewChild> {return new RestProperties(this.restRoot, this.lens.andThen(lens))}
+    withLens<NewChild>(lens: Lens<Child, NewChild>): RestProperties<Element, Domain, Main, Child, NewChild> {
+        return new RestProperties<Element, Domain, Main, Child, NewChild>(this.restRoot, this.lens.andThen(lens))
+    }
     json() {return this.lens.get(this.restRoot.mainJson)}
     domain() {return this.restRoot.domain}
     setJson(child: Child) {
@@ -87,15 +89,15 @@ export function RestRoot<Element, Domain, Main>(props: RestRootProperties<Elemen
 /** This represents a rest element that is rendering a part of the json 'Main'. The part it is rendering is 'Child'.
  * Example Main might be an order and Child might be the field representing 'an order item'
  */
-export function Rest<Element, Domain, Main, Child>(rest: HasRestProperties<Element, Domain, Main, Child>) {
+export function Rest<Element, Domain, Main, Parent, Child>(rest: HasRestProperties<Element, Domain, Main, Parent, Child>) {
     let actualRest = rest.rest
     // console.log("Rendering Rest", actualRest)
     return actualRest.restRoot.reactRest.renderSelf(rest)
 }
 
 
-export interface HasRestChildProperties<Element, Domain, Main, Parent, NewChild> {
-    parentRest: RestProperties<Element, Domain, Main, Parent>
+export interface HasRestChildProperties<Element, Domain, Main, Parent, Child, NewChild> {
+    parentRest: RestProperties<Element, Domain, Main, Child, Parent>
     lens: Lens<Parent, NewChild>
     render: string
     [x: string]: any
@@ -104,13 +106,13 @@ export interface HasRestChildProperties<Element, Domain, Main, Parent, NewChild>
 /** This represents a rest element that is rendering a part of the json 'Main'. The part it is rendering is 'Child'.
  * Example Main might be an order and Child might be the field representing 'an order item'
  */
-export function RestChild<Element, Domain, Main, Parent, Child>(props: HasRestChildProperties<Element, Domain, Main, Parent, Child>) {
+export function RestChild<Element, Domain, Main, Parent, Child, NewChild>(props: HasRestChildProperties<Element, Domain, Main, Parent, Child, NewChild>) {
     // console.log("Rendering RestChild", props)
     let parentRest = props.parentRest
     let j = parentRest.json()
     let reactRest = parentRest.restRoot.reactRest;
     let renderUrl = reactRest.renderUrl(props.render, j)
-    let childRest: RestProperties<Element, Domain, Main, Child> = parentRest.withLens(props.lens)
+    let childRest: RestProperties<Element, Domain, Main, Child, NewChild> = parentRest.withLens(props.lens)
     return reactRest.renderUsingUrl(renderUrl, {...props, rest: childRest})
 }
 

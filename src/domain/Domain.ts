@@ -2,7 +2,7 @@ import {RestProperties} from "../reactrest/ReactRestElements";
 import React from "react";
 import {Lens} from "../reactrest/utils";
 
-export type GameRest<Parent, Child> = RestProperties<React.ReactElement, Domain, Parent, Child>
+export type GameRest<Main,Parent, Child> = RestProperties<React.ReactElement, Domain, Main, Parent, Child>
 
 export interface Link {
     href: string
@@ -24,8 +24,8 @@ export interface BoardData extends SelfLink {
 }
 export type SquareData = string[]
 
-export interface HasStateLens<Parent> {
-    stateLens: Lens<Parent, NoughtOrCross>
+export interface HasStateLens<Main> {
+    stateLens: Lens<Main, NoughtOrCross>
 }
 
 export class Domain {

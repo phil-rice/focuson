@@ -1,11 +1,12 @@
 import {RestProperties} from "../reactrest/ReactRestElements";
 import React from "react";
+import {GameData} from "./Domain";
 
-export interface NavProperties<Main> {loadUrlAndPutInElement: (url: string, name: string)=> void}
+export interface NavProperties<Main> {loadUrlAndPutInElement: (url: string, name: string) => void}
 
-export type NavRest<Parent, Child> = RestProperties<React.ReactElement, NavDomain, Parent, Child>
+export type NavRest<Parent, Child> = RestProperties<React.ReactElement, NavDomain, GameData, Parent, Child>
 
- interface SelfRender {
+interface SelfRender {
     _render: { _self: string }
 }
 

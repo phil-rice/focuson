@@ -1,6 +1,5 @@
 import React from "react";
 import {NavGroupData, NavProperties, NavRest} from "../domain/NavDomain";
-import {checkIsFunction} from "../reactrest/utils";
 
 
 function NavGroup<Parent>(rest: NavRest<Parent, NavGroupData>): (props: NavProperties<Parent>) => React.ReactElement {

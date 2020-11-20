@@ -3,7 +3,7 @@ import {HasRestProperties, RestProperties} from "./ReactRestElements";
 import {checkIsFunction} from "./utils";
 
 
-export interface MakeRestElement<Element> {<Domain, Main, Child>(rest: RestProperties<Element, Domain, Main, Child>): (props: any) => Element}
+export interface MakeRestElement<Element> {<Domain, Main, Parent, Child>(rest: RestProperties<Element, Domain, Main, Parent, Child>): (props: any) => Element}
 
 export class ReactRest<Element> {
     private create: (clazz: any, props: any) => Element;
@@ -20,7 +20,7 @@ export class ReactRest<Element> {
     }
 
     /** The parent can be 'self' in the case of RestRoot. It has a lens in it that goes from the 'main json' to the 'bit we are interested in'*/
-    renderSelf<Domain, Main, Child>(hasRest: HasRestProperties<Element, Domain, Main, Child>): Element {
+    renderSelf<Domain, Main, Parent, Child>(hasRest: HasRestProperties<Element, Domain, Main, Parent, Child>): Element {
         // console.log("renderself", hasRest)
         let rest = hasRest.rest
         let renderUrl = this.renderUrl("_self", rest.lens.get(rest.restRoot.mainJson))
@@ -33,7 +33,7 @@ export class ReactRest<Element> {
         throw `Cannot find renderUrl for  [${name}] in [${JSON.stringify(child, null, 2)}]`
     }
 
-    renderUsingUrl<Domain, Main, Child>(renderUrl: string, hasRest: HasRestProperties<Element, Domain, Main, Child>): Element {
+    renderUsingUrl<Domain, Main, Parent, Child>(renderUrl: string, hasRest: HasRestProperties<Element, Domain, Main, Parent, Child>): Element {
         let rest = hasRest.rest
         let makeRest: MakeRestElement<Element> = this.loadAndCompileCache.getFromCache(renderUrl)
         let renderFn = makeRest(rest)

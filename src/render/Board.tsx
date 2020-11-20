@@ -5,7 +5,7 @@ import {Lens} from "../reactrest/utils";
 import {BoardData, GameRest, HasStateLens} from "../domain/Domain";
 
 
-function Board<Parent>(rest: GameRest<Parent, BoardData>): (props: HasStateLens<Parent>) => React.ReactElement {
+function Board<Main, Parent>(rest: GameRest<Main, Parent, BoardData>): (props: HasStateLens<Parent>) => React.ReactElement {
     return props => {
         let sq = (n: number) =>
             (<RestChild stateLens={props.stateLens} render='square' parentRest={rest} lens={rest.fieldLens('squares').andThen(Lens.nth(n))}/>)

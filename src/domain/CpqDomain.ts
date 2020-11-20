@@ -3,7 +3,7 @@ import React from "react";
 import {Domain} from "./Domain";
 
 
-export type CPQRest<Parent, Child> = RestProperties<React.ReactElement, CpqDomain, Parent, Child>
+export type CPQRest<Parent, Child> = RestProperties<React.ReactElement, CpqDomain, CPQ, Parent, Child>
 
 export interface Link {
     href: string
@@ -29,7 +29,7 @@ export interface CPQFilter extends SelfRender {
 
 }
 
-class CpqDomain{}
+class CpqDomain {}
 
 const example: CPQ = {
     "_links": {"_self": {"href": "api/filterList/filterList1"}},
