@@ -1,4 +1,4 @@
-import {Lens} from "./reactrest/utils";
+import {Lens} from "./utils";
 
 export interface Msg {order: Order}
 interface Order {

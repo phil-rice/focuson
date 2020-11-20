@@ -7,7 +7,8 @@
     "Board"       : "#Board/render#",
     "Game"        : "#Game/render#",
     "Cpq"         : "#Cpq/render#",
-    "SimpleFilter": "#SimpleFilter/render#"
+    "SimpleFilter": "#SimpleFilter/render#",
+    "GearboxFilter": "#GearboxFilter/render#"
   },
   "groups" : [
     {
@@ -20,7 +21,7 @@
         "created/cpqNothingSelected.json",
         "created/cpqMakeSelected.json",
         "created/cpqMakeAndModelSelected.json",
-        "created/cpqMakeAndModelAndTransmissionSelected.json",
+        "created/cpqMakeModelAndTransmissionSelected.json",
         "created/cpqMakeAndModelAndTransmissionAndFuelTypeSelected.json"
       ],
       "_render"  : {"_self": "#NavGroup/render#"}

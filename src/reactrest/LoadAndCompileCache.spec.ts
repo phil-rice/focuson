@@ -1,6 +1,6 @@
 import {digestorChecker, LoadAndCompileCache} from "./LoadAndCompileCache";
 import {ReactFixture} from "./ReactFixtures";
-import {fromMap} from "./utils";
+import {fromMap} from "../utils";
 
 describe("digestChecker", () => {
     function digestor(s: String) {return s + "_dig"}

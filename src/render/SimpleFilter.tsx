@@ -1,9 +1,13 @@
 import React from "react";
-import {CPQFilter, CPQRest} from "../domain/CpqDomain";
+import {CqpFilter, CqpRest} from "../domain/CpqDomain";
 
-function SimpleFilter<Parent>(rest: CPQRest<Parent, CPQFilter>): (props: any) => React.ReactElement {
+
+function SimpleFilter<Parent>(rest: CqpRest<Parent, CqpFilter>): (props: any) => React.ReactElement {
     const onChange = (event: any) => { console.log("onChange.target", event.target.value)};
-    let options=rest.json().legalValues.map(v => (<option key={v}>{v}</option>))
-    return props => (<select onChange={event => onChange(event)}>{options}</select>)
+    let filterJson = rest.json();
+    return props => {
+        let options = rest.domain().makeSelected(filterJson.selected, rest.json().legalValues);
+        return (<select key={filterJson.filterName} onChange={event => onChange(event)}>{options}</select>);
+    }
 
 }

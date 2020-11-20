@@ -1,6 +1,6 @@
 import React from "react";
 import {ReactRest} from "./reactRest";
-import {Lens, LensBuilder, Tuple} from "./utils";
+import {Lens, LensBuilder, Tuple} from "../utils";
 
 //Why all the messing around with 'Element' instead of just using React.Element
 //The answer is threefold
@@ -82,6 +82,7 @@ export class RestProperties<Element, Domain, Main, Parent, Child> {
 
 /** The top level component */
 export function RestRoot<Element, Domain, Main>(props: RestRootProperties<Element, Domain, Main>) {
+    console.log("RestRoot", props, props.domain)
     let rest = new RestProperties(props, Lens.identity())
     return props.reactRest.renderSelf({...props, rest: rest})
 }

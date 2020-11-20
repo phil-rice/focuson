@@ -1,5 +1,5 @@
 import {ErrorHandler, LogPrinter, MetricsStore, NonFunctionalsForFunction, NonFunctionalsForPromiseFunctions} from "./nonFunctionals";
-import {fromMap} from "./utils";
+import {fromMap} from "../utils";
 
 interface ErrorReport {
     msg: string

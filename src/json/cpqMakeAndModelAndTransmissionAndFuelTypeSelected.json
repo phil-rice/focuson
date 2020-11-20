@@ -5,22 +5,22 @@
     {
       "_render"    : {"_self": "#SimpleFilter/render#"},
       "filterName" : "filter.make",
-      "selected"   : null,
-      "legalValues": ["Audi", "BMW", "Tesla"]
+      "selected"   : "Audi",
+      "legalValues": [ "Tesla","Audi", "BMW"]
     }, {
       "_render"    : {"_self": "#SimpleFilter/render#"},
       "filterName" : "filter.model",
-      "selected"   : null,
-      "legalValues": ["Audi A10", "BMW series 6", "Tesla Roadster"]
+      "selected"   : "Audi A3 Convertible",
+      "legalValues": ["Audi A10", "Audi Q5", "Audi A3 Convertible"]
     }, {
       "_render"    : {"_self": "#SimpleFilter/render#"},
       "filterName" : "filter.transmission",
-      "selected"   : null,
+      "selected"   : "Gearbox",
       "legalValues": ["Automatic", "Gearbox"]
     }, {
       "_render"    : {"_self": "#SimpleFilter/render#"},
       "filterName" : "filter.fuelType",
-      "selected"   : null,
+      "selected"   :  "Benzene",
       "legalValues": ["Petrol", "Diesel", "Electric", "Benzene"]
     }
   ]

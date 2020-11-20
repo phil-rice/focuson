@@ -1,4 +1,4 @@
-import {fromMap, identity} from "./utils";
+import {fromMap, identity} from "../utils";
 import {LoadAndCompileCache, UrlAndValueChecker} from "./LoadAndCompileCache";
 
 

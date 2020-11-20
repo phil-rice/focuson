@@ -1,5 +1,5 @@
 import {isFunction} from "util";
-import {GameData} from "../domain/Domain";
+
 
 export function fromMap<K, V>(map: Map<K, V>, k: K): V {
     if (!map) throw Error('map is undefined')

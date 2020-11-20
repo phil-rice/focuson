@@ -6,33 +6,48 @@ import {SHA256} from 'crypto-js'
 import {MakeRestElement, ReactRest} from "./reactrest/reactRest";
 import {digestorChecker, LoadAndCompileCache} from "./reactrest/LoadAndCompileCache";
 import {RestRoot} from "./reactrest/ReactRestElements";
-import {Domain} from "./domain/Domain";
+import {GameDomain} from "./domain/GameDomain";
+import {CpqDomain} from "./domain/CpqDomain";
+import {NavDomain} from "./domain/NavDomain";
+
 
 
 let loader = (url: string) => fetch(url).then(response => response.text())
 // @ts-ignore // the actual signature is a HasherHelper, but we want to say something simpler, and it works
 let cache = new LoadAndCompileCache<MakeRestElement<React.Element>>(loader, digestorChecker(SHA256))
-let domain = new Domain()
 let reactRest = new ReactRest(React.createElement, cache);
 
-function loadUrlAndPutInElement(url: string, name: string) { reactRest.loadAndRender(url, setJson(get(name)))}
 
-const setJson = (element: HTMLElement) => <Main extends any>(main: Main) => {
-    ReactDOM.render(<RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setJson(element)} loadUrlAndPutInElement={loadUrlAndPutInElement}/>, element);
+const setJson = <Domain extends any>(domain: Domain, element: HTMLElement) => <Main extends any>(main: Main) => {
+    ReactDOM.render(<RestRoot<React.ReactElement, Domain, Main>
+        reactRest={reactRest}
+        mainJson={main}
+        domain={domain}
+        setMainJson={setJson(domain, element)}
+        loadUrlAndPutInElement={loadUrlAndPutInElement}/>, element);
 }
-// function setCpqJson(element: HTMLElement) {
-//     return (main: CPQ) => {
-//         console.log("setCpqJson", main)
-//         return ReactDOM.render(
-//             <RestRoot reactRest={reactRest} mainJson={main} domain={domain} setMainJson={setCpqJson(element)} loadUrlAndPutInElement={setJson}/>, element)
-//     }
-// }
-function get(name: string) {
+
+interface DomainMap {
+    game: GameDomain,
+    nav: NavDomain,
+    cpq: CpqDomain
+}
+let domainMap: DomainMap = {game: new GameDomain(), nav: new NavDomain(), cpq: new CpqDomain()}
+
+export function fromMap<M, K extends keyof M>(map: M, key: K): M[K] {
+    let domain = map[key]
+    if (domain === undefined) throw Error('fromMap is null for name ' + key)
+    return domain
+}
+function getElement(name: string): HTMLElement {
     let result = document.getElementById(name);
     if (result === null) throw Error(`Must have an element called ${name}, and can't find it`)
     return result
 }
 
-loadUrlAndPutInElement("created/index.json", 'nav')
-loadUrlAndPutInElement("created/gameJson1.json", 'game')
-loadUrlAndPutInElement("created/cpqJson1.json", 'cpq')
+function loadUrlAndPutInElement(domainName: keyof DomainMap, url: string, name: string) {
+    reactRest.loadAndRender(url, setJson(fromMap(domainMap, domainName), getElement(name)))
+}
+loadUrlAndPutInElement('nav', "created/index.json", 'nav')
+loadUrlAndPutInElement('game', "created/gameJson1.json", 'game')
+loadUrlAndPutInElement('cpq', "created/cpqJson1.json", 'cpq')

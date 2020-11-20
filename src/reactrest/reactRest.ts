@@ -1,6 +1,6 @@
 import {LoadAndCompileCache} from "./LoadAndCompileCache";
 import {HasRestProperties, RestProperties} from "./ReactRestElements";
-import {checkIsFunction} from "./utils";
+import {checkIsFunction} from "../utils";
 
 
 export interface MakeRestElement<Element> {<Domain, Main, Parent, Child>(rest: RestProperties<Element, Domain, Main, Parent, Child>): (props: any) => Element}

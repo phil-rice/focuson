@@ -1,8 +1,9 @@
 import {RestProperties} from "../reactrest/ReactRestElements";
 import React from "react";
-import {GameData} from "./Domain";
+import {GameData} from "./GameDomain";
 
-export interface NavProperties<Main> {loadUrlAndPutInElement: (url: string, name: string) => void}
+export interface NavProperties {
+    loadUrlAndPutInElement: (domainName: string, url: string, name: string) => void}
 
 export type NavRest<Parent, Child> = RestProperties<React.ReactElement, NavDomain, GameData, Parent, Child>
 
@@ -20,5 +21,5 @@ export interface NavGroupData extends SelfRender {
     "jsonFiles": string[]
 }
 
-class NavDomain {}
+export class NavDomain {}
 
