@@ -1,7 +1,7 @@
 import React from "react";
 import {Lens} from "../optics/optics";
-import {LoadAndCompileCache} from "../reactrest/LoadAndCompileCache";
-import {MakeComponentFromServer} from "../reactrest/ComponentFromServer";
+import {LoadAndCompileCache} from "../componentFromServer/LoadAndCompileCache";
+import {MakeComponentFromServer} from "../componentFromServer/ComponentFromServer";
 import {LensContext, LensProps} from "../optics/LensContext";
 
 export type GameProperties<Main, T> = LensProps<GameDomain<Main>, React.ReactElement, Main, T>

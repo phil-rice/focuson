@@ -1,7 +1,7 @@
 import React from 'react';
 import {BoardData, GameDomain, GameProperties, NoughtOrCross} from "../domain/GameDomain";
 import {Lens} from "../optics/optics";
-import {ChildFromServer, ComponentFromServer} from "../reactrest/ComponentFromServer";
+import {ChildFromServer, ComponentFromServer} from "../componentFromServer/ComponentFromServer";
 
 function Board<Main>(props: GameProperties<Main, BoardData>) {
     let sq = (n: number) =>

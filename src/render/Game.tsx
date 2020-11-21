@@ -1,6 +1,6 @@
 import React from 'react';
 import {GameData, GameProperties} from "../domain/GameDomain";
-import {ComponentFromServer} from "../reactrest/ComponentFromServer";
+import {ComponentFromServer} from "../componentFromServer/ComponentFromServer";
 
 function Game<Main>(props: GameProperties<Main, GameData>) {
     return (<div className='game'>

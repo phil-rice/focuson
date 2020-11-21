@@ -1,8 +1,8 @@
 import {Lens} from "../optics/optics";
 import {GameData, NoughtOrCross} from "./GameDomain";
 import {LensContext, LensProps} from "../optics/LensContext";
-import {DomainWithCache, MakeComponentFromServer} from "../reactrest/ComponentFromServer";
-import {LoadAndCompileCache} from "../reactrest/LoadAndCompileCache";
+import {DomainWithCache, MakeComponentFromServer} from "../componentFromServer/ComponentFromServer";
+import {LoadAndCompileCache} from "../componentFromServer/LoadAndCompileCache";
 
 export type GameProps<Element, Main, T> = LensProps<SimpleGameDomain<Element, Main>, Element, Main, T>
 

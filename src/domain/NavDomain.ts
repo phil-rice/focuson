@@ -1,6 +1,6 @@
 import React from "react";
-import {LoadAndCompileCache} from "../reactrest/LoadAndCompileCache";
-import {ComponentFromServer, DomainWithCache, MakeComponentFromServer} from "../reactrest/ComponentFromServer";
+import {LoadAndCompileCache} from "../componentFromServer/LoadAndCompileCache";
+import {ComponentFromServer, DomainWithCache, MakeComponentFromServer} from "../componentFromServer/ComponentFromServer";
 import {LensContext, LensProps} from "../optics/LensContext";
 import {fromObject, getElement} from "../utils";
 import ReactDOM from "react-dom";

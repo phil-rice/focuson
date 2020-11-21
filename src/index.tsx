@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {SHA256} from 'crypto-js'
-import {LoadAndCompileCache} from "./reactrest/LoadAndCompileCache";
+import {LoadAndCompileCache} from "./componentFromServer/LoadAndCompileCache";
 import {defaultStateLens, GameData, GameDomain} from "./domain/GameDomain";
 import {CpqDomain} from "./domain/CpqDomain";
 import {NavDomain} from "./domain/NavDomain";
 import {fromObject, getElement} from "./utils";
-import {ComponentFromServer, DomainWithCache, MakeComponentFromServer} from "./reactrest/ComponentFromServer";
+import {ComponentFromServer, DomainWithCache, MakeComponentFromServer} from "./componentFromServer/ComponentFromServer";
 import {LensContext} from "./optics/LensContext";
 import {SimpleGameDomain} from "./domain/SimpleGameDomain";
 

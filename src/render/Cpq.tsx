@@ -1,7 +1,7 @@
 import React from "react";
 import {CpqData, CpqProperties} from "../domain/CpqDomain";
 import {Lens} from "../optics/optics";
-import {ComponentFromServer} from "../reactrest/ComponentFromServer";
+import {ComponentFromServer} from "../componentFromServer/ComponentFromServer";
 
 
 function Cpq<Main>(props: CpqProperties<Main, CpqData>) {
