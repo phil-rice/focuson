@@ -9,7 +9,7 @@ import {RestRoot} from "./reactrest/ReactRestElements";
 import {GameDomain} from "./domain/GameDomain";
 import {CpqDomain} from "./domain/CpqDomain";
 import {NavDomain} from "./domain/NavDomain";
-
+import {fromObject, getElement} from "./utils";
 
 
 let loader = (url: string) => fetch(url).then(response => response.text())
@@ -34,19 +34,10 @@ interface DomainMap {
 }
 let domainMap: DomainMap = {game: new GameDomain(), nav: new NavDomain(loadUrlAndPutInElement, 'target'), cpq: new CpqDomain()}
 
-export function fromMap<M, K extends keyof M>(map: M, key: K): M[K] {
-    let domain = map[key]
-    if (domain === undefined) throw Error('fromMap is null for name ' + key)
-    return domain
-}
-function getElement(name: string): HTMLElement {
-    let result = document.getElementById(name);
-    if (result === null) throw Error(`Must have an element called ${name}, and can't find it`)
-    return result
-}
+
 
 function loadUrlAndPutInElement(domainName: keyof DomainMap, url: string, name: string) {
-    reactRest.loadAndRender(url, setJson(fromMap(domainMap, domainName), getElement(name)))
+    reactRest.loadAndRender(url, setJson(fromObject(domainMap, domainName), getElement(name)))
 }
 loadUrlAndPutInElement('nav', "created/index.json", 'nav')
 loadUrlAndPutInElement('cpq', "created/cpqJson1.json", 'root')

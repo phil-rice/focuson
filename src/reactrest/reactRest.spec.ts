@@ -1,5 +1,5 @@
 import {ReactFixture} from "./ReactFixtures";
-import {fromMap} from "../utils";
+import {fromMap, fromObject} from "../utils";
 
 
 describe("ReactRestCache", () => {

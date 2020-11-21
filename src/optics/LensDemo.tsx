@@ -1,4 +1,7 @@
-import {Lens} from "./optics/optics";
+import {Lens} from "./optics";
+import {BoardData, GameData, NoughtOrCross} from "../domain/GameDomain";
+import React from "react";
+import {GameProps} from "../domain/GDomain";
 
 export interface Msg {order: Order}
 interface Order {
@@ -80,11 +83,18 @@ function changeAndSend<T>(json: Msg, lens: Lens<Msg, T>, t: T) {
 }
 
 let dragon: Dragon = {body: {chest: {stomach: {contents: ['the adventurer']}}}, head: {eyeCount: 1}}
-interface Dragon {body: Body, head: Head}
+interface Dragon {
+    body: Body,
+    head: Head
+}
 interface Body {chest: Chest}
 interface Head {eyeCount: number}
 interface Chest {stomach: Stomach}
 interface Stomach {contents: any[]}
+
+
+
+
 
 
 function eat(dragon: Dragon, item: any): Dragon {
@@ -103,3 +113,5 @@ function eat(dragon: Dragon, item: any): Dragon {
     }
 }
 
+let dragonToStomachContentsL = Lens.build<Dragon>().then('body').then('chest').then('stomach').then('contents')
+function eat2(dragon: Dragon, item: any) {return dragonToStomachContentsL.transformInSitu(dragon, old => [...old, item])}

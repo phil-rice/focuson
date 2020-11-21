@@ -6,6 +6,7 @@
     "Square"      : "#Square/render#",
     "Board"       : "#Board/render#",
     "Game"        : "#Game/render#",
+    "SimpleGame"        : "#SimpleGame/render#",
     "Cpq"         : "#Cpq/render#",
     "SimpleFilter": "#SimpleFilter/render#",
     "GearboxFilter": "#GearboxFilter/render#"
@@ -13,7 +14,7 @@
   "groups" : [
     {
       "name"     : "game",
-      "jsonFiles": ["created/gameJson1.json", "created/gameJson2.json"],
+      "jsonFiles": ["created/gameJson1.json", "created/gameJson2.json", "created/simpleGameJson.json"],
       "_render"  : {"_self": "#NavGroup/render#"}
     }, {
       "name"     : "cpq",

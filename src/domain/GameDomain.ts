@@ -24,7 +24,7 @@ export interface BoardData extends SelfLink {
     squares: SquareData
     _render: { _self: string, square: string }
 }
-export type SquareData = string[]
+export type SquareData = NoughtOrCross[]
 
 export interface HasStateLens<Main> {
     stateLens: Lens<Main, NoughtOrCross>
