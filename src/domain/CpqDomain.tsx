@@ -2,16 +2,18 @@ import {RestProperties} from "../reactrest/ReactRestElements";
 import React from "react";
 import {LoadAndCompileCache} from "../reactrest/LoadAndCompileCache";
 import {MakeComponentFromServer} from "../reactrest/ComponentFromServer";
+import {LensProps} from "../optics/LensContext";
+import {GameDomain} from "./GameDomain";
 
 
-export type CqpRest<Parent, Child> = RestProperties<React.ReactElement, CpqDomain, CqpData, Parent, Child>
+export type CpqProperties<Main, T> = LensProps<CpqDomain, React.ReactElement, Main, T>
 
 export interface Link {href: string}
 export interface SelfLink {_links: { _self: Link }}
 export interface SelfRender {
     _render: { _self: string }
 }
-export interface CqpData extends SelfLink, SelfRender {filters: CqpFilter[]}
+export interface CpqData extends SelfLink, SelfRender {filters: CqpFilter[]}
 
 export interface CqpFilter extends SelfRender {
     filterName: string //this is a lookup into an internationalisation resource bundle
@@ -20,8 +22,8 @@ export interface CqpFilter extends SelfRender {
 }
 
 export class CpqDomain {
-    componentCache: LoadAndCompileCache<MakeComponentFromServer<Element>>
-    constructor(componentCache: LoadAndCompileCache<MakeComponentFromServer<Element>>) {this.componentCache = componentCache;}
+    componentCache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>
+    constructor(componentCache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>) {this.componentCache = componentCache;}
     makeOptions(selected: string | null, values: string[]) {
         let option = (value: string) => (selected === value) ?
             (<option key={value} selected>{value}</option>) :
@@ -30,7 +32,7 @@ export class CpqDomain {
     }
 }
 
-const example: CqpData = {
+const example: CpqData = {
     "_links": {"_self": {"href": "api/filterList/filterList1"}},
     "_render": {"_self": "#Cpq/render#"},
     "filters": [
