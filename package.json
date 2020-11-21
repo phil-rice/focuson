@@ -1,36 +1,35 @@
 {
-  "name": "@phil-rice/reactlens",
-    "version": "0.1.0",
-  "description": "This is library that allows lens to be used to manage state in react",
-  "keywords"    : ["functionalprogramming", "lens", "optics", "react", "codeondemand"],
-  "dependencies": {
-    "@types/crypto-js": "^4.0.1",
-    "@types/node": "^14.14.7",
-    "@types/react": "^16.9.56",
-    "@types/react-dom": "^16.9.9",
-    "crypto-js": "^4.0.0",
-    "npm-check-updates": "^10.0.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "^4.0.0",
-    "web-vitals": "^0.2.4"
+  "name"           : "@phil-rice/reactlens",
+  "version"        : "0.1.0",
+  "description"    : "This is library that allows lens to be used to manage state in react",
+  "keywords"       : [
+    "functionalprogramming",
+    "lens",
+    "optics",
+    "react",
+    "codeondemand"
+  ],
+  "dependencies"   : {
+    "@phil-rice/lens"  : "^0.1.1",
+    "@types/node"      : "^14.14.7",
+    "npm-check-updates": "^10.0.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "jest --config ./jest.config.json",
+  "scripts"        : {
+    "start"     : "react-scripts start",
+    "build"     : "react-scripts build",
+    "test"      : "jest --config ./jest.config.json",
     "test:watch": "npm run test -- --watch",
-    "eject": "react-scripts eject",
-    "express": ""
+    "eject"     : "react-scripts eject",
+    "express"   : ""
   },
-  "eslintConfig": {
+  "eslintConfig"   : {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
+  "browserslist"   : {
+    "production" : [
       ">0.2%",
       "not dead",
       "not op_mini all"
@@ -42,15 +41,21 @@
     ]
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-react": "^7.12.5",
-    "@types/jest": "^26.0.15",
-    "ts-jest": "^26.4.4",
-    "typescript": "^4.0.5",
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.1",
+    "@types/react"               : "^16.9.56",
+    "@types/react-dom"           : "^16.9.9",
+    "react"                      : "^17.0.1",
+    "react-dom"                  : "^17.0.1",
+    "react-scripts"              : "^4.0.0",
+    "web-vitals"                 : "^0.2.4",
+    "@babel/cli"                 : "^7.12.1",
+    "@babel/core"                : "^7.12.3",
+    "@babel/preset-env"          : "^7.12.1",
+    "@babel/preset-react"        : "^7.12.5",
+    "@types/jest"                : "^26.0.15",
+    "ts-jest"                    : "^26.4.4",
+    "typescript"                 : "^4.0.5",
+    "@testing-library/jest-dom"  : "^5.11.5",
+    "@testing-library/react"     : "^11.1.1",
     "@testing-library/user-event": "^12.2.0"
   }
 }

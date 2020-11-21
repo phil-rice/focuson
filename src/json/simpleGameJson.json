@@ -1,9 +1,0 @@
-{
-  "_render"  : {"_self": "#SimpleGame/render#"},
-  "state"    : "X",
-  "_embedded": {
-    "board": {
-      "squares": ["", "", "", "", "", "", "", "", ""]
-    }
-  }
-}
