@@ -1,15 +1,13 @@
 import React from 'react';
-import {Rest} from "../reactrest/ReactRestElements";
-import {GameData, GameRest} from "../domain/GameDomain";
+import {GameData, GameProperties} from "../domain/GameDomain";
+import {ComponentFromServer} from "../reactrest/ComponentFromServer";
 
-
-function Game<Main, Parent>(rest: GameRest<Main, Parent, GameData>): (props: any) => React.ReactElement {
-    return props => {
-        return (<div className='game'>
-            <div className={'game-info'}>Next turn is {rest.json().state}</div>
-            <div className='game-board'>
-                <Rest stateLens={rest.fieldLens('state')} rest={rest.then('_embedded').then('board')}/>
-            </div>
-        </div>)
-    }
+function Game<Main>(props: GameProperties<Main, GameData>) {
+    return (<div className='game'>
+        <div className={'game-info'}>Next turn is {props.context.json().state}</div>
+        <div className='game-board'>
+            <ComponentFromServer context={props.context.focusOn('_embedded').focusOn('board')}/>
+        </div>
+    </div>)
 }
+

@@ -1,5 +1,7 @@
 import {RestProperties} from "../reactrest/ReactRestElements";
 import React from "react";
+import {LoadAndCompileCache} from "../reactrest/LoadAndCompileCache";
+import {MakeComponentFromServer} from "../reactrest/ComponentFromServer";
 
 
 export type CqpRest<Parent, Child> = RestProperties<React.ReactElement, CpqDomain, CqpData, Parent, Child>
@@ -18,6 +20,8 @@ export interface CqpFilter extends SelfRender {
 }
 
 export class CpqDomain {
+    componentCache: LoadAndCompileCache<MakeComponentFromServer<Element>>
+    constructor(componentCache: LoadAndCompileCache<MakeComponentFromServer<Element>>) {this.componentCache = componentCache;}
     makeOptions(selected: string | null, values: string[]) {
         let option = (value: string) => (selected === value) ?
             (<option key={value} selected>{value}</option>) :

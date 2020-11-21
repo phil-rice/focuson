@@ -1,7 +1,7 @@
 import {Lens} from "./optics";
 import {BoardData, GameData, NoughtOrCross} from "../domain/GameDomain";
 import React from "react";
-import {GameProps} from "../domain/GDomain";
+import {GameProps} from "../domain/SimpleGameDomain";
 
 export interface Msg {order: Order}
 interface Order {

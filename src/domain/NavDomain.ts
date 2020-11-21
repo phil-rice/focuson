@@ -1,12 +1,10 @@
-import {RestProperties} from "../reactrest/ReactRestElements";
 import React from "react";
-import {GameData} from "./GameDomain";
+import {LoadAndCompileCache} from "../reactrest/LoadAndCompileCache";
+import {DomainWithCache, MakeComponentFromServer} from "../reactrest/ComponentFromServer";
+import {LensProps} from "../optics/LensContext";
 
-export interface NavProperties {
 
-}
-
-export type NavRest<Parent, Child> = RestProperties<React.ReactElement, NavDomain<any>, GameData, Parent, Child>
+export type NavProperties<DomainMap, Main, T> = LensProps<NavDomain<DomainMap, React.ReactElement>, React.ReactElement, Main, T>
 
 interface SelfRender {
     _render: { _self: string }
@@ -22,11 +20,13 @@ export interface NavGroupData extends SelfRender {
     "jsonFiles": string[]
 }
 
-export class NavDomain <DomainMap>{
+export class NavDomain<DomainMap, Element> implements DomainWithCache<Element> {
+    componentCache: LoadAndCompileCache<MakeComponentFromServer<Element>>
     loadUrlAndPutInElement: <K extends keyof DomainMap>(domainName: K, url: string, name: string) => void
     target: string
 
-    constructor(loadUrlAndPutInElement: <K extends keyof DomainMap>(domainName: K, url: string, name: string) => void, target: string) {
+    constructor(componentCache: LoadAndCompileCache<MakeComponentFromServer<Element>>, loadUrlAndPutInElement: <K extends keyof DomainMap>(domainName: K, url: string, name: string) => void, target: string) {
+        this.componentCache = componentCache
         this.loadUrlAndPutInElement = loadUrlAndPutInElement
         this.target = target
     }

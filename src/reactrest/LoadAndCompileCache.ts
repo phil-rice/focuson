@@ -1,5 +1,6 @@
 import {Rest, RestChild} from "./ReactRestElements";
 import {Lens} from "../optics/optics";
+import {ComponentFromServer} from "./ComponentFromServer";
 
 
 // @ts-ignore
@@ -8,6 +9,8 @@ window.Rest = Rest
 window.RestChild = RestChild
 // @ts-ignore
 window.Lens = Lens
+// @ts-ignore
+window.ComponentFromServer =ComponentFromServer
 
 /** blows up if mismatch*/
 export type UrlAndValueChecker = (url: string, value: string) => void
