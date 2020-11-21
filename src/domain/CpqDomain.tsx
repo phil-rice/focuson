@@ -1,9 +1,7 @@
-import {RestProperties} from "../reactrest/ReactRestElements";
 import React from "react";
 import {LoadAndCompileCache} from "../reactrest/LoadAndCompileCache";
 import {MakeComponentFromServer} from "../reactrest/ComponentFromServer";
 import {LensProps} from "../optics/LensContext";
-import {GameDomain} from "./GameDomain";
 
 
 export type CpqProperties<Main, T> = LensProps<CpqDomain, React.ReactElement, Main, T>

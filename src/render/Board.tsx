@@ -1,11 +1,11 @@
 import React from 'react';
 import {BoardData, GameDomain, GameProperties, NoughtOrCross} from "../domain/GameDomain";
 import {Lens} from "../optics/optics";
-import {ComponentFromServer} from "../reactrest/ComponentFromServer";
+import {ChildFromServer, ComponentFromServer} from "../reactrest/ComponentFromServer";
 
 function Board<Main>(props: GameProperties<Main, BoardData>) {
     let sq = (n: number) =>
-        (<ComponentFromServer context={props.context.focusOn('squares').withLens(Lens.nth(n))}/>)
+        (<ChildFromServer render='square' context={props.context} childContext={props.context.focusOn('squares').withLens(Lens.nth(n))}/>)
     return (
         <div>
             <div className="board-row">{sq(0)} {sq(1)} {sq(2)}</div>

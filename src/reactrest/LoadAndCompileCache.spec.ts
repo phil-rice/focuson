@@ -1,5 +1,5 @@
 import {digestorChecker, LoadAndCompileCache} from "./LoadAndCompileCache";
-import {ReactFixture} from "./ReactFixtures";
+import {LoadAndCompileFixture} from "./LoadAndCompileFixture";
 import {fromMap, fromObject} from "../utils";
 
 describe("digestChecker", () => {
@@ -19,7 +19,7 @@ describe("digestChecker", () => {
 })
 
 describe("LoadAndCompileCache", () => {
-    let fixture = new ReactFixture()
+    let fixture = new LoadAndCompileFixture()
 
     it("should find all render nameToUrl", () => {
         fixture.setUp(cache => {

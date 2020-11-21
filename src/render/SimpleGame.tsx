@@ -1,8 +1,7 @@
-import {GameProps, SimpleGameDomain} from "../domain/SimpleGameDomain";
+import {GameProps} from "../domain/SimpleGameDomain";
 import {BoardData, GameData, NoughtOrCross} from "../domain/GameDomain";
 import {Lens} from "../optics/optics";
 import React from "react";
-import {LensContext} from "../optics/LensContext";
 
 function SimpleGame<Main>(props: GameProps<React.ReactElement, Main, GameData>) {
     console.log("in simple game", props)

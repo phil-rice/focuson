@@ -2,7 +2,7 @@ import {fromMap, identity} from "../utils";
 import {LoadAndCompileCache, UrlAndValueChecker} from "./LoadAndCompileCache";
 
 
-export class ReactFixture {
+export class LoadAndCompileFixture {
     names: string[];
     nameToSha: Map<string, string>;
     nameToUrl: Map<string, string>;

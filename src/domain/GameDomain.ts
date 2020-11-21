@@ -32,6 +32,8 @@ export interface HasStateLens<Main> {
     stateLens: Lens<Main, NoughtOrCross>
 }
 
+export let defaultStateLens = Lens.build<GameData>().field('state');
+
 export class GameDomain<Main> {
     componentCache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>
     stateLens: Lens<Main, NoughtOrCross>

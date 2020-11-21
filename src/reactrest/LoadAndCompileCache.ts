@@ -1,16 +1,14 @@
-import {Rest, RestChild} from "./ReactRestElements";
+import {ChildFromServer, ComponentFromServer} from "./ComponentFromServer";
+import {fromMap} from "../utils";
 import {Lens} from "../optics/optics";
-import {ComponentFromServer} from "./ComponentFromServer";
 
 
-// @ts-ignore
-window.Rest = Rest
-// @ts-ignore
-window.RestChild = RestChild
 // @ts-ignore
 window.Lens = Lens
 // @ts-ignore
-window.ComponentFromServer =ComponentFromServer
+window.ComponentFromServer = ComponentFromServer
+// @ts-ignore
+window.ChildFromServer = ChildFromServer
 
 /** blows up if mismatch*/
 export type UrlAndValueChecker = (url: string, value: string) => void
@@ -30,6 +28,11 @@ export class LoadAndCompileCache<Result> {
     private checker: UrlAndValueChecker
     cache: Map<string, Result>;
     private compiler: ((raw: string) => Result)
+
+    static create<ThingToLoad>(digestor: (raw: string) => string): LoadAndCompileCache<ThingToLoad> {
+        let loader = (url: string) => fetch(url).then(response => response.text())
+        return new LoadAndCompileCache<ThingToLoad>(loader, digestorChecker(digestor))
+    }
 
     /** loader takes a url and returns a promise. The sha of the string is checked against the final segment of the url when loaded,  then evaled
      * The results are remembered in the cache*/
@@ -65,11 +68,7 @@ export class LoadAndCompileCache<Result> {
         return Promise.all(urls.map(url => this.loadifNeededAndCheck(url)))
     }
 
-    getFromCache(url: string): Result {
-        //@ts-ignore we can safely do this because we are actually checking.
-        if (this.cache.has(url)) return this.cache.get(url)
-        throw Error(`The cache does not know how to render ${url}\nLegal values are ${Array.from(this.cache.keys()).sort()}`)
-    }
+    getFromCache(url: string): Result { return fromMap(this.cache, url)}
 
     loadifNeededAndCheck(url: string) {
         if (this.cache.has(url)) {
