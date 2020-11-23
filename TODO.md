@@ -1,0 +1,1 @@
+Add a 'getting started quickly'
