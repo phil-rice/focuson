@@ -1,5 +1,5 @@
 {
-  "name": "@phil-rice/lens",
+  "name": "@phil-rice/tic_tac_toe_lensexample",
   "version": "0.1.4",
   "description": "A simple implementation of lens",
   "keywords": [
@@ -10,7 +10,7 @@
   "main": "index",
   "types": "index",
   "dependencies": {
-    "@phil-rice/lens": "^0.1.5",
+    "@phil-rice/lens": "^0.1.9",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.1.10",

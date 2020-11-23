@@ -2,7 +2,6 @@ import {Tuple} from "../utils";
 import {Lens} from "./Lens";
 
 
-
 export interface LensProps<Domain, Main, T> {context: LensContext<Domain, Main, T>}
 
 export class LensContext<Domain, Main, T> {
@@ -39,16 +38,30 @@ export class LensContext<Domain, Main, T> {
     /** The json that this context is focused on */
     json(): T {return this.lens.get(this.main)}
 
+    jsonFromLens<Child>(lens: Lens<Main, Child>) {return lens.get(this.main)}
+
     /** How we edit the json that this is focused on: we call setJson and that will make a new main json with the bit passed in placing the json that we are focused on
      *
      * If you only want to change a little bit of this json then 'setFrom' can be used*/
     setJson(json: T) {this.dangerouslySetMain(this.lens.set(this.main, json))}
 
     setFrom<Child>(lens: Lens<T, Child>, json: Child) {this.dangerouslySetMain(this.lens.andThen(lens).set(this.main, json))}
-    setFromTwo<Other>(lens: Lens<Main, Other>) {return (fn: (t: T, o: Other) => Tuple<T, Other>) => this.dangerouslySetMain(Lens.transform2(this.lens, lens)(fn)(this.main))}
+    setFromTwoFn<Other>(lens: Lens<Main, Other>) {return (fn: (t: T, o: Other) => Tuple<T, Other>) => this.dangerouslySetMain(Lens.transform2(this.lens, lens)(fn)(this.main))}
 
-    withSetMain(setMain:  (m: Main) => void): LensContext<Domain, Main, T>{
+    setFromTwo<Other>(lens: Lens<Main, Other>, json: T, other: Other) { this.dangerouslySetMain(this.lens.set(lens.set(this.main, other), json)) }
+    withSetMain(setMain: (m: Main) => void): LensContext<Domain, Main, T> {
         return new LensContext(this.domain, this.main, setMain, this.lens)
     }
+
+    /** This is the code that enables us to use lens with react. Note that this project doesn't actually use React, as it is
+     * independent of the version of react used. An example of it's use is
+     *
+     * let setJson = LensContext.setJsonForReact<GameDomain, GameData>(domain, c => (ReactDOM.render(<SimpleGame context={c}/>, rootElement)))
+     *
+     * This creates a function that we can pass json to, and that json will be rendered */
+
+    static setJsonForReact = <Domain, Main>(domain: Domain, description: string, fn: (lc: LensContext<Domain, Main, Main>) => void): (m: Main) => void =>
+        (main: Main) => fn(LensContext.main(domain, main, LensContext.setJsonForReact(domain, description, fn), description))
+
 }
 

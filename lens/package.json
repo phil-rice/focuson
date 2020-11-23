@@ -1,6 +1,6 @@
 {
   "name": "@phil-rice/lens",
-  "version": "0.1.6",
+  "version": "0.1.9",
   "description": "A simple implementation of lens",
   "keywords": [
     "functionalprogramming",
