@@ -27,6 +27,7 @@ export class GameDomain {
     setSquareAndInvertNext<Main>(props: GameProps<NoughtOrCross>) {
         let context = props.context
         let domain = context.domain;
+
         let next = context.jsonFromLens(domain.nextStateLens)
         if (context.json() === '')
             context.setFromTwo(domain.nextStateLens, next, domain.invert(next))
@@ -44,8 +45,10 @@ export function SimpleGame<Main>(props: GameProps<GameData>) {
         </div>)
 }
 
+
 function NextMove<Main>(props: GameProps<NoughtOrCross>) {
-    return (<div> Next Move{props.context.json()}</div>)
+    let onClick = () => props.context.setJson('X')
+    return (<a onClick={onClick}> Next Move{props.context.json()}</a>)
 }
 
 function Board<Main>(props: GameProps<BoardData>) {

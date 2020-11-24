@@ -17,6 +17,7 @@ export let startDragon: Dragon = {
     head: {hitpoints: 3, leftEye: {color: "blue"}, rightEye: {color: "green"}}
 }
 
+
 describe("Dragon with lens", () => {
     it("should have lens to hitpoints", () => {
         expect(dragonHeadHpL.get(startDragon)).toEqual(3)

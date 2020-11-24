@@ -1,0 +1,21 @@
+'use strict';
+
+function Game(props) {
+    return React.createElement(
+        'div',
+        { className: 'game' },
+        React.createElement(
+            'div',
+            { className: 'game-info' },
+            'Next turn is ',
+            props.context.json().state
+        ),
+        React.createElement(
+            'div',
+            { className: 'game-board' },
+            React.createElement(ComponentFromServer, { context: props.context.focusOn('_embedded').focusOn('board') })
+        )
+    );
+}
+//# sourceMappingURL=Game.js.map
+return Game

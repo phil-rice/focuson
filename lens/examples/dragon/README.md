@@ -58,7 +58,7 @@ Let us now assume that there are two stories on the backlog
 * We are going to add People to project
      * We generized the eat/damage/heal methods
      * We added people and two lens
-     ** total code changes 5 lines
+          * total code changes 5 lines
      * We would need to change the tests to be generic .. which will actually remove the complexity of understanding what has gone wrong when the tests fail
 
 ## Impact of change on code without lens

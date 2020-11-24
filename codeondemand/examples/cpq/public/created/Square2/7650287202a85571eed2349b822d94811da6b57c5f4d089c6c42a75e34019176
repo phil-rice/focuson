@@ -1,0 +1,14 @@
+"use strict";
+
+function Square(props) {
+    var onClick = function onClick() {
+        return props.context.setJson(props.context.domain.getAndToggleNextState());
+    };
+    return React.createElement(
+        "button",
+        { className: "square", onClick: onClick },
+        props.context.json() + "."
+    );
+}
+//# sourceMappingURL=Square2.js.map
+return Square

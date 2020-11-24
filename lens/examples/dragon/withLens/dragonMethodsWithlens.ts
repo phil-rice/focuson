@@ -17,15 +17,6 @@ export function heal(locationHpL: Lens<Dragon, Hitpoint>, maxHp: Hitpoint, amoun
     return locationHpL.transform(hp =>  (hp + amount)>maxHp ? maxHp : hp + amount)
 }
 
-//example calls
 
-eat('anotherAdventurer')(dragon)
-damage(dragonLeftWingHpL, 3)(dragon)
-damage(dragonRightWingHpL, 3)(dragon)
-damage(dragonHeadHpL, 3)(dragon)
-
-heal(dragonLeftWingHpL, 10, 3)(dragon)
-heal(dragonRightWingHpL, 10, 3)(dragon)
-heal(dragonHeadHpL, 10, 3)(dragon)
 
 
