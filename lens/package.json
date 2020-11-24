@@ -1,33 +1,33 @@
 {
-  "name": "@phil-rice/lens",
-  "version": "0.1.9",
-  "description": "A simple implementation of lens",
-  "keywords": [
+  "name"           : "@phil-rice/lens",
+  "version"        : "0.1.9",
+  "description"    : "A simple implementation of lens",
+  "keywords"       : [
     "functionalprogramming",
     "lens",
     "optics"
   ],
-  "main": "index",
-  "types": "index",
-  "dependencies": {
-    "@types/node": "^14.14.7",
-    "npm-check-updates": "^10.0.0"
+  "main"           : "index",
+  "types"          : "index",
+  "dependencies"   : {
+    "@types/node"      : "^14.14.7",
+    "npm-check-updates": "^10.0.0",
+    "typescript"       : "^4.0.5"
   },
   "files"          : [
-    "index",
     "index.js",
     "index.d.ts",
     "src/"
   ],
-  "scripts": {
+  "scripts"        : {
     "prepublish": "tsc",
-    "test": "jest --config jest.config.json",
+    "test"      : "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "license": "MIT-0",
-  "repository": "git@github.com:phil-rice/ts-lens.git",
-  "browserslist": {
-    "production": [
+  "license"        : "MIT-0",
+  "repository"     : "git@github.com:phil-rice/ts-lens.git",
+  "browserslist"   : {
+    "production" : [
       ">0.2%",
       "not dead",
       "not op_mini all"
@@ -39,11 +39,10 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/jest-dom"  : "^5.11.5",
     "@testing-library/user-event": "^12.2.0",
-    "@types/jest": "^26.0.15",
-    "jest": "^26.6.3",
-    "ts-jest": "^26.4.4",
-    "typescript": "^4.0.5"
+    "@types/jest"                : "^26.0.15",
+    "jest"                       : "^26.6.3",
+    "ts-jest"                    : "^26.4.4"
   }
 }

@@ -1,5 +1,6 @@
 import {ChildFromServer, ComponentFromServer} from "./ComponentFromServer";
-import {fromMap} from "../utils";
+import {fromMap, Lens} from "@phil-rice/lens";
+
 
 
 

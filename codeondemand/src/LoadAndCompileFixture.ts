@@ -1,5 +1,6 @@
-import {fromMap, identity} from "../utils";
+
 import {LoadAndCompileCache, UrlAndValueChecker} from "./LoadAndCompileCache";
+import {fromMap, identity} from "@phil-rice/lens";
 
 
 export class LoadAndCompileFixture {
@@ -53,7 +54,7 @@ export class LoadAndCompileFixture {
 
 
     setUp<X>(fn: (cache: LoadAndCompileCache<string>) => X, comp: (s: string) => any = this.compiler, checker: UrlAndValueChecker = n => {}): X {
-        if (!this.loaderData) throw Error(this.loaderData)
+        if (!this.loaderData) throw Error(this.loaderData.toString())
         return fn(new LoadAndCompileCache(url => this.loader(url), checker, comp))
     }
     makeMapsFromNames<K, V>(keyfn: (name: string) => K, valuefn: (name: string) => V): Map<K, V> {

@@ -1,6 +1,7 @@
 import {digestorChecker, LoadAndCompileCache} from "./LoadAndCompileCache";
 import {LoadAndCompileFixture} from "./LoadAndCompileFixture";
-import {fromMap, fromObject} from "../utils";
+import {fromMap} from "@phil-rice/lens";
+
 
 describe("digestChecker", () => {
     function digestor(s: String) {return s + "_dig"}
@@ -55,7 +56,7 @@ describe("LoadAndCompileCache", () => {
     it(".getFromCache should throw an exception if the cache doesn't have a value for the url", () => {
         return fixture.setUp(async cache => {
             cache.cache.set("otherUrl", "someValue")
-            return expect(() => cache.getFromCache("someUrl")).toThrow("The cache does not know how to render someUrl\nLegal values are otherUrl")
+            return expect(() => cache.getFromCache("someUrl")).toThrow("Cannot find data for someUrl\nLegal values are otherUrl")
         })
     })
 
