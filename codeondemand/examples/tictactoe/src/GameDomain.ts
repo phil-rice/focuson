@@ -3,25 +3,22 @@ import {LoadAndCompileCache, MakeComponentFromServer} from "@phil-rice/codeondem
 import React from "react";
 
 
-export type GameProps< Main, T> = LensProps<GameDomain<Main>, Main, T>
+export type GameProps<Main, T> = LensProps<GameDomain<Main>, Main, T>
 
 
 export interface Link {
     href: string
 }
-export interface SelfLink {
-    _links: { _self: Link }
-}
 export type NoughtOrCross = "O" | "X" | ""
 
-export interface GameData extends SelfLink {
+export interface GameData {
     state: NoughtOrCross,
     _embedded: { board: BoardData },
     _render: { _self: string },
-    _links: { _self: Link, game1: Link, game2: Link }
+    _links: { game1: Link, game2: Link }
 }
 
-export interface BoardData extends SelfLink {
+export interface BoardData {
     squares: SquareData,
     _render: { _self: string, square: string }
 }
@@ -33,7 +30,8 @@ export interface HasStateLens<Main> {
 
 export let defaultStateLens = Lens.build<GameData>('game').field('state');
 
-export class GameDomain< Main> {
+export class GameDomain<Main> {
+    loadJson: (url: string) => Promise<void>
     cache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>
     stateLens: Lens<Main, NoughtOrCross>
     nextState: NoughtOrCross = "X"
@@ -44,9 +42,11 @@ export class GameDomain< Main> {
         return result;
     }
 
-    constructor(componentCache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>, stateLens: Lens<Main, NoughtOrCross>) {
+    constructor(componentCache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>,
+                stateLens: Lens<Main, NoughtOrCross>, loadJson: (url: string) => Promise<void>) {
         this.cache = componentCache
         this.stateLens = stateLens
+        this.loadJson = loadJson
     }
 
     invert(s: NoughtOrCross): NoughtOrCross {return (s === 'X' ? 'O' : 'X')}

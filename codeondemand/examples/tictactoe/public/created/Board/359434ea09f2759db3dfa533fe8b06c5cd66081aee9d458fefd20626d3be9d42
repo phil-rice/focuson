@@ -1,10 +1,10 @@
 'use strict';
 
+var lensBuilder = Lens.build('board');
+
 function Board(props) {
-    var lensBuilder = Lens.build();
-    var boardToSquares = lensBuilder.then('squares');
     var sq = function sq(n) {
-        return React.createElement(ChildFromServer, { render: 'square', context: props.context, lens: boardToSquares.andThen(Lens.nth(n)) });
+        return React.createElement(ChildFromServer, { render: 'square', context: props.context, lens: lensBuilder.then('squares').andThen(Lens.nth(n)) });
     };
     return React.createElement(
         'div',

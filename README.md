@@ -27,9 +27,12 @@ See https://medium.com/@gcanti/introduction-to-optics-lenses-and-prisms-3230e73b
 A lens allows us to 'focus in' on a small part of a big data structure. Without these lens we have
 to write a lot of 'copy code' manually.
 
-## reactlens
-Using the lens we can handle state in react very simply. This library holds the (tiny) code that
-lets react components use this approach
+### lens/examples/dragon
+A comparison of code and tests with and without lens
+
+### lens/examples/tic_tac_toe
+An example of the 'react tutorial' game in which we use lens to manage state instead
+of redux, 'state' or 'context'. 
 
 ## codeondemand
 One of the core constraints in REST (https://en.wikipedia.org/wiki/Representational_state_transfer) is code on demand.
@@ -38,6 +41,13 @@ Codeondemand allows us much more flexibility and power in our gui design. It bas
 time versioning APIs because as far as the server is concerned there is only one version: the 'now version' (unless the server has
 some reason for multiple versions like 'A/B testing') The server delivers the code to the client that is correct for the
 data that the client needs. 
+
+### codeondemand/examples/tic_tac_toe
+An example of the 'react tutorial' game in which we use lens to manage state instead
+of redux, 'state' or 'context'. We also deliver the components using 'code on demand' 
+
+
+# Why Code on demand?
 
 ### Cross time versioning / data representation changes
 As we move through time often the server wants to change the data representation. For example it might want to add new fields (easy), change 
@@ -62,32 +72,3 @@ doesn't want adverts at all. One company wants very simple components, and a dif
 If the client is tightly coupled to the server (the usual situation is the client understands the json coming from APIs),
 then it can be challenging to undertake experiments. The client needs to 'know' about the experiments and be modified to support them.
 
-## codeondemandnav
-This is a few components that are useful while developing. It allows the developer to set up a set of json representing common situations, and quickly
-show what the screens will look like. 
-
-### Example: coffee shop
-Imagine CPQ (Configuration Pricing Quotation) for a cup of coffee, where there is a backend api delivering business logic. (Note
-that while the business logic for coffee is simple, the business logic for 'ordering a hire car' is extremely complex, integrates into
- legacy systems/logistic systems and requires a backend).  The user might do the following path:
-* Nothing selected
-* Select drink type
-* select milk typ
-* select an extra shot
-* add a coupon to reduce the cost
-* order
-
-This journey (with code on demand) can be represented as the json that came from the coffee selection API. The developer can use these
-components to quickly author a 'show me what it looks like' to aid in their development
-
-## examples
-Several example projects are shown
-
-### Example: tictactoe_lens
-This is the classic react tutorial shown just using lens as state management
-
-### Example: tictactoe_codeondamange
-This shows the same tutorial with code on demand. 
-
-### Example: car_cpq
-This shows a simple cpq system with a car

@@ -28,3 +28,4 @@ src/react-app-env.d.ts
 
 public/created/
 out/
+.eslintcache

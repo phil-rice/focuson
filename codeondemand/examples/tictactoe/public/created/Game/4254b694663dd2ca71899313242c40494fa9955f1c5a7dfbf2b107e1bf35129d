@@ -1,0 +1,43 @@
+'use strict';
+
+function Game(props) {
+    return React.createElement(
+        'div',
+        { className: 'game' },
+        React.createElement(
+            'div',
+            { className: 'game-info' },
+            React.createElement(
+                'p',
+                null,
+                'Next turn is ',
+                props.context.json().state
+            ),
+            React.createElement(
+                'ul',
+                null,
+                React.createElement(LoadGame, { context: props.context.focusOn('_links').focusOn('game1') }),
+                React.createElement(LoadGame, { context: props.context.focusOn('_links').focusOn('game2') })
+            )
+        ),
+        React.createElement(
+            'div',
+            { className: 'game-board' },
+            React.createElement(ComponentFromServer, { context: props.context.focusOn('_embedded').focusOn('board') })
+        )
+    );
+}
+
+function LoadGame(props) {
+    return React.createElement(
+        'li',
+        null,
+        React.createElement(
+            'a',
+            null,
+            props.context.json().href
+        )
+    );
+}
+//# sourceMappingURL=Game.js.map
+return Game

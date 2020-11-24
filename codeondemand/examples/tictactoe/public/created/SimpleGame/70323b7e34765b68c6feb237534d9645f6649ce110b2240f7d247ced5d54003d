@@ -12,7 +12,7 @@ function SimpleGame(props) {
 function Board(props) {
     var squares = props.context.focusOn('squares');
     var sq = function sq(n) {
-        return React.createElement(Square, { context: squares.withLens(Lens.nth(n)) });
+        return React.createElement(Square, { context: squares.withChildLens(Lens.nth(n)) });
     };
     return React.createElement(
         "div",
@@ -43,10 +43,7 @@ function Board(props) {
 function Square(props) {
     console.log('square', props);
     var onClick = function onClick() {
-        console.log('onclick', props);
-        var newMain = props.context.domain.setSquareAndToggleState(props.context);
-        console.log(newMain);
-        props.context.setMain(newMain);
+        return props.context.dangerouslySetMain(props.context.domain.setSquareAndToggleState(props.context));
     };
     return React.createElement(
         "button",

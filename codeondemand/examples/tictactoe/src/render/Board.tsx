@@ -2,7 +2,6 @@ import {Lens} from "@phil-rice/lens";
 import {ChildFromServer} from "@phil-rice/codeondemand";
 import {BoardData, GameProps} from "../GameDomain";
 
-
 let lensBuilder: Lens<BoardData, BoardData> = Lens.build('board');
 
 function Board<Main>(props: GameProps<Main, BoardData>) {

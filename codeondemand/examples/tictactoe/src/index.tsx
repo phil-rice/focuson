@@ -8,11 +8,12 @@ import React from "react";
 
 let cache = LoadAndCompileCache.create<MakeComponentFromServer<React.ReactElement>>((s: string) => SHA256(s).toString())
 
-let gameDomain = new GameDomain(cache, defaultStateLens)
+function setJson(url: string) {
+    return loadAndRenderIntoElement<React.ReactElement, GameDomain<GameData>, GameData>(gameDomain, 'game',
+        c => ReactDOM.render(<ComponentFromServer context={c}/>, element))(url)
+}
+let gameDomain: GameDomain<GameData> = new GameDomain(cache, defaultStateLens, setJson)
 let element = getElement('root')
-
-let setJson = loadAndRenderIntoElement<React.ReactElement, GameDomain<GameData>, GameData>(gameDomain, 'game',
-    c => ReactDOM.render(<ComponentFromServer context={c}/>, element))
 
 setJson('created/gameJson2.json')
 

@@ -2,7 +2,7 @@
 
 This is an example of how to use the 'Lens' idea to manage state in react.
 
-It is an approach that is optimsed for the following:
+It is an approach that is optimised for the following:
 
 * We are displaying a block of json and there is a sensible mapping between the json and the components
      * We call this 'focusing on the json'
