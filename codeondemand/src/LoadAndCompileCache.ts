@@ -1,5 +1,5 @@
-import {ChildFromServer, ComponentFromServer} from "./ComponentFromServer";
-import {fromMap, Lens} from "@phil-rice/lens";
+import {ChildFromServer, ComponentFromServer, DomainWithCache} from "./ComponentFromServer";
+import {fromMap, Lens, LensContext} from "@phil-rice/lens";
 
 
 

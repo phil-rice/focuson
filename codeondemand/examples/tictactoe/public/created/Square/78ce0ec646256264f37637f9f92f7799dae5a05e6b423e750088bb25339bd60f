@@ -1,0 +1,15 @@
+'use strict';
+
+function Square(props) {
+    console.log('square', props);
+    var onClick = function onClick() {
+        return props.context.setMain(props.context.domain.setSquareAndToggleState(props.context));
+    };
+    return React.createElement(
+        'button',
+        { className: 'square', onClick: onClick },
+        props.context.json()
+    );
+}
+//# sourceMappingURL=Square.js.map
+return Square

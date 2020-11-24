@@ -1,0 +1,24 @@
+'use strict';
+
+function Game(rest) {
+    return function (props) {
+        return React.createElement(
+            'div',
+            { className: 'game' },
+            React.createElement(
+                'div',
+                { className: 'game-info' },
+                'Next turn is ',
+                rest.json().state
+            ),
+            React.createElement(
+                'div',
+                { className: 'game-board' },
+                React.createElement(Rest, { stateLens: rest.fieldLens('state'), rest: rest.then('_embedded').then('board') })
+            )
+        );
+    };
+}
+//# sourceMappingURL=Game.js.map
+Game.displayName='Game'
+return Game

@@ -1,0 +1,22 @@
+'use strict';
+
+function Square(rest) {
+    function invertStateAndSet(state, existingCell) {
+        return { one: rest.domain().invert(state), two: state };
+    }
+    function onClick(stateLens) {
+        if (rest.json().length === 0) rest.setFrom2Lens(stateLens, rest.lens, invertStateAndSet);
+    }
+
+    return function (props) {
+        return React.createElement(
+            'button',
+            { className: 'square', onClick: function () {
+                    return onClick(props.stateLens);
+                } },
+            rest.json()
+        );
+    };
+}
+//# sourceMappingURL=Square.js.map
+return Square

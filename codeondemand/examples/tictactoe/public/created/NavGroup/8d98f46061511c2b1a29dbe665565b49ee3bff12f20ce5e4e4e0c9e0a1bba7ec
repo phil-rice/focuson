@@ -1,0 +1,35 @@
+'use strict';
+
+function NavGroup(props) {
+    var name = props.context.json().name;
+    // @ts-ignore //TODO sort out the ignore: check that the string is legit first, and give nice error message
+    var group = props.context.json().jsonFiles.map(function (url, i) {
+        return React.createElement(
+            'li',
+            { key: url },
+            React.createElement(
+                'a',
+                { onClick: function () {
+                        return props.context.domain.loadUrlAndPutInElement(name, url, 'root');
+                    } },
+                url
+            )
+        );
+    });
+    return React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(
+            'li',
+            { key: 'groupName' },
+            props.context.json().name
+        ),
+        React.createElement(
+            'ul',
+            { key: 'navGroup' + name },
+            group
+        )
+    );
+}
+//# sourceMappingURL=NavGroup.js.map
+return NavGroup

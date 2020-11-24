@@ -1,0 +1,14 @@
+'use strict';
+
+function Nav(props) {
+    var groups = props.context.json().groups.map(function (g, i) {
+        React.createElement(ComponentFromServer, { key: i, context: props.context.focusOn('groups').withLens(Lens.nth(i)) });
+    });
+    return React.createElement(
+        'ul',
+        { key: 'groups' },
+        groups
+    );
+}
+//# sourceMappingURL=Nav.js.map
+return Nav

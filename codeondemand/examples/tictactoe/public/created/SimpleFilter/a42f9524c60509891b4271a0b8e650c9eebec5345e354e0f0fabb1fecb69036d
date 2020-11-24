@@ -1,0 +1,29 @@
+"use strict";
+
+function SimpleFilter(rest) {
+    var onChange = function onChange(event) {
+        console.log("onChange.target", event.target.value);
+    };
+    var filterJson = rest.json();
+    return function (props) {
+        var options = rest.domain().makeOptions(filterJson.selected, rest.json().legalValues);
+        return React.createElement(
+            "div",
+            { key: filterJson.filterName, className: filterJson.filterName },
+            React.createElement(
+                "p",
+                null,
+                filterJson.filterName
+            ),
+            React.createElement(
+                "select",
+                { onChange: function (event) {
+                        return onChange(event);
+                    } },
+                options
+            )
+        );
+    };
+}
+//# sourceMappingURL=SimpleFilter.js.map
+return SimpleFilter

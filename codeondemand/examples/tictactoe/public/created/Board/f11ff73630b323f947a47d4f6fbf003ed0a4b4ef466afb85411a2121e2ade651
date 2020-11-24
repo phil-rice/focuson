@@ -1,0 +1,43 @@
+'use strict';
+
+function Board(rest) {
+    return function (props) {
+        var sq = function sq(n) {
+            return React.createElement(RestChild, { stateLens: props.stateLens, render: 'square', parentRest: rest, lens: rest.fieldLens('squares').andThen(Lens.nth(n)) });
+        };
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(
+                'div',
+                { className: 'board-row' },
+                sq(0),
+                ' ',
+                sq(1),
+                ' ',
+                sq(2)
+            ),
+            React.createElement(
+                'div',
+                { className: 'board-row' },
+                sq(3),
+                ' ',
+                sq(4),
+                ' ',
+                sq(5)
+            ),
+            React.createElement(
+                'div',
+                { className: 'board-row' },
+                sq(6),
+                ' ',
+                sq(7),
+                ' ',
+                sq(8)
+            )
+        );
+    };
+}
+//# sourceMappingURL=Board.js.map
+Board.displayName='Board'
+return Board

@@ -1,0 +1,58 @@
+"use strict";
+
+function SimpleGame(props) {
+    console.log("in simple game", props);
+    return React.createElement(
+        "div",
+        { className: "game" },
+        React.createElement(Board, { context: props.context.focusOn("_embedded").focusOn('board') })
+    );
+}
+
+function Board(props) {
+    var squares = props.context.focusOn('squares');
+    var sq = function sq(n) {
+        return React.createElement(Square, { context: squares.withLens(Lens.nth(n)) });
+    };
+    return React.createElement(
+        "div",
+        { className: "board" },
+        React.createElement(
+            "div",
+            null,
+            sq(0),
+            sq(1),
+            sq(2)
+        ),
+        React.createElement(
+            "div",
+            null,
+            sq(3),
+            sq(4),
+            sq(5)
+        ),
+        React.createElement(
+            "div",
+            null,
+            sq(6),
+            sq(7),
+            sq(8)
+        )
+    );
+}
+function Square(props) {
+    console.log('square', props);
+    var onClick = function onClick() {
+        console.log('onclick', props);
+        var newMain = props.context.domain.setSquareAndToggleState(props.context);
+        console.log(newMain);
+        props.context.setMain(newMain);
+    };
+    return React.createElement(
+        "button",
+        { className: "square", onClick: onClick },
+        props.context.json()
+    );
+}
+//# sourceMappingURL=SimpleGame.js.map
+return SimpleGame

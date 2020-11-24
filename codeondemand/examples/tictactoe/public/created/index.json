@@ -1,0 +1,31 @@
+{
+  "_render": {
+    "_self"        : "created/Nav/833f282f99f2359a4f6dfdc3b421a3a1708a09461370950e66be2b440591ef0a",
+    "Nav"          : "created/Nav/833f282f99f2359a4f6dfdc3b421a3a1708a09461370950e66be2b440591ef0a",
+    "NavGroup"     : "created/NavGroup/b6a09d2b48b1e23d2583789b8d2bbe0670a2a045a96943e188398ee4deee7b51",
+    "Square"       : "created/Square/58a4e6c1fe6bb273604a7b3b0f21e9df003a5aa702427395f49d903188cfad6a",
+    "Board"        : "created/Board/effea696a4e1988968e0c56cb2ec37d8c2820e800f060080175a056d4dcb0042",
+    "Game"         : "created/Game/fd59f6415d04c93645e2e7c55a2995cb5b59fbac39399cf8f550afd6e310bee7",
+    "SimpleGame"   : "created/SimpleGame/f670a22642a53ee044c08d0451c3c079739efad0cab14a46922439f918b1477d",
+    "Cpq"          : "created/Cpq/d1778a6bb80ed819145281e91f649ff2b22fc5d9b13aec53a23346b83a22753c",
+    "SimpleFilter" : "created/SimpleFilter/3cccf1808e344cffb7204e58c6cc04a52f1cbb9b071071b669b9df5c572de8fd",
+    "GearboxFilter": "created/GearboxFilter/985291028b1246f064a3889e8297ce380e634e25f14fe1d0886bd38341c5ac1e"
+  },
+  "groups" : [
+    {
+      "name"     : "game",
+      "jsonFiles": ["created/gameJson1.json", "created/gameJson2.json", "created/simpleGameJson.json"],
+      "_render"  : {"_self": "created/NavGroup/b6a09d2b48b1e23d2583789b8d2bbe0670a2a045a96943e188398ee4deee7b51"}
+    }, {
+      "name"     : "cpq",
+      "jsonFiles": [
+        "created/cpqNothingSelected.json",
+        "created/cpqMakeSelected.json",
+        "created/cpqMakeAndModelSelected.json",
+        "created/cpqMakeModelAndTransmissionSelected.json",
+        "created/cpqMakeAndModelAndTransmissionAndFuelTypeSelected.json"
+      ],
+      "_render"  : {"_self": "created/NavGroup/b6a09d2b48b1e23d2583789b8d2bbe0670a2a045a96943e188398ee4deee7b51"}
+    }
+  ]
+}

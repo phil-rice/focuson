@@ -1,0 +1,37 @@
+'use strict';
+
+function NavGroup(rest) {
+    return function (props) {
+        var name = rest.json().name;
+        var group = rest.json().jsonFiles.map(function (url, i) {
+            return React.createElement(
+                'li',
+                { key: url },
+                React.createElement(
+                    'a',
+                    { onClick: function () {
+                            return rest.domain().loadUrlAndPutInElement(name, url, 'root');
+                        } },
+                    url
+                )
+            );
+        });
+        return React.createElement(
+            React.Fragment,
+            null,
+            React.createElement(
+                'li',
+                { key: 'groupName' },
+                rest.json().name
+            ),
+            React.createElement(
+                'ul',
+                { key: 'navGroup' + name },
+                group
+            )
+        );
+    };
+}
+//# sourceMappingURL=NavGroup.js.map
+NavGroup.displayName='NavGroup'
+return NavGroup

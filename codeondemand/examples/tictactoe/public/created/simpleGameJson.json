@@ -1,0 +1,9 @@
+{
+  "_render"  : {"_self": "created/SimpleGame/f670a22642a53ee044c08d0451c3c079739efad0cab14a46922439f918b1477d"},
+  "state"    : "X",
+  "_embedded": {
+    "board": {
+      "squares": ["", "", "", "", "", "", "", "", ""]
+    }
+  }
+}
