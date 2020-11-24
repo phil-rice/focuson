@@ -17,7 +17,15 @@ integration with ERP systems and other sophisticated options
 Here we 'checkout' the product and purchase it. Not shown in the demo other than 'an alert box'
 
 # What is happening?
-We get json from the backend
+We get json from the backend. This json
+* Data about the whole configuration (for example the price)
+* A list of filters which can be used to display and select the options
+
+These filters use `codeondemand` to control what is display. So for example 
+a coffeeshop milkfilter might have images, while other filters might show a range or a textual drop down
+
+
+
 
 
 

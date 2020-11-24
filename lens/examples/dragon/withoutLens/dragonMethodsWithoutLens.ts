@@ -16,6 +16,9 @@ export function eat(dragon: Dragon, item: any): Dragon {
         }
     }
 }
+
+
+
 type Location = 'head' | 'chest' | 'leftwing' | 'rightwing'
 export function damage(dragon: Dragon, location: Location, amount: Hitpoint) {
     switch (location) {

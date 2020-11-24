@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-sed        -e 's^#Cpq/render#^created/Cpq/7cfdeafe7bcf6ae13fe63e1b0510e3e1346dc2124812bf19b9085f559be59040^g'      -e 's^#GearboxFilter/render#^created/GearboxFilter/985291028b1246f064a3889e8297ce380e634e25f14fe1d0886bd38341c5ac1e^g'      -e 's^#SimpleFilter/render#^created/SimpleFilter/3cccf1808e344cffb7204e58c6cc04a52f1cbb9b071071b669b9df5c572de8fd^g'  

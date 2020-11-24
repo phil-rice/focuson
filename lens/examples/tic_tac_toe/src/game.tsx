@@ -1,13 +1,6 @@
 import {Lens, LensProps} from "@phil-rice/lens";
 import * as React from "react";
 
-//This is the json representation of the state of the game
-export let emptyGame: GameData = {
-    "next": "X",
-    "board": {
-        "squares": ["", "", "", "", "", "", "", "", ""]
-    }
-}
 
 //These are the interfaces to describe the Game json
 export interface GameData {
@@ -35,6 +28,13 @@ export class GameDomain {
 
     nextStateLens: Lens<GameData, NoughtOrCross>
     constructor(nextStateLens: Lens<GameData, NoughtOrCross>) { this.nextStateLens = nextStateLens; }
+}
+//This is the json representation of the state of the game
+export let emptyGame: GameData = {
+    "next": "X",
+    "board": {
+        "squares": ["", "", "", "", "", "", "", "", ""]
+    }
 }
 
 export function SimpleGame<Main>(props: GameProps<GameData>) {

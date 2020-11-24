@@ -1,5 +1,6 @@
 {
   "_links"     : {"_self": {"href": "api/filterList/filterList1"}},
+  "price"      : "N/A",
   "_render"    : {"_self": "#Cpq/render#"},
   "pageIndex"  : 0,
   "pageCount"  : 3,

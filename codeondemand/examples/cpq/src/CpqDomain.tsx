@@ -3,11 +3,14 @@ import {LoadAndCompileCache, MakeComponentFromServer} from "@phil-rice/codeondem
 
 export type CpqProperties<Main, T> = LensProps<CpqDomain, Main, T>
 
-export interface Link {href: string}
 export interface SelfRender {
     _render: { _self: string }
 }
-export interface CpqData extends SelfRender {filters: CqpFilter[]}
+export interface CpqData extends SelfRender, Price {filters: CqpFilter[]}
+
+interface Price {
+    price: string
+}
 
 export interface CqpFilter extends SelfRender {
     filterName: string, //this is a lookup into an internationalisation resource bundle
@@ -27,6 +30,7 @@ export class CpqDomain {
 }
 
 const example: CpqData = {
+    "price": "$300/month",
     "_render": {"_self": "#Cpq/render#"},
     "filters": [
         {
