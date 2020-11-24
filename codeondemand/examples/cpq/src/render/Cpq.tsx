@@ -6,9 +6,9 @@ function Cpq<Main>(props: CpqProperties<Main, CpqData>) {
     const filters = props.context.json().filters.map((f, i) =>
         (<ComponentFromServer context={props.context.focusOn('filters').withChildLens(Lens.nth(i))}/>))
 
+    console.log("cpq",JSON.stringify(props.context.json()))
     let price: string = props.context.json().price.toString()
     console.log("cpq/price", price)
-    console.log("cpq",JSON.stringify(props.context.json()))
 
     return (<div className='cpq'>
         <div className='summary'>Price: {price}</div>
