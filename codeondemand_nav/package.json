@@ -1,7 +1,7 @@
 {
-  "name": "@phil-rice/codeondemand_cpq",
-  "version": "0.1.4",
-  "description": "Demonstrating the code on demand approach for configure price quotation",
+  "name": "@phil-rice/codeondemand_nav",
+  "version": "0.1.10",
+  "description": "A navbar for 'code on demand'",
   "keywords": [
     "functionalprogramming",
     "lens",
@@ -11,27 +11,25 @@
   "main": "index",
   "types": "index",
   "dependencies": {
-    "@phil-rice/codeondemand": "^0.1.10",
-    "@phil-rice/codeondemand_nav": "^0.1.10",
     "@phil-rice/lens": "^0.1.9",
-    "@types/crypto-js": "^4.0.1",
+    "@phil-rice/codeondemand": "^0.1.9",
     "@types/node": "^14.14.9",
+    "typescript": "^4.1.2",
     "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "crypto-js": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-scripts": "^4.0.1",
-    "typescript": "^4.1.2"
+    "react-scripts": "^4.0.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.1.10"
+    "@types/jest": "^26.0.15"
   },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "src/"
+  ],
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "prepublish": "tsc",
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },

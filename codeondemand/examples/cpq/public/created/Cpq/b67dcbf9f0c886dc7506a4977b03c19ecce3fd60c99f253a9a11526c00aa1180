@@ -1,0 +1,29 @@
+"use strict";
+
+function Cpq(props) {
+    var filters = props.context.json().filters.map(function (f, i) {
+        return React.createElement(ComponentFromServer, { context: props.context.focusOn('filters').withChildLens(Lens.nth(i)) });
+    });
+
+    var price = props.context.json().price.toString();
+    console.log("cpq/price", price);
+    console.log("cpq", JSON.stringify(props.context.json()));
+
+    return React.createElement(
+        "div",
+        { className: "cpq" },
+        React.createElement(
+            "div",
+            { className: "summary" },
+            "Price: ",
+            price
+        ),
+        React.createElement(
+            "div",
+            { className: "filters" },
+            filters
+        )
+    );
+}
+//# sourceMappingURL=Cpq.js.map
+return Cpq
