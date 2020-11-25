@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
@@ -10,10 +5,46 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - script: |
+      cd lens
+      npm install
+      tsc
+      npm test
+    displayName: 'lens'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - script: |
+      cd codeondemand
+      npm install
+      tsc
+      npm test
+    displayName: 'codeondemand'
+
+  - script: |
+      set -e
+      cd lens/examples/dragon
+      npm install
+      tsc
+      npm test
+    displayName: 'lens/dragon'
+
+  - script: |
+      set -e
+      cd lens/examples/tictactoe
+      npm install
+      tsc
+    displayName: 'lens/tictactoe'
+
+  - script: |
+      set -e
+      cd codeondemand/examples/tictactoe
+      npm install
+      tsc
+    displayName: 'codeondemand/cpq'
+
+  - script: |
+      set -e
+      cd codeondemand/examples/cpq
+      npm install
+      tsc
+    displayName: 'codeondemand/cpq'
+
