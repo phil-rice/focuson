@@ -48,3 +48,35 @@ ol, ul {
 .game-info {
     margin-left: 20px;
 }
+
+div#root{
+  margin:0;  
+}
+
+div#root div {
+    width: 100%;
+}
+
+div#root div ul:first-child{
+  float:left;
+  width:70%;
+  color: #000;
+  font-weight: bold;
+}
+
+div#root div ul ul li {
+  cursor: pointer;
+  font-weight: bold;
+  color: orange;
+}
+
+div#root div ul ul li:hover {
+  font-weight: bold;
+  cursor: pointer;
+  color: #000;
+}
+
+div#root div div.cpq{
+  float:left;
+  width:30%;
+} 

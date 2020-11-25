@@ -11,6 +11,6 @@ function GearboxFilter<Main>(props: CpqProperties<Main, CqpFilter>) {
     let options = context.domain.makeOptions(filterJson.selected, context.json().legalValues);
     return (<div key={filterJson.filterName}>
         <p><span className="font-weight-bold">Filter:</span> {filterJson.filterName}</p>
-        <select className="custom-select custom-select-lg mb-3" onChange={event => onChange(event)} key={`select-${filterJson.filterName}`}>{options}</select>
+        <select className="custom-select custom-select-md mb-3" onChange={event => onChange(event)} key={`select-${filterJson.filterName}`}>{options}</select>
     </div>);
 }
