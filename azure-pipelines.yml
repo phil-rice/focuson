@@ -1,0 +1,50 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - script: |
+      cd lens
+      npm install
+      tsc
+      npm test
+    displayName: 'lens'
+
+  - script: |
+      cd codeondemand
+      npm install
+      tsc
+      npm test
+    displayName: 'codeondemand'
+
+  - script: |
+      set -e
+      cd lens/examples/dragon
+      npm install
+      tsc
+      npm test
+    displayName: 'lens/dragon'
+
+  - script: |
+      set -e
+      cd lens/examples/tictactoe
+      npm install
+      tsc
+    displayName: 'lens/tictactoe'
+
+  - script: |
+      set -e
+      cd codeondemand/examples/tictactoe
+      npm install
+      tsc
+    displayName: 'codeondemand/cpq'
+
+  - script: |
+      set -e
+      cd codeondemand/examples/cpq
+      npm install
+      tsc
+    displayName: 'codeondemand/cpq'
+

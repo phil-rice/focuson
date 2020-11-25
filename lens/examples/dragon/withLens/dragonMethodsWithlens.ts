@@ -16,7 +16,7 @@ export let dragonContentsL: Lens<Dragon, any[]> = dragonBodyL.then('chest').then
 
 export function eat(item: any): (d: Dragon) => Dragon {
     return dragonContentsL.transform(oldContents => [...oldContents, item]);}
-1
+
 
 
 export function damage(locationHpL: Lens<Dragon, Hitpoint>, damage: Hitpoint): (d: Dragon) => Dragon {
