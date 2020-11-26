@@ -1,0 +1,30 @@
+{
+  "name": "@latika/gen-build",
+  "version": "0.0.1",
+  "description": "Generate build suitable for code on demand",
+  "keywords": [
+    "transpile",
+    "build",
+    "react"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "license": "MIT-0",
+  "repository": "git@github.com:phil-rice/ts-lens.git",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "bin": {
+    "orgcmd": "orgcmd.js"
+  },
+  "dependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
+    "@babel/preset-typescript": "^7.12.7",
+    "commander": "^6.2.0",
+    "sha.js": "^2.4.11"
+  }
+}

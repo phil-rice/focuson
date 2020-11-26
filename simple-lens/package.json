@@ -13,5 +13,8 @@
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "devDependencies": {
     "jest": "^26.6.3"
+  },
+  "bin": {
+    "greet": "cli.js"
   }
 }

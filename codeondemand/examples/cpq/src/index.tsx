@@ -1,11 +1,11 @@
 import ReactDOM from 'react-dom';
 import './index.css';
-import {SHA256} from 'crypto-js'
-import {getElement, LensContext} from "@phil-rice/lens";
-import {ComponentFromServer, LoadAndCompileCache, loadAndRenderIntoElement, MakeComponentFromServer} from "@phil-rice/codeondemand";
+import { SHA256 } from 'crypto-js'
+import { getElement, LensContext } from "@phil-rice/lens";
+import { ComponentFromServer, LoadAndCompileCache, loadAndRenderIntoElement, MakeComponentFromServer } from "@phil-rice/codeondemand";
 import React from "react";
-import {CpqData, CpqDomain} from "./CpqDomain";
-import {Nav, NavData, NavDomain} from "@phil-rice/codeondemand_nav";
+import { CpqData, CpqDomain } from "./CpqDomain";
+import { Nav, NavData, NavDomain } from "@phil-rice/codeondemand_nav";
 
 
 let cache = LoadAndCompileCache.create<MakeComponentFromServer<React.ReactElement>>((s: string) => SHA256(s).toString())
@@ -23,7 +23,7 @@ fetch("created/index.json").then(j => j.json()).then(json => {
             c => ReactDOM.render(
                 <div>
                     <Nav context={navContext}></Nav>
-                    <ComponentFromServer context={c}/>
+                    <ComponentFromServer context={c} />
                 </div>, element))(url)
     }
     let navDomain = new NavDomain(setJson)

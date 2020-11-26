@@ -2,6 +2,9 @@
 
 # dependencies
 node_modules/
+codeondemand/examples/cpq/node_modules/
+codeondemand/examples/titactoe/node_modules/
+codeondemand/examples/cpq/node_modules/
 /.pnp
 .pnp.js
 .tgz
@@ -27,7 +30,8 @@ yarn-error.log*
 debug.log
 src/react-app-env.d.ts
 
-public/created/
+created/
+src/json/
 out/
 .eslintcache
 .idea/
