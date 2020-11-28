@@ -1,49 +1,48 @@
-lens 
+lens
 /mnt/c/git/ts/lens
   lens npm install 0
   lens npm test 0
   lens tsc 0
-  lens took 19s 
-codeondemand 
+  lens took 22s
+codeondemand
 /mnt/c/git/ts/codeondemand
   codeondemand npm install 0
   codeondemand npm test 0
   codeondemand tsc 0
-  codeondemand took 18s 
-codeondemand_nav 
-/mnt/c/git/ts/codeondemand_nav
-  codeondemand_nav npm install 0
-  codeondemand_nav npm test 1
-  codeondemand_nav tsc 0
-  codeondemand_nav took 13s 
-examples/lens/cpq 
+  codeondemand took 53s
+nav
+/mnt/c/git/ts/nav
+  nav npm install 0
+  nav npm test 0
+  nav tsc 0
+  nav took 43s
+examples/lens/cpq
 /mnt/c/git/ts/examples/lens/cpq
   examples/lens/cpq npm install 0
   examples/lens/cpq npm test 1
-  examples/lens/cpq tsc 1
-  examples/lens/cpq took 5s 
-examples/lens/dragon 
+  examples/lens/cpq tsc 0
+  examples/lens/cpq took 21s
+examples/lens/dragon
 /mnt/c/git/ts/examples/lens/dragon
   examples/lens/dragon npm install 0
-  examples/lens/dragon npm test 1
-  examples/lens/dragon tsc 1
-  examples/lens/dragon took 11s 
-examples/lens/coffeShop 
+  examples/lens/dragon npm test 0
+  examples/lens/dragon tsc 0
+  examples/lens/dragon took 35s
+examples/lens/coffeShop
 /mnt/c/git/ts
   examples/lens/coffeShop npm install 0
   examples/lens/coffeShop npm test 254
   examples/lens/coffeShop tsc 1
-  examples/lens/coffeShop took 2s 
-examples/codeondemand/tictactoe 
+  examples/lens/coffeShop took 3s
+examples/codeondemand/tictactoe
 /mnt/c/git/ts/examples/codeondemand/tictactoe
   examples/codeondemand/tictactoe npm install 0
   examples/codeondemand/tictactoe npm test 1
   examples/codeondemand/tictactoe tsc 0
-  examples/codeondemand/tictactoe took 19s 
-examples/codeondemand/cpq 
+  examples/codeondemand/tictactoe took 21s
+examples/codeondemand/cpq
 /mnt/c/git/ts/examples/codeondemand/cpq
   examples/codeondemand/cpq npm install 0
   examples/codeondemand/cpq npm test 1
-  examples/codeondemand/cpq tsc 0
-  examples/codeondemand/cpq took 20s 
-Total took 107s 
+  examples/codeondemand/cpq tsc 2
+  examples/codeondemand/cpq took 17s

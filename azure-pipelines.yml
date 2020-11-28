@@ -51,7 +51,7 @@ steps:
       cd examples/codeondemand/tictactoe
       npm install
       tsc
-    displayName: 'codeondemand/cpq'
+    displayName: 'codeondemand/tictactoe'
     condition: succeededOrFailed()
 
   - script: |
@@ -60,5 +60,11 @@ steps:
       npm install
       tsc
     displayName: 'codeondemand/cpq'
+    condition: succeededOrFailed()
+
+  - script: |
+       chmod u+x scripts/installAll.sh
+       scripts/installAll.sh
+    displayName: 'summary'
     condition: succeededOrFailed()
 
