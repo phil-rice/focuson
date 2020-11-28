@@ -6,6 +6,8 @@ pool:
 
 steps:
   - script: |
+       npm --version
+       node --version
        tsc --version
        sudo npm install -g typescript
        tsc --version
