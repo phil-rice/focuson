@@ -5,7 +5,7 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "declaration": true,
-    "allowJs": true
+    "allowJs": false
   },
   "include": [
     "src/**/*.ts",
