@@ -1,14 +1,12 @@
 {
   "_links"   : {
-    "_self": {"href": "created/gameJson2.json"}, "game1": {"href": "created/gameJson1.json"},
+    "game1": {"href": "created/gameJson1.json"},
     "game2": {"href": "created/gameJson2.json"}
   },
-  "_render"  : {"_self": "created/Game/b8c7b00fdd61f572f9aee1291eb634eb9560c62d9e9d4e430fb0ce33538f3cba"},
+  "_render"  : {"_self": "created/Game/aa3b7541a73bcd2ec78b5a422331bbede7842f7bfbf3ac2df5c5feaefda0300b"},
   "state"    : "X",
-  "gameData" : "Some game data properties could go here",
   "_embedded": {
     "board": {
-      "_links" : {"_self": {"href": "/not/Used/Yet"}},
       "_render": {
         "_self" : "created/Board/359434ea09f2759db3dfa533fe8b06c5cd66081aee9d458fefd20626d3be9d42",
         "square": "created/Square2/7650287202a85571eed2349b822d94811da6b57c5f4d089c6c42a75e34019176"

@@ -1,0 +1,28 @@
+{
+  "_links" : {"_self": {"href": "api/filterList/filterList1"}},
+  "_render": {"_self": "created/Cpq/32d95320a05e91051649c9dabd0e96fc695e82f34d47fe7b0fb4d5ea8eddffe7"},
+  "price": "N/A ",
+  "filters": [
+    {
+      "_render"    : {"_self": "created/SimpleFilter/3ab87682f24bfab097e17260cb177962a662a624bbb979a722a6162d346cc445"},
+      "filterName" : "filter.make",
+      "selected"   : "Audi",
+      "legalValues": [ "Tesla","Audi", "BMW"]
+    }, {
+      "_render"    : {"_self": "created/SimpleFilter/3ab87682f24bfab097e17260cb177962a662a624bbb979a722a6162d346cc445"},
+      "filterName" : "filter.model",
+      "selected"   : "Audi A3 Convertible",
+      "legalValues": ["Audi A10", "Audi Q5", "Audi A3 Convertible"]
+    }, {
+      "_render"    : {"_self": "created/SimpleFilter/3ab87682f24bfab097e17260cb177962a662a624bbb979a722a6162d346cc445"},
+      "filterName" : "filter.transmission",
+      "selected"   : null,
+      "legalValues": ["Automatic", "Gearbox"]
+    }, {
+      "_render"    : {"_self": "created/SimpleFilter/3ab87682f24bfab097e17260cb177962a662a624bbb979a722a6162d346cc445"},
+      "filterName" : "filter.fuelType",
+      "selected"   : null,
+      "legalValues": ["Petrol", "Diesel", "Electric", "Benzene"]
+    }
+  ]
+}

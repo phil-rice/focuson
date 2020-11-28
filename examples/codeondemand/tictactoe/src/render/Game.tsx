@@ -3,7 +3,7 @@ import {ComponentFromServer} from "@phil-rice/codeondemand";
 
 
 
-function Game<Main>({context}: GameProps<GameData, GameData>) {
+export function Game<Main>({context}: GameProps<GameData, GameData>) {
     return (<div className='game'>
         <div className={'game-info'}>
             <p>Next turn is {context.json().state}</p>
@@ -18,7 +18,7 @@ function Game<Main>({context}: GameProps<GameData, GameData>) {
     </div>)
 }
 
-function LoadGame<Main>(props: GameProps<Main, Link>) {
+export function LoadGame<Main>(props: GameProps<Main, Link>) {
     let url = props.context.json().href;
     let onclick = () => props.context.domain.loadJson(url)
     return (<li><a onClick={onclick}>{url}</a></li>)

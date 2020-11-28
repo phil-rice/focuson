@@ -18,8 +18,8 @@ function finish(){
 
 trap finish EXIT
 
-function removeImports(){
-   sed -e '/^\s*import/d'
+function removeImportsAndExports(){
+   sed -e '/^\s*import/d' -e 's/^export //g'
 }
 function copyOne(){
   file=$1
@@ -33,7 +33,7 @@ function copyOne(){
   mkdir -p $parent
 
 
-  removeImports < $file > $tempFile
+  removeImportsAndExports < $file > $tempFile
   (
     cd $tempDir
     babel $from$ext --out-dir $tempOutDir --source-maps true> /dev/null

@@ -3,9 +3,8 @@
     "game1": {"href": "created/gameJson1.json"},
     "game2": {"href": "created/gameJson2.json"}
   },
-  "_render"  : {"_self": "created/Game/b8c7b00fdd61f572f9aee1291eb634eb9560c62d9e9d4e430fb0ce33538f3cba"},
+  "_render"  : {"_self": "created/Game/aa3b7541a73bcd2ec78b5a422331bbede7842f7bfbf3ac2df5c5feaefda0300b"},
   "state"    : "X",
-  "gameData" : "Some game data properties could go here",
   "_embedded": {
     "board": {
       "_render": {

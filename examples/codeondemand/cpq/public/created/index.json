@@ -1,0 +1,23 @@
+{
+  "_render": {
+    "_self"        : "#Nav/render#",
+    "Nav"          : "#Nav/render#",
+    "NavGroup"     : "#NavGroup/render#",
+    "Cpq"          : "created/Cpq/32d95320a05e91051649c9dabd0e96fc695e82f34d47fe7b0fb4d5ea8eddffe7",
+    "SimpleFilter" : "created/SimpleFilter/3ab87682f24bfab097e17260cb177962a662a624bbb979a722a6162d346cc445",
+    "GearboxFilter": "created/GearboxFilter/7b8cba64442872e7fc3270174fa16c1037fb9d872599f32b87c3d8c58196f1fa"
+  },
+  "groups" : [
+    {
+      "name"     : "cpq",
+      "jsonFiles": [
+        "created/cpqNothingSelected.json",
+        "created/cpqMakeSelected.json",
+        "created/cpqMakeAndModelSelected.json",
+        "created/cpqMakeModelAndTransmissionSelected.json",
+        "created/cpqMakeAndModelAndTransmissionAndFuelTypeSelected.json"
+      ],
+      "_render"  : {"_self": "#NavGroup/render#"}
+    }
+  ]
+}
