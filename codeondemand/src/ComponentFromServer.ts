@@ -1,8 +1,8 @@
-import {LoadAndCompileCache} from "./LoadAndCompileCache";
+import {ILoadAndCompileCache, LoadAndCompileCache} from "./LoadAndCompileCache";
 import {Lens, LensContext} from "@phil-rice/lens";
 
 
-export function loadAndRenderIntoElement<ReactElement, Domain extends DomainWithCache<ReactElement>, Main>(domain: Domain,description, processContext: (c: LensContext<Domain, Main, Main>) => void): (url: string) => Promise<void> {
+export function loadAndRenderIntoElement<ReactElement, Domain extends DomainWithCache<ReactElement>, Main>(domain: Domain, description: string, processContext: (c: LensContext<Domain, Main, Main>) => void): (url: string) => Promise<void> {
     return url => {
         console.log("fetching", url)
         return fetch(url).then(r => r.json()).then(json => {
@@ -22,7 +22,7 @@ interface PropsForChildWithContextDomainCache<ReactElement, Main, T, Child> exte
     lens: Lens<T, Child>
 }
 export interface DomainWithCache<ReactElement> {
-    cache: LoadAndCompileCache<MakeComponentFromServer<ReactElement>>,
+    cache: ILoadAndCompileCache<MakeComponentFromServer<ReactElement>>,
     [a: string]: any
 }
 
@@ -35,7 +35,7 @@ function findRenderUrl(name: string, child: any): string {
     throw Error(`Cannot find renderUrl for  [${name}] in [${JSON.stringify(child, null, 2)}]`)
 }
 
-export function ComponentFromServer<ReactElement, Main, T, >(properties: PropsWithContextDomainCache<ReactElement, Main, T>): ReactElement {
+export function ComponentFromServer<ReactElement, Main, T>(properties: PropsWithContextDomainCache<ReactElement, Main, T>): ReactElement {
     console.log("ComponentFromServer", properties)
     let renderUrl = findRenderUrl("_self", properties.context.json())
     let makeComponent: MakeComponentFromServer<ReactElement> = properties.context.domain.cache.getFromCache(renderUrl)

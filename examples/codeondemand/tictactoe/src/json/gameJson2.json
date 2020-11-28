@@ -1,0 +1,17 @@
+{
+  "_links"   : {
+    "game1": {"href": "created/gameJson1.json"},
+    "game2": {"href": "created/gameJson2.json"}
+  },
+  "_render"  : {"_self": "#Game/render#"},
+  "state"    : "X",
+  "_embedded": {
+    "board": {
+      "_render": {
+        "_self" : "#Board/render#",
+        "square": "#Square2/render#"
+      },
+      "squares": ["", "", "", "", "", "", "", "", ""]
+    }
+  }
+}

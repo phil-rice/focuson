@@ -45,7 +45,7 @@ export class LoadAndCompileFixture {
     loader(url: string): Promise<string> {
         if (!this) throw Error('this ' + this)
 
-        if (!this.loaderData) throw Error('this.loaderData ' + this.loaderData)
+        if (!this.loaderData) throw Error('this.loaderData is not configured')
         var l = this.loaderData
         return Promise.resolve(fromMap(l, url))
     }
@@ -54,7 +54,7 @@ export class LoadAndCompileFixture {
 
 
     setUp<X>(fn: (cache: LoadAndCompileCache<string>) => X, comp: (s: string) => any = this.compiler, checker: UrlAndValueChecker = n => {}): X {
-        if (!this.loaderData) throw Error(this.loaderData.toString())
+        if (!this.loaderData) throw Error('this.loaderData is not configured')
         return fn(new LoadAndCompileCache(url => this.loader(url), checker, comp))
     }
     makeMapsFromNames<K, V>(keyfn: (name: string) => K, valuefn: (name: string) => V): Map<K, V> {

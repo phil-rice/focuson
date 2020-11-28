@@ -1,0 +1,60 @@
+{
+  "name": "@phil-rice/codeondemand_cpq",
+  "version": "0.1.4",
+  "description": "Demonstrating the code on demand approach for configure price quotation",
+  "keywords": [
+    "functionalprogramming",
+    "lens",
+    "optics",
+    "react"
+  ],
+  "main": "index",
+  "types": "index",
+  "dependencies": {
+    "crypto-js": "^4.0.0",
+    "@types/crypto-js": "^4.0.1",
+    "@phil-rice/lens": "^0.1.9",
+    "@phil-rice/codeondemand": "^0.1.9",
+    "@phil-rice/nav": "^0.1.12",
+    "@types/node": "^14.14.7",
+    "npm-check-updates": "^10.0.0",
+    "typescript": "^4.0.5",
+    "@types/react": "^17.0.0",
+    "react": "^17.0.1",
+    "@types/react-dom": "^17.0.0",
+    "react-dom": "^17.0.1",
+    "react-scripts": "^4.0.1"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "src/*.d.js",
+    "src/*.js"
+  ],
+  "scripts": {
+    "start": "react-scripts start",
+    "test": "jest --config jest.config.json",
+    "test:watch": "npm run test -- --watch"
+  },
+  "license": "MIT-0",
+  "repository": "git@github.com:phil-rice/ts-lens.git",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/user-event": "^12.2.0",
+    "@types/jest": "^26.0.15",
+    "jest": "26.6.0",
+    "ts-jest": "^26.4.4"
+  }
+}

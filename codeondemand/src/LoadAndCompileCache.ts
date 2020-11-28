@@ -1,7 +1,5 @@
-import {ChildFromServer, ComponentFromServer, DomainWithCache} from "./ComponentFromServer";
-import {fromMap, Lens, LensContext} from "@phil-rice/lens";
-
-
+import {ChildFromServer, ComponentFromServer} from "./ComponentFromServer";
+import {fromMap, Lens} from "@phil-rice/lens";
 
 
 // @ts-ignore
@@ -24,7 +22,12 @@ export function digestorChecker(digester: (raw: string) => string): UrlAndValueC
     }
 }
 
-export class LoadAndCompileCache<Result> {
+export interface ILoadAndCompileCache<Result>{
+    loadFromBlob(jsonBlob: any): Promise<Result[]>,
+    getFromCache(url: string): Result
+}
+
+export class LoadAndCompileCache<Result> implements ILoadAndCompileCache<Result>{
     private httploader: (url: string) => Promise<string>;
     private checker: UrlAndValueChecker
     cache: Map<string, Result>;
@@ -64,18 +67,18 @@ export class LoadAndCompileCache<Result> {
         return result
     }
 
-    loadFromBlob(jsonBlob: any) {
+    loadFromBlob(jsonBlob: any): Promise<Result[]> {
         var urls = this.findAllRenderUrls(jsonBlob)
-        return Promise.all(urls.map(url => this.loadifNeededAndCheck(url)))
+        return  Promise.all(urls.map(url => this.loadifNeededAndCheck(url)))
     }
 
     getFromCache(url: string): Result { return fromMap(this.cache, url)}
 
-    loadifNeededAndCheck(url: string) {
+    loadifNeededAndCheck(url: string): Promise<Result> {
         if (this.cache.has(url)) {
+            // @ts-ignore safe because we just checked that it had the content in it
             return Promise.resolve(this.cache.get(url))
         }
-
         return this.httploader(url).then(string => {
             this.checker(url, string)
             try {

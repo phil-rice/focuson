@@ -1,0 +1,19 @@
+{
+  "_links"     : {"_self": {"href": "api/filterList/filterList1"}},
+  "price"      : "N/A",
+  "_render"    : {"_self": "created/Cpq/32d95320a05e91051649c9dabd0e96fc695e82f34d47fe7b0fb4d5ea8eddffe7"},
+  "pageIndex"  : 0,
+  "pageCount"  : 3,
+  "makeFilter" : {
+    "_render"    : {"_self": "created/SimpleFilter/3cccf1808e344cffb7204e58c6cc04a52f1cbb9b071071b669b9df5c572de8fd"},
+    "filterName" : "filterlist.make",
+    "selected"   : null,
+    "legalValues": ["Audi", "BMW", "Tesla"]
+  },
+  "modelFilter": {
+    "_render"    : {"_self": "created/SimpleFilter/3cccf1808e344cffb7204e58c6cc04a52f1cbb9b071071b669b9df5c572de8fd"},
+    "filterName" : "filterlist.model",
+    "selected"   : null,
+    "legalValues": ["Audi A10", "BMW series 6", "Tesla Roadster"]
+  }
+}

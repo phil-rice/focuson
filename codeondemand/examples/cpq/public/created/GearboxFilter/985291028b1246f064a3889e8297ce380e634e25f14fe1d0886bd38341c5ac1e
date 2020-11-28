@@ -1,0 +1,31 @@
+"use strict";
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var filterToSelectedL = new Lens(function (c) {
+    return c.selected;
+}, function (c, s) {
+    return _extends({}, c, { selected: s });
+});
+function GearboxFilter(props) {
+    var context = props.context;
+    var onChange = function onChange(event) {
+        return context.setFrom(filterToSelectedL, event.target.value);
+    };
+    var filterJson = context.json();
+    var options = context.domain.makeOptions(filterJson.selected, context.json().legalValues);
+    return React.createElement(
+        "div",
+        { key: filterJson.filterName },
+        "Gearbox Filter",
+        React.createElement(
+            "select",
+            { onChange: function (event) {
+                    return onChange(event);
+                } },
+            options
+        )
+    );
+}
+//# sourceMappingURL=GearboxFilter.js.map
+return GearboxFilter

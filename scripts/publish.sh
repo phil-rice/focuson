@@ -5,4 +5,5 @@ tsc
 cp package.json dist/package.json
 
 cd dist
+find . -type f -name 'enzymeAdapterSetup.*' -delete
 npm publish  --access public

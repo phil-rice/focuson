@@ -1,0 +1,53 @@
+{
+  "name": "@phil-rice/counterlensexample",
+  "version": "0.1.4",
+  "description": "Comparing with the Redux counter example",
+  "keywords": [
+    "functionalprogramming",
+    "lens",
+    "optics"
+  ],
+  "main": "index",
+  "types": "index",
+  "dependencies": {
+    "typescript": "^4.1.2",
+    "@phil-rice/lens": "^0.1.9",
+    "@types/node": "^14.14.9",
+    "@types/react": "^17.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "^4.0.1"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.1.10"
+  },
+  "files": [
+    "index",
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/utils.js",
+    "dist/"
+  ],
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "prepublish": "tsc",
+    "test": "jest --config jest.config.json",
+    "test:watch": "npm run test -- --watch"
+  },
+  "license": "MIT-0",
+  "repository": "git@github.com:phil-rice/ts-lens.git",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

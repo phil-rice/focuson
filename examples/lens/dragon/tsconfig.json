@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "declaration": true,
+    "allowJs": true
+  },
+  "include": [
+    "withLens/*.ts",
+    "withLens/*.tsx",
+    "withoutLens/*.ts",
+    "withoutLens/*.tsx",
+    "dragon.ts"
+  ]
+}

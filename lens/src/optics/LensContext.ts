@@ -63,5 +63,13 @@ export class LensContext<Domain, Main, T> {
     static setJsonForReact = <Domain, Main>(domain: Domain, description: string, fn: (lc: LensContext<Domain, Main, Main>) => void): (m: Main) => void =>
         (main: Main) => fn(LensContext.main(domain, main, LensContext.setJsonForReact(domain, description, fn), description))
 
+    withNewDomain<NewDomain, NewMain>(getDomain: (d: Domain) => NewDomain, lens: Lens<Main, NewMain>): LensContext<NewDomain, NewMain, NewMain> {
+        return new LensContext<NewDomain, NewMain, NewMain>(
+            getDomain(this.domain),
+            lens.get(this.main),
+            (m: NewMain) => this.dangerouslySetMain(lens.set(this.main, m)),
+            Lens.identity())
+    }
+
 }
 

@@ -1,0 +1,52 @@
+{
+  "name": "@phil-rice/lens_example_cpq",
+  "version": "0.1.9",
+  "description": "Showing how lens help in 'simple edit'",
+  "keywords": [
+    "functionalprogramming",
+    "lens",
+    "optics",
+    "react"
+  ],
+  "main": "index",
+  "types": "index",
+  "dependencies": {
+    "@phil-rice/codeondemand": "^0.1.10",
+    "@phil-rice/lens": "^0.1.9",
+    "@phil-rice/nav": "^0.1.12",
+    "@types/crypto-js": "^4.0.1",
+    "@types/node": "^14.14.9",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "crypto-js": "^4.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "^4.0.1",
+    "typescript": "^4.1.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.1.10"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest --config jest.config.json",
+    "test:watch": "npm run test -- --watch"
+  },
+  "license": "MIT-0",
+  "repository": "git@github.com:phil-rice/ts-lens.git",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
