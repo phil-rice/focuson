@@ -6,6 +6,14 @@ pool:
 
 steps:
   - script: |
+       tsc --version
+       sudo npm install -g typescript
+       tsc --version
+    displayName: 'install latest tsc'
+    condition: succeededOrFailed()
+
+
+  - script: |
       cd lens
       npm install
       tsc
