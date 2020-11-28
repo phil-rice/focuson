@@ -11,6 +11,7 @@ steps:
       tsc
       npm test
     displayName: 'lens'
+    condition: succeededOrFailed()
 
   - script: |
       cd codeondemand
@@ -18,33 +19,46 @@ steps:
       tsc
       npm test
     displayName: 'codeondemand'
+    condition: succeededOrFailed()
+
+  - script: |
+      cd nav
+      npm install
+      tsc
+      npm test
+    displayName: 'nav'
+    condition: succeededOrFailed()
 
   - script: |
       set -e
-      cd lens/examples/dragon
+      cd examples/lens/dragon
       npm install
       tsc
       npm test
     displayName: 'lens/dragon'
+    condition: succeededOrFailed()
 
   - script: |
       set -e
-      cd lens/examples/tictactoe
+      cd examples/lens/tictactoe
       npm install
       tsc
     displayName: 'lens/tictactoe'
+    condition: succeededOrFailed()
 
   - script: |
       set -e
-      cd codeondemand/examples/tictactoe
+      cd examples/codeondemand/tictactoe
       npm install
       tsc
     displayName: 'codeondemand/cpq'
+    condition: succeededOrFailed()
 
   - script: |
       set -e
-      cd codeondemand/examples/cpq
+      cd examples/codeondemand/cpq
       npm install
       tsc
     displayName: 'codeondemand/cpq'
+    condition: succeededOrFailed()
 
