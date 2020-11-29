@@ -50,6 +50,15 @@ steps:
 
   - script: |
       set -e
+      cd examples/lens/counter
+      npm install
+      tsc
+#      npm test
+    displayName: 'lens/counter'
+    condition: succeededOrFailed()
+
+  - script: |
+      set -e
       cd examples/lens/tictactoe
       npm install
       tsc

@@ -34,6 +34,7 @@ doOne codeondemand
 doOne nav
 doOne examples/lens/cpq
 doOne examples/lens/dragon
+doOne examples/lens/counter
 doOne examples/codeondemand/tictactoe
 doOne examples/codeondemand/cpq
 
