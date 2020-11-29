@@ -61,7 +61,8 @@ steps:
       set -e
       cd examples/lens/tictactoe
       npm install
-      tsc
+      tsc 
+      npm test
     displayName: 'lens/tictactoe'
     condition: succeededOrFailed()
 
@@ -70,6 +71,7 @@ steps:
       cd examples/codeondemand/tictactoe
       npm install
       tsc
+      npm test
     displayName: 'codeondemand/tictactoe'
     condition: succeededOrFailed()
 
@@ -78,6 +80,7 @@ steps:
       cd examples/codeondemand/cpq
       npm install
       tsc
+      npm test
     displayName: 'codeondemand/cpq'
     condition: succeededOrFailed()
 
