@@ -6,7 +6,6 @@ function usage(){
   echo "   executes 'installOneProject.sh' in each project directory"
   exit 2
 }
-set -e
 if [ $# -ne 1 ]; then usage; fi
 log=$(realpath $1)
 SECONDS=0
@@ -17,5 +16,7 @@ function finish(){
   echo "log is $log"
   cat $log
 }
+trap finish EXIT
+
 update=$(realpath scripts/installOneProject.sh)
 scripts/inProjects.sh "$update $log"
