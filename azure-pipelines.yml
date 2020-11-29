@@ -96,6 +96,10 @@ steps:
   - script: |
        chmod -R  u+x scripts
        scripts/installAll.sh log
+       echo "debug"
+       echo "pipeline/workspace $(Pipeline.Workspace)"
+       echo "pwd"
+       pwd
     displayName: 'summary'
     condition: succeededOrFailed()
 
