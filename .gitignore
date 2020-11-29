@@ -31,5 +31,7 @@ public/created/
 out/
 .eslintcache
 .idea/
-package.review.json
-package.old.json
+
+*.review.json
+*.old.json
+*.review
