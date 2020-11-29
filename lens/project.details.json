@@ -1,7 +1,9 @@
 {
-  "template": "noreact",
-  "name": "@phil-rice/lens",
-  "description": "A simple implementation of lens using type script",
-  "extraDeps": {},
-  "extraDevDeps": {}
+  "template"      : "noreact",
+  "name"          : "@phil-rice/lens",
+  "description"   : "A simple implementation of lens using type script",
+  "projectDetails": {
+    "extraDeps"   : {},
+    "extraDevDeps": {}
+  }
 }

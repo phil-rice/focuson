@@ -1,7 +1,9 @@
 {
-  "template"    : "react",
-  "name"        : "@phil-rice/lens_example_cpq",
-  "description" : "Showing how lens help in 'configure pricing quotation' examples",
-  "extraDeps"   : {"@phil-rice/nav": "<version>"},
-  "extraDevDeps": {}
+  "template"      : "react",
+  "name"          : "@phil-rice/lens_example_cpq",
+  "description"   : "Showing how lens help in 'configure pricing quotation' examples",
+  "projectDetails": {
+    "extraDeps"   : {"@phil-rice/nav": "<version>"},
+    "extraDevDeps": {}
+  }
 }

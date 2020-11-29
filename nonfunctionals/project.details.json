@@ -1,7 +1,9 @@
 {
-  "template": "noreact",
-  "name": "@phil-rice/nonfunctionals",
-  "description": "A library that allows wrapping of functions and kleislis with non functional capablities",
-  "extraDeps": {},
-  "extraDevDeps": {}
+  "template"      : "noreact",
+  "name"          : "@phil-rice/nonfunctionals",
+  "description"   : "A library that allows wrapping of functions and kleislis with non functional capablities",
+  "projectDetails": {
+    "extraDeps"   : {},
+    "extraDevDeps": {}
+  }
 }

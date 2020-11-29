@@ -9,3 +9,40 @@
     /mnt/c/git/ts/examples/codeondemand/cpq npm test 0
   /mnt/c/git/ts/examples/codeondemand/cpq took 21s 
 /mnt/c/git/ts/examples/codeondemand/tictactoe 
+    /mnt/c/git/ts/examples/codeondemand/tictactoe npm install 0
+    /mnt/c/git/ts/examples/codeondemand/tictactoe tsc 0
+    /mnt/c/git/ts/examples/codeondemand/tictactoe npm test 0
+  /mnt/c/git/ts/examples/codeondemand/tictactoe took 283s 
+/mnt/c/git/ts/examples/lens/counter 
+    /mnt/c/git/ts/examples/lens/counter npm install 0
+    /mnt/c/git/ts/examples/lens/counter tsc 0
+    /mnt/c/git/ts/examples/lens/counter npm test 1
+  /mnt/c/git/ts/examples/lens/counter took 395s 
+/mnt/c/git/ts/examples/lens/cpq 
+    /mnt/c/git/ts/examples/lens/cpq npm install 0
+    /mnt/c/git/ts/examples/lens/cpq tsc 0
+    /mnt/c/git/ts/examples/lens/cpq npm test 0
+  /mnt/c/git/ts/examples/lens/cpq took 566s 
+/mnt/c/git/ts/examples/lens/dragon 
+    /mnt/c/git/ts/examples/lens/dragon npm install 0
+    /mnt/c/git/ts/examples/lens/dragon tsc 0
+    /mnt/c/git/ts/examples/lens/dragon npm test 0
+  /mnt/c/git/ts/examples/lens/dragon took 221s 
+/mnt/c/git/ts/examples/lens/tictactoe 
+    /mnt/c/git/ts/examples/lens/tictactoe npm install 0
+    /mnt/c/git/ts/examples/lens/tictactoe tsc 0
+    /mnt/c/git/ts/examples/lens/tictactoe npm test 0
+  /mnt/c/git/ts/examples/lens/tictactoe took 697s 
+/mnt/c/git/ts/lens 
+    /mnt/c/git/ts/lens npm install 0
+    /mnt/c/git/ts/lens tsc 0
+    /mnt/c/git/ts/lens npm test 0
+  /mnt/c/git/ts/lens took 70s 
+/mnt/c/git/ts/nav 
+    /mnt/c/git/ts/nav npm install 0
+    /mnt/c/git/ts/nav tsc 0
+    /mnt/c/git/ts/nav npm test 1
+  /mnt/c/git/ts/nav took 111s 
+/mnt/c/git/ts/nonfunctionals 
+    /mnt/c/git/ts/nonfunctionals npm install 0
+    /mnt/c/git/ts/nonfunctionals tsc 0

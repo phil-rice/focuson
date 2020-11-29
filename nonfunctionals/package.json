@@ -24,8 +24,6 @@
     "jest": "^26.6.0",
     "ts-jest": "^26.4.4"
   },
-  "extraDeps": {},
-  "extraDevDeps": {},
   "files": [
     "index.js",
     "index.d.ts",
@@ -39,6 +37,10 @@
   "license": "MIT-0",
   "main": "index",
   "name": "@phil-rice/nonfunctionals",
+  "projectDetails": {
+    "extraDeps": {},
+    "extraDevDeps": {}
+  },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "test": "jest --config jest.config.json",

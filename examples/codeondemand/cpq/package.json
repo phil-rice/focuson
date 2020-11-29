@@ -37,10 +37,6 @@
     "jest": "26.6.0",
     "ts-jest": "^26.4.4"
   },
-  "extraDeps": {
-    "@phil-rice/nav": "0.1.12"
-  },
-  "extraDevDeps": {},
   "files": [
     "index.js",
     "index.d.ts",
@@ -54,6 +50,12 @@
   ],
   "license": "MIT-0",
   "name": "@phil-rice/examples_codeondemand_cpq",
+  "projectDetails": {
+    "extraDeps": {
+      "@phil-rice/nav": "0.1.12"
+    },
+    "extraDevDeps": {}
+  },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",

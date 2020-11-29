@@ -35,8 +35,6 @@
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.2"
   },
-  "extraDeps": {},
-  "extraDevDeps": {},
   "files": [
     "index.js",
     "index.d.ts",
@@ -51,6 +49,10 @@
   "license": "MIT-0",
   "main": "index",
   "name": "@phil-rice/nav",
+  "projectDetails": {
+    "extraDeps": {},
+    "extraDevDeps": {}
+  },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "prepare": "tsc",

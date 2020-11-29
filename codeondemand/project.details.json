@@ -1,7 +1,9 @@
 {
-  "template": "react",
-  "name": "@phil-rice/codeondemand",
-  "description": "This is a project that allows code to be (safely) fetched on demand from a server. The url holding the code is including in the json",
-  "extraDeps": {},
-  "extraDevDeps": {}
+  "template"      : "react",
+  "name"          : "@phil-rice/codeondemand",
+  "description"   : "This is a project that allows code to be (safely) fetched on demand from a server. The url holding the code is including in the json",
+  "projectDetails": {
+    "extraDeps"   : {},
+    "extraDevDeps": {}
+  }
 }

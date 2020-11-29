@@ -1,7 +1,9 @@
 {
-  "template": "react",
-  "name": "@phil-rice/nav",
-  "description": "A nav bar that allows json files to be used to display rendered components",
-  "extraDeps": {},
-  "extraDevDeps": {}
+  "template"      : "react",
+  "name"          : "@phil-rice/nav",
+  "description"   : "A nav bar that allows json files to be used to display rendered components",
+  "projectDetails": {
+    "extraDeps"   : {},
+    "extraDevDeps": {}
+  }
 }
