@@ -46,3 +46,5 @@
 /mnt/c/git/ts/nonfunctionals 
     /mnt/c/git/ts/nonfunctionals npm install 0
     /mnt/c/git/ts/nonfunctionals tsc 0
+    /mnt/c/git/ts/nonfunctionals npm test 0
+  /mnt/c/git/ts/nonfunctionals took 55s 

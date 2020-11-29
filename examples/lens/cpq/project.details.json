@@ -3,6 +3,7 @@
   "name"          : "@phil-rice/lens_example_cpq",
   "description"   : "Showing how lens help in 'configure pricing quotation' examples",
   "projectDetails": {
+    "generation": 2,
     "extraDeps"   : {"@phil-rice/nav": "<version>"},
     "extraDevDeps": {}
   }

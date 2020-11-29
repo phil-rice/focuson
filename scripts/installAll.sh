@@ -12,7 +12,7 @@ log=$(realpath $1)
 SECONDS=0
 
 function finish(){
-  log "Total took ${SECONDS}s"
+  echo "Total took ${SECONDS}s" >> $log
   echo
   echo "log is $log"
   cat $log
