@@ -13,7 +13,8 @@ steps:
        tsc --version
               echo "debug"
        echo "pipeline/workspace $(Pipeline.Workspace)"
-       echo "pwd"
+       echo "System.DefaultWorkingDirectory $(System.DefaultWorkingDirectory)"
+       echo "pwd"       
        pwd
     displayName: 'install latest tsc'
     condition: succeededOrFailed()
@@ -107,3 +108,8 @@ steps:
     displayName: 'summary'
     condition: succeededOrFailed()
 
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(System.DefaultWorkingDirectory)/log'
+      artifact: 'summary'
+      publishLocation: 'pipeline'
