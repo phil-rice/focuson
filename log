@@ -2,5 +2,10 @@
     /mnt/c/git/ts/codeondemand npm install 0
     /mnt/c/git/ts/codeondemand tsc 0
     /mnt/c/git/ts/codeondemand npm test 0
-  /mnt/c/git/ts/codeondemand took 37s 
+  /mnt/c/git/ts/codeondemand took 31s 
 /mnt/c/git/ts/examples/codeondemand/cpq 
+    /mnt/c/git/ts/examples/codeondemand/cpq npm install 0
+    /mnt/c/git/ts/examples/codeondemand/cpq tsc 0
+    /mnt/c/git/ts/examples/codeondemand/cpq npm test 0
+  /mnt/c/git/ts/examples/codeondemand/cpq took 21s 
+/mnt/c/git/ts/examples/codeondemand/tictactoe 

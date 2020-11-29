@@ -12,8 +12,8 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/lens": "0.1.11",
-    "@phil-rice/nav": "0.1.11",
+    "@phil-rice/lens": "0.1.12",
+    "@phil-rice/nav": "0.1.12",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "typescript": "^4.1.2"
@@ -37,7 +37,7 @@
     "typescript": "^4.1.2"
   },
   "extraDeps": {
-    "@phil-rice/nav": "0.1.11"
+    "@phil-rice/nav": "0.1.12"
   },
   "extraDevDeps": {},
   "files": [
@@ -63,5 +63,5 @@
   },
   "template": "react",
   "types": "index",
-  "version": "0.1.11"
+  "version": "0.1.12"
 }
