@@ -41,5 +41,5 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.11"
+  "version": "<version>"
 }

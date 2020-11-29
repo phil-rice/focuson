@@ -1,7 +1,6 @@
 {
   "template": "noreact",
   "name": "@phil-rice/nonfunctionals",
-  "version": "0.1.0",
   "description": "A library that allows wrapping of functions and kleislis with non functional capablities",
   "extraDeps": {},
   "extraDevDeps": {}

@@ -4,9 +4,10 @@ log=$(mktemp)
 function usage(){
   echo "usage installAll.sh logFile "
   echo "   executes 'installOneProject.sh' in each project directory"
+  if [ "$1" -eq 0 ]; then echo "Don't forget to specify a logfile"; fi
   exit 2
 }
-if [ $# -ne 1 ]; then usage; fi
+if [ $# -ne 1 ]; then usage $#; fi
 log=$(realpath $1)
 SECONDS=0
 

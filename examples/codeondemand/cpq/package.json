@@ -12,9 +12,9 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/codeondemand": "^0.1.10",
-    "@phil-rice/lens": "^0.1.11",
-    "@phil-rice/nav": "0.1.12",
+    "@phil-rice/codeondemand": "0.1.11",
+    "@phil-rice/lens": "0.1.11",
+    "@phil-rice/nav": "0.1.11",
     "@types/crypto-js": "^4.0.1",
     "@types/node": "^14.14.7",
     "@types/react": "^17.0.0",
@@ -38,7 +38,7 @@
     "ts-jest": "^26.4.4"
   },
   "extraDeps": {
-    "@phil-rice/nav": "0.1.12"
+    "@phil-rice/nav": "0.1.11"
   },
   "extraDevDeps": {},
   "files": [
@@ -61,5 +61,5 @@
     "test:watch": "npm run test -- --watch"
   },
   "template": "codeondemand",
-  "version": "0.1.4"
+  "version": "0.1.11"
 }

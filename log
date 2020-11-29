@@ -1,15 +1,6 @@
 /mnt/c/git/ts/codeondemand 
-/mnt/c/git/ts/codeondemand
-  /mnt/c/git/ts/codeondemand npm install 0
-  /mnt/c/git/ts/codeondemand npm test 0
-  /mnt/c/git/ts/codeondemand tsc 0
-  /mnt/c/git/ts/codeondemand took 36s 
-/mnt/c/git/ts/examples/lens/dragon 
-/mnt/c/git/ts/examples/lens/dragon
-  /mnt/c/git/ts/examples/lens/dragon npm install 0
-/mnt/c/git/ts/lens 
-/mnt/c/git/ts/lens
-  /mnt/c/git/ts/lens npm install 0
-  /mnt/c/git/ts/lens tsc 0
-  /mnt/c/git/ts/lens npm test 0
-  /mnt/c/git/ts/lens took 21s 
+    /mnt/c/git/ts/codeondemand npm install 0
+    /mnt/c/git/ts/codeondemand tsc 0
+    /mnt/c/git/ts/codeondemand npm test 0
+  /mnt/c/git/ts/codeondemand took 37s 
+/mnt/c/git/ts/examples/codeondemand/cpq 

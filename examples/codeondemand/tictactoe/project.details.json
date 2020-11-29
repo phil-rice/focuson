@@ -1,7 +1,6 @@
 {
   "template"    : "codeondemand",
   "name"        : "@phil-rice/example_codeondemand_tictactoe",
-  "version"     : "0.1.4",
   "description" : "Demonstrating the code on demand approach for tic_tac_toe",
   "extraDeps"   : {},
   "extraDevDeps": {}

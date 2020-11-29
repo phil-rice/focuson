@@ -17,7 +17,7 @@ function log(){
 
 SECONDS=0
 log "$directory"
-npm i
+npm install
 log "    $directory npm install" $?
 tsc
 log "    $directory tsc" $?
