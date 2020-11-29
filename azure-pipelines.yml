@@ -59,6 +59,15 @@ steps:
 
   - script: |
       set -e
+      cd examples/lens/cpq
+      npm install
+      tsc
+      npm test
+    displayName: 'lens/cpq'
+    condition: succeededOrFailed()
+
+  - script: |
+      set -e
       cd examples/lens/tictactoe
       npm install
       tsc
