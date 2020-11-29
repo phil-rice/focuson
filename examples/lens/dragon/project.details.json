@@ -2,6 +2,6 @@
   "template": "noreact",
   "name": "@phil-rice/lens_example_dragon",
   "description": "Showing how lens help in 'normal programming' without any link to react",
-  "extraDeps": {  },
+  "extraDeps": {      "@phil-rice/lens": "^0.1.11"},
   "extraDevDeps": {}
 }
