@@ -1,0 +1,8 @@
+{
+  "template"    : "react",
+  "name"        : "@phil-rice/tic_tac_toe_lensexample",
+  "version"     : "0.1.4",
+  "description" : "Demonstrating how lens can simplify state management in React",
+  "extraDeps"   : {},
+  "extraDevDeps": {}
+}

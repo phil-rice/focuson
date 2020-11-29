@@ -3,40 +3,46 @@ lens
   lens npm install 0
   lens npm test 0
   lens tsc 0
-  lens took 48s
+  lens took 16s
 codeondemand
 /mnt/c/git/ts/codeondemand
   codeondemand npm install 0
   codeondemand npm test 0
-  codeondemand tsc 0
-  codeondemand took 74s
+  codeondemand tsc 2
+  codeondemand took 44s
 nav
 /mnt/c/git/ts/nav
   nav npm install 0
   nav npm test 0
   nav tsc 0
-  nav took 61s
+  nav took 22s
 examples/lens/cpq
 /mnt/c/git/ts/examples/lens/cpq
   examples/lens/cpq npm install 0
-  examples/lens/cpq npm test 0
-  examples/lens/cpq tsc 0
-  examples/lens/cpq took 60s
-examples/lens/index
-/mnt/c/git/ts/examples/lens/index
-  examples/lens/index npm install 0
-  examples/lens/index npm test 0
-  examples/lens/index tsc 0
-  examples/lens/index took 51s
+  examples/lens/cpq npm test 1
+  examples/lens/cpq tsc 2
+  examples/lens/cpq took 28s
+examples/lens/dragon
+/mnt/c/git/ts/examples/lens/dragon
+  examples/lens/dragon npm install 0
+  examples/lens/dragon npm test 1
+  examples/lens/dragon tsc 2
+  examples/lens/dragon took 16s
+examples/lens/counter
+/mnt/c/git/ts/examples/lens/counter
+  examples/lens/counter npm install 0
+  examples/lens/counter npm test 1
+  examples/lens/counter tsc 2
+  examples/lens/counter took 19s
 examples/codeondemand/tictactoe
 /mnt/c/git/ts/examples/codeondemand/tictactoe
   examples/codeondemand/tictactoe npm install 0
-  examples/codeondemand/tictactoe npm test 0
-  examples/codeondemand/tictactoe tsc 0
-  examples/codeondemand/tictactoe took 43s
+  examples/codeondemand/tictactoe npm test 1
+  examples/codeondemand/tictactoe tsc 2
+  examples/codeondemand/tictactoe took 24s
 examples/codeondemand/cpq
 /mnt/c/git/ts/examples/codeondemand/cpq
   examples/codeondemand/cpq npm install 0
   examples/codeondemand/cpq npm test 1
   examples/codeondemand/cpq tsc 2
-  examples/codeondemand/cpq took 43s
+  examples/codeondemand/cpq took 28s

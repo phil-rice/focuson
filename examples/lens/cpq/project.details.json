@@ -1,0 +1,8 @@
+{
+  "template"    : "react",
+  "name"        : "@phil-rice/lens_example_cpq",
+  "version"     : "0.1.9",
+  "description" : "Showing how lens help in 'configure pricing quotation' examples",
+  "extraDeps"   : {},
+  "extraDevDeps": {}
+}

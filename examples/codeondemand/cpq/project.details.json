@@ -1,0 +1,8 @@
+{
+  "template"    : "react",
+  "name": "@phil-rice/examples_codeondemand_cpq",
+  "version": "0.1.4",
+  "description": "Demonstrating the code on demand approach for configure price quotation",
+  "extraDeps"   : {},
+  "extraDevDeps": {}
+}
