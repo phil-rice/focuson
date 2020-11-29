@@ -108,16 +108,12 @@ steps:
 
   - script: |
        chmod -R  u+x scripts
-       scripts/installAll.sh log
-       echo "debug"
-       echo "pipeline/workspace $(Pipeline.Workspace)"
-       echo "pwd"
-       pwd
+       scripts/installAll.sh log.txt
     displayName: 'summary'
     condition: succeededOrFailed()
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(System.DefaultWorkingDirectory)/log'
+      targetPath: '$(System.DefaultWorkingDirectory)/log.txt'
       artifact: 'summary'
       publishLocation: 'pipeline'

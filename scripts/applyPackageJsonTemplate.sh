@@ -20,7 +20,8 @@ templateRoot=$1
 packageJsonName=$2
 directory=$3
 detailsFile="$directory/project.details.json"
-echo "Template Directory [$templateRoot] name [$packageJsonName] DetailsFile [$detailsFile] "
+version=$(cat $templateRoot/version.txt)
+echo "Template Directory [$templateRoot] name [$packageJsonName] DetailsFile [$detailsFile] Version [$version]"
 if [ ! -f "$detailsFile" ]; then echo "Details file not found [$detailsFile]"; exit 3; fi
 
 function findTemplateDirectory(){
@@ -36,4 +37,4 @@ templateDirectory="$templateRoot/$template"
 if [ -f "$directory/package.json" ]; then
    cp $directory/package.json $directory/package.old.json
 fi
-makePackageJson > $directory/$packageJsonName
+makePackageJson | sed -e "s/<version>/$version/g" > $directory/$packageJsonName
