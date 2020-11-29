@@ -12,10 +12,9 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/codeondemand": "^0.1.9",
+    "@phil-rice/codeondemand": "^0.1.10",
     "@phil-rice/lens": "^0.1.11",
     "@phil-rice/nav": "^0.1.12",
-    "@types/enzyme": "^3.10.8",
     "@types/crypto-js": "^4.0.1",
     "@types/node": "^14.14.7",
     "@types/react": "^17.0.0",
