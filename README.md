@@ -3,18 +3,12 @@
 [Read this to understand what is happening](https://docs.google.com/presentation/d/e/2PACX-1vRvIfvQHiMw10X9bAek_hK1eE6WDqP8V4X85fJ8gT4RaQU9mPh9yu9j0bRpLnfKEptqwpLqowGy43vK/pub?start=false&loop=false&delayms=3000)
 
 
-
-
 # Developing locally
 
 There are a lot of small packages 
 * so that the users can 'pick and choose'
 * to enforce that the code is as decoupled as possible.
 
-In order to work locally I recommend using [npm link](https://docs.npmjs.com/cli/v6/commands/npm-link)
-
-There (will be) a bash script in this project `setupNpmLinks.sh` that sets up the links. Effectively each 
-package is symlinked to the dependant packages
 
 # Packages
 

@@ -1,26 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "module": "commonjs",
+    "target": "es6",
+    "outDir": "./dist",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true, //changed from default... don't know what this does
-    "noEmit": true,
-    "jsx": "react"
+    "declaration": true,
+    "allowJs": false
   },
   "include": [
-    "src"
+    "src/**/*.ts",
+    "index.ts"
   ]
 }

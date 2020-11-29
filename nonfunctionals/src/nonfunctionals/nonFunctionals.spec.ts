@@ -1,5 +1,4 @@
 import {NonFunctionalsForFunction, NonFunctionalsForPromiseFunctions} from "./nonFunctionals";
-import {fromMap} from "../utils";
 import {ErrorHandler} from "../errors/errrors";
 import {LogPrinter} from "../logging/loggingProfunctor";
 import {MetricsStore} from "../metrics/metrics";
@@ -126,7 +125,7 @@ describe('Non Functional Promise Wrapper', () => {
     });
     it('shouldecord the metric', () => {
         return setup("someMessage", "in", "out")(async (nonFunctionals, metricsStore, errorHandler, logs, wrappedFn, wrapperErrorFn, wrappedErrorInPromiseFn) => {
-            return await expect(wrappedFn("in").then(() => fromMap(metricsStore.counts, "someMessage"))).resolves.toEqual(1)
+            return await expect(wrappedFn("in").then(() => metricsStore.counts.get("someMessage"))).resolves.toEqual(1)
         })
     });
     it('should throw the same exception if there is an exception, and not record (for now), error in main body ', () => {
