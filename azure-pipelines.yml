@@ -86,7 +86,7 @@ steps:
 
   - script: |
        chmod u+x scripts/installAll.sh
-       scripts/installAll.sh
+       scripts/installAll.sh log
     displayName: 'summary'
     condition: succeededOrFailed()
 

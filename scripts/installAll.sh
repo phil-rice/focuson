@@ -1,40 +1,21 @@
 #!/usr/bin/env bash
 log=$(mktemp)
 
-function log(){
-   echo "$1 $2" >> $log
+function usage(){
+  echo "usage installAll.sh logFile "
+  echo "   executes 'installOneProject.sh' in each project directory"
+  exit 2
 }
+set -e
+if [ $# -ne 1 ]; then usage; fi
+log=$(realpath $1)
+SECONDS=0
 
 function finish(){
+  log "Total took ${SECONDS}s"
+  echo
   echo "log is $log"
   cat $log
-  log "Total took ${SECONDS}s"
 }
-trap finish EXIT
-
-function doOne(){
-  (
-    SECONDS=0
-    cd $1
-    npm i
-    log "$1"
-    pwd >> $log
-    log "  $1 npm install" $?
-    npm test
-    log "  $1 npm test" $?
-    tsc
-    log "  $1 tsc" $?
-    log "  $1 took ${SECONDS}s"
-  )
-
-}
-SECONDS=0
-doOne lens
-doOne codeondemand
-doOne nav
-doOne examples/lens/cpq
-doOne examples/lens/dragon
-doOne examples/lens/counter
-doOne examples/codeondemand/tictactoe
-doOne examples/codeondemand/cpq
-
+update=$(realpath scripts/installOneProject.sh)
+scripts/inProjects.sh "$update $log"
