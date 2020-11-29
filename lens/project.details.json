@@ -4,6 +4,7 @@
   "description"   : "A simple implementation of lens using type script",
   "projectDetails": {
     "generation": 0,
+    "publish" : true,
     "extraDeps"   : {},
     "extraDevDeps": {}
   }

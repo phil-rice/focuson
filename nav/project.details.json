@@ -3,6 +3,7 @@
   "name"          : "@phil-rice/nav",
   "description"   : "A nav bar that allows json files to be used to display rendered components",
   "projectDetails": {
+    "publish" : true,
     "generation"  : 0,
     "extraDeps"   : {},
     "extraDevDeps": {}

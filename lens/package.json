@@ -39,7 +39,9 @@
   "name": "@phil-rice/lens",
   "projectDetails": {
     "extraDeps": {},
-    "extraDevDeps": {}
+    "extraDevDeps": {},
+    "generation": 0,
+    "publish": true
   },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
@@ -48,5 +50,5 @@
   },
   "template": "noreact",
   "types": "index",
-  "version": "0.1.12"
+  "version": "0.1.14"
 }

@@ -42,7 +42,8 @@
     "extraDeps": {
       "@phil-rice/lens": "^0.1.11"
     },
-    "extraDevDeps": {}
+    "extraDevDeps": {},
+    "generation": 2
   },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
@@ -51,5 +52,5 @@
   },
   "template": "noreact",
   "types": "index",
-  "version": "0.1.12"
+  "version": "0.1.14"
 }

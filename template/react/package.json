@@ -52,7 +52,6 @@
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
-    "prepare": "tsc",
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },

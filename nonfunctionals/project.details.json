@@ -3,6 +3,7 @@
   "name"          : "@phil-rice/nonfunctionals",
   "description"   : "A library that allows wrapping of functions and kleislis with non functional capablities",
   "projectDetails": {
+    "publish" : true,
     "generation"  : 0,
     "extraDeps"   : {},
     "extraDevDeps": {}
