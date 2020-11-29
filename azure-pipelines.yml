@@ -11,6 +11,10 @@ steps:
        tsc --version
        sudo npm install -g typescript
        tsc --version
+              echo "debug"
+       echo "pipeline/workspace $(Pipeline.Workspace)"
+       echo "pwd"
+       pwd
     displayName: 'install latest tsc'
     condition: succeededOrFailed()
 
