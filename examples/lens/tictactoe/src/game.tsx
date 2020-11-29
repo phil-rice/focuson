@@ -8,7 +8,7 @@ export interface GameData {
     board: BoardData
 }
 type NoughtOrCross = "O" | "X" | ""
-interface BoardData {squares: SquareData}
+export interface BoardData {squares: SquareData}
 type SquareData = NoughtOrCross[]
 export let nextStateLens = Lens.build<GameData>('game').field('next')
 
@@ -46,12 +46,12 @@ export function SimpleGame<Main>(props: GameProps<GameData>) {
 }
 
 
-function NextMove<Main>(props: GameProps<NoughtOrCross>) {
+export function NextMove<Main>(props: GameProps<NoughtOrCross>) {
     let onClick = () => props.context.setJson('O')
     return (<a onClick={onClick}> Next Move{props.context.json()}</a>)
 }
 
-function Board<Main>(props: GameProps<BoardData>) {
+export function Board<Main>(props: GameProps<BoardData>) {
     let squares = props.context.focusOn('squares');
     let sq = (n: number) => (<Square context={squares.withChildLens(Lens.nth(n))}/>)
     return (<div className='board'>
@@ -62,7 +62,7 @@ function Board<Main>(props: GameProps<BoardData>) {
 }
 
 
-function Square<Main>(props: GameProps<NoughtOrCross>) {
+export function Square<Main>(props: GameProps<NoughtOrCross>) {
     return (
         <button className='square' onClick={() => props.context.domain.setSquareAndInvertNext(props)}>
             {props.context.json()}

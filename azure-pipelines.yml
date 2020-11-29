@@ -61,7 +61,7 @@ steps:
       set -e
       cd examples/lens/tictactoe
       npm install
-      tsc 
+      tsc
       npm test
     displayName: 'lens/tictactoe'
     condition: succeededOrFailed()
