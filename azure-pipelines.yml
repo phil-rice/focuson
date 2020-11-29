@@ -45,6 +45,14 @@ steps:
     condition: succeededOrFailed()
 
   - script: |
+      cd nonfunctionals
+      npm install
+      tsc
+      npm test
+    displayName: 'nonfunctionals'
+    condition: succeededOrFailed()
+
+  - script: |
       set -e
       cd examples/lens/dragon
       npm install
