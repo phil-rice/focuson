@@ -2,14 +2,12 @@ import React from 'react';
 
 import {setup} from './enzymeAdapterSetup';
 import {mount} from "enzyme";
-import {Cpq, CpqDomain} from "./Cpq";
+import {Cpq, CpqData, CpqDomain} from "./Cpq";
 import {LensContext} from "@phil-rice/lens";
 
 setup()
 
-let json = {
-    "_links": {"_self": {"href": "api/filterList/filterList1"}},
-    "price": "N/A ",
+let json : CpqData= {
     "make": {
         "filterName": "filtermake",
         "selected": "Tesla",
@@ -27,18 +25,16 @@ let json = {
     },
     "externalPaint": {
         "filterName": "filterexternalPaint",
-        "selected": null,
         "options": ["Exciting Red", "Boring Black", "Electric Blue"]
     },
     "leasePeriod": {
         "filterName": "filterleasePeriod",
-        "selected": null,
         "options": ["12m", "24m", "36m", "48m"]
     }
 }
 
 let domain = new CpqDomain()
-let context = LensContext.main(domain, json, () => {throw Error("Shouldn't be called")}, 'cpq')
+let context = LensContext.main<CpqDomain, CpqData>(domain, json, () => {throw Error("Shouldn't be called")}, 'cpq')
 
 describe("Cpq", () => {
 
