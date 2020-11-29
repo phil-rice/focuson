@@ -1,5 +1,6 @@
-import {Dragon} from "../dragon";
+
 import {damage, eat, heal} from "./dragonMethodsWithoutLens";
+import {Dragon} from "../../index";
 
 
 export let startDragon: Dragon = {

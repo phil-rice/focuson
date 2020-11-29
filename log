@@ -22,12 +22,12 @@ examples/lens/cpq
   examples/lens/cpq npm test 0
   examples/lens/cpq tsc 0
   examples/lens/cpq took 60s
-examples/lens/dragon
-/mnt/c/git/ts/examples/lens/dragon
-  examples/lens/dragon npm install 0
-  examples/lens/dragon npm test 0
-  examples/lens/dragon tsc 0
-  examples/lens/dragon took 51s
+examples/lens/index
+/mnt/c/git/ts/examples/lens/index
+  examples/lens/index npm install 0
+  examples/lens/index npm test 0
+  examples/lens/index tsc 0
+  examples/lens/index took 51s
 examples/codeondemand/tictactoe
 /mnt/c/git/ts/examples/codeondemand/tictactoe
   examples/codeondemand/tictactoe npm install 0

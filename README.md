@@ -32,7 +32,7 @@ See https://medium.com/@gcanti/introduction-to-optics-lenses-and-prisms-3230e73b
 A lens allows us to 'focus in' on a small part of a big data structure. Without these lens we have
 to write a lot of 'copy code' manually.
 
-### lens/examples/dragon
+### lens/examples/index
 A comparison of code and tests with and without lens
 
 ### lens/examples/tic_tac_toe

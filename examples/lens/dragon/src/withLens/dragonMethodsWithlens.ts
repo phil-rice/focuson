@@ -1,5 +1,6 @@
-import {dragon, Dragon, Hitpoint} from "../dragon";
+
 import {Lens} from "@phil-rice/lens";
+import {Dragon, Hitpoint} from "../../index";
 
 export let dragonL = Lens.build<Dragon>('dragon');
 export let dragonBodyL = dragonL.then('body');

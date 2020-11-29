@@ -1,0 +1,8 @@
+{
+  "template": "react",
+  "name": "@phil-rice/lens_example_counter",
+  "version": "0.1.9",
+  "description": "The redux 'counter' example' using lens",
+  "extraDeps": {},
+  "extraDevDeps": {}
+}

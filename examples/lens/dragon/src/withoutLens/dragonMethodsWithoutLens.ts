@@ -1,4 +1,4 @@
-import {dragon, Dragon, Hitpoint} from "../dragon";
+import {dragon, Dragon, Hitpoint} from "../../index";
 
 
 export function eat(dragon: Dragon, item: any): Dragon {

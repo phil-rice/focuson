@@ -28,7 +28,7 @@ function findTemplateDirectory(){
 }
 
 function makePackageJson(){
-  jq --sort-keys --argjson details "$(cat $detailsFile)" '. + $details' < "$templateDirectory/package.json"
+  jq --sort-keys --argjson details "$(cat $detailsFile)" '(. + $details) + ({dependencies: (.dependencies + $details.extraDeps)}) ' < "$templateDirectory/package.json"
 }
 
 template="$(findTemplateDirectory)"

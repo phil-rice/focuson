@@ -8,10 +8,7 @@
     "allowJs": false
   },
   "include": [
-    "withLens/*.ts",
-    "withLens/*.tsx",
-    "withoutLens/*.ts",
-    "withoutLens/*.tsx",
-    "dragon.ts"
+    "src/**/*.ts",
+    "index.ts"
   ]
 }

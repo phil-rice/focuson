@@ -1,4 +1,4 @@
-import {dragon, Dragon, Head, Hitpoint} from "../dragon";
+import {dragon, Dragon, Head, Hitpoint} from "../../index";
 import {Lens} from "@phil-rice/lens";
 
 let dragonL = Lens.build<Dragon>('dragon');
