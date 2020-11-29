@@ -6,6 +6,7 @@ import {shallow, ShallowWrapper} from "enzyme";
 import {Lens, LensContext} from "@phil-rice/lens";
 import {CpqData, CpqDomain} from "./CpqDomain";
 import {Cpq} from "./render/Cpq";
+import {SimpleFilter} from "./render/SimpleFilter";
 
 setup()
 let cpqJson: CpqData = {
@@ -15,12 +16,12 @@ let cpqJson: CpqData = {
         {
             "_render": {"_self": "#SimpleFilter/render#"},
             "filterName": "filter.make",
-            "selected": null,
+            "selected": "BMW",
             "legalValues": ["Audi", "BMW", "Tesla"]
         }, {
             "_render": {"_self": "#SimpleFilter/render#"},
             "filterName": "filter.model",
-            "selected": null,
+            "selected": "BMW series 6",
             "legalValues": ["Audi A10", "BMW series 6", "Tesla Roadster"]
         }, {
             "_render": {"_self": "#SimpleFilter/render#"},
@@ -65,6 +66,14 @@ describe("Code on demand CPQ", () => {
             // let componentServers = cpq.find('ComponentFromServer');
             // expect(componentServers).toHaveLength(1)
             // compare(componentServers.at(0), context, 'game/_embedded/board')
+        })
+    })
+    describe("SimpleFilter", () => {
+        it("should render", () => {
+            const simpleFilter = shallow(<SimpleFilter context={context.focusOn('filters').withChildLens(Lens.nth(0))}/>)
+            let select = simpleFilter.find('select')
+            expect(select).toHaveLength(1)
+            expect(select.props().value).toEqual("BMW")
         })
     })
 })
