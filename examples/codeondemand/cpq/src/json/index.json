@@ -1,5 +1,5 @@
 {
-  "_render": {
+  "_render"  : {
     "_self"        : "#Nav/render#",
     "Nav"          : "#Nav/render#",
     "NavGroup"     : "#NavGroup/render#",
@@ -7,17 +7,11 @@
     "SimpleFilter" : "#SimpleFilter/render#",
     "GearboxFilter": "#GearboxFilter/render#"
   },
-  "groups" : [
-    {
-      "name"     : "cpq",
-      "jsonFiles": [
-        "created/cpqNothingSelected.json",
-        "created/cpqMakeSelected.json",
-        "created/cpqMakeAndModelSelected.json",
-        "created/cpqMakeModelAndTransmissionSelected.json",
-        "created/cpqMakeAndModelAndTransmissionAndFuelTypeSelected.json"
-      ],
-      "_render"  : {"_self": "#NavGroup/render#"}
-    }
+  "jsonFiles": [
+    "created/cpqNothingSelected.json",
+    "created/cpqMakeSelected.json",
+    "created/cpqMakeAndModelSelected.json",
+    "created/cpqMakeModelAndTransmissionSelected.json",
+    "created/cpqMakeAndModelAndTransmissionAndFuelTypeSelected.json"
   ]
 }
