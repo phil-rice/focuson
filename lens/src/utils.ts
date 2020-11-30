@@ -1,3 +1,5 @@
+
+
 export function fromObject<M, K extends keyof M>(map: M, key: K): M[K] {
     let value = map[key]
     if (value === undefined) throw Error('fromMap is null for name ' + key)

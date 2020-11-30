@@ -14,10 +14,12 @@
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "crypto-js": "^4.0.0"
   },
   "description": "This is a project that allows code to be (safely) fetched on demand from a server. The url holding the code is including in the json",
   "devDependencies": {
+    "@types/crypto-js": "^4.0.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@testing-library/jest-dom": "^5.11.6",

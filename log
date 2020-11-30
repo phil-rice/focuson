@@ -398,6 +398,10 @@ Total took 422s
     /mnt/c/git/ts/examples/codeondemand/tictactoe npm test 0
   /mnt/c/git/ts/examples/codeondemand/tictactoe took 75s 
 Total took 528s
+
+
+
+
 /mnt/c/git/ts/lens 
     /mnt/c/git/ts/lens npm install 0
     /mnt/c/git/ts/lens npm link 0
@@ -423,3 +427,39 @@ Total took 528s
     /mnt/c/git/ts/codeondemand npm test 0
   /mnt/c/git/ts/codeondemand took 76s 
 /mnt/c/git/ts/examples/lens/counter 
+    /mnt/c/git/ts/examples/lens/counter npm install 0
+    /mnt/c/git/ts/examples/lens/counter npm link 0
+    /mnt/c/git/ts/examples/lens/counter tsc 0
+    /mnt/c/git/ts/examples/lens/counter npm test 1
+  /mnt/c/git/ts/examples/lens/counter took 52s 
+/mnt/c/git/ts/examples/lens/cpq 
+    /mnt/c/git/ts/examples/lens/cpq npm install 0
+    /mnt/c/git/ts/examples/lens/cpq npm link 0
+    /mnt/c/git/ts/examples/lens/cpq tsc 0
+    /mnt/c/git/ts/examples/lens/cpq npm test 0
+  /mnt/c/git/ts/examples/lens/cpq took 68s 
+/mnt/c/git/ts/examples/lens/dragon 
+    /mnt/c/git/ts/examples/lens/dragon npm install 0
+    /mnt/c/git/ts/examples/lens/dragon npm link 0
+    /mnt/c/git/ts/examples/lens/dragon tsc 0
+    /mnt/c/git/ts/examples/lens/dragon npm test 0
+  /mnt/c/git/ts/examples/lens/dragon took 37s 
+/mnt/c/git/ts/examples/lens/tictactoe 
+    /mnt/c/git/ts/examples/lens/tictactoe npm install 0
+    /mnt/c/git/ts/examples/lens/tictactoe npm link 0
+    /mnt/c/git/ts/examples/lens/tictactoe tsc 0
+    /mnt/c/git/ts/examples/lens/tictactoe npm test 0
+  /mnt/c/git/ts/examples/lens/tictactoe took 59s 
+/mnt/c/git/ts/examples/codeondemand/cpq 
+    /mnt/c/git/ts/examples/codeondemand/cpq npm install 0
+    /mnt/c/git/ts/examples/codeondemand/cpq npm link 0
+    /mnt/c/git/ts/examples/codeondemand/cpq tsc 2
+    /mnt/c/git/ts/examples/codeondemand/cpq npm test 0
+  /mnt/c/git/ts/examples/codeondemand/cpq took 81s 
+/mnt/c/git/ts/examples/codeondemand/tictactoe 
+    /mnt/c/git/ts/examples/codeondemand/tictactoe npm install 0
+    /mnt/c/git/ts/examples/codeondemand/tictactoe npm link 0
+    /mnt/c/git/ts/examples/codeondemand/tictactoe tsc 2
+    /mnt/c/git/ts/examples/codeondemand/tictactoe npm test 0
+  /mnt/c/git/ts/examples/codeondemand/tictactoe took 54s 
+Total took 576s

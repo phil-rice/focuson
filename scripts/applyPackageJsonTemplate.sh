@@ -32,7 +32,7 @@ function makePackageJson(){
   jq --sort-keys --argjson details "$(cat $detailsFile)" '
       (. + $details) +
       ({dependencies: (.dependencies + $details.projectDetails.extraDeps)}) +
-      ({dependences: (.dependencies + (reduce $details.projectDetails.links[]? as $i ({}; .[$i] = "<version>")))})+
+      ({dependencies: (.dependencies + (reduce $details.projectDetails.links[]? as $i ({}; .[$i] = "<version>")))})+
       ({devDependencies: (.devDependencies + $details.projectDetails.extraDevDeps)}) ' < "$templateDirectory/package.json"
 }
 

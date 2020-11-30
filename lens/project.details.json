@@ -3,8 +3,9 @@
   "name"          : "@phil-rice/lens",
   "description"   : "A simple implementation of lens using type script",
   "projectDetails": {
-    "generation": 0,
-    "publish" : true,
+    "generation"  : 0,
+    "publish"     : true,
+    "links"       : [],
     "extraDeps"   : {},
     "extraDevDeps": {}
   }
