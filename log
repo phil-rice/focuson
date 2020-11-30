@@ -337,3 +337,89 @@ Now links sorted out
     /mnt/c/git/ts/examples/codeondemand/tictactoe npm test 0
   /mnt/c/git/ts/examples/codeondemand/tictactoe took 53s 
 Total took 422s
+/mnt/c/git/ts/lens 
+    /mnt/c/git/ts/lens npm install 0
+    /mnt/c/git/ts/lens npm link 0
+    /mnt/c/git/ts/lens tsc 0
+    /mnt/c/git/ts/lens npm test 0
+  /mnt/c/git/ts/lens took 17s 
+/mnt/c/git/ts/nav 
+    /mnt/c/git/ts/nav npm install 0
+    /mnt/c/git/ts/nav npm link 0
+    /mnt/c/git/ts/nav tsc 0
+    /mnt/c/git/ts/nav npm test 0
+  /mnt/c/git/ts/nav took 34s 
+/mnt/c/git/ts/nonfunctionals 
+    /mnt/c/git/ts/nonfunctionals npm install 0
+    /mnt/c/git/ts/nonfunctionals npm link 0
+    /mnt/c/git/ts/nonfunctionals tsc 0
+    /mnt/c/git/ts/nonfunctionals npm test 0
+  /mnt/c/git/ts/nonfunctionals took 19s 
+/mnt/c/git/ts/codeondemand 
+    /mnt/c/git/ts/codeondemand npm install 0
+    /mnt/c/git/ts/codeondemand npm link 0
+    /mnt/c/git/ts/codeondemand tsc 0
+    /mnt/c/git/ts/codeondemand npm test 0
+  /mnt/c/git/ts/codeondemand took 44s 
+/mnt/c/git/ts/examples/lens/counter 
+    /mnt/c/git/ts/examples/lens/counter npm install 0
+    /mnt/c/git/ts/examples/lens/counter npm link 0
+    /mnt/c/git/ts/examples/lens/counter tsc 0
+    /mnt/c/git/ts/examples/lens/counter npm test 1
+  /mnt/c/git/ts/examples/lens/counter took 55s 
+/mnt/c/git/ts/examples/lens/cpq 
+    /mnt/c/git/ts/examples/lens/cpq npm install 0
+    /mnt/c/git/ts/examples/lens/cpq npm link 0
+    /mnt/c/git/ts/examples/lens/cpq tsc 0
+    /mnt/c/git/ts/examples/lens/cpq npm test 0
+  /mnt/c/git/ts/examples/lens/cpq took 84s 
+/mnt/c/git/ts/examples/lens/dragon 
+    /mnt/c/git/ts/examples/lens/dragon npm install 0
+    /mnt/c/git/ts/examples/lens/dragon npm link 0
+    /mnt/c/git/ts/examples/lens/dragon tsc 0
+    /mnt/c/git/ts/examples/lens/dragon npm test 0
+  /mnt/c/git/ts/examples/lens/dragon took 43s 
+/mnt/c/git/ts/examples/lens/tictactoe 
+    /mnt/c/git/ts/examples/lens/tictactoe npm install 0
+    /mnt/c/git/ts/examples/lens/tictactoe npm link 0
+    /mnt/c/git/ts/examples/lens/tictactoe tsc 0
+    /mnt/c/git/ts/examples/lens/tictactoe npm test 0
+  /mnt/c/git/ts/examples/lens/tictactoe took 78s 
+/mnt/c/git/ts/examples/codeondemand/cpq 
+    /mnt/c/git/ts/examples/codeondemand/cpq npm install 0
+    /mnt/c/git/ts/examples/codeondemand/cpq npm link 0
+    /mnt/c/git/ts/examples/codeondemand/cpq tsc 0
+    /mnt/c/git/ts/examples/codeondemand/cpq npm test 0
+  /mnt/c/git/ts/examples/codeondemand/cpq took 78s 
+/mnt/c/git/ts/examples/codeondemand/tictactoe 
+    /mnt/c/git/ts/examples/codeondemand/tictactoe npm install 0
+    /mnt/c/git/ts/examples/codeondemand/tictactoe npm link 0
+    /mnt/c/git/ts/examples/codeondemand/tictactoe tsc 0
+    /mnt/c/git/ts/examples/codeondemand/tictactoe npm test 0
+  /mnt/c/git/ts/examples/codeondemand/tictactoe took 75s 
+Total took 528s
+/mnt/c/git/ts/lens 
+    /mnt/c/git/ts/lens npm install 0
+    /mnt/c/git/ts/lens npm link 0
+    /mnt/c/git/ts/lens tsc 0
+    /mnt/c/git/ts/lens npm test 0
+  /mnt/c/git/ts/lens took 40s 
+/mnt/c/git/ts/nav 
+    /mnt/c/git/ts/nav npm install 0
+    /mnt/c/git/ts/nav npm link 0
+    /mnt/c/git/ts/nav tsc 0
+    /mnt/c/git/ts/nav npm test 0
+  /mnt/c/git/ts/nav took 62s 
+/mnt/c/git/ts/nonfunctionals 
+    /mnt/c/git/ts/nonfunctionals npm install 0
+    /mnt/c/git/ts/nonfunctionals npm link 0
+    /mnt/c/git/ts/nonfunctionals tsc 0
+    /mnt/c/git/ts/nonfunctionals npm test 0
+  /mnt/c/git/ts/nonfunctionals took 46s 
+/mnt/c/git/ts/codeondemand 
+    /mnt/c/git/ts/codeondemand npm install 0
+    /mnt/c/git/ts/codeondemand npm link 0
+    /mnt/c/git/ts/codeondemand tsc 0
+    /mnt/c/git/ts/codeondemand npm test 0
+  /mnt/c/git/ts/codeondemand took 76s 
+/mnt/c/git/ts/examples/lens/counter 

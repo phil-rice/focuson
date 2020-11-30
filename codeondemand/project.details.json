@@ -6,7 +6,7 @@
     "publish"     : true,
     "links"       : ["@phil-rice/lens", "@phil-rice/nav"],
     "generation"  : 1,
-    "extraDeps"   : {"@phil-rice/lens": "<version>"},
+    "extraDeps"   : {},
     "extraDevDeps": {}
   }
 }

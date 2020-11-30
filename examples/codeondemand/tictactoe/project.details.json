@@ -1,5 +1,5 @@
 {
-  "template"      : "codeondemand",
+  "template"      : "react",
   "name"          : "@phil-rice/example_codeondemand_tictactoe",
   "description"   : "Demonstrating the code on demand approach for tic_tac_toe",
   "projectDetails": {
