@@ -19,6 +19,9 @@ SECONDS=0
 log "$directory"
 npm install
 log "    $directory npm install" $?
+npm link
+log "    $directory npm link" $?
+jq -r '.projectDetails| .links | .[]?' < project.details.json | xargs -L1 -r  npm link
 tsc
 log "    $directory tsc" $?
 npm test

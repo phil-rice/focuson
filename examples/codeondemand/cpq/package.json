@@ -12,9 +12,9 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/codeondemand": "0.1.14",
-    "@phil-rice/lens": "0.1.14",
-    "@phil-rice/nav": "0.1.14",
+    "@phil-rice/codeondemand": "0.1.15",
+    "@phil-rice/lens": "0.1.15",
+    "@phil-rice/nav": "0.1.15",
     "@types/crypto-js": "^4.0.1",
     "@types/node": "^14.14.7",
     "@types/react": "^17.0.0",
@@ -52,10 +52,15 @@
   "name": "@phil-rice/examples_codeondemand_cpq",
   "projectDetails": {
     "extraDeps": {
-      "@phil-rice/nav": "0.1.14"
+      "@phil-rice/nav": "0.1.15"
     },
     "extraDevDeps": {},
-    "generation": 3
+    "generation": 3,
+    "links": [
+      "@phil-rice/lens",
+      "@phil-rice/nav",
+      "@phil-rice/codeondemand"
+    ]
   },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
@@ -64,5 +69,5 @@
     "test:watch": "npm run test -- --watch"
   },
   "template": "codeondemand",
-  "version": "0.1.14"
+  "version": "0.1.15"
 }

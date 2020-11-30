@@ -4,7 +4,8 @@
   "description"   : "Demonstrating the code on demand approach for tic_tac_toe",
   "projectDetails": {
     "generation"  : 3,
-    "extraDeps": {},
+    "links"       : ["@phil-rice/lens", "@phil-rice/nav", "@phil-rice/codeondemand"],
+    "extraDeps"   : {},
     "extraDevDeps": {}
   }
 }

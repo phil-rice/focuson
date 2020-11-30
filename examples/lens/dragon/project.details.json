@@ -4,6 +4,7 @@
   "description"   : "Showing how lens help in 'normal programming' without any link to react",
   "projectDetails": {
     "generation": 2,
+    "links": ["@phil-rice/lens"],
     "extraDeps"   : {"@phil-rice/lens": "^0.1.11"},
     "extraDevDeps": {}
   }

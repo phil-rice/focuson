@@ -3,8 +3,9 @@
   "name"          : "@phil-rice/lens_example_counter",
   "description"   : "The redux 'counter' example' using lens",
   "projectDetails": {
-    "generation": 2,
-    "extraDeps"   : {},
+    "generation"  : 2,
+    "links"       : ["@phil-rice/lens"],
+    "extraDeps"   : {"@phil-rice/lens": "<version>"},
     "extraDevDeps": {}
   }
 }
