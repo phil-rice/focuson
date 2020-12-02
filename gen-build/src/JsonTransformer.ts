@@ -1,5 +1,5 @@
-import {Files, PathAndSha} from "./Files";
-import {StringReplaceData, Strings} from "./Strings";
+import { Files, PathAndSha } from "./Files";
+import { StringReplaceData, Strings } from "./Strings";
 import * as fs from "fs";
 
 const path = require('path');
@@ -15,16 +15,19 @@ export class JsonTransformer {
     constructor(files: Files) { this.files = files; }
 
     makeStringReplaceData(pathAndSha: PathAndSha): StringReplaceData {
-        let name = pathAndSha.path.name;
-        return ({fromMatcher: new RegExp(`#${name}/render#`, 'gi'), to: `created/${name}/${pathAndSha.sha}`})
+        let name = pathAndSha.parsedPath.name;
+        return ({ fromMatcher: new RegExp(`#${name}/render#`, 'gi'), to: `created/${name}/${pathAndSha.sha}` })
     }
-    toFileName(sourceAndTargetDir: JsonSourceDirAndTargetDir, fileName: string): string {return path.join(sourceAndTargetDir.targetDir, fileName)}
+    toFileName(sourceAndTargetDir: JsonSourceDirAndTargetDir, fileName: string): string { return path.join(sourceAndTargetDir.targetDir, fileName) }
 
     processOneJsonFile(sourceAndTargetDir: JsonSourceDirAndTargetDir, stringReplaceData: StringReplaceData[]): (file: string) => Promise<void> {
-        return file => this.files.copyAndChangeFile(
-            path.parse(file),
-            Strings.replaceMultipleStrings(stringReplaceData),
-            this.toFileName(sourceAndTargetDir, file))
+        return file => {
+            let parsedPath = path.parse(path.join(sourceAndTargetDir.jsonSourceDir, file));
+            return this.files.copyAndChangeFile(
+                parsedPath,
+                Strings.replaceMultipleStrings(stringReplaceData),
+                this.toFileName(sourceAndTargetDir, file))
+        }
     }
 
     updateJsonFiles(sourceAndTargetDir: JsonSourceDirAndTargetDir): (pathAndShas: PathAndSha[]) => Promise<void[]> {

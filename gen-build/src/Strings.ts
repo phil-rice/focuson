@@ -13,7 +13,7 @@ export interface ContentAndSha {
 export class Strings {
     static findSha(content: string): ContentAndSha {
         const sha256Code = shajs('sha256').update(content).digest('hex');
-        return ({content: content, sha: sha256Code})
+        return ({ content: content, sha: sha256Code })
     }
     static getExtension(file: string) {
         const [fileNameNoExt, ...fileProps] = file.split('.');

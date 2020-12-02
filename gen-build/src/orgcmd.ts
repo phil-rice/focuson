@@ -2,16 +2,22 @@
 'use strict';
 
 /** Require dependencies */
-const pkg = require('./package.json');
+const pkg = require('../package.json');
 const commander = require('commander');
-const orgCmdObj = require('./orgcmd-build');
+const { BuildCode } = require('./BuildCode');
 
 const program = new commander.Command();
 
-const buildFunction = (p) => {
-  console.log('dir', p.source, p.datasource, p.destination);
-  // console.log("Reads the files from source directories, builds it and saves it in the target directory");
-  console.log(orgCmdObj.buildCode(p.source, p.datasource, p.destination));
+const buildFunction = (p: any) => {
+  try {
+    console.log('dir', p.source, p.datasource, p.destination);
+    // console.log('BuildCode', BuildCode);
+    // console.log(buildCodeObj.BuildCode.create(p.source, p.datasource, p.destination));
+    BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination });
+  }
+  catch (e) {
+    console.log('Error', e);
+  }
 }
 
 program

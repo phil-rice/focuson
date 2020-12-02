@@ -1,6 +1,6 @@
-import {BabelFileResult} from "@babel/core";
-import {ParsedPath} from "path";
-import {Files, PathAndSha} from "./Files";
+import { BabelFile, BabelFileResult } from "@babel/core";
+import { ParsedPath } from "path";
+import { Files, PathAndSha } from "./Files";
 
 const path = require('path');
 const babel = require("@babel/core");
@@ -13,7 +13,7 @@ export class TsxTransformer {
 
     files: Files
 
-    constructor(files: Files) { this.files = files;}
+    constructor(files: Files) { this.files = files; }
 
     transformTheCodeAfterBabel(fileNameNoExt: string, result: { code: string }) {
         const babelCode = result.code.replace('"use strict";', '').trim();
@@ -26,7 +26,7 @@ export class TsxTransformer {
     remoteImportStatementsAndBlankNewLines = (contents: string) =>
         contents.replace(/^import.*$/gm, '').replace(/^\s*[\r\n]/gm, '');
 
-    checkResult(file: string, result: BabelFileResult | null): string {
+    checkResult(file: string, result: BabelFile | null): string {
         if (result == null) throw new Error(`Could not compile ${file}` + result)
         return result.code
     }
@@ -36,11 +36,11 @@ export class TsxTransformer {
     }
 
     toFileName = (sourceAndTargetDir: SourceAndTargetDir) => (parsedPath: ParsedPath, sha: string): ParsedPath =>
-        path.parse(path.path.join(sourceAndTargetDir.targetDir, parsedPath.base))
+        path.parse(path.join(sourceAndTargetDir.targetDir, parsedPath.base))
 
     loadAndTransformOneFile(sourceAndTargetDir: SourceAndTargetDir): (file: string) => Promise<PathAndSha> {
         return file => {
-            let parsedPath = path.parse(file)
+            let parsedPath = path.parse(path.join(sourceAndTargetDir.sourceDir, file));
             return this.files.copyTransformAndSaveFileForContentAddressableData(
                 parsedPath,
                 this.transformCode,

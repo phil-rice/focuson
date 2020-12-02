@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-import {SourceAndTargetDir, TsxTransformer} from "./TsxTransformer";
-import {JsonSourceDirAndTargetDir, JsonTransformer} from "./JsonTransformer";
-import {Files} from "./Files";
+import { SourceAndTargetDir, TsxTransformer } from "./TsxTransformer";
+import { JsonSourceDirAndTargetDir, JsonTransformer } from "./JsonTransformer";
+import { Files } from "./Files";
 
-interface SourceJsonSourceAndTargetDir extends SourceAndTargetDir, JsonSourceDirAndTargetDir {}
+interface SourceJsonSourceAndTargetDir extends SourceAndTargetDir, JsonSourceDirAndTargetDir { }
 
-class BuildCode {
+export class BuildCode {
     tsxTransformer: TsxTransformer
     jsonTransformer: JsonTransformer
 
