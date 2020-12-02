@@ -1,8 +1,8 @@
 import './index.css';
-import {getElement, LensContext} from "@phil-rice/lens";
+import { getElement, LensContext } from "@phil-rice/lens";
 
-import {Nav} from "@phil-rice/nav";
-import {Cpq, CpqData, CpqDomain} from "./Cpq";
+import { Nav } from "@phil-rice/nav";
+import { Cpq, CpqData, CpqDomain } from "./Cpq";
 import ReactDOM from 'react-dom';
 
 let rootElement = getElement('root')
@@ -17,9 +17,9 @@ fetch("json/index.json").then(j => j.json()).then(jsonFiles => {
         console.log("settingJson to", c.json())
         console.log("jsonFiles is", jsonFiles)
         ReactDOM.render(
-            <div className={'main'}>
-                <Nav jsonFiles={jsonFiles.jsonFiles} fetch={fetchUrl} setData={setJson}/>
-                <Cpq context={c}/>
+            <div className={'main container-fluid'}>
+                <Nav jsonFiles={jsonFiles.jsonFiles} fetch={fetchUrl} setData={setJson} />
+                <Cpq context={c} />
             </div>, rootElement)
     })
     console.log("loading", jsonFiles.jsonFiles[0])
