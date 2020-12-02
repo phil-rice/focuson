@@ -1,6 +1,8 @@
 import { Stats } from "fs";
 import path, { parse, ParsedPath } from "path";
+import { strict } from "yargs";
 import { Strings } from "./Strings";
+import { TsxTransformer } from "./TsxTransformer";
 
 const fs = require('fs');
 
@@ -36,7 +38,6 @@ export class Files {
     saveFileIfDoesntExist(parsedPath: ParsedPath, content: string, sha: string): Promise<void> {
         const newPath = path.join(parsedPath.dir, parsedPath.name, sha);
         const newParsedPath = path.parse(newPath);
-        // console.log('parsedPath for sha file', parsedPath, newParsedPath);
         this.createDirectoryForFile(newParsedPath);
         return fs.promises.stat(newPath).then((stat: Stats) => {
             console.log(`filename exists`);
@@ -56,22 +57,20 @@ export class Files {
     }
 
     copyAndChangeFile(fromFileName: ParsedPath, transformer: (raw: string) => string, toFileName: string): Promise<void> {
-        // console.log('fromFileName', fromFileName);
         return fs.promises.readFile(path.join(fromFileName.dir, fromFileName.base), 'utf-8').then(transformer).then((content: string) => fs.promises.writeFile(toFileName, content, 'utf-8'))
     }
 
     copyTransformAndSaveFileForContentAddressableData(
-        // sourceAndTargetDir: SourceAndTargetDir,
         fromPath: ParsedPath,
-        transformer: (raw: string) => Promise<string>,
+        transformer: (content: string, file: string) => Promise<string>,
         toFileNameFn: (parsedPath: ParsedPath, sha: string) => ParsedPath): Promise<PathAndSha> {
-        // console.log('in files -- fromPath', fromPath);
         return fs.promises.readFile(path.join(fromPath.dir, fromPath.base), 'utf-8')
-            .then((content: string) => content)
+            .then((content: string) =>
+                transformer.call(new TsxTransformer(this), content, fromPath.base)
+            )
             .then(Strings.findSha)
             .then((contentAndSha: ContentAndSha) => {
                 let parsedPath = toFileNameFn(fromPath, contentAndSha.sha);
-                // console.log('parsedPath', parsedPath);
                 return this.saveFileIfDoesntExist(parsedPath, contentAndSha.content, contentAndSha.sha).//
                     then(() => ({ parsedPath: parsedPath, sha: contentAndSha.sha }))
             })

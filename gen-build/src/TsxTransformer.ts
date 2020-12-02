@@ -1,4 +1,5 @@
 import { BabelFile, BabelFileResult } from "@babel/core";
+import { file } from "@babel/types";
 import { ParsedPath } from "path";
 import { Files, PathAndSha } from "./Files";
 
@@ -15,24 +16,30 @@ export class TsxTransformer {
 
     constructor(files: Files) { this.files = files; }
 
-    transformTheCodeAfterBabel(fileNameNoExt: string, result: { code: string }) {
-        const babelCode = result.code.replace('"use strict";', '').trim();
+    transformTheCodeAfterBabel(result: string, file: string) {
+        const fileNameNoExt = path.parse(file).name;
+        const babelCode = result.replace('"use strict";', '').trim();
         const appendStr = `return ${fileNameNoExt};`;
         const transformedContents = `${babelCode}
-        ${appendStr}`;
-        return transformedContents
+${appendStr}`;
+        return transformedContents;
     }
 
-    remoteImportStatementsAndBlankNewLines = (contents: string) =>
-        contents.replace(/^import.*$/gm, '').replace(/^\s*[\r\n]/gm, '');
+    remoteImportStatementsAndBlankNewLines = (contents: string) => {
+        return contents.replace(/^import.*$/gm, '').replace(/^\s*[\r\n]/gm, '');
+    }
 
-    checkResult(file: string, result: BabelFile | null): string {
+    checkResult(file: string, result: string | null): string {
         if (result == null) throw new Error(`Could not compile ${file}` + result)
-        return result.code
+        return result;
     }
 
-    transformCode(contents: string): Promise<string> {
-        return babel.transformAsync(this.remoteImportStatementsAndBlankNewLines(contents)).then(this.transformTheCodeAfterBabel).then(this.checkResult)
+    transformCode(contents: string, file: string): Promise<string> {
+        return babel.transformAsync(this.remoteImportStatementsAndBlankNewLines(contents))
+            .then((result: { code: string }) =>
+                this.transformTheCodeAfterBabel(result.code, file)
+            )
+            .then(this.checkResult(file, contents));
     }
 
     toFileName = (sourceAndTargetDir: SourceAndTargetDir) => (parsedPath: ParsedPath, sha: string): ParsedPath =>
