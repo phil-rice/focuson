@@ -41,4 +41,5 @@ templateDirectory="$templateRoot/$template"
 if [ -f "$directory/package.json" ]; then
    cp $directory/package.json $directory/package.old.json
 fi
-makePackageJson | sed -e "s/<version>/$version/g" > $directory/$packageJsonName
+makePackageJson | sed -e "s/<version>/$version/g" >$directory/$packageJsonName
+#echo "package.json created in $directory/$packageJsonName"

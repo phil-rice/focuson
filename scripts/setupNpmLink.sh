@@ -13,9 +13,9 @@ if [ $# -ne 1 ]; then usage; fi
 if [ ! -d 'scripts' ]; then usage ; fi
 
 scripts/inProjects.sh "npm link"
-
+scripts/inProjects.sh "tsc --noEmit false --outDir dist"
 scripts/inProjects.sh pwd | while read line; do
-   (cd $line
+   (cd $line/dist
     jq -r '.projectDetails| .links | .[]?' < project.details.json | xargs -L1 -r  npm link
    )
 done

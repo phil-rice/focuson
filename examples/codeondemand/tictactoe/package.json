@@ -12,9 +12,9 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/codeondemand": "0.1.16",
-    "@phil-rice/lens": "0.1.16",
-    "@phil-rice/nav": "0.1.16",
+    "@phil-rice/codeondemand": "0.1.17",
+    "@phil-rice/lens": "0.1.17",
+    "@phil-rice/nav": "0.1.17",
     "crypto-js": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -72,5 +72,5 @@
   },
   "template": "codeondemand",
   "types": "index",
-  "version": "0.1.16"
+  "version": "0.1.17"
 }

@@ -35,3 +35,6 @@ out/
 *.review.json
 *.old.json
 *.review
+.status
+.log
+*.tgz
