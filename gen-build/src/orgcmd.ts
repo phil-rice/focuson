@@ -11,8 +11,6 @@ const program = new commander.Command();
 const buildFunction = (p: any) => {
   try {
     console.log('dir', p.source, p.datasource, p.destination);
-    // console.log('BuildCode', BuildCode);
-    // console.log(buildCodeObj.BuildCode.create(p.source, p.datasource, p.destination));
     BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination });
   }
   catch (e) {

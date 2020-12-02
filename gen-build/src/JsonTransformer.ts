@@ -41,6 +41,7 @@ export class JsonTransformer {
     validate(sourceAndTargetDir: JsonSourceDirAndTargetDir): Promise<void[]> {
         return Promise.all([
             this.files.validateDirectoryExists("Json Source Directory", sourceAndTargetDir.jsonSourceDir),
-            this.files.validateDirectoryExists("Target Directory", sourceAndTargetDir.targetDir)])
+            this.files.validateDirectoryExists("Target Directory", sourceAndTargetDir.targetDir)
+        ])
     }
 }

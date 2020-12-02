@@ -31,7 +31,6 @@ export class Files {
     }
 
     createDirectoryForFile(parsedPath: ParsedPath): Promise<void> {
-        console.log('directories to create', parsedPath.dir);
         return fs.promises.mkdir(parsedPath.dir, { recursive: true })
     }
 
@@ -40,7 +39,6 @@ export class Files {
         const newParsedPath = path.parse(newPath);
         this.createDirectoryForFile(newParsedPath);
         return fs.promises.stat(newPath).then((stat: Stats) => {
-            console.log(`filename exists`);
         }, (err: { code: string }) => {
             if (err.code === 'ENOENT') {
                 // file does not exist. Create sha files and write updated content to it
