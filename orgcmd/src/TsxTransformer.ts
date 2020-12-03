@@ -26,7 +26,7 @@ ${appendStr}`;
     }
 
     remoteImportStatementsAndBlankNewLines = (contents: string) => {
-        return contents.replace(/^import.*$/gm, '').replace(/^\s*[\r\n]/gm, '');
+        return contents.replace(/^import.*$/gm, '').replace(/^\s*[\r\n]/gm, '').replace('export', '');
     }
 
     checkResult(file: string, result: string | null): string {

@@ -2,30 +2,52 @@
 // 'use strict';
 
 /** Require dependencies */
+import * as cp from 'child_process'
 const pkg = require('../package.json');
 const commander = require('commander');
+const { exec } = require("child_process");
 const { BuildCode } = require('./BuildCode');
 
 const program = new commander.Command();
 
 const buildFunction = (p: any) => {
   try {
-    console.log('args', process.argv);
-    console.log('dir', p.source, p.datasource, p.destination);
-    BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination });
+    console.log('Source Directory: ', p.source);
+    console.log('Data Source Directory: ', p.datasource);
+    console.log('Destination Directory: ', p.destination);
+
+    if (p.force) {
+      console.log('Forcefully create Directory, if not found: ', (p.force) ? 'YES' : 'NO');
+      cp.exec(`mkdir "${p.destination}"`, (error: any, stdout: string, stderr: string) => {
+        console.log('Directories created');
+        BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination })
+          .catch((err: Error) => {
+            console.log(err.message);
+            process.exit(1);
+          });
+      });
+    } else {
+      BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination })
+        .catch((err: Error) => {
+          console.log(err.message);
+          process.exit(1);
+        });
+    }
   }
   catch (e) {
-    console.log('Error', e);
+    console.log(e.message);
+    process.exit(1);
   }
 }
 
 program
   .version(pkg.version)
   .command('build')
-  .option('--source <source>', 'directory having components to build', 'src/render')
-  .option('--datasource <datasource>', 'directory having JSON data', 'src/json')
-  .option('--destination <destination>', 'directory for saving files after build', 'public/created')
-  .option('--debug', 'If specified some commands output more information about how they are working', false)
+  .option('-src, --source <source>', 'directory having components to build', 'src/render')
+  .option('-dsrc, --datasource <datasource>', 'directory having JSON data', 'src/json')
+  .option('-dest, --destination <destination>', 'directory for saving files after build', 'public/created')
+  .option('-d, --debug', 'If specified some commands output more information about how they are working', false)
+  .option('-f, --force', 'To create destination directory if not found')
   .description('Builds the code suitable for COD')
   .action(buildFunction);
 

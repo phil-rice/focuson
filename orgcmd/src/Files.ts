@@ -27,7 +27,13 @@ export class Files {
     }
 
     validateDirectoryExists(message: string, dir: string): Promise<void> {
-        return fs.promises.lstat(dir).then((stats: Stats) => { if (!stats.isDirectory()) throw new Error(`${message}: ${dir}`) })
+        return fs.promises.lstat(dir).then((stats: Stats) => {
+            if (!stats.isDirectory()) throw new Error(`${message}: ${dir}`)
+        })
+            .catch((err: Error) => {
+                const errorMessage = `ERROR: ${message} ${dir} not found. Please use -f or --force option to create it on the fly.`;
+                throw new Error(errorMessage);
+            });
     }
 
     createDirectoryForFile(parsedPath: ParsedPath): Promise<void> {
