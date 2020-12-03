@@ -1,0 +1,93 @@
+{
+  "templateDir"   : "template",
+  "log"           : ".log",
+  "status"        : ".status",
+  "profile"       : ".profile",
+  "scriptDir"     : "${laobanDirectory}/scripts",
+  "packageManager": "npm",
+  "scripts"       : {
+    "log"        : {"description": "displays the log file", "commands": ["cat ${log}"]},
+    "update"     : {
+      "description": "updates the package.json in each project, using the template",
+      "commands"   : [
+        {
+          "name"   : "update",
+          "command": "${scriptDir}/applyPackageJsonTemplate.sh ${laobanDirectory}/${templateDir} package.json $(pwd)",
+          "status" : true
+        },
+        {
+          "name"   : "update",
+          "command": "cd ${laobanDirectory}/${templateDir}/${projectDetails.template}&& find . -type f|grep -v package.json | xargs -L1 -I {} cp {} ${projectDirectory}/{}"
+        }
+      ]
+    },
+    "link"       : {
+      "description": "call '${packageManager} link' in each project directory",
+      "commands"   : [
+        {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
+        {"name": "link", "command": "cd dist && ${packageManager} link", "status": true}
+      ]
+    },
+    "ls"         : {"description": "lists all the projects", "commands": ["pwd"]},
+    "tsc"        : {
+      "description": "runs tsc",
+      "commands"   : [{"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true}]
+    },
+    "test"       : {
+      "description": "runs ${packageManager} test",
+      "commands"   : [{"name": "test", "command": "${packageManager} test", "status": true}]
+    },
+    "ls3"        : {
+      "description": "lists all the projects", "commands": [
+        {"name": "ls", "command": "ls", "status": true},
+        {"name": "pwd", "command": "pwd", "status": true},
+        {"name": "echo", "command": "sdsdsd", "status": true}
+      ]
+    },
+    "install"    : {
+      "description": "does the initial install/link/tsc/test... etc in each project",
+      "commands"   : [
+        "echo \"Installing in `pwd` \"",
+        {"name": "install", "command": "${packageManager} install", "status": true},
+        {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
+        {"name": "link", "command": "cd dist && ${packageManager} link", "status": true},
+        {"name": "test", "command": "${packageManager} test", "status": true}
+      ]
+    },
+    "ls-ports"   : {
+      "description": "lists the projects that have a port defined in project.details.json",
+      "guard"      : "${projectDetails.projectDetails.port}",
+      "commands"   : ["pwd"]
+    },
+    "startServer": {
+      "description": "${packageManager} start for all projects that have a port defined in project.details.json",
+      "guard"      : "${projectDetails.projectDetails.port}",
+      "commands"   : ["export PORT=${projectDetails.projectDetails.port} && ${packageManager} start"]
+    },
+    "ls-publish" : {
+      "description": "lists the projects that can be published",
+      "guard"      : "${projectDetails.projectDetails.publish}",
+      "commands"   : ["pwd"]
+    },
+    "pack"       : {
+      "description": "does everything for a publish except the actual 'npm publish'",
+      "guard"      : "${projectDetails.projectDetails.publish}",
+      "commands"   : [
+        {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
+        "find dist -type f -name 'enzymeAdapterSetup.*' -delete",
+        "cp package.json dist",
+        {"name": "pack", "command": "cd dist && ${packageManager} pack", "status": true}
+      ]
+    },
+    "publish"    : {
+      "description": "publishes the projects to npmjs",
+      "guard"      : "${projectDetails.projectDetails.publish}",
+      "commands"   : [
+        {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
+        "find dist -type f -name 'enzymeAdapterSetup.*' -delete",
+        "cp package.json dist",
+        {"name": "publish", "command": "cd dist && ${packageManager} publish", "status": true}
+      ]
+    }
+  }
+}

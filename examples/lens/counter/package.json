@@ -12,7 +12,7 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/lens": "0.1.16",
+    "@phil-rice/lens": "0.1.17",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "typescript": "^4.1.2"
@@ -54,7 +54,8 @@
     "generation": 2,
     "links": [
       "@phil-rice/lens"
-    ]
+    ],
+    "port": 3001
   },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
@@ -64,5 +65,5 @@
   },
   "template": "react",
   "types": "index",
-  "version": "0.1.16"
+  "version": "0.1.17"
 }

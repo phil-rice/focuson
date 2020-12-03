@@ -70,11 +70,12 @@ doesn't want adverts at all. One company wants very simple components, and a dif
 If the client is tightly coupled to the server (the usual situation is the client understands the json coming from APIs),
 then it can be challenging to undertake experiments. The client needs to 'know' about the experiments and be modified to support them.
 <hr />
-# Checking out and using the code
+
+ # Checking out and using the code
 There are a lot of separate npm projects in here, and they should all be kept in sync.
 
 npm has no inheritance story, so we have to find another way to manage 'all these projects are mostly the same'. This project 
-uses templates.
+uses 'laoban' a tool for managing multiple github repos. It can be located at https://github.com/phil-rice/laoban.
 
 There are three 'parts' in this. 
 * The template directories
@@ -83,8 +84,7 @@ There are three 'parts' in this.
 
 # Template directories
 * In this directory are child directories that hold templates.
-* It holds files
-    * package.json is 'not complete' parts of it will be changed by the project directory configuration
+    * package.json is 'not complete': parts of it will be changed by the project directory configuration
     * the other files are just copied (overwriting anything there)
 
 # Project directories
@@ -99,26 +99,22 @@ There are three 'parts' in this.
          * this is where we (for example) specify name and description
 * The other files in the template will overwrite
 
-
 # Scripts
-These scripts are only needed by the developers of this code. They are not needed when using the npm packages
-* updateProjects.sh
-    * This scans the projects, and applies the templates and the latest version number (found in template)
-    * We need to do this every time we change any of the templates, or the version number
-*  installAll.sh logFile
-    * you probably want to call this after updateProjects.sh
-    * It goes to each project, calls npm install, tsc (does it compile?) and runs the tests
-    * the results in the logFile are helpful to understand the health of the system
-* setupNpmLinks.sh
-    * This scans the projects, and makes each of them a 'npm link', so that it is a symbolic link
-    * Then it scans the project.details.json for the 'links' (see 'codeondemand' for example) and links
-*  inProjects.sh 
-    * finds all the projects with the 'project.details.json' in them and executes a command in those directories
-    * use inProjects.sh pwd to list the project directories
-* publishEverything.sh
-    * Make sure you have updated the version number first (in the templates directory and not done for you)
-    * publishes the things that need publishing
-    * the 'dist' subdirectory is helpful to see what has been published. there should be a zip file there
-    * I haven't yet sorted out the error handling on this... so you do need to check    
+The scripts are currently being incorporated into Laoban. They are used to do some of the json manipulation when copying package.json from the template to the project
 
-# Getting started w=
+# laoban cheatsheet
+
+* Install by (in separate directory) `git clone git@github.com:phil-rice/laoban.git`
+* Add to command path using `npm link` (from the laoban directory)
+* type `laoban --help` for instructions
+
+Useful commands include
+`laoban install` used to 'update/npm install/tsc/npm test etc'.. basically it setups the system and checks it is working
+`laoban projects` lists the projects
+`laoban update -a` updates the package.json with the version in the template directory, and copies the template files into the project 
+`laoban pack -a` almost publishes the files. It actually just makes a zip file with 'what would have been published' 
+`laoban publish -a` actually publishes the files
+`laoban tsc -a` compiles the files
+`laoban test -a` runs npm test on all the files
+`laoban status -a`  is awesome: it tells you the success/failure of the last 'main commands'. This gives you the status of all of your projects at a glance
+

@@ -1,6 +1,6 @@
 import {LensContext} from "./LensContext";
 import {Lens} from "./Lens";
-import {a1b2ca3, Chest, dragon, Dragon, dragon2, DragonDomain, letnstoca, list123, Stomach} from "./LensFixture";
+import {Chest, dragon, Dragon, DragonDomain} from "./LensFixture";
 
 
 let initialMain = {...dragon}

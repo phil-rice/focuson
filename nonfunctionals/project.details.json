@@ -5,6 +5,7 @@
   "projectDetails": {
     "publish" : true,
     "generation"  : 0,
+    "links": [],
     "extraDeps"   : {},
     "extraDevDeps": {}
   }
