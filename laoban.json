@@ -41,7 +41,8 @@
     "install"    : {
       "description": "does the initial install/link/tsc/test... etc in each project",
       "commands"   : [
-        "echo \"Installing in `pwd` \"",
+        "cp -r ${templateDir}/${projectDetails.template}/* ${projectDirectory}",
+        "laoban updatePackageJson",
         {"name": "install", "command": "${packageManager} install", "status": true},
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         {"name": "link", "command": "cd dist && ${packageManager} link", "status": true},

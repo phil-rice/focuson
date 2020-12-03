@@ -43,5 +43,6 @@
   "types": "index",
   "version": "0.1.17",
   "template": "noreact",
-  "description": "A simple implementation of lens using type script"
+  "description": "A simple implementation of lens using type script",
+  "name": "@phil-rice/lens"
 }
