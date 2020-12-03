@@ -56,7 +56,8 @@
     "generation": 2,
     "links": [
       "@phil-rice/lens"
-    ]
+    ],
+    "port": 3004
   },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {

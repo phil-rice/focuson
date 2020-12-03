@@ -2,11 +2,12 @@
   "templateDir"   : "template",
   "log"           : ".log",
   "status"        : ".status",
+  "profile"       : ".profile",
   "scriptDir"     : "${laobanDirectory}/scripts",
   "packageManager": "npm",
   "scripts"       : {
-    "log"       : {"description": "displays the log file", "commands": ["cat ${log}"]},
-    "update"    : {
+    "log"        : {"description": "displays the log file", "commands": ["cat ${log}"]},
+    "update"     : {
       "description": "updates the package.json in each project, using the template",
       "commands"   : [
         {
@@ -18,30 +19,29 @@
           "name"   : "update",
           "command": "cd ${laobanDirectory}/${templateDir}/${projectDetails.template}&& find . -type f|grep -v package.json | xargs -L1 -I {} cp {} ${projectDirectory}/{}"
         }
-
       ]
     },
-    "link"      : {
+    "link"       : {
       "description": "call '${packageManager} link' in each project directory",
       "commands"   : ["${packageManager} link"]
     },
-    "ls"        : {"description": "lists all the projects", "commands": ["pwd"]},
-    "tsc"       : {
+    "ls"         : {"description": "lists all the projects", "commands": ["pwd"]},
+    "tsc"        : {
       "description": "runs tsc",
       "commands"   : [{"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true}]
     },
-    "test"      : {
+    "test"       : {
       "description": "runs ${packageManager} test",
       "commands"   : [{"name": "test", "command": "${packageManager} test", "status": true}]
     },
-    "ls3"       : {
+    "ls3"        : {
       "description": "lists all the projects", "commands": [
         {"name": "ls", "command": "ls", "status": true},
         {"name": "pwd", "command": "pwd", "status": true},
         {"name": "echo", "command": "sdsdsd", "status": true}
       ]
     },
-    "install"   : {
+    "install"    : {
       "description": "does the initial install/link/tsc/test... etc in each project",
       "commands"   : [
         "echo \"Installing in `pwd` \"",
@@ -51,16 +51,22 @@
         {"name": "test", "command": "${packageManager} test", "status": true}
       ]
     },
-    "ls-publish": {
+    "ls-ports"   : {
+      "description": "lists the projects that have a port defined in project.details.json",
+      "guard"      : "${projectDetails.projectDetails.port}",
+      "commands"   : ["pwd"]
+    },
+    "startServer": {
+      "description": "${packageManager} start for all projects that have a port defined in project.details.json",
+      "guard"      : "${projectDetails.projectDetails.port}",
+      "commands"   : ["export PORT=${projectDetails.projectDetails.port} && ${packageManager} start"]
+    },
+    "ls-publish" : {
       "description": "lists the projects that can be published",
       "guard"      : "${projectDetails.projectDetails.publish}",
       "commands"   : ["pwd"]
     },
-    "latika-cmd": {
-      "description": "does something coold",
-      "commands"   : ["echo 'hello' $(pwd)"]
-    },
-    "pack"      : {
+    "pack"       : {
       "description": "does everything for a publish except the actual 'npm publish'",
       "guard"      : "${projectDetails.projectDetails.publish}",
       "commands"   : [
@@ -70,7 +76,7 @@
         {"name": "pack", "command": "cd dist && ${packageManager} pack", "status": true}
       ]
     },
-    "publish"   : {
+    "publish"    : {
       "description": "publishes the projects to npmjs",
       "guard"      : "${projectDetails.projectDetails.publish}",
       "commands"   : [

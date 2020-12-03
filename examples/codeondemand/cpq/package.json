@@ -60,7 +60,8 @@
       "@phil-rice/lens",
       "@phil-rice/nav",
       "@phil-rice/codeondemand"
-    ]
+    ],
+    "port": 3006
   },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {

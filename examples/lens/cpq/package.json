@@ -56,7 +56,8 @@
     "links": [
       "@phil-rice/lens",
       "@phil-rice/nav"
-    ]
+    ],
+    "port": 3002
   },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {

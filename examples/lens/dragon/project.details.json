@@ -6,6 +6,7 @@
     "generation": 2,
     "links": ["@phil-rice/lens"],
     "extraDeps"   : {},
-    "extraDevDeps": {}
+    "extraDevDeps": {},
+    "port": 3003
   }
 }
