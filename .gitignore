@@ -37,4 +37,5 @@ out/
 *.review
 .status
 .log
+.profile
 *.tgz

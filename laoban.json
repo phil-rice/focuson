@@ -23,7 +23,10 @@
     },
     "link"       : {
       "description": "call '${packageManager} link' in each project directory",
-      "commands"   : ["${packageManager} link"]
+      "commands"   : [
+        {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
+        {"name": "link", "command": "cd dist && ${packageManager} link", "status": true}
+      ]
     },
     "ls"         : {"description": "lists all the projects", "commands": ["pwd"]},
     "tsc"        : {
@@ -46,8 +49,8 @@
       "commands"   : [
         "echo \"Installing in `pwd` \"",
         {"name": "install", "command": "${packageManager} install", "status": true},
-        {"name": "link", "command": "${packageManager} link", "status": true},
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
+        {"name": "link", "command": "cd dist && ${packageManager} link", "status": true},
         {"name": "test", "command": "${packageManager} test", "status": true}
       ]
     },
