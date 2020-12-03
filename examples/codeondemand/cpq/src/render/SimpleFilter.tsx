@@ -3,7 +3,7 @@ import { CpqProperties, CqpFilter } from "../CpqDomain";
 
 
 
-export function SimpleFilter<Main>(props: CpqProperties<Main, CqpFilter>) {
+ function SimpleFilter<Main>(props: CpqProperties<Main, CqpFilter>) {
     const onChange = (event: any) => { console.log("onChange.target", event.target.value) };
     let filterJson = props.context.json();
     let options =filterJson.legalValues.map(o => (<option key={o}>{o}</option>))

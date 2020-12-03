@@ -1,5 +1,6 @@
 {
-  "templateDir"   : "template",
+  "templateDir"   : "${laobanDirectory}/template",
+  "versionFile"   : "${templateDir}/version.txt",
   "log"           : ".log",
   "status"        : ".status",
   "profile"       : ".profile",
@@ -8,17 +9,10 @@
   "scripts"       : {
     "log"        : {"description": "displays the log file", "commands": ["cat ${log}"]},
     "update"     : {
-      "description": "updates the package.json in each project, using the template",
+      "description": "copies the files from the template to the updates the package.json in each project, using the template",
       "commands"   : [
-        {
-          "name"   : "update",
-          "command": "${scriptDir}/applyPackageJsonTemplate.sh ${laobanDirectory}/${templateDir} package.json $(pwd)",
-          "status" : true
-        },
-        {
-          "name"   : "update",
-          "command": "cd ${laobanDirectory}/${templateDir}/${projectDetails.template}&& find . -type f|grep -v package.json | xargs -L1 -I {} cp {} ${projectDirectory}/{}"
-        }
+        "cp -r ${templateDir}/${projectDetails.template}/* ${projectDirectory}",
+        "laoban updatePackageJson"
       ]
     },
     "link"       : {
