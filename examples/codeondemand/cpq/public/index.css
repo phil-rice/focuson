@@ -53,6 +53,11 @@ code {
   padding:0 30px;
 }
 
+.cpq .summary {
+    padding: 10px 0 0 10px;
+    font-weight: bold;
+}
+
 .simpleFilter {
   margin: 10px;
   padding: 10px;
