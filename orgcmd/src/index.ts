@@ -2,10 +2,10 @@
 // 'use strict';
 
 /** Require dependencies */
-const pkg = require('../package.json');
-const commander = require('commander');
-const { BuildCode } = require('./BuildCode');
 
+import commander from "commander";
+import { BuildCode } from "./BuildCode";
+const pkg = require('../package.json');
 const program = new commander.Command();
 
 const buildFunction = (p: any) => {

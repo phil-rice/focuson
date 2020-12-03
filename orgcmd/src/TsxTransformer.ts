@@ -1,7 +1,7 @@
-import { BabelFile, BabelFileResult } from "@babel/core";
-import { file } from "@babel/types";
-import { ParsedPath } from "path";
-import { Files, PathAndSha } from "./Files";
+import {BabelFile, BabelFileResult} from "@babel/core";
+import {file} from "@babel/types";
+import {ParsedPath} from "path";
+import {Files, PathAndSha} from "./Files";
 
 const path = require('path');
 const babel = require("@babel/core");
@@ -26,7 +26,11 @@ ${appendStr}`;
     }
 
     remoteImportStatementsAndBlankNewLines = (contents: string) => {
-        return contents.replace(/^import.*$/gm, '').replace(/^\s*[\r\n]/gm, '');
+        return contents.//
+            replace(/^import.*$/gm, '').//
+            replace(/^\s*[\r\n]/gm, '').//
+            replace(/^\s*export /gm, '')
+
     }
 
     checkResult(file: string, result: string | null): string {
