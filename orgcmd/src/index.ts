@@ -2,14 +2,15 @@
 // 'use strict';
 
 /** Require dependencies */
-import * as cp from 'child_process'
+import path from 'path';
+import { Files } from './Files';
 const pkg = require('../package.json');
 const commander = require('commander');
-const { exec } = require("child_process");
 const { BuildCode } = require('./BuildCode');
 
-const program = new commander.Command();
 
+const program = new commander.Command();
+const files = new Files();
 const buildFunction = (p: any) => {
   try {
     console.log('Source Directory: ', p.source);
@@ -18,7 +19,7 @@ const buildFunction = (p: any) => {
 
     if (p.force) {
       console.log('Forcefully create Directory, if not found: ', (p.force) ? 'YES' : 'NO');
-      cp.exec(`mkdir "${p.destination}"`, (error: any, stdout: string, stderr: string) => {
+      files.createDirectoryForFile(path.parse(p.destination)).then(() => {
         console.log('Directories created');
         BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination })
           .catch((err: Error) => {
