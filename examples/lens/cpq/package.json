@@ -56,5 +56,6 @@
   },
   "types": "index",
   "version": "0.1.17",
-  "template": "react"
+  "template": "react",
+  "name": "@phil-rice/lens_example_cpq"
 }

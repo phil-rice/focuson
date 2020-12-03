@@ -109,9 +109,9 @@ The scripts are currently being incorporated into Laoban. They are used to do so
 * type `laoban --help` for instructions
 
 Useful commands include
-`laoban install` used to 'update/npm install/tsc/npm test etc'.. basically it setups the system and checks it is working
+`laoban install` used to 'updateConfigFilesFromTemplates/npm install/tsc/npm test etc'.. basically it setups the system and checks it is working
 `laoban projects` lists the projects
-`laoban update -a` updates the package.json with the version in the template directory, and copies the template files into the project 
+`laoban updateConfigFilesFromTemplates -a` updates the package.json with the version in the template directory, and copies the template files into the project 
 `laoban pack -a` almost publishes the files. It actually just makes a zip file with 'what would have been published' 
 `laoban publish -a` actually publishes the files
 `laoban tsc -a` compiles the files

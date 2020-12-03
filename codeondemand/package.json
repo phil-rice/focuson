@@ -58,5 +58,6 @@
   },
   "types": "index",
   "version": "0.1.17",
-  "template": "codeondemand"
+  "template": "codeondemand",
+  "name": "@phil-rice/codeondemand"
 }

@@ -44,5 +44,6 @@
   "types": "index",
   "version": "0.1.17",
   "template": "noreact",
-  "description": "Showing how lens help in 'normal programming' without any link to react"
+  "description": "Showing how lens help in 'normal programming' without any link to react",
+  "name": "@phil-rice/lens_example_dragon"
 }

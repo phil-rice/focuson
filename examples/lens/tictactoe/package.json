@@ -55,5 +55,6 @@
   },
   "types": "index",
   "version": "0.1.17",
-  "template": "react"
+  "template": "react",
+  "name": "@phil-rice/tic_tac_toe_lensexample"
 }
