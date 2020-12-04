@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-sed        -e 's^#Board/render#^created/Board/359434ea09f2759db3dfa533fe8b06c5cd66081aee9d458fefd20626d3be9d42^g'      -e 's^#Game/render#^created/Game/aa3b7541a73bcd2ec78b5a422331bbede7842f7bfbf3ac2df5c5feaefda0300b^g'      -e 's^#SimpleGame/render#^created/SimpleGame/70323b7e34765b68c6feb237534d9645f6649ce110b2240f7d247ced5d54003d^g'      -e 's^#Square/render#^created/Square/58a4e6c1fe6bb273604a7b3b0f21e9df003a5aa702427395f49d903188cfad6a^g'      -e 's^#Square2/render#^created/Square2/7650287202a85571eed2349b822d94811da6b57c5f4d089c6c42a75e34019176^g'  

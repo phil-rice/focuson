@@ -4,6 +4,7 @@
 /** Require dependencies */
 import path from 'path';
 import { Files } from './Files';
+import * as fs from "fs";
 const pkg = require('../package.json');
 const commander = require('commander');
 const { BuildCode } = require('./BuildCode');
@@ -33,7 +34,8 @@ const buildFunction = (p: any) => {
     const callBuildCode = (skipJson: boolean) => {
       if (p.force) {
         console.log('Create destination directory, if not found: ', (p.force) ? 'Yes' : 'No');
-        files.createDirectoryForFile(path.parse(p.destination)).then(() => {
+        console.log('we will created directory', p.destination, path.parse(p.destination))
+          fs.promises.mkdir(p.destination,  { recursive: true }).then(() => {
           console.log('Directories created');
           BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination }, skipJson)
             .catch((err: Error) => { printErrorMessageAndExit(err) });
