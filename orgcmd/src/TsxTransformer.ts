@@ -26,7 +26,11 @@ ${appendStr}`;
     }
 
     remoteImportStatementsAndBlankNewLines = (contents: string) => {
-        return contents.replace(/^import.*$/gm, '').replace(/^\s*[\r\n]/gm, '').replace('export', '');
+        return contents.//
+            replace(/^import.*$/gm, '').//
+            replace(/^\s*[\r\n]/gm, '').//
+            replace(/^\s*export /gm, '')
+
     }
 
     checkResult(file: string, result: string | null): string {
@@ -62,6 +66,8 @@ ${appendStr}`;
     validate(sourceAndTargetDir: SourceAndTargetDir): Promise<void[]> {
         return Promise.all([
             this.files.validateDirectoryExists("Source Directory", sourceAndTargetDir.sourceDir),
-            this.files.validateDirectoryExists("Target Directory", sourceAndTargetDir.targetDir)])
+            this.files.validateDirectoryExists("Target Directory", sourceAndTargetDir.targetDir).catch((err: Error) => {
+                throw new Error(`${err.message} Please use - f or--force option to create it on the fly.`);
+            })])
     }
 }

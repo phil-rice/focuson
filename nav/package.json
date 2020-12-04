@@ -18,16 +18,16 @@
   },
   "description": "A nav bar that allows json files to be used to display rendered components",
   "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.2.2",
-    "@types/enzyme": "^3.10.8",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.9",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.3.1",
     "enzyme": "^3.11.0",
+    "@types/enzyme": "^3.10.8",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.3.1",
     "jest": "26.6.0",
     "jest-dom": "2.1.1",
     "react-scripts": "^4.0.1",
@@ -46,20 +46,14 @@
   ],
   "license": "MIT-0",
   "main": "index",
-  "name": "@phil-rice/nav",
-  "projectDetails": {
-    "extraDeps": {},
-    "extraDevDeps": {},
-    "generation": 0,
-    "publish": true
-  },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "template": "react",
   "types": "index",
-  "version": "0.1.17"
+  "version": "0.1.17",
+  "template": "react",
+  "name": "@phil-rice/nav"
 }

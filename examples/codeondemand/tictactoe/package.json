@@ -12,27 +12,28 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/codeondemand": "0.1.17",
-    "@phil-rice/lens": "0.1.17",
-    "@phil-rice/nav": "0.1.17",
-    "crypto-js": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "crypto-js": "^4.0.0",
+    "@types/crypto-js": "^4.0.1",
+    "@phil-rice/lens": "0.1.17",
+    "@phil-rice/nav": "0.1.17",
+    "@phil-rice/codeondemand": "0.1.17"
   },
   "description": "Demonstrating the code on demand approach for tic_tac_toe",
   "devDependencies": {
+    "@types/crypto-js": "^4.0.1",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.2.2",
-    "@types/crypto-js": "^4.0.1",
-    "@types/enzyme": "^3.10.8",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.9",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.3.1",
     "enzyme": "^3.11.0",
+    "@types/enzyme": "^3.10.8",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.3.1",
     "jest": "26.6.0",
     "jest-dom": "2.1.1",
     "react-scripts": "^4.0.1",
@@ -51,27 +52,14 @@
   ],
   "license": "MIT-0",
   "main": "index",
-  "name": "@phil-rice/example_codeondemand_tictactoe",
-  "projectDetails": {
-    "extraDeps": {
-      "@types/crypto-js": "^4.0.1"
-    },
-    "extraDevDeps": {},
-    "generation": 3,
-    "links": [
-      "@phil-rice/lens",
-      "@phil-rice/nav",
-      "@phil-rice/codeondemand"
-    ],
-    "port": 3005
-  },
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "template": "codeondemand",
   "types": "index",
-  "version": "0.1.17"
+  "version": "0.1.17",
+  "template": "codeondemand",
+  "name": "@phil-rice/example_codeondemand_tictactoe"
 }

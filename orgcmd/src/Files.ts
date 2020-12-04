@@ -31,7 +31,7 @@ export class Files {
             if (!stats.isDirectory()) throw new Error(`${message}: ${dir}`)
         })
             .catch((err: Error) => {
-                const errorMessage = `ERROR: ${message} ${dir} not found. Please use -f or --force option to create it on the fly.`;
+                const errorMessage = `ERROR: ${message} ${dir} not found.`;
                 throw new Error(errorMessage);
             });
     }

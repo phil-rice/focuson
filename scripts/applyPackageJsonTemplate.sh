@@ -31,15 +31,20 @@ function findTemplateDirectory(){
 function makePackageJson(){
   jq --sort-keys --argjson details "$(cat $detailsFile)" '
       (. + $details) +
-      ({dependencies: (.dependencies + $details.projectDetails.extraDeps)}) +
-      ({dependencies: (.dependencies + (reduce $details.projectDetails.links[]? as $i ({}; .[$i] = "<version>")))})+
-      ({devDependencies: (.devDependencies + $details.projectDetails.extraDevDeps)}) ' < "$templateDirectory/package.json"
+      ({dependencies:
+         (.dependencies +        ($details.projectDetails.extraDeps)   +
+         (reduce $details.projectDetails.links[]? as $i ({}; .[$i] = "<version>" )))
+      }) +
+      ({devDependencies: (.devDependencies + $details.projectDetails.extraDevDeps)}) +
+      ({bin: ((if has("bin") then .bin else {} end) + $details.projectDetails.extraBins )})
+       ' < "$templateDirectory/package.json"
 }
+#                           (reduce $details.projectDetails.links[]? as $i ({}; .[$i] = "<version>" ))})+
 
 template="$(findTemplateDirectory)"
 templateDirectory="$templateRoot/$template"
 if [ -f "$directory/package.json" ]; then
    cp $directory/package.json $directory/package.old.json
 fi
-makePackageJson | sed -e "s/<version>/$version/g" >$directory/$packageJsonName
+makePackageJson | sed -e "s/<version>/$version/g" > $directory/$packageJsonName
 #echo "package.json created in $directory/$packageJsonName"
