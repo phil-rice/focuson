@@ -7,6 +7,7 @@
     "links"       : ["@phil-rice/lens", "@phil-rice/nav", "@phil-rice/codeondemand"],
     "extraDeps"   : {},
     "extraDevDeps": {},
-    "port": 3006
+    "port": 3006,
+    "orgcmd": true
   }
 }

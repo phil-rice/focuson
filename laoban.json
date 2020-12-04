@@ -6,35 +6,35 @@
   "profile"       : ".profile",
   "packageManager": "npm",
   "scripts"       : {
-    "log"        : {"description": "displays the log file", "commands": ["cat ${log}"]},
-    "link"       : {
+    "log"       : {"description": "displays the log file", "commands": ["cat ${log}"]},
+    "link"      : {
       "description": "call '${packageManager} link' in each project directory",
       "commands"   : [
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         {"name": "link", "command": "cd dist && ${packageManager} link", "status": true}
       ]
     },
-    "ls"         : {"description": "lists all the projects", "commands": ["js:process.cwd()"]},
-    "lsDist"     : {
+    "ls"        : {"description": "lists all the projects", "commands": ["js:process.cwd()"]},
+    "lsDist"    : {
       "description": "check that the directory option works", "commands": [
         {"command": "js:process.cwd()", "directory": ".."}
       ]
     },
-    "envCheck"   : {
-      "description": "checks env",
-      "commands"   : ["echo asd${PORT}bvc"],
+    "envCheck"  : {
+      "description": "checks evn",
+      "commands"   : ["echo Linux: [${PORT}] windows: [%PORT%]"],
       "guard"      : "${projectDetails.projectDetails.port}",
       "env"        : {"PORT": "${projectDetails.projectDetails.port}"}
     },
-    "tsc"        : {
+    "tsc"       : {
       "description": "runs tsc",
       "commands"   : [{"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true}]
     },
-    "test"       : {
+    "test"      : {
       "description": "runs ${packageManager} test",
       "commands"   : [{"name": "test", "command": "${packageManager} test", "status": true}]
     },
-    "install"    : {
+    "install"   : {
       "description": "does the initial updateConfigFilesFromTemplates/install/link/tsc/test... etc in each project",
       "pmGuard"    : "npm",
       "guardReason": "Yard and npm have a different command for '<pm> install'.",
@@ -46,23 +46,33 @@
         {"name": "test", "command": "${packageManager} test", "status": true}
       ]
     },
-    "ls-ports"   : {
+    "ls-ports"  : {
       "description": "lists the projects that have a port defined in project.details.json",
       "guard"      : "${projectDetails.projectDetails.port}",
       "commands"   : ["js:process.cwd()"]
     },
-    "startServer": {
+    "start"     : {
       "description": "${packageManager} start for all projects that have a port defined in project.details.json",
       "guard"      : "${projectDetails.projectDetails.port}",
       "commands"   : ["${packageManager} start"],
       "env"        : {"PORT": "${projectDetails.projectDetails.port}"}
     },
-    "ls-publish" : {
+    "ls-publish": {
       "description": "lists the projects that can be published",
       "guard"      : "${projectDetails.projectDetails.publish}",
       "commands"   : ["js:process.cwd()"]
     },
-    "pack"       : {
+    "ls-orgcmd" : {
+      "description": "lists the projects that have code on demand",
+      "guard"      : "${projectDetails.projectDetails.orgcmd}",
+      "commands"   : ["js:process.cwd()"]
+    },
+    "orgcmd"    : {
+      "description": "makes the code on demand using orgcmd",
+      "guard"      : "${projectDetails.projectDetails.orgcmd}",
+      "commands"   : [{"name": "orgcmd", "command": "orgcmd build -f", "status": true}]
+    },
+    "pack"      : {
       "description": "does everything for a publish except the actual 'npm publish'",
       "guard"      : "${projectDetails.projectDetails.publish}",
       "osGuard"    : "Linux",
@@ -74,7 +84,7 @@
         {"name": "pack", "command": "${packageManager} pack", "status": true, "directory": "dist"}
       ]
     },
-    "publish"    : {
+    "publish"   : {
       "description": "publishes the projects to npmjs",
       "guard"      : "${projectDetails.projectDetails.publish}",
       "osGuard"    : "Linux",

@@ -14,10 +14,6 @@ const files = new Files();
 
 const buildFunction = (p: any) => {
   try {
-    console.log('Source Directory: ', p.source);
-    console.log('Data Source Directory: ', p.datasource);
-    console.log('Destination Directory: ', p.destination);
-
     files.validateDirectoryExists("Source Directory", p.source)
       .then(() => {
         let skipJson = false;
@@ -33,10 +29,7 @@ const buildFunction = (p: any) => {
 
     const callBuildCode = (skipJson: boolean) => {
       if (p.force) {
-        console.log('Create destination directory, if not found: ', (p.force) ? 'Yes' : 'No');
-        console.log('we will created directory', p.destination, path.parse(p.destination))
           fs.promises.mkdir(p.destination,  { recursive: true }).then(() => {
-          console.log('Directories created');
           BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination }, skipJson)
             .catch((err: Error) => { printErrorMessageAndExit(err) });
         });
