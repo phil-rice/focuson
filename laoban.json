@@ -21,7 +21,7 @@
       ]
     },
     "envCheck"   : {
-      "description": "checks evn",
+      "description": "checks env",
       "commands"   : ["echo asd${PORT}bvc"],
       "guard"      : "${projectDetails.projectDetails.port}",
       "env"        : {"PORT": "${projectDetails.projectDetails.port}"}
