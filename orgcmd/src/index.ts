@@ -1,31 +1,71 @@
 #!/usr/bin/env node
-// 'use strict';
+'use strict';
 
 /** Require dependencies */
-
-import commander from "commander";
-import { BuildCode } from "./BuildCode";
+import path from 'path';
+import { Files } from './Files';
 const pkg = require('../package.json');
+const commander = require('commander');
+const { BuildCode } = require('./BuildCode');
+
 const program = new commander.Command();
+const files = new Files();
 
 const buildFunction = (p: any) => {
   try {
-    console.log('args', process.argv);
-    console.log('dir', p.source, p.datasource, p.destination);
-    BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination });
+    console.log('Source Directory: ', p.source);
+    console.log('Data Source Directory: ', p.datasource);
+    console.log('Destination Directory: ', p.destination);
+
+    files.validateDirectoryExists("Source Directory", p.source)
+      .then(() => {
+        let skipJson = false;
+        files.validateDirectoryExists("Json Source Directory", p.datasource)
+          .then(() => {
+            callBuildCode(skipJson);
+          },
+            (fserr) => {
+              skipJson = true;
+              callBuildCode(skipJson);
+            })
+      }).catch((err: Error) => { printErrorMessageAndExit(err) });;
+
+    const callBuildCode = (skipJson: boolean) => {
+      if (p.force) {
+        console.log('Create destination directory, if not found: ', (p.force) ? 'Yes' : 'No');
+        files.createDirectoryForFile(path.parse(p.destination)).then(() => {
+          console.log('Directories created');
+          BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination }, skipJson)
+            .catch((err: Error) => { printErrorMessageAndExit(err) });
+        });
+      } else {
+        BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination }, skipJson)
+          .catch((err: Error) => {
+            const extraOption = err.message.includes(p.destination) ? ' Please use -f or --force option to create it on the fly.' : '';
+            err.message = err.message.concat(extraOption);
+            printErrorMessageAndExit(err);
+          });
+      }
+    }
   }
   catch (e) {
-    console.log('Error', e);
+    printErrorMessageAndExit(e);
   }
+}
+
+const printErrorMessageAndExit = (err: Error) => {
+  console.log(err.message);
+  process.exit(1);
 }
 
 program
   .version(pkg.version)
   .command('build')
-  .option('--source <source>', 'directory having components to build', 'src/render')
-  .option('--datasource <datasource>', 'directory having JSON data', 'src/json')
-  .option('--destination <destination>', 'directory for saving files after build', 'public/created')
-  .option('--debug', 'If specified some commands output more information about how they are working', false)
+  .option('-src, --source <source>', 'directory having components to build', 'src/render')
+  .option('-dsrc, --datasource <datasource>', 'directory having JSON data', 'src/json')
+  .option('-dest, --destination <destination>', 'directory for saving files after build', 'public/created')
+  .option('-d, --debug', 'If specified some commands output more information about how they are working', false)
+  .option('-f, --force', 'To create destination directory if not found')
   .description('Builds the code suitable for COD')
   .action(buildFunction);
 

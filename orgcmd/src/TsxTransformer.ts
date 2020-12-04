@@ -1,7 +1,7 @@
-import {BabelFile, BabelFileResult} from "@babel/core";
-import {file} from "@babel/types";
-import {ParsedPath} from "path";
-import {Files, PathAndSha} from "./Files";
+import { BabelFile, BabelFileResult } from "@babel/core";
+import { file } from "@babel/types";
+import { ParsedPath } from "path";
+import { Files, PathAndSha } from "./Files";
 
 const path = require('path');
 const babel = require("@babel/core");
