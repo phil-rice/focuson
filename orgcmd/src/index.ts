@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 'use strict';
+'use strict';
 
 /** Require dependencies */
 import path from 'path';
@@ -8,37 +8,54 @@ const pkg = require('../package.json');
 const commander = require('commander');
 const { BuildCode } = require('./BuildCode');
 
-
 const program = new commander.Command();
 const files = new Files();
+
 const buildFunction = (p: any) => {
   try {
     console.log('Source Directory: ', p.source);
     console.log('Data Source Directory: ', p.datasource);
     console.log('Destination Directory: ', p.destination);
 
-    if (p.force) {
-      console.log('Forcefully create Directory, if not found: ', (p.force) ? 'YES' : 'NO');
-      files.createDirectoryForFile(path.parse(p.destination)).then(() => {
-        console.log('Directories created');
-        BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination })
-          .catch((err: Error) => {
-            console.log(err.message);
-            process.exit(1);
-          });
-      });
-    } else {
-      BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination })
-        .catch((err: Error) => {
-          console.log(err.message);
-          process.exit(1);
+    files.validateDirectoryExists("Source Directory", p.source)
+      .then(() => {
+        let skipJson = false;
+        files.validateDirectoryExists("Json Source Directory", p.datasource)
+          .then(() => {
+            callBuildCode(skipJson);
+          },
+            (fserr) => {
+              skipJson = true;
+              callBuildCode(skipJson);
+            })
+      }).catch((err: Error) => { printErrorMessageAndExit(err) });;
+
+    const callBuildCode = (skipJson: boolean) => {
+      if (p.force) {
+        console.log('Create destination directory, if not found: ', (p.force) ? 'Yes' : 'No');
+        files.createDirectoryForFile(path.parse(p.destination)).then(() => {
+          console.log('Directories created');
+          BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination }, skipJson)
+            .catch((err: Error) => { printErrorMessageAndExit(err) });
         });
+      } else {
+        BuildCode.create().buildCode({ sourceDir: p.source, jsonSourceDir: p.datasource, targetDir: p.destination }, skipJson)
+          .catch((err: Error) => {
+            const extraOption = err.message.includes(p.destination) ? ' Please use -f or --force option to create it on the fly.' : '';
+            err.message = err.message.concat(extraOption);
+            printErrorMessageAndExit(err);
+          });
+      }
     }
   }
   catch (e) {
-    console.log(e.message);
-    process.exit(1);
+    printErrorMessageAndExit(e);
   }
+}
+
+const printErrorMessageAndExit = (err: Error) => {
+  console.log(err.message);
+  process.exit(1);
 }
 
 program

@@ -66,8 +66,6 @@ ${appendStr}`;
     validate(sourceAndTargetDir: SourceAndTargetDir): Promise<void[]> {
         return Promise.all([
             this.files.validateDirectoryExists("Source Directory", sourceAndTargetDir.sourceDir),
-            this.files.validateDirectoryExists("Target Directory", sourceAndTargetDir.targetDir).catch((err: Error) => {
-                throw new Error(`${err.message} Please use - f or--force option to create it on the fly.`);
-            })])
+            this.files.validateDirectoryExists("Target Directory", sourceAndTargetDir.targetDir)])
     }
 }
