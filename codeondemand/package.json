@@ -21,6 +21,7 @@
   },
   "description": "This is a project that allows code to be (safely) fetched on demand from a server. The url holding the code is including in the json",
   "devDependencies": {
+    "@babel/preset-typescript": "^7.12.7",
     "@types/crypto-js": "^4.0.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",

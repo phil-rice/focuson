@@ -23,6 +23,7 @@
   },
   "description": "Demonstrating the code on demand approach for tic_tac_toe",
   "devDependencies": {
+    "@babel/preset-typescript": "^7.12.7",
     "@types/crypto-js": "^4.0.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",

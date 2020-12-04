@@ -15,7 +15,7 @@
         {"name": "link", "command": "cd dist && ${packageManager} link", "status": true}
       ]
     },
-    "ls"         : {"description": "lists all the projects", "commands": ["pwd"]},
+    "ls"         : {"description": "lists all the projects", "commands": ["js:process.cwd()"]},
     "tsc"        : {
       "description": "runs tsc",
       "commands"   : [{"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true}]
@@ -37,7 +37,7 @@
     "ls-ports"   : {
       "description": "lists the projects that have a port defined in project.details.json",
       "guard"      : "${projectDetails.projectDetails.port}",
-      "commands"   : ["pwd"]
+      "commands"   : ["js:process.cwd()"]
     },
     "startServer": {
       "description": "${packageManager} start for all projects that have a port defined in project.details.json",
@@ -47,11 +47,12 @@
     "ls-publish" : {
       "description": "lists the projects that can be published",
       "guard"      : "${projectDetails.projectDetails.publish}",
-      "commands"   : ["pwd"]
+      "commands"   : ["js:process.cwd()"]
     },
     "pack"       : {
       "description": "does everything for a publish except the actual 'npm publish'",
       "guard"      : "${projectDetails.projectDetails.publish}",
+      "osGuard":  "Linux",
       "commands"   : [
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         "find dist -type f -name 'enzymeAdapterSetup.*' -delete",
@@ -62,6 +63,7 @@
     "publish"    : {
       "description": "publishes the projects to npmjs",
       "guard"      : "${projectDetails.projectDetails.publish}",
+      "osGuard":  "Linux",
       "commands"   : [
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         "find dist -type f -name 'enzymeAdapterSetup.*' -delete",

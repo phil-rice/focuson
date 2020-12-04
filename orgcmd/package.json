@@ -26,6 +26,7 @@
   },
   "description": "Generate build suitable for code on demand",
   "devDependencies": {
+    "@babel/preset-typescript": "^7.12.7",
     "@types/crypto-js": "^4.0.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
