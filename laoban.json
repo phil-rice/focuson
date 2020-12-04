@@ -1,10 +1,9 @@
 {
-  "templateDir"   : "${laobanDirectory}/template",
+  "templateDir"   : "${laobanDirectory}/examples/template",
   "versionFile"   : "${templateDir}/version.txt",
   "log"           : ".log",
   "status"        : ".status",
   "profile"       : ".profile",
-  "scriptDir"     : "${laobanDirectory}/scripts",
   "packageManager": "npm",
   "scripts"       : {
     "log"        : {"description": "displays the log file", "commands": ["cat ${log}"]},
@@ -16,6 +15,17 @@
       ]
     },
     "ls"         : {"description": "lists all the projects", "commands": ["js:process.cwd()"]},
+    "lsDist"     : {
+      "description": "check that the directory option works", "commands": [
+        {"command": "js:process.cwd()", "directory": ".."}
+      ]
+    },
+    "envCheck"   : {
+      "description": "checks evn",
+      "commands"   : ["echo asd${PORT}bvc"],
+      "guard"      : "${projectDetails.projectDetails.port}",
+      "env"        : {"PORT": "${projectDetails.projectDetails.port}"}
+    },
     "tsc"        : {
       "description": "runs tsc",
       "commands"   : [{"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true}]
@@ -26,11 +36,13 @@
     },
     "install"    : {
       "description": "does the initial updateConfigFilesFromTemplates/install/link/tsc/test... etc in each project",
+      "pmGuard"    : "npm",
+      "guardReason": "Yard and npm have a different command for '<pm> install'.",
       "commands"   : [
         "laoban updateConfigFilesFromTemplates",
         {"name": "install", "command": "${packageManager} install", "status": true},
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
-        {"name": "link", "command": "cd dist && ${packageManager} link", "status": true},
+        {"name": "link", "command": "${packageManager} link", "status": true, "directory": "dist"},
         {"name": "test", "command": "${packageManager} test", "status": true}
       ]
     },
@@ -42,7 +54,8 @@
     "startServer": {
       "description": "${packageManager} start for all projects that have a port defined in project.details.json",
       "guard"      : "${projectDetails.projectDetails.port}",
-      "commands"   : ["export PORT=${projectDetails.projectDetails.port} && ${packageManager} start"]
+      "commands"   : ["${packageManager} start"],
+      "env"        : {"PORT": "${projectDetails.projectDetails.port}"}
     },
     "ls-publish" : {
       "description": "lists the projects that can be published",
@@ -52,23 +65,25 @@
     "pack"       : {
       "description": "does everything for a publish except the actual 'npm publish'",
       "guard"      : "${projectDetails.projectDetails.publish}",
-      "osGuard":  "Linux",
+      "osGuard"    : "Linux",
+      "guardReason": "the find and copy commands used only work on window",
       "commands"   : [
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         "find dist -type f -name 'enzymeAdapterSetup.*' -delete",
         "cp package.json dist",
-        {"name": "pack", "command": "cd dist && ${packageManager} pack", "status": true}
+        {"name": "pack", "command": "${packageManager} pack", "status": true, "directory": "dist"}
       ]
     },
     "publish"    : {
       "description": "publishes the projects to npmjs",
       "guard"      : "${projectDetails.projectDetails.publish}",
-      "osGuard":  "Linux",
+      "osGuard"    : "Linux",
+      "guardReason": "the find and copy commands used only work on window",
       "commands"   : [
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         "find dist -type f -name 'enzymeAdapterSetup.*' -delete",
         "cp package.json dist",
-        {"name": "publish", "command": "cd dist && ${packageManager} publish", "status": true}
+        {"name": "publish", "command": "${packageManager} publish", "status": true, "directory": "dist"}
       ]
     }
   }
