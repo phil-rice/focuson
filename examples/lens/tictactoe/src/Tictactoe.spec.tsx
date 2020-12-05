@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {setup} from './enzymeAdapterSetup';
+import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow, ShallowWrapper} from "enzyme";
 
 import {Lens, LensContext} from "@phil-rice/lens";
 import {Board, BoardData, GameData, GameDomain, nextStateLens, SimpleGame, Square} from "./game";
 
 
-setup()
+enzymeSetup()
 
 let boardJson: BoardData = {"squares": ["X", "", "", "", "", "", "", "", ""]}
 

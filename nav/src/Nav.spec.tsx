@@ -1,9 +1,9 @@
 import React from 'react';
 import {Nav} from "./Nav";
-import {setup} from './enzymeAdapterSetup';
+import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow} from "enzyme";
 
-setup()
+enzymeSetup()
 
 const flushPromises = () => new Promise(setImmediate);
 let jsonFiles = ['jsonFile1', 'jsonFile2'];

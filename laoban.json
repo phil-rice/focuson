@@ -4,7 +4,7 @@
   "log"           : ".log",
   "status"        : ".status",
   "profile"       : ".profile",
-  "packageManager": "npm",
+  "packageManager": "yarn",
   "scripts"       : {
     "log"       : {"description": "displays the log file", "commands": ["cat ${log}"]},
     "link"      : {
@@ -37,10 +37,22 @@
     "install"   : {
       "description": "does the initial updateConfigFilesFromTemplates/install/link/tsc/test... etc in each project",
       "pmGuard"    : "npm",
-      "guardReason": "Yard and npm have a different command for '<pm> install'.",
+      "guardReason": "Yarn and npm have a different command for '<pm> install'.",
       "commands"   : [
         "laoban updateConfigFilesFromTemplates",
         {"name": "install", "command": "${packageManager} install", "status": true},
+        {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
+        {"name": "link", "command": "${packageManager} link", "status": true, "directory": "dist"},
+        {"name": "test", "command": "${packageManager} test", "status": true}
+      ]
+    },
+    "yarninstall"   : {
+      "description": "does the initial updateConfigFilesFromTemplates/install/link/tsc/test... etc in each project",
+      "pmGuard"    : "yarn",
+      "guardReason": "Yarn and npm have a different command for '<pm> install'.",
+      "commands"   : [
+        "laoban updateConfigFilesFromTemplates",
+        {"name": "install", "command": "${packageManager}", "status": true},
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         {"name": "link", "command": "${packageManager} link", "status": true, "directory": "dist"},
         {"name": "test", "command": "${packageManager} test", "status": true}

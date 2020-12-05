@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {setup} from './enzymeAdapterSetup';
+import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow, ShallowWrapper} from "enzyme";
 
 import {Lens, LensContext} from "@phil-rice/lens";
@@ -8,7 +8,7 @@ import {CpqData, CpqDomain} from "./CpqDomain";
 import {Cpq} from "./render/Cpq";
 import {SimpleFilter} from "./render/SimpleFilter";
 
-setup()
+enzymeSetup()
 let cpqJson: CpqData = {
     "_render": {"_self": "#Cpq/render#"},
     "price": "N/A",

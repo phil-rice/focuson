@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {setup} from './enzymeAdapterSetup';
+import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow, ShallowWrapper} from "enzyme";
 
 import {Lens, LensContext} from "@phil-rice/lens";
@@ -9,7 +9,7 @@ import {Board} from "./render/Board";
 import {Game} from "./render/Game";
 import {Square} from "./render/Square";
 
-setup()
+enzymeSetup()
 
 let boardJson: BoardData = {
     "_render": {

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {setup} from './enzymeAdapterSetup';
+import {enzymeSetup} from './enzymeAdapterSetup';
 import {mount} from "enzyme";
 import {Cpq, CpqData, CpqDomain} from "./Cpq";
 import {LensContext} from "@phil-rice/lens";
 
-setup()
+enzymeSetup()
 
 let json : CpqData= {
     "make": {

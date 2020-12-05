@@ -1,0 +1,11 @@
+{
+  "template"      : "react",
+  "name"          : "@phil-rice/lens_example_cart",
+  "description"   : "The redux 'shopping cart' example' using lens",
+  "projectDetails": {
+    "links"       : ["@phil-rice/lens"],
+    "extraDeps"   : {},
+    "extraDevDeps": {},
+    "port": 3008
+  }
+}
