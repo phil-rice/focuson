@@ -11,7 +11,6 @@ export function Cart(props: ShoppingCartProps<CartData>) {
         products.map((p, i) =>
             <ProductItem key={p.id} context={ItemsAndIndex.makeContext(props.context.focusOn('products'), i)}/>) :
         (<em>Please add some products to cart.</em>);
-
     return (
         <div>
             <h3>Your Cart</h3>
@@ -24,7 +23,7 @@ export function Cart(props: ShoppingCartProps<CartData>) {
 function ProductItem(props: ShoppingCartProps<ItemsAndIndex<ProductData>>) {
     let domain = props.context.domain
     let p = props.context.json().item()
-    function onClick() { LensContext.tuple(domain.toInventoryProductsL, props.context).transform(domain.takeFromItemsAndAddToMain)}
+    function onClick() { LensContext.tuple(domain.toInventoryProductsL, props.context).transform(domain.takeFromCartPutInInventory)}
     return (<div style={{marginBottom: 20}}>{p.title} - &#36;{p.price}{p.quantity ? ` x ${p.quantity}` : null}
         <button onClick={onClick}>{'Remove From Cart'}</button>
     </div>)
