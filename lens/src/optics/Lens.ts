@@ -44,9 +44,9 @@ export class Lens<Main, Child> {
     }
     toString() {return `Lens(${this.description})`}
 
-    static setTwo<Main, C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>): (c1: C1, c2: C2) => (main: Main) => Main {
-        return (c1, c2) => (main: Main) => lens1.set(lens2.set(main, c2), c1)
-    }
+    // static setTwo<Main, C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>): (c1: C1, c2: C2) => (main: Main) => Main {
+    //     return (c1, c2) => (main: Main) => lens1.set(lens2.set(main, c2), c1)
+    // }
 
     static transform2<Main, C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>) {
         return (fn: (c1: C1, c2: C2) => Tuple<C1, C2>) => {
@@ -76,6 +76,8 @@ export class Lens<Main, Child> {
 
     withDescription(description: string) {return new Lens(this.get, this.set, description) }
     static build<Main>(description: string) {return Lens.identity<Main>().withDescription(description)}
+
+
 
     static TupleLens<Main, C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>): Lens<Main, Tuple<C1, C2>> {
         let get: Getter<Main, Tuple<C1, C2>> = main => ({one: lens1.get(main), two: lens2.get(main)})

@@ -35,8 +35,12 @@ export class LensContext<Domain, Main, T> {
     /** When we want to focus on something like 'the nth item' then 'withChildLens' is used. This returns a context focused on the block of json under the lens starting from 'here' */
     withChildLens<NewT>(lens: Lens<T, NewT>): LensContext<Domain, Main, NewT> {return new LensContext(this.domain, this.main, this.dangerouslySetMain, this.lens.andThen(lens))}
 
+    composeWith<NewT>(fn: (l: Lens<Main, T>) => Lens<Main, NewT>): LensContext<Domain, Main, NewT> { return this.withLens(fn(this.lens))}
+
     /** The json that this context is focused on */
     json(): T {return this.lens.get(this.main)}
+
+    transform(fn: (t: T) => T) {this.setJson(fn(this.json()))}
 
     jsonFromLens<Child>(lens: Lens<Main, Child>) {return lens.get(this.main)}
 
