@@ -25,7 +25,6 @@ export class GameDomain {
         if (context.json() === '')
             context.setFromTwo(domain.nextStateLens, next, domain.invert(next))
     }
-
     nextStateLens: Lens<GameData, NoughtOrCross>
     constructor(nextStateLens: Lens<GameData, NoughtOrCross>) { this.nextStateLens = nextStateLens; }
 }

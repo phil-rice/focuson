@@ -17,7 +17,8 @@
     "ls"        : {"description": "lists all the projects", "commands": ["js:process.cwd()"]},
     "lsDist"    : {
       "description": "check that the directory option works", "commands": [
-        {"command": "js:process.cwd()", "directory": ".."}
+        {"command": "js:process.cwd()", "directory": "dist"},
+        {"command": "pwd", "directory": "dist"}
       ]
     },
     "envCheck"  : {

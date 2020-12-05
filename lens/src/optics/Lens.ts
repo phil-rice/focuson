@@ -34,9 +34,16 @@ export class Lens<Main, Child> {
                 return result
             }, `[${n}]`)
     }
+    static tupleLens<Main, C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>): Lens<Main, Tuple<C1, C2>> {
+        let get: Getter<Main, Tuple<C1, C2>> = main => ({one: lens1.get(main), two: lens2.get(main)})
+        let set: Setter<Main, Tuple<C1, C2>> = (main, tuple) => lens1.set(lens2.set(main, tuple.two), tuple.one)
+        return new Lens(get, set, `tuple(${lens1.description},${lens2.description}`)
+    }
+
     description: string
     get: (m: Main) => Child;
     set: (m: Main, newChild: Child) => Main;
+    setTo(newChild: Child): (m: Main) => Main {return m => this.set(m, newChild)}
     constructor(get: (m: Main) => Child, set: (m: Main, newChild: Child) => Main, description?: string) {
         this.get = get;
         this.set = set;
@@ -78,11 +85,5 @@ export class Lens<Main, Child> {
     static build<Main>(description: string) {return Lens.identity<Main>().withDescription(description)}
 
 
-
-    static TupleLens<Main, C1, C2>(lens1: Lens<Main, C1>, lens2: Lens<Main, C2>): Lens<Main, Tuple<C1, C2>> {
-        let get: Getter<Main, Tuple<C1, C2>> = main => ({one: lens1.get(main), two: lens2.get(main)})
-        let set: Setter<Main, Tuple<C1, C2>> = (main, tuple) => lens1.set(lens2.set(main, tuple.two), tuple.one)
-        return new Lens(get, set, `tuple(${lens1.description},${lens2.description}`)
-    }
 }
 

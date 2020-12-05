@@ -1,5 +1,6 @@
 import {Tuple} from "../utils";
 import {Lens} from "./Lens";
+import {ItemsAndIndex} from "./ItemAndIndex";
 
 
 export interface LensProps<Domain, Main, T> {context: LensContext<Domain, Main, T>}
@@ -17,6 +18,10 @@ export class LensContext<Domain, Main, T> {
     lens: Lens<Main, T>
 
     static main<Domain, Main>(domain: Domain, main: Main, setMain: (m: Main) => void, description: string): LensContext<Domain, Main, Main> {return new LensContext(domain, main, setMain, Lens.identity<Main>().withDescription(description))}
+    static tuple<Domain, Root, Main, Item>(mainL: Lens<Root, Main>, context: LensContext<Domain, Root, Item>): LensContext<Domain, Root, Tuple<Main, Item>> {
+        return context.withLens(Lens.tupleLens(mainL, context.lens))
+    }
+
 
     constructor(domain: Domain, main: Main, setMain: (m: Main) => void, lens: Lens<Main, T>) {
         this.domain = domain

@@ -16,8 +16,8 @@
     "react-dom": "^17.0.1",
     "typescript": "^4.1.2",
     "crypto-js": "^4.0.0",
-    "@phil-rice/lens": "0.1.17",
-    "@phil-rice/nav": "0.1.17"
+    "@phil-rice/lens": "0.1.21\r\n",
+    "@phil-rice/nav": "0.1.21\r\n"
   },
   "description": "This is a project that allows code to be (safely) fetched on demand from a server. The url holding the code is including in the json",
   "devDependencies": {
@@ -49,7 +49,7 @@
     "react",
     "optics"
   ],
-  "license": "MIT-0",
+  "license": "MIT",
   "main": "index",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
@@ -58,7 +58,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.17",
+  "version": "0.1.21\r\n",
   "template": "codeondemand",
   "name": "@phil-rice/codeondemand"
 }

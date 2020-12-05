@@ -1,7 +1,8 @@
-import {AppData, ShoppingCartProps, ShoppingCartContext, ShoppingCartDomain} from "./domain";
+import {AppData, ShoppingCartDomain} from "./domain";
 import {getElement, LensContext} from "@phil-rice/lens";
-import {App} from "./components/App";
+
 import ReactDOM from "react-dom";
+import {App} from "./components/App";
 
 let domain: ShoppingCartDomain = new ShoppingCartDomain(() => console.log("checkout pressed"))
 

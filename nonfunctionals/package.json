@@ -33,7 +33,7 @@
     "lens",
     "optics"
   ],
-  "license": "MIT-0",
+  "license": "MIT",
   "main": "index",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
@@ -41,7 +41,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.17",
+  "version": "0.1.21\r\n",
   "template": "noreact",
   "description": "A library that allows wrapping of functions and kleislis with non functional capablities",
   "name": "@phil-rice/nonfunctionals"

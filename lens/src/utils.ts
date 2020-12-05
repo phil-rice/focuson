@@ -1,3 +1,6 @@
+import {Lens} from "./optics/Lens";
+import {ItemsAndIndex} from "./optics/ItemAndIndex";
+import {LensContext} from "./optics/LensContext";
 
 
 export function fromObject<M, K extends keyof M>(map: M, key: K): M[K] {
@@ -19,6 +22,7 @@ export interface Tuple<T1, T2> {
     one: T1,
     two: T2
 }
+
 
 export function getElement(name: string): HTMLElement {
     let result = document.getElementById(name);

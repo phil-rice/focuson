@@ -44,7 +44,7 @@
     "react",
     "optics"
   ],
-  "license": "MIT-0",
+  "license": "MIT",
   "main": "index",
   "name": "@phil-rice/codeondemand",
   "repository": "git@github.com:phil-rice/ts-lens.git",

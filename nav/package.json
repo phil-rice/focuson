@@ -44,7 +44,7 @@
     "react",
     "optics"
   ],
-  "license": "MIT-0",
+  "license": "MIT",
   "main": "index",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
@@ -53,7 +53,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.17",
+  "version": "0.1.21\r\n",
   "template": "react",
   "name": "@phil-rice/nav"
 }

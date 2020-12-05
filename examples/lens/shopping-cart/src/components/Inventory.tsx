@@ -1,7 +1,7 @@
-import {InventoryData, ItemsAndIndex, ProductData, ShoppingCartContext, ShoppingCartProps, TwoListData} from "../domain";
+import {InventoryData, ProductData, ShoppingCartProps} from "../domain";
 import React from "react";
-import {TwoListButton} from "./TwoListButton";
-import {Lens, LensContext} from "@phil-rice/lens";
+import {ItemsAndIndex} from "@phil-rice/lens/src/optics/ItemAndIndex";
+import {LensContext} from "@phil-rice/lens";
 
 export function Inventory(props: ShoppingCartProps<InventoryData>) {
     let d = props.context.json()
@@ -12,18 +12,13 @@ export function Inventory(props: ShoppingCartProps<InventoryData>) {
         </div>
     </div>)
 }
-function withNth<Domain, Main, T>(l: LensContext<Domain, Main, T[]>, n: number) {
-    return l.withChildLens(Lens.nth(n))
-}
 
 function InventoryItem(props: ShoppingCartProps<ItemsAndIndex<ProductData>>) {
-    let context = props.context;
-    let itemsAndIndex = context.json()
-    let p = itemsAndIndex.items[itemsAndIndex.index]
-    let domain = context.domain
-    let newContext: ShoppingCartContext<TwoListData> = context.withLens(TwoListData.makeLens(domain.toCartsProductL, context.lens));
+    let domain = props.context.domain
+    let p = props.context.json().item()
+    function onClick() { LensContext.tuple(domain.toCartsProductL, props.context).transform(domain.takeFromItemsAndAddToMain)}
     return (<div style={{marginBottom: 20}}>{p.title} - &#36;{p.price}{p.quantity ? ` x ${p.quantity}` : null}
-        <TwoListButton context={newContext} normalText='Add to cart' emptyText='Sold Out' onClick={context.domain.takeFromItemsAndAddToMain}/>
+        <button onClick={onClick}>{'Add to cart'}</button>
     </div>)
-}
 
+}

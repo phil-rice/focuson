@@ -1465,10 +1465,10 @@
     puka "^1.0.1"
     read-package-json-fast "^1.1.3"
 
-"@phil-rice/lens@0.1.17":
-  version "0.1.17"
-  resolved "https://registry.yarnpkg.com/@phil-rice/lens/-/lens-0.1.17.tgz#304444818e55b2956fd09eadc3f726d35267f9b1"
-  integrity sha512-ZaJPv6UYugWpa/h6K67l/ix0gdLBiT5awi42UFIbx/8t1Oylos0I1i4kTV4rp/Hq8FnxenFtIxIvnDYV7AYtaA==
+"@phil-rice/lens@0.1.21\r\n":
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/@phil-rice/lens/-/lens-0.1.21.tgz#bc2485a13c1a70dfdd0c172251f5f8568bc98822"
+  integrity sha512-b51tShZVNcVeZRm3Aj3cP1RhN77xgKsMKjQ+40keSv4yYDJC3/mabMP/S+eWY9sxMzFaqUr9EDoRBnSSfw6TSA==
   dependencies:
     "@types/node" "^14.14.7"
     npm-check-updates "^10.0.0"
