@@ -28,7 +28,7 @@ export class ShoppingCartDomain {
 }
 
 
-export type ShoppingCartProps<T> = LensProps<ShoppingCartDomain, AppData, T>
+export type CartProps<T> = LensProps<ShoppingCartDomain, AppData, T>
 export type ShoppingCartContext<T> = LensContext<ShoppingCartDomain, AppData, T>
 
 

@@ -3,8 +3,7 @@ import { CpqProperties, CqpFilter } from "../CpqDomain";
 import { Lens } from "@phil-rice/lens";
 
 
-export function GearboxFilter<Main>(props: CpqProperties<Main, CqpFilter>) {
-    let context = props.context;
+export function GearboxFilter<Main>({context}: CpqProperties<Main, CqpFilter>) {
     const onChange = (event: any) => context.focusOn('selected').setJson(event.target.value);
     let filterJson = context.json();
     let options = context.domain.makeOptions(filterJson.selected, context.json().legalValues);

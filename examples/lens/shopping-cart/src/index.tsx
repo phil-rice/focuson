@@ -2,7 +2,7 @@ import {AppData, ShoppingCartDomain} from "./domain";
 import {getElement, Lens, LensContext} from "@phil-rice/lens";
 
 import ReactDOM from "react-dom";
-import {App} from "./components/App";
+import {ShoppingCartApp} from "./components/ShoppingCartApp";
 
 let domain: ShoppingCartDomain = new ShoppingCartDomain(() => console.log("checkout pressed"))
 
@@ -19,7 +19,7 @@ function calculatePrice(appData: AppData) {
 }
 
 let setJson= LensContext.setJsonForReact<ShoppingCartDomain, AppData>(domain, 'game',
-    c => (ReactDOM.render(<App context={c}/>, rootElement)), calculatePrice)
+    c => (ReactDOM.render(<ShoppingCartApp context={c}/>, rootElement)), calculatePrice)
 
 
 setJson({

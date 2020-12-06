@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
 
-import {CartData, productDataQuantityLens, ShoppingCartProps} from "../domain";
+import {CartData, productDataQuantityLens, CartProps} from "../domain";
 import React from 'react';
 import {ProductList} from "./ProductList";
 
-export function Cart(props: ShoppingCartProps<CartData>) {
-    let products = props.context.json().products
-    let domain = props.context.domain;
+export function Cart({context}: CartProps<CartData>) {
+    let products = context.json().products
+    let domain = context.domain;
     const nodes = products.length > 0 ?
-        (<ProductList context={props.context.focusOn('products')}
+        (<ProductList context={context.focusOn('products')}
                       quantityL={productDataQuantityLens}
                       onClick={domain.takeFromCartPutInInventory} button='Remove From Cart'/>) :
         (<em>Please add some products to cart.</em>)
@@ -16,7 +16,7 @@ export function Cart(props: ShoppingCartProps<CartData>) {
         <div>
             <h3>Your Cart</h3>
             <div>{nodes}</div>
-            <p>Total: &#36;{props.context.json().total}</p>
+            <p>Total: &#36;{context.json().total}</p>
             <button onClick={domain.onCheckoutClicked} disabled={products.length == 0}> Checkout</button>
         </div>
     )

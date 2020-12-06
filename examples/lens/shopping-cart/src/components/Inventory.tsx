@@ -1,14 +1,14 @@
-import {InventoryData, inventoryItemQuantityLens, ShoppingCartProps} from "../domain";
+import {InventoryData, inventoryItemQuantityLens, CartProps} from "../domain";
 import React from "react";
 import {ProductList} from "./ProductList";
 
 
-export function Inventory(props: ShoppingCartProps<InventoryData>) {
+export function Inventory({context}: CartProps<InventoryData>) {
     return (<div>
         <h3>Inventory</h3>
-        <ProductList context={props.context.focusOn('products')}
+        <ProductList context={context.focusOn('products')}
                      quantityL={inventoryItemQuantityLens}
-                     onClick={props.context.domain.takeFromInventoryPutInCart} button='Add to Cart'/>
+                     onClick={context.domain.takeFromInventoryPutInCart} button='Add to Cart'/>
     </div>)
 }
 

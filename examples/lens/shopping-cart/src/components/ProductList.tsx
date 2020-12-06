@@ -36,10 +36,10 @@ export function ProductList<P>(props: ProductListProps<P>) {
 }
 
 
-export function OneProduct(props: OneProductProps<BasicProductData>) {
-    let p = props.context.json().item()
-    let quantity = props.quantityL.get(p)
+export function OneProduct({context, quantityL, button, onClick}: OneProductProps<BasicProductData>) {
+    let p = context.json().item()
+    let quantity = quantityL.get(p)
     return (<div style={{marginBottom: 20}}>{p.title} - &#36;{p.price}{quantity ? ` x ${quantity}` : null}
-        <button onClick={() => props.onClick(props.context)}>{props.button}</button>
+        <button onClick={() => onClick(context)}>{button}</button>
     </div>)
 }

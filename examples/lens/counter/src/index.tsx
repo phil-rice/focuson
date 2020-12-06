@@ -17,8 +17,7 @@ let domain = new CounterDomain() // Domains are to allow us to dependancy inject
 
 let rootElement = getElement("root");
 
-export function Counter<Main>(props: LensProps<CounterDomain, Main, CounterData>) {
-    let context = props.context;
+export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterData>) {
     let value = context.json().value
     let increment = () => context.setJson({value: value + 1})
     let decrement = () => context.setJson({value: value - 1})
@@ -32,10 +31,10 @@ export function Counter<Main>(props: LensProps<CounterDomain, Main, CounterData>
     )
 }
 
-export function TwoCounter<Main>(props: LensProps<CounterDomain, Main, TwoCounterData>) {
+export function TwoCounter<Main>({context}: LensProps<CounterDomain, Main, TwoCounterData>) {
     return (<div>
-        <Counter context={props.context.focusOn('counterOne')}/>
-        <Counter context={props.context.focusOn('counterTwo')}/>
+        <Counter context={context.focusOn('counterOne')}/>
+        <Counter context={context.focusOn('counterTwo')}/>
     </div>)
 }
 
