@@ -41,22 +41,21 @@ export interface InventoryData {
 }
 
 export interface CartData {
-    total: number,
+    total: string,
     products: ProductData[],
 }
 export interface BasicProductData {
     id: number,
     price: number,
     title: string
-
 }
 
 export interface ProductData extends BasicProductData {
     quantity: number
 }
 
-
 export interface InventoryItemData extends BasicProductData {
     inventory: number
 }
+
 

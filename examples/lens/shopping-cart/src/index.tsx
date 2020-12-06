@@ -15,8 +15,7 @@ let priceLens = Lens.build<AppData>('App').then('cart').then('total')
 /** Why does this return a promise? Because many pricing engines/validation etc require a round trip to a server */
 function calculatePrice(appData: AppData) {
     let price = getProducts(appData).reduce((acc, v) => acc + v.quantity * v.price, 0)
-    console.log('new price', price)
-    return Promise.resolve(priceLens.set(appData, price))
+    return Promise.resolve(priceLens.set(appData, price.toFixed(2)))
 }
 
 let setJson= LensContext.setJsonForReact<ShoppingCartDomain, AppData>(domain, 'game',
@@ -30,7 +29,7 @@ setJson({
                 {"id": 2, "title": "H&M T-Shirt White", "price": 10.99, "inventory": 10},
                 {"id": 3, "title": "Charli XCX - Sucker CD", "price": 19.99, "inventory": 5}
             ]
-        }, cart: {total: 0, products: []}
+        }, cart: {total: "", products: []}
     }
 )
 
