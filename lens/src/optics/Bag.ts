@@ -37,7 +37,7 @@ export function takeFromItemsAndAddToMain<BagType, AddingType>(
     mainQuantityL: Lens<BagType, number>,
     itemQuantityL: Lens<AddingType, number>,
     match: (m: BagType, i: AddingType) => boolean,
-    copyItemToMain: (m: AddingType) => BagType): (two: Tuple<BagType[], ItemsAndIndex<AddingType>>) => Tuple<BagType[], ItemsAndIndex<AddingType>> {
+    copyItemToMain: (m: AddingType) => BagType): (tuple: Tuple<BagType[], ItemsAndIndex<AddingType>>) => Tuple<BagType[], ItemsAndIndex<AddingType>> {
     let addItemToMainList = addItemToBag<BagType, AddingType>(mainQuantityL, itemQuantityL, match, copyItemToMain)
     return tuple => {
         let itemWithQuantitySetToOne = itemQuantityL.set(tuple.two.item(), 1);

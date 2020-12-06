@@ -18,8 +18,11 @@ export class LensContext<Domain, Main, T> {
     lens: Lens<Main, T>
 
     static main<Domain, Main>(domain: Domain, main: Main, setMain: (m: Main) => void, description: string): LensContext<Domain, Main, Main> {return new LensContext(domain, main, setMain, Lens.identity<Main>().withDescription(description))}
-    static tuple<Domain, Root, Main, Item>(mainL: Lens<Root, Main>, context: LensContext<Domain, Root, Item>): LensContext<Domain, Root, Tuple<Main, Item>> {
-        return context.withLens(Lens.tupleLens(mainL, context.lens))
+    asTuple1<Two>(twoL: Lens<Main, Two>): LensContext<Domain, Main, Tuple<T, Two>> {
+        return this.withLens(Lens.tupleLens(this.lens, twoL))
+    }
+    asTuple2<One>(oneL: Lens<Main, One>): LensContext<Domain, Main, Tuple<One, T>> {
+        return this.withLens(Lens.tupleLens(oneL, this.lens))
     }
 
 

@@ -1,24 +1,25 @@
-import {InventoryData, InventoryItemData, ProductData, ShoppingCartProps} from "../domain";
+import {InventoryData, inventoryItemQuantityLens, ShoppingCartContext, ShoppingCartProps} from "../domain";
 import React from "react";
 import {ItemsAndIndex} from "@phil-rice/lens/src/optics/ItemAndIndex";
-import {LensContext} from "@phil-rice/lens";
+import {OneProduct} from "./OneProduct";
 
+export function contextForOneProduct(context: ShoppingCartContext<InventoryData>, i: number) {
+    let result = ItemsAndIndex.makeContext(context.focusOn('products'), i);
+    console.log('contextForOneProduct', result)
+    return result;
+}
 export function Inventory(props: ShoppingCartProps<InventoryData>) {
-    let d = props.context.json()
+    let inventory = props.context.json()
+    let domain = props.context.domain
     return (<div>
         <h3>Inventory</h3>
-        <div>{d.products.map((p, i) =>
-            <InventoryItem key={p.id} context={ItemsAndIndex.makeContext(props.context.focusOn('products'), i)}/>)}
-        </div>
+        <div>{inventory.products.map((p, i) => {
+            return (<OneProduct
+                key={p.id}
+                context={contextForOneProduct(props.context, i)}
+                quantityL={inventoryItemQuantityLens}
+                onClick={domain.takeFromInventoryPutInCart} button='Add to Cart'/>)
+        })}</div>
     </div>)
 }
 
-function InventoryItem(props: ShoppingCartProps<ItemsAndIndex<InventoryItemData>>) {
-    let domain = props.context.domain
-    let p = props.context.json().item()
-    function onClick() { LensContext.tuple(domain.toCartsProductL, props.context).transform(domain.takeFromInventoryPutInCart)}
-    return (<div style={{marginBottom: 20}}>{p.title} - &#36;{p.price}{p.inventory ? ` x ${p.inventory}` : null}
-        <button onClick={onClick}>{'Add to cart'}</button>
-    </div>)
-
-}

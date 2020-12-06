@@ -1,22 +1,30 @@
 import {Lens, LensContext, LensProps, takeFromItemsAndAddToMain} from "@phil-rice/lens";
+import {ItemsAndIndex} from "@phil-rice/lens/src/optics/ItemAndIndex";
 
 
-let inventoryItemQuantityLens: Lens<InventoryItemData, number> = Lens.build<InventoryItemData>('inventoryData').then('inventory')
-let productDataQuantityLens: Lens<ProductData, number> = Lens.build<ProductData>('productData').then('quantity')
+export let toInventoryProductsL: Lens<AppData, InventoryItemData[]> = Lens.build<AppData>('app').then('inventory').then('products')
+export let toCartsProductL: Lens<AppData, ProductData[]> = Lens.build<AppData>('app').then('cart').then('products')
+export let inventoryItemQuantityLens: Lens<InventoryItemData, number> = Lens.build<InventoryItemData>('inventoryData').then('inventory')
+export let productDataQuantityLens: Lens<ProductData, number> = Lens.build<ProductData>('productData').then('quantity')
 
 export class ShoppingCartDomain {
     onCheckoutClicked: () => void
     constructor(onCheckoutClicked: () => void) {this.onCheckoutClicked = onCheckoutClicked;}
 
-    toInventoryProductsL: Lens<AppData, InventoryItemData[]> = Lens.build<AppData>('app').then('inventory').then('products')
-    toCartsProductL: Lens<AppData, ProductData[]> = Lens.build<AppData>('app').then('cart').then('products')
 
-    takeFromCartPutInInventory = takeFromItemsAndAddToMain<InventoryItemData, ProductData>(inventoryItemQuantityLens, productDataQuantityLens,
-        (m, t) => m.title == t.title,
-        pd => ({...pd, inventory: 1}))
-    takeFromInventoryPutInCart = takeFromItemsAndAddToMain<ProductData, InventoryItemData>(productDataQuantityLens, inventoryItemQuantityLens,
-        (m, t) => m.title == t.title,
-        pd => ({...pd, quantity: 1}))
+    takeFromCartPutInInventory(c: ShoppingCartContext<ItemsAndIndex<ProductData>>) {
+        return c.asTuple2(toInventoryProductsL).transform(takeFromItemsAndAddToMain<InventoryItemData, ProductData>(
+            inventoryItemQuantityLens, productDataQuantityLens,
+            (m, t) => m.title == t.title,
+            pd => ({...pd, inventory: 1})))
+    }
+
+    takeFromInventoryPutInCart(c: ShoppingCartContext<ItemsAndIndex<InventoryItemData>>) {
+        return c.asTuple2(toCartsProductL).transform(takeFromItemsAndAddToMain<ProductData, InventoryItemData>(
+            productDataQuantityLens, inventoryItemQuantityLens,
+            (m, t) => m.title == t.title,
+            pd => ({...pd, quantity: 1})))
+    }
 }
 
 

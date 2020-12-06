@@ -48,7 +48,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.21\r\n",
+  "version": "0.1.22\r\n",
   "template": "noreact",
   "name": "@phil-rice/orgcmd",
   "description": "Generate build suitable for code on demand",
