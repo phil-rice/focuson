@@ -24,8 +24,8 @@
     "envCheck"  : {
       "description": "checks evn",
       "commands"   : ["echo Linux: [${PORT}] windows: [%PORT%]"],
-      "guard"      : "${projectDetails.projectDetails.port}",
-      "env"        : {"PORT": "${projectDetails.projectDetails.port}"}
+      "guard"      : "${projectDetails.details.port}",
+      "env"        : {"PORT": "${projectDetails.details.port}"}
     },
     "tsc"       : {
       "description": "runs tsc",
@@ -37,8 +37,6 @@
     },
     "install"   : {
       "description": "does the initial updateConfigFilesFromTemplates/install/link/tsc/test... etc in each project",
-      "pmGuard"    : "npm",
-      "guardReason": "Yarn and npm have a different command for '<pm> install'.",
       "commands"   : [
         "laoban updateConfigFilesFromTemplates",
         {"name": "install", "command": "${packageManager} install", "status": true},
@@ -47,47 +45,35 @@
         {"name": "test", "command": "${packageManager} test", "status": true}
       ]
     },
-    "yarninstall"   : {
-      "description": "does the initial updateConfigFilesFromTemplates/install/link/tsc/test... etc in each project",
-      "pmGuard"    : "yarn",
-      "guardReason": "Yarn and npm have a different command for '<pm> install'.",
-      "commands"   : [
-        "laoban updateConfigFilesFromTemplates",
-        {"name": "install", "command": "${packageManager}", "status": true},
-        {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
-        {"name": "link", "command": "${packageManager} link", "status": true, "directory": "dist"},
-        {"name": "test", "command": "${packageManager} test", "status": true}
-      ]
-    },
     "ls-ports"  : {
       "description": "lists the projects that have a port defined in project.details.json",
-      "guard"      : "${projectDetails.projectDetails.port}",
+      "guard"      : "${projectDetails.details.port}",
       "commands"   : ["js:process.cwd()"]
     },
     "start"     : {
       "description": "${packageManager} start for all projects that have a port defined in project.details.json",
-      "guard"      : "${projectDetails.projectDetails.port}",
+      "guard"      : "${projectDetails.details.port}",
       "commands"   : ["${packageManager} start"],
-      "env"        : {"PORT": "${projectDetails.projectDetails.port}"}
+      "env"        : {"PORT": "${projectDetails.details.port}"}
     },
     "ls-publish": {
       "description": "lists the projects that can be published",
-      "guard"      : "${projectDetails.projectDetails.publish}",
+      "guard"      : "${projectDetails.details.publish}",
       "commands"   : ["js:process.cwd()"]
     },
     "ls-orgcmd" : {
       "description": "lists the projects that have code on demand",
-      "guard"      : "${projectDetails.projectDetails.orgcmd}",
+      "guard"      : "${projectDetails.details.orgcmd}",
       "commands"   : ["js:process.cwd()"]
     },
     "orgcmd"    : {
       "description": "makes the code on demand using orgcmd",
-      "guard"      : "${projectDetails.projectDetails.orgcmd}",
+      "guard"      : "${projectDetails.details.orgcmd}",
       "commands"   : [{"name": "orgcmd", "command": "orgcmd build -f", "status": true}]
     },
     "pack"      : {
       "description": "does everything for a publish except the actual 'npm publish'",
-      "guard"      : "${projectDetails.projectDetails.publish}",
+      "guard"      : "${projectDetails.details.publish}",
       "osGuard"    : "Linux",
       "guardReason": "the find and copy commands used only work on window",
       "commands"   : [
@@ -99,7 +85,7 @@
     },
     "publish"   : {
       "description": "publishes the projects to npmjs",
-      "guard"      : "${projectDetails.projectDetails.publish}",
+      "guard"      : "${projectDetails.details.publish}",
       "osGuard"    : "Linux",
       "guardReason": "the find and copy commands used only work on window",
       "commands"   : [

@@ -2,7 +2,7 @@
   "template"      : "react",
   "name"          : "@phil-rice/lens_example_cpq",
   "description"   : "Showing how lens help in 'configure pricing quotation' examples",
-  "projectDetails": {
+  "details": {
     "generation"  : 2,
     "links"       : ["@phil-rice/lens", "@phil-rice/nav"],
     "extraDeps"   : {},

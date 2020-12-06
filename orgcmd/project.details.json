@@ -2,7 +2,7 @@
   "template"      : "noreact",
   "name"          : "@phil-rice/orgcmd",
   "description"   : "Generate build suitable for code on demand",
-  "projectDetails": {
+  "details": {
     "publish"     : true,
     "links"       : [],
     "generation"  : 0,
