@@ -72,8 +72,11 @@ export class LensContext<Domain, Main, T> {
      *
      * This creates a function that we can pass json to, and that json will be rendered */
 
-    static setJsonForReact = <Domain, Main>(domain: Domain, description: string, fn: (lc: LensContext<Domain, Main, Main>) => void): (m: Main) => void =>
-        (main: Main) => fn(LensContext.main(domain, main, LensContext.setJsonForReact(domain, description, fn), description))
+    static setJsonForReact = <Domain, Main>(domain: Domain, description: string,
+                                            fn: (lc: LensContext<Domain, Main, Main>) => void,
+                                            transformJson: (m: Main) => Promise<Main> = m => Promise.resolve(m)): (m: Main) => void =>
+        (main: Main) => transformJson(main).then(processedMain =>
+            fn(LensContext.main(domain, processedMain, LensContext.setJsonForReact(domain, description, fn, transformJson), description)))
 
     withNewDomain<NewDomain, NewMain>(getDomain: (d: Domain) => NewDomain, lens: Lens<Main, NewMain>): LensContext<NewDomain, NewMain, NewMain> {
         return new LensContext<NewDomain, NewMain, NewMain>(

@@ -53,7 +53,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.22\r\n",
+  "version": "0.1.23\r\n",
   "template": "react",
   "name": "@phil-rice/nav"
 }

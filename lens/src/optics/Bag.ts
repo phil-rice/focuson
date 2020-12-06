@@ -11,7 +11,10 @@ import {ItemsAndIndex} from "./ItemAndIndex";
 /** A bag is like set with a count for each item in the set.
  *  BagType is the list of 'items in the bag
  *  AddingType is a different (but similar) type
- *  Both of the idea of quantity, and we can turn a T2 into a T1
+ *  Both AddingType and BagType have the idea of quantity, and we can find a BagType from an AddingType
+ *
+ *  Example: BagType is a ShoppingCartItem, AddingType is the type we want to add to the Shopping Cart.
+ *     Note that if you are always adding one item you can use Lens.constant(1) for the quantityL2
  *
  * @param quantityL1
  * @param quantityL2
@@ -27,7 +30,11 @@ export function addItemToBag<BagType, AddingType>(quantityL1: Lens<BagType, numb
 }
 
 /** This is where we take from the 'addingtype' and put in the 'bagtypes
- * If
+ *
+ * This takes an item from a bag and  places it in another bag.
+ * The bags have different types, but we know how to transfrom from the item being removed into one being added
+ * Both types have the idea of quantity... this method currently just moves one
+ *
  * @param mainQuantityL
  * @param itemQuantityL
  * @param match

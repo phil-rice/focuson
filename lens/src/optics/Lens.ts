@@ -20,6 +20,7 @@ export function toLens<Main, Child>(f: LensFactory<Main, Child>): Lens<Main, Chi
 //Why do lens have a description? Answer to make the testing and debugging easier.
 export class Lens<Main, Child> {
     static identity<M>(): Lens<M, M> {return lens(m => m, (m, c) => c, 'identity')}
+    static constant<M, T>(t: T): Lens<M, T> {return lens(m => t, (m, c) => m, `constant(${t})`)}
     static nth<T>(n: number): Lens<T[], T> {
         function check<X>(verb: string, length: number) { {if (n > length) throw Error(`Cannot Lens.nth(${n}).${verb}. arr.length is ${length}`)} }
         if (n < 0) throw Error(`Cannot set Lens.nth with negative number [${n}]`)

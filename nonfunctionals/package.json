@@ -41,7 +41,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.22\r\n",
+  "version": "0.1.23\r\n",
   "template": "noreact",
   "description": "A library that allows wrapping of functions and kleislis with non functional capablities",
   "name": "@phil-rice/nonfunctionals"

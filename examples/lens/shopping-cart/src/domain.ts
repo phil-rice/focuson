@@ -41,7 +41,7 @@ export interface InventoryData {
 }
 
 export interface CartData {
-    total: string,
+    total: number,
     products: ProductData[],
 }
 export interface BasicProductData {
