@@ -20,13 +20,13 @@
     "@babel/preset-react": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
     "commander": "^6.2.0",
-    "@types/commander": "^2.12.2",
-    "sha.js": "^2.4.11"
+    "@types/commander": "^2.12.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/user-event": "^12.2.0",
     "@types/jest": "^26.0.16",
+    "crypto-js": "^4.0.0",
     "jest": "^26.6.0",
     "ts-jest": "^26.4.4"
   },

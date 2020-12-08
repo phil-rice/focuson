@@ -40,3 +40,4 @@ out/
 .profile
 *.tgz
 created/
+coverage/

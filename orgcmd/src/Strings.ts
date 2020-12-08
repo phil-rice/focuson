@@ -1,3 +1,4 @@
+import { SHA256 } from 'crypto-js';
 const shajs = require('sha.js');
 
 export interface StringReplaceData {
@@ -12,7 +13,7 @@ export interface ContentAndSha {
 
 export class Strings {
     static findSha(content: string): ContentAndSha {
-        const sha256Code = new shajs('sha256').update(content).digest('hex');
+        const sha256Code = SHA256(content).toString();
         return ({ content: content, sha: sha256Code })
     }
 
