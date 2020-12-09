@@ -1,21 +1,21 @@
 {
-  "template"      : "noreact",
-  "name"          : "@phil-rice/orgcmd",
-  "description"   : "Generate build suitable for code on demand",
+  "template": "noreact",
+  "name": "@phil-rice/orgcmd",
+  "description": "Generate build suitable for code on demand",
   "details": {
-    "publish"     : true,
-    "links"       : [],
-    "generation"  : 0,
-    "extraDeps"   : {
-      "@babel/core"             : "^7.12.9",
-      "@babel/preset-env"       : "^7.12.7",
-      "@babel/preset-react"     : "^7.12.7",
+    "publish": true,
+    "links": [],
+    "generation": 0,
+    "extraDeps": {
+      "@babel/core": "^7.12.9",
+      "@babel/preset-env": "^7.12.7",
+      "@babel/preset-react": "^7.12.7",
       "@babel/preset-typescript": "^7.12.7",
-      "commander"               : "^6.2.0",
-      "@types/commander"        : "^2.12.2",
-      "sha.js"                  : "^2.4.11"
+      "commander": "^6.2.0",
+      "@types/commander": "^2.12.2",
+      "crypto-js": "^4.0.0"
     },
-       "extraDevDeps": {},
+    "extraDevDeps": {},
     "extraBins": {
       "orgcmd": "./dist/index.js"
     }

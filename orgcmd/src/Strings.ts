@@ -1,5 +1,4 @@
 import { SHA256 } from 'crypto-js';
-const shajs = require('sha.js');
 
 export interface StringReplaceData {
     fromMatcher: RegExp,

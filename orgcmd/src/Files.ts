@@ -1,6 +1,5 @@
 import { Stats } from "fs";
 import path, { parse, ParsedPath } from "path";
-import { strict } from "yargs";
 import { Strings } from "./Strings";
 import { TsxTransformer } from "./TsxTransformer";
 
