@@ -1,0 +1,29 @@
+{
+  "_links"       : {"_self": {"href": "api/filterList/filterList1"}},
+  "price"        : "N/A ",
+  "make"         : {
+    "filterName": "filter.make",
+    "selected"  : "Tesla",
+    "options"   : ["Tesla", "BMW", "Audi"]
+  },
+  "model"        : {
+    "filterName": "filter.model",
+    "selected"  : "BMW series 6",
+    "options"   : ["Audi A10", "BMW series 6", "Tesla Roadster"]
+  },
+  "upholstery"   : {
+    "filterName": "filter.upholstery",
+    "selected"  : "Boring Cotton",
+    "options"   : ["Black Techno Leather", "Boring Cotton"]
+  },
+  "externalPaint": {
+    "filterName": "filter.externalPaint",
+    "selected"  : "Electric Blue",
+    "options"   : ["Exciting Red", "Boring Black", "Electric Blue"]
+  },
+  "leasePeriod"  : {
+    "filterName": "filter.leasePeriod",
+    "selected"  : "24m",
+    "options"   : ["12m", "24m", "36m", "48m"]
+  }
+}

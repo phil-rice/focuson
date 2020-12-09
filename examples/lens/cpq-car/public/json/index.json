@@ -1,0 +1,10 @@
+{
+  "name"     : "cpq",
+  "jsonFiles": [
+    "json/cpqNothingSelected.json",
+    "json/cpqMakeSelected.json",
+    "json/cpqMakeAndModelSelected.json",
+    "json/cpqMakeModelAndUpholsterySelected.json",
+    "json/cpqAllSelected.json"
+  ]
+}

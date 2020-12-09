@@ -1,0 +1,14 @@
+{
+  "template": "react",
+  "name": "@phil-rice/lens_example_cpq-car",
+  "description": "A fully featured car leasing cpq",
+  "details": {
+    "links": [
+      "@phil-rice/lens",
+      "@phil-rice/nav"
+    ],
+    "extraDeps": {},
+    "extraDevDeps": {},
+    "port": 3010
+  }
+}
