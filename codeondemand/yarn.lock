@@ -1474,19 +1474,19 @@
     puka "^1.0.1"
     read-package-json-fast "^1.1.3"
 
-"@phil-rice/lens@0.1.23":
-  version "0.1.23"
-  resolved "https://registry.yarnpkg.com/@phil-rice/lens/-/lens-0.1.23.tgz#c7911da7fe472381780a6dbab6a69aa069616444"
-  integrity sha512-wuNUt4xjIXh9L3NDbmCMdlZUlqDSc61yRDGa7pmEfRoQ0XbPV8dT4HAgOiUaFHC1mp+STNIsKGANwKFpukkIww==
+"@phil-rice/lens@0.1.24":
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/@phil-rice/lens/-/lens-0.1.24.tgz#80e6cf1ef5e95be07cf778a2ff2e41fb926b9397"
+  integrity sha512-Vov3Fh/MtrKQneObETQdy2mRzg54Rl6SOtPt3fY3Q4FZSC4Hms/8LrEYAQXqYYkCVZoRcOp5KtkUvpDOTxve+g==
   dependencies:
     "@types/node" "^14.14.7"
     npm-check-updates "^10.0.0"
     typescript "^4.0.5"
 
-"@phil-rice/nav@0.1.23":
-  version "0.1.23"
-  resolved "https://registry.yarnpkg.com/@phil-rice/nav/-/nav-0.1.23.tgz#fafea6487e9ab112d9500f5d547b618dbe7c7d72"
-  integrity sha512-0J8iLxDLEibJfSJvCvT57FwvNgG1sZ+NVOX1PotCUdItqog97CPNQXIPFTwor0eu5i4MQnbEm2f31A6E8GNjNw==
+"@phil-rice/nav@0.1.24":
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/@phil-rice/nav/-/nav-0.1.24.tgz#1d48d6ff75acfa73c295a6af36d055da699badb5"
+  integrity sha512-yXYuvra2dixGnsbxvIf8hoVMtGUeLomjo9DJ7LnZhFjqa8X83GzMWdPJKS0903UmVZkJ6R8CypfvVvSSYUUcwA==
   dependencies:
     react "^17.0.1"
     react-dom "^17.0.1"

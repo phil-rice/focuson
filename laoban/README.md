@@ -1,7 +1,12 @@
+# Installing
+
+I am not sure at the moment how to 'properly' install this kind of project. You can obviously git clone the repo
+and run 'npm link' in the laoban subdirectory. This is clearly sub-optimal and I am exploring how to do this better
+
 # Laoban
 
-Laoban or 老板 is chinese for 'boss'. It is a tool for controlling multiple projects. While it is
-language agnostic it probably offers the most value to javascript/typescript projects
+Laoban or 老板 is chinese for 'boss'. After trying to find a good name in English and Spanish that hadn't already been claimed,
+I gave up! It is a tool for controlling multiple projects. While it is language agnostic it probably offers the most value to javascript/typescript projects
 
 ## NPM usage
 NPM does not handle multiple projects well. Each project is a separate project.json that is managed separately. 
@@ -11,13 +16,21 @@ is implemented with a small bit of javascript/typescript, it can be difficult to
 Laoban makes the following easy:
 * Managing config files
     * There are a number of template files (might be just one)
-        * These holds files that are copied to the project whenever 'laoban update' is called
-        * The package.json in it is 'modified' during the copying based on a file called 'project.details.json' in the project 
+        * These hold files that are copied to the project whenever 'laoban update' is called
+        * The package.json in the template dir is 'modified' during the copying based on a file called 'project.details.json' in the project 
         * In my projects these files are things like:
              * jest.config.json
              * babel.config.json
              * tsconfig.json
              * the jest adapter for the version of jest
+* Publishing typescript react components to NPM
+     * I found this quite challenging. If you know a better way please let me know
+          * the tsconfig setting needed to be able to publish are not compatible with the tsconfig settings that react needs
+                * in fact react start will edit tsconfig throwing away you 'illegal settings'
+          * I need to publish javascript to npmjs
+                * So I use `tsc --noEmit false --outDir dist` to create a subdirectory
+          * I copy across useful other files: `package.json`, 'README,md'
+          * Then I change to this dist directory and publish from here
 * Executing things in parallel across all projects
      * `tsc`: to compile all the typescript
      * `npm test`: to run all the tests
@@ -27,7 +40,7 @@ Laoban makes the following easy:
 * It keeps track of the status of important things: such as last test execution, last compile, last install
 
 ## Other package managers
-Laoban is not opinionated. Replaceing `npm` with `yarn`  in the config will let you use all the features with yarn.
+Laoban is not opinionated. Replacing `npm` with `yarn`  in the config will let you use all the features with yarn.
 If you want to use it with maven or sbt or... it works fine (although those tools already have much of the capabliities that laoban brings to the javascript world)
 
 
@@ -48,13 +61,14 @@ If you want to use it with maven or sbt or... it works fine (although those tool
 
 ## When loading a project with many subprojects from git 
 * git clone the project
-* laoban install will setup and test the subprojects in parallel
+* `laoban install` will setup and test the subprojects in parallel
+* `laoban status` will tell you what the status is
 
 ## When publishing
 * Change the version in the template directory
 * `laoban update` will update all the projects
+* `laoban pack` will do a 'dry run' (the equivalent of npm pack)
 * `laoban publish` will publish all the projects
-
 
 # Important ideas
 
