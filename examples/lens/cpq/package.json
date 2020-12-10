@@ -1,0 +1,71 @@
+{
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "typescript": "^4.1.2",
+    "@phil-rice/lens": "0.1.23",
+    "@phil-rice/nav": "0.1.23"
+  },
+  "description": "Showing how lens help in 'configure pricing quotation' examples",
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.2.2",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^14.14.9",
+    "enzyme": "^3.11.0",
+    "@types/enzyme": "^3.10.8",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.3.1",
+    "jest": "26.6.0",
+    "jest-dom": "2.1.1",
+    "react-scripts": "^4.0.1",
+    "ts-jest": "^26.4.4"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "src/"
+  ],
+  "keywords": [
+    "functionalprogramming",
+    "lens",
+    "react",
+    "optics"
+  ],
+  "license": "MIT",
+  "main": "index",
+  "repository": "git@github.com:phil-rice/ts-lens.git",
+  "scripts": {
+    "start": "react-scripts start",
+    "test": "jest --config jest.config.json",
+    "test:watch": "npm run test -- --watch"
+  },
+  "types": "index",
+  "version": "0.1.23",
+  "template": "react",
+  "details": {
+    "generation": 2,
+    "links": [
+      "@phil-rice/lens",
+      "@phil-rice/nav"
+    ],
+    "extraDeps": {},
+    "extraDevDeps": {},
+    "port": 3002
+  },
+  "name": "@phil-rice/lens_example_cpq"
+}

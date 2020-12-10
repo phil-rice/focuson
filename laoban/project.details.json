@@ -1,0 +1,21 @@
+{
+  "template"   : "noreact",
+  "name"       : "laoban",
+  "description": "Managing many javascript projects: like maven modules for npm/yarn",
+  "details"    : {
+    "generation"  : 0,
+    "publish"     : true,
+    "links"       : [],
+    "extraDeps"   : {
+      "commander": "^4.1.1",
+      "core-js"  : "^3.6.4",
+      "fs-extra" : "^9.0.1"
+    },
+    "extraDevDeps": {
+      "@types/fs-extra": "^9.0.4"
+    },
+    "extraBins"   : {
+      "laoban": "dist/laoban.js"
+    }
+  }
+}
