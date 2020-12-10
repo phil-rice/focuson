@@ -15,7 +15,7 @@
     "@types/node": "^14.14.7",
     "npm-check-updates": "^10.0.0",
     "typescript": "^4.0.5",
-    "@phil-rice/lens": "0.1.23"
+    "@phil-rice/lens": "0.1.24"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.5",
@@ -25,6 +25,7 @@
     "ts-jest": "^26.4.4"
   },
   "files": [
+    "README.md",
     "index.js",
     "index.d.ts",
     "src/"
@@ -42,11 +43,10 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "template": "noreact",
   "description": "Showing how lens help in 'normal programming' without any link to react",
   "details": {
-    "generation": 2,
     "links": [
       "@phil-rice/lens"
     ],

@@ -15,7 +15,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "typescript": "^4.1.2",
-    "@phil-rice/lens": "0.1.23"
+    "@phil-rice/lens": "0.1.24"
   },
   "description": "Demonstrating how lens can simplify state management in React",
   "devDependencies": {
@@ -35,6 +35,7 @@
     "ts-jest": "^26.4.4"
   },
   "files": [
+    "README.md",
     "index.js",
     "index.d.ts",
     "src/"
@@ -54,10 +55,9 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "template": "react",
   "details": {
-    "generation": 2,
     "extraDeps": {
       "@phil-rice/lens": "<version>"
     },

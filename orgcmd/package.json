@@ -31,6 +31,7 @@
     "ts-jest": "^26.4.4"
   },
   "files": [
+    "README.md",
     "index.js",
     "index.d.ts",
     "src/"
@@ -48,14 +49,13 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "template": "noreact",
   "name": "@phil-rice/orgcmd",
   "description": "Generate build suitable for code on demand",
   "details": {
     "publish": true,
     "links": [],
-    "generation": 0,
     "extraDeps": {
       "@babel/core": "^7.12.9",
       "@babel/preset-env": "^7.12.7",

@@ -84,6 +84,7 @@
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         "find dist -type f -name 'enzymeAdapterSetup.*' -delete",
         "cp package.json dist",
+        "cp README.* dist",
         {"name": "pack", "command": "${packageManager} pack", "status": true, "directory": "dist"}
       ],
       "inLinksOrder": true
@@ -97,6 +98,7 @@
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         "find dist -type f -name 'enzymeAdapterSetup.*' -delete",
         "cp package.json dist",
+        "cp README.* dist",
         {"name": "publish", "command": "${packageManager} publish", "status": true, "directory": "dist"}
       ],
       "inLinksOrder": true
