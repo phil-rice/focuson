@@ -71,3 +71,7 @@ export const stringReplaceData: StringReplaceData[] = [
     { fromMatcher: new RegExp(`#NavGroup/render#`, 'gi'), to: `created/NavGroup/767657657656576` },
     { fromMatcher: new RegExp(`#Cpq/render#`, 'gi'), to: `created/Cpq/477578688686797` }
 ];
+
+export const testContent = 'test file content';
+
+export const testShaCode = 'd5579c46dfcc7';

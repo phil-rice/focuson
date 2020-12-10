@@ -1,18 +1,30 @@
 import { Files } from './Files';
 import { JsonTransformer, JsonSourceDirAndTargetDir } from './JsonTransformer';
-import path from "path";
+import { SourceAndTargetDir } from './TsxTransformer';
+import path, { ParsedPath } from "path";
 import { StringReplaceData } from './Strings';
 
 const fs = require('fs');
+const testData = require('./TestData');
 const files = new Files();
 const jsonTransformer = new JsonTransformer(files);
 const mock = require('mock-fs');
+
+const toFileName = (sourceAndTargetDir: SourceAndTargetDir) => (parsedPath: ParsedPath, sha: string): ParsedPath =>
+    path.parse(path.join(sourceAndTargetDir.targetDir, parsedPath.base));
+
+const transformCode = (contents: string, file: string): Promise<string> => {
+    return Promise.resolve("transformed content");
+}
 
 describe('File operations', () => {
 
     beforeAll(() => {
         mock({
             'path/to/fake/dir': {
+                'test-dir': {
+                    'test.txt': 'some test content'
+                },
                 'source-dir': {
                     'some-test.txt': 'test file content',
                 },
@@ -60,8 +72,28 @@ describe('File operations', () => {
         return expect(files.createDirectoryForFile(path.parse('path/to/fake/dir/some-other-directory'))).resolves.not.toThrow();
     });
 
+    it('should not do anything if the file already exists', () => {
+        return expect(files.saveFileIfDoesntExist(path.parse('path/to/fake/dir/test-dir/test.txt'), testData.testContent, testData.testShaCode)).resolves.not.toBe('test');
+    });
+
+    it('should create and save the file if it doesnot exist', () => {
+        return files.saveFileIfDoesntExist(path.parse('path/to/fake/dir/test-dir/test.txt'), testData.testContent, testData.testShaCode)
+            .catch(e => {
+                expect(e.message).toMatch('ENOENT');
+                expect(fs.promises.writeFile).toHaveBeenCalled();
+            }
+            );
+    });
+
+    it('should copy, transform and save file for Content Addressable Data', () => {
+        const sourceAndTargetDir: SourceAndTargetDir = { sourceDir: 'path/to/fake/dir/source-dir', targetDir: 'path/to/fake/dir/destination-dir' };
+        const parsedPath = path.parse('path/to/fake/dir/source-dir/some-test.txt');
+
+        return expect(files.copyTransformAndSaveFileForContentAddressableData(parsedPath, transformCode, toFileName(sourceAndTargetDir))).resolves.not.toThrow();
+    })
+
     afterAll(() => {
         mock.restore();
-    });
+    })
 
 })
