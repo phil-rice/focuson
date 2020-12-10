@@ -109,6 +109,7 @@ If this is present in a directory it tells laoban that the directory is a projec
 * `extraDeps` are the names of dependencies that this project needs and are to be added to the template 
 * `extraDevDeps` are the names of developer dependencies that this project needs and are to be added to the template
 * `extraBins` are the name of bins that this project defines and are added to the template
+* `extraScripts` are the name of scripts that this project defines and are added to the template
 * `links` are used within the 'master project' that laoban is looking after. 
       * It allows laoban to set up symbolic links so that changes in one project are immediately reflected
       * These are added as dependencies to the project, with the 'current version number'

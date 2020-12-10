@@ -3,7 +3,6 @@
   "name"          : "@phil-rice/example_codeondemand_tictactoe",
   "description"   : "Demonstrating the code on demand approach for tic_tac_toe",
   "details": {
-    "generation"  : 3,
     "links"       : ["@phil-rice/lens", "@phil-rice/nav", "@phil-rice/codeondemand"],
     "extraDeps"   : {"@types/crypto-js": "^4.0.1"},
     "extraDevDeps": {},

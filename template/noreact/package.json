@@ -24,6 +24,7 @@
     "ts-jest": "^26.4.4"
   },
   "files": [
+    "README.md",
     "index.js",
     "index.d.ts",
     "src/"

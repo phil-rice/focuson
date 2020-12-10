@@ -34,6 +34,7 @@ export function modifyPackageJson(raw: any, version: string, projectDetails: Pro
     projectDetails.details.links.map(l => result['dependencies'][l] = version)
     add(result, 'devDependencies', projectDetails.details.extraDevDeps)
     add(result, 'bin', projectDetails.details.extraBins)
+    add(result, 'scripts', projectDetails.details.extraScripts)
     delete result.projectDetails
     result.version = version
     result.name = projectDetails.name

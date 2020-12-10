@@ -31,6 +31,7 @@ import {AppendToFileIf, CommandDecorators, GenerationDecorators, GenerationsDeco
 import {shellReporter} from "./report";
 import * as readline from "readline";
 import {monitor, Status} from "./monitor";
+const pkg = require('../package.json');
 
 const makeSessionId = (d: Date, suffix: any) => d.toISOString().replace(/:/g, '.') + '.' + suffix;
 
@@ -65,7 +66,7 @@ export class Cli {
 
     program = require('commander').//
         arguments('').//
-        version('0.1.0')//
+        version(pkg.version)//
 
 
     addScripts(scripts: ScriptDetails[], options: (program: any) => any) {

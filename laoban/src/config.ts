@@ -117,5 +117,6 @@ export interface ProjectDetails {
         "extraDeps": any,
         "extraDevDeps": any,
         extraBins: any
+        extraScripts: any
     }
 }
