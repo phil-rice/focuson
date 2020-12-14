@@ -3,7 +3,6 @@
   "name"          : "@phil-rice/examples_codeondemand_cpq",
   "description"   : "Demonstrating the code on demand approach for configure price quotation",
   "details": {
-    "generation"  : 3,
     "links"       : ["@phil-rice/lens", "@phil-rice/nav", "@phil-rice/codeondemand"],
     "extraDeps"   : {},
     "extraDevDeps": {},

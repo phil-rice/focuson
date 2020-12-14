@@ -24,6 +24,7 @@
     "ts-jest": "^26.4.4"
   },
   "files": [
+    "README.md",
     "index.js",
     "index.d.ts",
     "src/"
@@ -41,8 +42,14 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.23\r\n",
+  "version": "0.1.24",
   "template": "noreact",
   "description": "A library that allows wrapping of functions and kleislis with non functional capablities",
+  "details": {
+    "publish": true,
+    "links": [],
+    "extraDeps": {},
+    "extraDevDeps": {}
+  },
   "name": "@phil-rice/nonfunctionals"
 }

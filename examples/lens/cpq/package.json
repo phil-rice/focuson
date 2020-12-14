@@ -15,8 +15,8 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "typescript": "^4.1.2",
-    "@phil-rice/lens": "0.1.23\r\n",
-    "@phil-rice/nav": "0.1.23\r\n"
+    "@phil-rice/lens": "0.1.24",
+    "@phil-rice/nav": "0.1.24"
   },
   "description": "Showing how lens help in 'configure pricing quotation' examples",
   "devDependencies": {
@@ -36,6 +36,7 @@
     "ts-jest": "^26.4.4"
   },
   "files": [
+    "README.md",
     "index.js",
     "index.d.ts",
     "src/"
@@ -55,7 +56,16 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.23\r\n",
+  "version": "0.1.24",
   "template": "react",
+  "details": {
+    "links": [
+      "@phil-rice/lens",
+      "@phil-rice/nav"
+    ],
+    "extraDeps": {},
+    "extraDevDeps": {},
+    "port": 3002
+  },
   "name": "@phil-rice/lens_example_cpq"
 }

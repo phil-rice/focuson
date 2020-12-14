@@ -4,7 +4,6 @@
   "description"   : "A nav bar that allows json files to be used to display rendered components",
   "details": {
     "publish" : true,
-    "generation"  : 0,
     "links": [],
     "extraDeps"   : {},
     "extraDevDeps": {}

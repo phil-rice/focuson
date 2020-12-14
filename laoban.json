@@ -28,22 +28,26 @@
       "env"        : {"PORT": "${projectDetails.details.port}"}
     },
     "tsc"       : {
-      "description": "runs tsc",
-      "commands"   : [{"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true}]
+      "description" : "runs tsc",
+      "commands"    : [{"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true}]
     },
     "test"      : {
       "description": "runs ${packageManager} test",
       "commands"   : [{"name": "test", "command": "${packageManager} test", "status": true}]
     },
+    "slow": {
+      "description": "prints something, delays 2s, prints something",
+      "commands": ["echo `pwd` 'start'", "sleep 2s", "echo `pwd` 'stop' "]
+    },
     "install"   : {
-      "description": "does the initial updateConfigFilesFromTemplates/install/link/tsc/test... etc in each project",
-      "commands"   : [
+      "description"    : "does the initial updateConfigFilesFromTemplates/install/link/tsc/test... etc in each project",
+      "commands"       : [
         "laoban updateConfigFilesFromTemplates",
         {"name": "install", "command": "${packageManager} install", "status": true},
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         {"name": "link", "command": "${packageManager} link", "status": true, "directory": "dist"},
         {"name": "test", "command": "${packageManager} test", "status": true}
-      ]
+      ], "inLinksOrder": true
     },
     "ls-ports"  : {
       "description": "lists the projects that have a port defined in project.details.json",
@@ -59,7 +63,7 @@
     "ls-publish": {
       "description": "lists the projects that can be published",
       "guard"      : "${projectDetails.details.publish}",
-      "commands"   : ["js:process.cwd()"]
+      "commands"   : ["js:process.cwd()"], "inLinksOrder": true
     },
     "ls-orgcmd" : {
       "description": "lists the projects that have code on demand",
@@ -72,28 +76,32 @@
       "commands"   : [{"name": "orgcmd", "command": "orgcmd build -f", "status": true}]
     },
     "pack"      : {
-      "description": "does everything for a publish except the actual 'npm publish'",
-      "guard"      : "${projectDetails.details.publish}",
-      "osGuard"    : "Linux",
-      "guardReason": "the find and copy commands used only work on window",
-      "commands"   : [
+      "description" : "does everything for a publish except the actual 'npm publish'",
+      "guard"       : "${projectDetails.details.publish}",
+      "osGuard"     : "Linux",
+      "guardReason" : "the find and copy commands used only work on window",
+      "commands"    : [
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         "find dist -type f -name 'enzymeAdapterSetup.*' -delete",
         "cp package.json dist",
+        "cp README.* dist",
         {"name": "pack", "command": "${packageManager} pack", "status": true, "directory": "dist"}
-      ]
+      ],
+      "inLinksOrder": true
     },
     "publish"   : {
-      "description": "publishes the projects to npmjs",
-      "guard"      : "${projectDetails.details.publish}",
-      "osGuard"    : "Linux",
-      "guardReason": "the find and copy commands used only work on window",
-      "commands"   : [
+      "description" : "publishes the projects to npmjs",
+      "guard"       : "${projectDetails.details.publish}",
+      "osGuard"     : "Linux",
+      "guardReason" : "the find and copy commands used only work on window",
+      "commands"    : [
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         "find dist -type f -name 'enzymeAdapterSetup.*' -delete",
         "cp package.json dist",
+        "cp README.* dist",
         {"name": "publish", "command": "${packageManager} publish", "status": true, "directory": "dist"}
-      ]
+      ],
+      "inLinksOrder": true
     }
   }
 }

@@ -16,9 +16,9 @@
     "react-dom": "^17.0.1",
     "typescript": "^4.1.2",
     "crypto-js": "^4.0.0",
-    "@phil-rice/lens": "0.1.23\r\n",
-    "@phil-rice/nav": "0.1.23\r\n",
-    "@phil-rice/codeondemand": "0.1.23\r\n"
+    "@phil-rice/lens": "0.1.24",
+    "@phil-rice/nav": "0.1.24",
+    "@phil-rice/codeondemand": "0.1.24"
   },
   "description": "Demonstrating the code on demand approach for configure price quotation",
   "devDependencies": {
@@ -40,6 +40,7 @@
     "ts-jest": "^26.4.4"
   },
   "files": [
+    "README.md",
     "index.js",
     "index.d.ts",
     "src/"
@@ -59,7 +60,18 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.23\r\n",
+  "version": "0.1.24",
   "template": "codeondemand",
+  "details": {
+    "links": [
+      "@phil-rice/lens",
+      "@phil-rice/nav",
+      "@phil-rice/codeondemand"
+    ],
+    "extraDeps": {},
+    "extraDevDeps": {},
+    "port": 3006,
+    "orgcmd": true
+  },
   "name": "@phil-rice/examples_codeondemand_cpq"
 }
