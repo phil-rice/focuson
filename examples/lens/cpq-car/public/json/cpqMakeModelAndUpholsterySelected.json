@@ -1,29 +1,87 @@
 {
-  "_links"       : {"_self": {"href": "api/filterList/filterList1"}},
-  "price"        : "N/A ",
-  "make"         : {
+  "_links": {
+    "_self": {
+      "href": "api/filterList/filterList1"
+    }
+  },
+  "price": "N/A ",
+  "category": {
+    "filterName": "filter.category",
+    "selected": null,
+    "options": [
+      {
+        "name": "Electric",
+        "img": "images/category/Electric.png"
+      },
+      {
+        "name": "SUV",
+        "img": "images/category/SUV.png"
+      },
+      {
+        "name": "Automatic",
+        "img": "images/category/Automatic.png"
+      },
+      {
+        "name": "Family",
+        "img": "images/category/Family.png"
+      },
+      {
+        "name": "Petrol",
+        "img": "images/category/Petrol.png"
+      },
+      {
+        "name": "Premium",
+        "img": "images/category/Premium.png"
+      }
+    ]
+  },
+  "make": {
     "filterName": "filter.make",
-    "selected"  : "Tesla",
-    "options"   : ["Tesla", "BMW", "Audi"]
+    "selected": "Tesla",
+    "options": [
+      "Tesla",
+      "BMW",
+      "Audi",
+      "Alfa"
+    ]
   },
-  "model"        : {
+  "model": {
     "filterName": "filter.model",
-    "selected"  : "BMW series 6",
-    "options"   : ["Audi A10", "BMW series 6", "Tesla Roadster"]
+    "selected": "BMW series 6",
+    "options": [
+      "Audi A10",
+      "BMW series 6",
+      "Tesla Roadster",
+      "Alfa Romeo Giulia",
+      "Alfa Romeo Giulietta",
+      "Alfa Romeo Stelvio"
+    ]
   },
-  "upholstery"   : {
+  "upholstery": {
     "filterName": "filter.upholstery",
-    "selected"  : "Boring Cotton",
-    "options"   : ["Black Techno Leather", "Boring Cotton"]
+    "selected": "Boring Cotton",
+    "options": [
+      "Black Techno Leather",
+      "Boring Cotton"
+    ]
   },
   "externalPaint": {
     "filterName": "filter.externalPaint",
-    "selected"  : null,
-    "options"   : ["Exciting Red", "Boring Black", "Electric Blue"]
+    "selected": null,
+    "options": [
+      "Exciting Red",
+      "Boring Black",
+      "Electric Blue"
+    ]
   },
-  "leasePeriod"  : {
+  "leasePeriod": {
     "filterName": "filter.leasePeriod",
-    "selected"  : null,
-    "options"   : ["12m", "24m", "36m", "48m"]
+    "selected": null,
+    "options": [
+      "12m",
+      "24m",
+      "36m",
+      "48m"
+    ]
   }
 }

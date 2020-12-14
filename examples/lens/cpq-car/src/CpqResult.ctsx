@@ -1,0 +1,64 @@
+import { LensContext, LensProps } from "@phil-rice/lens";
+
+export interface CpqResultData {
+    result: SearchResultType
+}
+
+type SearchResultType = SearchResultData
+
+export interface VehicleData {
+    name: string,
+    img: string,
+    fuel: string,
+    transmissionType: string,
+    fuelConsumption: string,
+    bodyType: string,
+    co2Emission: string,
+    enginePower: string,
+    price: string,
+    currency: string,
+    term: string
+}
+
+export interface SearchResultData {
+    count: number,
+    vehicles: VehicleData[]
+}
+
+export class CpqResultDomain { }
+type CpqProps<T> = LensProps<CpqResultDomain, CpqResultData, T>
+
+export function CpqSearchResult({ context }: CpqProps<SearchResultData>) {
+    console.log('result', context.json().vehicles);
+    let vehicles = context.json().vehicles
+        .map(v => (<div className="car-list-item car-list-item-1  car-list-item-odd car-list-item-first processed car-list-item-details-open details-open" data-item="1" data-group="1">
+            <div className="car-list-item-top">
+                <div className="car-list-item-image">
+                    <img src="ALFA-ROMEO-GIULIA-SEDAN.jfif" className="img-fluid" width="420" height="280" alt="" title={v.name} />
+                </div>
+                <div className="car-list-item-price">
+                    <div className="car-list-item-price-label">Starting from</div>
+                    <div className="car-list-item-price-value">
+                        <span className="currency">
+                            <span className="value">{v.price}</span>
+                            <span className="unitcode"> {v.currency}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div className="car-list-item-bottom">
+                <div className="car-list-item-name">
+                    <h3>{v.name.toLocaleUpperCase()}</h3>
+                </div>
+                <div className="car-list-item-detail-vehicles">
+                    <div className="car-list-item-detail-vehicles-more">
+                        14 propositions        </div>
+                    <div className="car-list-item-detail-vehicles-less">
+                        Less        </div>
+                </div>
+            </div>
+        </div>));
+    return (<div className="car-list car-list-teasers car-list-3-wide car-list-overview">
+        {vehicles}
+    </div>);
+}
