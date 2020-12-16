@@ -1,5 +1,7 @@
+import { Trans, useTranslation } from 'react-i18next';
+import './i18n/config';
 import { LensContext, LensProps } from "@phil-rice/lens";
-
+import { isContext } from 'vm';
 
 export interface CpqData {
     category: CategorySelection,
@@ -8,15 +10,21 @@ export interface CpqData {
     upholstery: UpholsterySelection,
     externalPaint: PaintSelection,
     leasePeriod: LeasePeriod,
+    transmission: TransmissionSelection,
+    fuelType: FuelTypeSelection,
+    bodyType: BodyTypeSelection,
     result: SearchResultType
 }
-// type MakeSelection = SimpleFilterData
+
 type CategorySelection = ImageFilterData
 type MakeSelection = SimpleFilterData
 type ModelSelection = SimpleFilterData
 type UpholsterySelection = SimpleFilterData
 type PaintSelection = SimpleFilterData
 type LeasePeriod = SimpleFilterData
+type TransmissionSelection = ImageFilterData
+type FuelTypeSelection = ImageFilterData
+type BodyTypeSelection = ImageFilterData
 type SearchResultType = SearchResultData
 
 export interface RootFilterData<T> {
@@ -33,6 +41,11 @@ export interface ImageFilterData extends RootFilterData<ImageFilterOption> {
 export interface ImageFilterOption {
     name: string,
     img: string
+}
+
+export interface ImageFilterProps {
+    context: CpqProps<ImageFilterData>,
+    selectedIf: string
 }
 
 export interface VehicleData {
@@ -55,12 +68,6 @@ export interface SearchResultData {
     vehicles: VehicleData[]
 }
 
-// export interface SimpleFilterData {
-//     filterName: string,
-//     selected?: string,
-//     options: string[]
-// }
-
 export class CpqDomain { }
 type CpqProps<T> = LensProps<CpqDomain, CpqData, T>
 
@@ -69,15 +76,18 @@ export function Cpq({ context }: CpqProps<CpqData>) {
     return (
         <div className='cpq'>
             <div className='two'>
-                {/* <SimpleFilter context={context.focusOn('make')} /> */}
-                <QuickFilter context={context.focusOn('category')} />
+                <QuickFilter context={context} />
                 <div>
                     <SimpleFilter context={context.focusOn('make')} />
-                    {/* <SimpleFilter context={context.focusOn('make')} /> */}
                     <SimpleFilter context={context.focusOn('model')} />
                     <SimpleFilter context={context.focusOn('upholstery')} />
+                    <DropDownForImageFilter context={context.focusOn('bodyType')} />
+                    <DropDownForImageFilter context={context.focusOn('fuelType')} />
+                    <DropDownForImageFilter context={context.focusOn('transmission')} />
                     <SimpleFilter context={context.focusOn('externalPaint')} />
                     <SimpleFilter context={context.focusOn('leasePeriod')} />
+                    {/* <CheckboxFilter context={context.focusOn('transmission')} /> */}
+                    <ResetFilter />
                 </div>
             </div>
             <div className="result">
@@ -87,89 +97,121 @@ export function Cpq({ context }: CpqProps<CpqData>) {
     )
 }
 
+function ResetFilter() {
+    const onClick = () => {
+        console.log("refresh");
+    }
+
+    return (<div className="d-inline-flex">
+        <button title="Reset Filters" onClick={onClick}><i className="fa fa-refresh"></i></button>
+    </div>);
+}
+
 function displayIfPresent<T, Result>(context: LensContext<CpqDomain, CpqData, T>, fn: () => Result): Result | null {
     return context.json() ? fn() : null;
 }
 
 function RootFilter<T>({ context }: CpqProps<RootFilterData<T>>, findDisplayTextFn: (option: T) => string) {
+    const { t } = useTranslation();
     let filterJson = context.json();
-    const onChange = (event: any) => { context.focusOn('selected').setJson(event.target.value) };
+    const selected = filterJson.selected ? filterJson.selected : '';
+    const onChange = (event: any) => {
+        context.focusOn('selected').setJson(event.target.value)
+    };
     let options = context.json().options.map(option2(findDisplayTextFn))
     return displayIfPresent(context, () =>
-        <select className='simpleFilter'
-            value={filterJson.selected ? filterJson.selected : ''}
+        <select className={selected ? 'simple-filter simple-filter-active' : 'simple-filter'}
+            value={selected}
             key={context.json().filterName}
             id={context.json().filterName}
             onChange={onChange}>
-            <option>{context.json().filterName}</option>
+            <option>{t(`${context.json().filterName}`)}</option>
             {options}
         </select>)
 }
 
 function option2<T>(findDisplayTextFn: (option: T) => string) {
-    return (option: T) => (<option key={findDisplayTextFn(option)}>
+    return (option: T) => (<option
+        key={findDisplayTextFn(option)}
+        value={findDisplayTextFn(option)}
+    // selected={findDisplayTextFn(option) === selectedOption ? true : false}
+    // {`${selectedOption} === ${findDisplayTextFn(option)} ? 'selected' : ''`}
+    >
         {findDisplayTextFn(option)}
-    </option>);
+    </ option>);
 }
 
-
-function option<T>(findDisplayTextFn: (option: T) => string, option: T) {
-    return (<option key={findDisplayTextFn(option)}>
-        {findDisplayTextFn(option)}
-    </option>);
-}
-
-// function ImagedDropDownFilter({ context }: CpqProps<ImageFilterData>) {
-//     return RootFilter<ImageFilterOption>({ context },
-//         o => {
-//             return o;
-//         })
-// }
 function SimpleFilter({ context }: CpqProps<SimpleFilterData>) {
     return RootFilter<string>({ context }, s => s)
 }
 
-function ImageFilter({ context }: CpqProps<ImageFilterData>) {
-    let filterJson = context.json();
-
-    const onChange = (event: any) => {
-        console.log('test click', event.target.value);
-        context.focusOn('selected').setJson(event.target.value)
-    };
-    console.log('json', context.json());
-    let images = context.json().options.map(o => (<img src={o.img} key={o.name} onClick={onChange} />))
-
-    return displayIfPresent(context, () =>
-        <div className='imageFilter'
-            key={context.json().filterName}
-            id={context.json().filterName}>{images}</div>)
+function DropDownForImageFilter({ context }: CpqProps<ImageFilterData>) {
+    return RootFilter<ImageFilterOption>({ context }, s => s.name)
 }
 
-function QuickFilter({ context }: CpqProps<ImageFilterData>) {
-    console.log(context.json().options);
+function CheckboxFilter({ context }: CpqProps<SimpleFilterData>) {
+    const { t } = useTranslation();
+    const selected = context.json().selected ? context.json().selected : '';
+    let onChange = (s: string) => (event: any) => context.focusOn('selected').setJson(s);
     let options = context.json().options
-        .map(o => (<div className="LinkWrapper-sc-pknfr2 jrBJkR">
-            <a data-e2e-id={o.name}
-                data-key={o.name}
-                className="Link-sc-1r3n2zr fGsDCa" target="" rel="follow"
-                href="#">
-                <div className="sc-jSgupP LinkGrid-sc-alrobz cLYoMh bzycIR" data-e2e-grid="">
-                    <div className="sc-eCssSg ImageGridItem-sc-8zjm1w gZpLoH gveRBE" data-e2e-grid-item="">
-                        <img src={o.img} alt="" className="QuickFilterImage-sc-xqp548 bbSFQP img-fluid" />
-                    </div>
-                    <div className="sc-eCssSg LabelGridItem-sc-13zqrcu eZyFyz hSjabX" data-e2e-grid-item="">{o.name}</div>
-                </div>
-            </a>
+        .map(o => (<div>
+            <input type="checkbox" className="form-check-input"
+                id={o}
+                onChange={onChange(o)}
+                checked={selected === o ? true : false}
+            />
+            <label className="form-check-label">{o}</label>
         </div>));
 
     return displayIfPresent(context, () =>
-        <div data-component="QuickFilters" className="LinkContainer-sc-1rg2eld hVkHVd">{options}</div>);
+        <div>{options}</div>);
+}
+
+function QuickFilter({ context }: CpqProps<CpqData>) {
+    return (<div data-component="QuickFilters" className="LinkContainer-sc-1rg2eld hVkHVd">
+        <ImageFilter context={context.focusOn('fuelType')} selectedIf='Electric' />
+        <ImageFilter context={context.focusOn('bodyType')} selectedIf='SUV' />
+        <ImageFilter context={context.focusOn('fuelType')} selectedIf='Petrol' />
+        <ImageFilter context={context.focusOn('transmission')} selectedIf='Automatic' />
+        <ImageFilter context={context.focusOn('bodyType')} selectedIf='Family' />
+        <ImageFilter context={context.focusOn('bodyType')} selectedIf='Premium' />
+    </div>);
+}
+
+function ImageFilter({ context, selectedIf }: CpqProps<ImageFilterData> & { selectedIf: string }) {
+    const { t } = useTranslation();
+    let filterData = context.json();
+    console.log('filterdata', filterData, selectedIf);
+    const selected = filterData.selected === selectedIf;
+    // const onChange = (event: any) => {
+    //     context.focusOn('selected').setJson(event.target.value)
+    // };
+    let applyFilter = (s: string) => (event: any) => {
+        // jsonFiles.jsonFiles[0]
+        // context.setJson(context.json());
+        return context.focusOn('selected').setJson(s);
+    }
+
+    const option = filterData.options.filter(option => option.name === selectedIf)[0];
+    console.log('option', option);
+
+    return (<div className="LinkWrapper-sc-pknfr2 jrBJkR" key={option.name}>
+        <a className={selected ? "Link-sc-1r3n2zr fGsDCa link-active" : "Link-sc-1r3n2zr fGsDCa"}
+            onClick={applyFilter(option.name)}>
+            <div className="sc-jSgupP LinkGrid-sc-alrobz cLYoMh bzycIR" data-e2e-grid="">
+                <div className="sc-eCssSg ImageGridItem-sc-8zjm1w gZpLoH gveRBE" data-e2e-grid-item="">
+                    <img src={option.img} alt="" className="QuickFilterImage-sc-xqp548 bbSFQP img-fluid" />
+                </div>
+                <div className="sc-eCssSg LabelGridItem-sc-13zqrcu eZyFyz hSjabX" data-e2e-grid-item="">{t(option.name)}</div>
+            </div>
+        </a>
+    </div>)
 }
 
 function SearchResult({ context }: CpqProps<SearchResultData>) {
-    console.log('result', context.json().vehicles);
+    // console.log('result', context.json().vehicles);
     let vehicles = context.json().vehicles
-        .map(v => (<div className="car-list-item car-list-item-1  car-list-item-odd car-list-item-first processed car-list-item-details-open details-open" data-item="1" data-group="1">
+        .map(v => (<div className="car-list-item car-list-item-1  car-list-item-odd car-list-item-first processed car-list-item-details-open details-open" key={v.name}>
             <div className="car-list-item-top">
                 <div className="car-list-item-image">
                     <img src={v.img} className="img-fluid" width="420" height="280" alt="" title={v.name} />
@@ -190,8 +232,6 @@ function SearchResult({ context }: CpqProps<SearchResultData>) {
                 </div>
                 <div className="car-list-item-detail-vehicles">
                     <div className="car-list-item-detail-vehicles-more">{v.propositions}</div>
-                    <div className="car-list-item-detail-vehicles-less">
-                        Less        </div>
                 </div>
             </div>
         </div>));
@@ -202,7 +242,7 @@ function SearchResult({ context }: CpqProps<SearchResultData>) {
         </div>);
 }
 
-// function CheckBoxFilter({ context }: CpqProps<SimpleFilterData>) {
+// function CheckBoxFilter({context}: CpqProps<SimpleFilterData>) {
 //     let options = context.json().options
 //         .map(o => (<div className="Pulse-sc-1eihdq2 hPruFc">
 //             <div data-e2e-id="AUDI" className="CheckboxWrapper-sc-1wl4lca lkJQsl">
@@ -292,3 +332,26 @@ function SearchResult({ context }: CpqProps<SearchResultData>) {
 //             id={context.json().filterName}
 //             onChange={onChange}>{options}</select>)
 // }
+
+// function QuickFilter({ context }: CpqProps<ImageFilterData>) {
+//     const { t } = useTranslation();
+//     console.log(context.json().options);
+//     const selected = context.json().selected ? context.json().selected : '';
+//     let options = context.json().options
+//         .map(o => (<div className="LinkWrapper-sc-pknfr2 jrBJkR" key={o.name} >
+//             <a data-e2e-id={o.name}
+//                 className={selected ? "Link-sc-1r3n2zr fGsDCa link-active" : "Link-sc-1r3n2zr fGsDCa"} target="" rel="follow"
+//                 href="#">
+//                 <div className="sc-jSgupP LinkGrid-sc-alrobz cLYoMh bzycIR" data-e2e-grid="">
+//                     <div className="sc-eCssSg ImageGridItem-sc-8zjm1w gZpLoH gveRBE" data-e2e-grid-item="">
+//                         <img src={o.img} alt="" className="QuickFilterImage-sc-xqp548 bbSFQP img-fluid" />
+//                     </div>
+//                     <div className="sc-eCssSg LabelGridItem-sc-13zqrcu eZyFyz hSjabX" data-e2e-grid-item="">{t(`${o.name}`)}</div>
+//                 </div>
+//             </a>
+//         </div >));
+
+//     return displayIfPresent(context, () =>
+//         <div data-component="QuickFilters" className="LinkContainer-sc-1rg2eld hVkHVd">{options}</div>);
+// }
+

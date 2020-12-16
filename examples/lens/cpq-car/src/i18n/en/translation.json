@@ -1,0 +1,18 @@
+{
+    "filter": {
+        "make": "Make",
+        "model": "Model",
+        "upholstery": "Upholstery",
+        "externalPaint": "External Paint",
+        "leasePeriod": "Lease Period",
+        "electric": "Electric",
+        "suv": "SUV",
+        "automatic": "Automatic",
+        "family": "Family",
+        "petrol": "Petrol",
+        "premium": "Premium",
+        "bodyType": "Body Type",
+        "transmission": "Transmission",
+        "fuelType": "Fuel Type"
+    }
+}

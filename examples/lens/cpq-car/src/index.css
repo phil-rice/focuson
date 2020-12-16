@@ -17,12 +17,16 @@ code {
   min-height: 300px;  
 }
 
-.main {
+/* .main {
   padding: 30px;
+} */
+
+.cpq {
+    padding: 15px;    
 }
 
 .nav {
-  padding: 1rem;
+  /* padding: 1rem; */
   /* flex-direction: column; */
   background-color: #343a40!important;
   /* float: left; */
@@ -54,11 +58,11 @@ code {
   padding:0 30px;
 }
 
-.simpleFilter {
+.simple-filter {
   margin: 10px;
-  padding: 10px;
+  padding: 5px;
   background-color: lightgoldenrodyellow;
-  border-radius: 20px;
+  border-radius: 5px;
   font-size: small;
 }
 
@@ -383,4 +387,14 @@ a[data-tag-id] *, button[data-tag-id] * {
     position: absolute;
     bottom: 2px;
     right: 2px;
+}
+
+.simple-filter-active {
+    background-color: black;
+    color: white;
+}
+
+.link-active {
+    background: darkred;
+    color: white;
 }

@@ -5,36 +5,6 @@
     }
   },
   "price": "N/A ",
-  "category": {
-    "filterName": "filter.category",
-    "selected": null,
-    "options": [
-      {
-        "name": "Electric",
-        "img": "images/category/Electric.png"
-      },
-      {
-        "name": "SUV",
-        "img": "images/category/SUV.png"
-      },
-      {
-        "name": "Automatic",
-        "img": "images/category/Automatic.png"
-      },
-      {
-        "name": "Family",
-        "img": "images/category/Family.png"
-      },
-      {
-        "name": "Petrol",
-        "img": "images/category/Petrol.png"
-      },
-      {
-        "name": "Premium",
-        "img": "images/category/Premium.png"
-      }
-    ]
-  },
   "make": {
     "filterName": "filter.make",
     "selected": "Tesla",
@@ -82,6 +52,131 @@
       "24m",
       "36m",
       "48m"
+    ]
+  },
+  "transmission": {
+    "filterName": "filter.transmission",
+    "selected": null,
+    "options": [
+      {
+        "name": "Automatic",
+        "img": "images/category/Automatic.png"
+      },
+      {
+        "name": "Manual",
+        "img": "images/category/Manual.png"
+      }
+    ]
+  },
+  "fuelType": {
+    "filterName": "filter.fuelType",
+    "selected": null,
+    "options": [
+      {
+        "name": "Petrol",
+        "img": "images/category/Petrol.png"
+      },
+      {
+        "name": "Diesel",
+        "img": "images/category/Diesel.png"
+      },
+      {
+        "name": "Electric",
+        "img": "images/category/Electric.png"
+      }
+    ]
+  },
+  "bodyType": {
+    "filterName": "filter.bodyType",
+    "selected": null,
+    "options": [
+      {
+        "name": "Premium",
+        "img": "images/category/Premium.png"
+      },
+      {
+        "name": "SUV",
+        "img": "images/category/SUV.png"
+      },
+      {
+        "name": "Family",
+        "img": "images/category/Family.png"
+      }
+    ]
+  },
+  "result": {
+    "count": 10,
+    "vehicles": [
+      {
+        "propositions": 11,
+        "name": "Audi A1 Hatchback",
+        "img": "images/vehicles/AUDI-A1-HATCHBACK.jfif",
+        "fuel": "Petrol",
+        "transmissionType": "Manual",
+        "fuelConsumption": "4.5 l/100km",
+        "bodyType": "HATCHBACK",
+        "co2Emission": "104 g/km",
+        "enginePower": "110 ch",
+        "price": "754",
+        "currency": "EUR",
+        "term": "60"
+      },
+      {
+        "propositions": 23,
+        "name": "AUDI A4 WAGON",
+        "img": "images/vehicles/AUDI-A4-WAGON.jfif",
+        "Fuel": "Petrol",
+        "Transmission type": "Automatic",
+        "Fuel consumption": "4.5 l/100km",
+        "Body type": "HATCHBACK",
+        "CO2 Emission": "104 g/km",
+        "Engine power": "110 ch",
+        "price": "324",
+        "currency": "EUR",
+        "term": "60"
+      },
+      {
+        "propositions": 45,
+        "name": "AUDI A5 SEDAN",
+        "img": "images/vehicles/AUDI-A5-CONVERTIBLE.jfif",
+        "Fuel": "Petrol",
+        "Transmission type": "Automatic",
+        "Fuel consumption": "4.5 l/100km",
+        "Body type": "HATCHBACK",
+        "CO2 Emission": "104 g/km",
+        "Engine power": "110 ch",
+        "price": "633",
+        "currency": "EUR",
+        "term": "60"
+      },
+      {
+        "propositions": 43,
+        "name": "AUDI A5 COUPE",
+        "img": "images/vehicles/AUDI-A5-COUPE.jfif",
+        "Fuel": "Petrol",
+        "Transmission type": "Automatic",
+        "Fuel consumption": "4.5 l/100km",
+        "Body type": "HATCHBACK",
+        "CO2 Emission": "104 g/km",
+        "Engine power": "110 ch",
+        "price": "304",
+        "currency": "EUR",
+        "term": "60"
+      },
+      {
+        "propositions": 23,
+        "name": "AUDI A6 SEDAN",
+        "img": "images/vehicles/AUDI-A6-SEDAN.jfif",
+        "Fuel": "Petrol",
+        "Transmission type": "Automatic",
+        "Fuel consumption": "4.5 l/100km",
+        "Body type": "HATCHBACK",
+        "CO2 Emission": "104 g/km",
+        "Engine power": "110 ch",
+        "price": "454",
+        "currency": "EUR",
+        "term": "60"
+      }
     ]
   }
 }
