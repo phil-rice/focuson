@@ -55,7 +55,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "types": "index",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "template": "react",
   "details": {
     "publish": true,
