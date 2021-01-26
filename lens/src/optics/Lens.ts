@@ -44,6 +44,7 @@ export class Lens<Main, Child> {
     description: string
     get: (m: Main) => Child;
     set: (m: Main, newChild: Child) => Main;
+
     setTo(newChild: Child): (m: Main) => Main {return m => this.set(m, newChild)}
     constructor(get: (m: Main) => Child, set: (m: Main, newChild: Child) => Main, description?: string) {
         this.get = get;

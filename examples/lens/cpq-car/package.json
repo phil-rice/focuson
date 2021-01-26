@@ -51,6 +51,7 @@
   ],
   "license": "MIT",
   "main": "index",
+  "name": "@phil-rice/lens_example_cpq-car",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -68,6 +69,5 @@
     "extraDeps": {},
     "extraDevDeps": {},
     "port": 3010
-  },
-  "name": "@phil-rice/lens_example_cpq-car"
+  }
 }

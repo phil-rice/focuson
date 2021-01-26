@@ -4,11 +4,7 @@
   "make"         : {
     "filterName": "filter.make",
     "selected"  : null,
-    "options"   : [
-      {"name": "Tesla", "_link": {"_self": {"href": ""}}, "img": ""},
-      {"name": "BMW", "_link": {"_self": {"href": ""}}, "img": ""},
-      {"name": "Audi", "_link": {"_self": {"href": ""}}, "img": ""}
-    ]
+    "options": ["Tesla", "BMW", "Audi"]
   },
   "model"        : {
     "filterName": "filter.model",

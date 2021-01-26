@@ -52,6 +52,7 @@
   ],
   "license": "MIT",
   "main": "index",
+  "name": "@phil-rice/codeondemand",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -69,6 +70,5 @@
     ],
     "extraDeps": {},
     "extraDevDeps": {}
-  },
-  "name": "@phil-rice/codeondemand"
+  }
 }

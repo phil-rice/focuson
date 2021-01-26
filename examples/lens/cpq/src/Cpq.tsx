@@ -8,7 +8,7 @@ export interface CpqData {
     externalPaint: PaintSelection,
     leasePeriod: LeasePeriod
 }
-type MakeSelection = ImageFilterData
+type MakeSelection = SimpleFilterData
 type ModelSelection = SimpleFilterData
 type UpholsterySelection = SimpleFilterData
 type PaintSelection = SimpleFilterData
@@ -37,7 +37,7 @@ export function Cpq({context}: CpqProps<CpqData>) {
     return (
         <div className='cpq'>
             <div className='two'>
-                <ImagedDropDownFilter context={context.focusOn('make')}/>
+                <SimpleFilter context={context.focusOn('make')}/>
                 <SimpleFilter context={context.focusOn('model')}/>
                 <SimpleFilter context={context.focusOn('upholstery')}/>
                 <SimpleFilter context={context.focusOn('externalPaint')}/>

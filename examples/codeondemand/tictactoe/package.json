@@ -54,6 +54,7 @@
   ],
   "license": "MIT",
   "main": "index",
+  "name": "@phil-rice/example_codeondemand_tictactoe",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -75,6 +76,5 @@
     "extraDevDeps": {},
     "port": 3005,
     "orgcmd": true
-  },
-  "name": "@phil-rice/example_codeondemand_tictactoe"
+  }
 }

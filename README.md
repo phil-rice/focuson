@@ -2,8 +2,16 @@
 
 [Read this to understand what is happening](https://docs.google.com/presentation/d/e/2PACX-1vRvIfvQHiMw10X9bAek_hK1eE6WDqP8V4X85fJ8gT4RaQU9mPh9yu9j0bRpLnfKEptqwpLqowGy43vK/pub?start=false&loop=false&delayms=3000)
 
+# Downloading
 
-# Developing locally
+These are npm packages. They can be accessed from
+* @phil-rice/lens
+     * This is the core `state management using optics` package. 
+* @phil-rice/codeondemand
+     * This is an R&D 'how do we handle change/experimentation/etc' in code
+
+# Examples
+There are a number of examples in the `examples` folder.
 
 # Packages
 
@@ -91,7 +99,7 @@ There are three 'parts' in this.
 * A project directory is one that has the file 'project.details.json' in it
 * project.details.json has a field 'template' which tells us which is the template to use (it jolds the simple name of the template)
    * The details in this file will be used to change package json
-   * any 'dependancies', 'devDependancies' and 'keywords' will be added
+   * any 'dependencies', 'devDependancies' and 'keywords' will be added
    * The 'generation' covers what order it will be executed in compared to other projects
    * The links is used to add symbolic links (see `setupNpmLinks.sh`)
    * the publish is used to control whether the project is published to npmjs

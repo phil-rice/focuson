@@ -47,6 +47,7 @@
   ],
   "license": "MIT",
   "main": "index",
+  "name": "@phil-rice/nav",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -61,6 +62,5 @@
     "links": [],
     "extraDeps": {},
     "extraDevDeps": {}
-  },
-  "name": "@phil-rice/nav"
+  }
 }

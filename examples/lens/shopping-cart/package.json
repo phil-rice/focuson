@@ -48,6 +48,7 @@
   ],
   "license": "MIT",
   "main": "index",
+  "name": "@phil-rice/lens_example_cart",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -64,6 +65,5 @@
     "extraDeps": {},
     "extraDevDeps": {},
     "port": 3008
-  },
-  "name": "@phil-rice/lens_example_cart"
+  }
 }

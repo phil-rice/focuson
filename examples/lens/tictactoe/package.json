@@ -48,6 +48,7 @@
   ],
   "license": "MIT",
   "main": "index",
+  "name": "@phil-rice/tic_tac_toe_lensexample",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -66,6 +67,5 @@
       "@phil-rice/lens"
     ],
     "port": 3004
-  },
-  "name": "@phil-rice/tic_tac_toe_lensexample"
+  }
 }
