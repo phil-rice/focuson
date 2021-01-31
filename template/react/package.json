@@ -34,10 +34,11 @@
     "ts-jest"                           : "^26.4.4"
   },
   "files"          : [
+    "LICENSE.md",
     "README.md",
-    "index.js",
-    "index.d.ts",
-    "src/"
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/src/"
   ],
   "keywords"       : [
     "functionalprogramming",
@@ -46,7 +47,8 @@
     "optics"
   ],
   "license"        : "MIT",
-  "main"           : "index",
+  "main"           : "dist/index",
+  "types"          : "dist/index",
   "name"           : "@phil-rice/codeondemand",
   "repository"     : "git@github.com:phil-rice/ts-lens.git",
   "scripts"        : {

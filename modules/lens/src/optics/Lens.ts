@@ -1,4 +1,5 @@
 import {checkIsFunction, Tuple} from "../utils";
+import {LensContext} from "./LensContext";
 
 export type Getter<Main, Child> = (main: Main) => Child
 export type Setter<Main, Child> = (main: Main, child: Child) => Main
@@ -85,7 +86,7 @@ export class Lens<Main, Child> {
 
     withDescription(description: string) {return new Lens(this.get, this.set, description) }
     static build<Main>(description: string) {return Lens.identity<Main>().withDescription(description)}
-
-
 }
+
+export let focusOnNth = <Domain, Main, T>(context: LensContext<Domain, Main, T[]>, n: number) => context.withChildLens(Lens.nth(n));
 

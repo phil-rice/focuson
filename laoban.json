@@ -42,7 +42,7 @@
     "install"   : {
       "description"    : "does the initial updateConfigFilesFromTemplates/install/link/tsc/test... etc in each project",
       "commands"       : [
-        "laoban updateConfigFilesFromTemplates",
+        "laoban update",
         {"name": "install", "command": "${packageManager} install", "status": true},
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
         {"name": "link", "command": "${packageManager} link", "status": true, "directory": "dist"},
@@ -82,10 +82,7 @@
       "guardReason" : "the find and copy commands used only work on window",
       "commands"    : [
         {"name": "tsc", "command": "tsc --noEmit false --outDir dist", "status": true},
-        "find dist -type f -name 'enzymeAdapterSetup.*' -delete",
-        "cp package.json dist",
-        "cp README.* dist",
-        {"name": "pack", "command": "${packageManager} pack", "status": true, "directory": "dist"}
+        {"name": "pack", "command": "${packageManager} pack", "status": true}
       ],
       "inLinksOrder": true
     },

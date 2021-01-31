@@ -2,6 +2,20 @@
 
 [Read this to understand what is happening](https://docs.google.com/presentation/d/e/2PACX-1vRvIfvQHiMw10X9bAek_hK1eE6WDqP8V4X85fJ8gT4RaQU9mPh9yu9j0bRpLnfKEptqwpLqowGy43vK/pub?start=false&loop=false&delayms=3000)
 
+# There are two separate 'ideas' in this code base
+
+* @phil-rice/lens: a mechanism that handles 'state' in react. It is a 'replacement for redux'. Much simpler and easier to use in most cases, but if you genuinely need CQRS (and you probably don't even if you think you do) then Redux may be better
+* @phil-rice/codeondemand: A mechanism for allowing actual Rest (instead of 'RPC using json with swagger over http')   with react guis
+
+# Getting started
+
+You don't need to download this code base: that's only needed if you want to contribute to the project.
+
+
+
+
+
+
 # Downloading
 
 These are npm packages. They can be accessed from

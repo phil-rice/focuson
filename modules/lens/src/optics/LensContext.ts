@@ -1,6 +1,5 @@
 import {Tuple} from "../utils";
 import {Lens} from "./Lens";
-import {ItemsAndIndex} from "./ItemAndIndex";
 
 
 export interface LensProps<Domain, Main, T> {context: LensContext<Domain, Main, T>}
@@ -85,6 +84,5 @@ export class LensContext<Domain, Main, T> {
             (m: NewMain) => this.dangerouslySetMain(lens.set(this.main, m)),
             Lens.identity())
     }
-
 }
 

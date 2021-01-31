@@ -48,9 +48,10 @@ describe("Tictactoe", () => {
     describe("board", () => {
         it("should render", () => {
             const board = shallow(<Board context={context.focusOn('board')}/>)
-            let componentServers = board.find('Square');
-            expect(componentServers).toHaveLength(9)
-            componentServers.forEach((square, i) => compare(square, context, `game/board/squares/[${i}]`))
+            let componentSquares = board.find('Square');
+            expect(componentSquares).toHaveLength(9)
+            componentSquares.forEach((square, i) =>
+                compare(square, context, `game/board/squares/[${i}]`))
         })
     })
     describe("square", () => {

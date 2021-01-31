@@ -34,10 +34,11 @@
     "ts-jest": "^26.4.4"
   },
   "files": [
+    "LICENSE.md",
     "README.md",
-    "index.js",
-    "index.d.ts",
-    "src/"
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/src/"
   ],
   "keywords": [
     "functionalprogramming",
@@ -46,7 +47,8 @@
     "optics"
   ],
   "license": "MIT",
-  "main": "index",
+  "main": "dist/index",
+  "types": "index",
   "name": "@phil-rice/nav",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
@@ -54,8 +56,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "types": "index",
-  "version": "0.1.25",
+  "version": "0.1.27",
   "template": "react",
   "details": {
     "publish": true,

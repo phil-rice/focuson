@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom';
 
-import {getElement, LensContext, LensProps} from "@phil-rice/lens";
+import {getElement, LensContext} from "@phil-rice/lens";
 import {CounterData, CounterDomain, TwoCounterData} from "./domain";
 import {Counter, TwoCounter} from "./Counter";
 

@@ -16,8 +16,8 @@
     "react-dom": "^17.0.1",
     "typescript": "^4.1.2",
     "crypto-js": "^4.0.0",
-    "@phil-rice/lens": "0.1.25",
-    "@phil-rice/nav": "0.1.25"
+    "@phil-rice/lens": "0.1.27",
+    "@phil-rice/nav": "0.1.27"
   },
   "description": "This is a project that allows code to be (safely) fetched on demand from a server. The url holding the code is including in the json",
   "devDependencies": {
@@ -39,10 +39,11 @@
     "ts-jest": "^26.4.4"
   },
   "files": [
+    "LICENSE.md",
     "README.md",
-    "index.js",
-    "index.d.ts",
-    "src/"
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/src/"
   ],
   "keywords": [
     "functionalprogramming",
@@ -51,7 +52,8 @@
     "optics"
   ],
   "license": "MIT",
-  "main": "index",
+  "main": "dist/index",
+  "types": "index",
   "name": "@phil-rice/codeondemand",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
@@ -59,8 +61,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "types": "index",
-  "version": "0.1.25",
+  "version": "0.1.27",
   "template": "codeondemand",
   "details": {
     "publish": true,
