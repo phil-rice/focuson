@@ -21,7 +21,7 @@ steps:
 
 
   - script: |
-      cd lens
+      cd modules/lens
       npm install
       tsc
       npm test
@@ -29,7 +29,7 @@ steps:
     condition: succeededOrFailed()
 
   - script: |
-      cd codeondemand
+      cd modules/codeondemand
       npm install
       tsc
       npm test
@@ -37,7 +37,7 @@ steps:
     condition: succeededOrFailed()
 
   - script: |
-      cd nav
+      cd modules/nav
       npm install
       tsc
       npm test
@@ -45,7 +45,7 @@ steps:
     condition: succeededOrFailed()
 
   - script: |
-      cd nonfunctionals
+      cd modules/nonfunctionals
       npm install
       tsc
       npm test
