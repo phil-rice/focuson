@@ -15,7 +15,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "typescript": "^4.1.2",
-    "@phil-rice/lens": "0.1.27"
+    "@phil-rice/lens": "0.1.28"
   },
   "description": "Demonstrating how lens can simplify state management in React",
   "devDependencies": {
@@ -57,7 +57,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.1.27",
+  "version": "0.1.28",
   "template": "react",
   "details": {
     "extraDeps": {

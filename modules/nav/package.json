@@ -56,7 +56,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.1.27",
+  "version": "0.1.28",
   "template": "react",
   "details": {
     "publish": true,
