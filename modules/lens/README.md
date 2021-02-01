@@ -8,18 +8,40 @@ The pieces in redux are not easy to change or reuse. This project you are lookin
 redux projects. By utilising a functional programming technique known as optics, and more specifically lens, much of the
 complexity of redux vanishes.
 
-One of things I don't like about redux is that actions can do 'anything'. It is very hard to combine actions together.
-Lens change that model: we have the idea that a lens is focused on a bit of the state. With this state management,
-components display a subset of the json
-(just like in redux), and components can normally change just that bit of the json (unlike redux where there is no such
-protection).
+One of things I don't like about redux is that actions can do 'anything'. A second is that it is very hard to combine actions together: they
+are designed as 'atomic standalone components' rather than as 'composible unit'. Lens allow us 
+* A much simpler and easier to read model of state management
+* Composibility so it is as easy to plug the state management together as it is to plug the components together
+* Much stronger protection about what the equivalent of actions can and cannot do
+
+We have the idea that a lens is focused on a bit of the state. With this state management,components display a subset of the json
+  (just like in redux), and components can normally change just that bit of the json (unlike redux where there is no such
+  protection).
+
 
 # When should I use this project
 
 This project isn't suitable for everything. It works best when the rendering and editing of a bit piece of state is
 split across multiple components. If there are many components that change many parts of state simultaneously then
 perhaps redux is better suited. If instead your display is split up with a 'editor component' that displays part of the
-state and lets you change that part of the state, then this project
+state and lets you change that part of the state, then this project is the clear winner
+
+# Theoretical musings about quality
+
+For me quality is about four things. I've included what is for me the reason I care about each thing. These qualities 
+are all about 'how easy is it to change my software' and 'how easy is it to test my software'
+
+* Composability (how easy can I 'plug these things together'?)
+* Decoupling (how many lines of code are impacted when I make a change?)
+* Cohesion (how many windows do I have to open to see one aspect of the code?)
+* Readability of the result (Can I come back in six months and still understand it?)
+
+In all but decoupling I feel this state management is a clear improvement over redux.When it comes to decoupling
+my experience in the projects I have looked at, this lens approach is usually better as most redux actions become bound
+to the structure. However there are projects I can visualise where redux would be more decoupled (especially if the
+redux actions actually used lens)
+
+Certainly the ability to test the code is (in my experience) far easier than with redux.
 
 # Presentation
 
