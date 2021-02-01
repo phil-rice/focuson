@@ -1,15 +1,66 @@
-This is a simple implementation of lens.
+# What is this project?
 
-# Articles about lens 
-* https://medium.com/javascript-inside/an-introduction-into-lenses-in-javascript-e494948d1ea5
+While react is a great project, react state management leaves much to be desired. Most comparisons of frameworks such as
+angular and react will list the issue that state management in react is difficult.
 
-# A presentation (in a different language)
-https://docs.google.com/presentation/d/1bahDdJQS3bP9HxDJTJ2YjRT30FRUL4n9mfvcUSm3X8g/edit#slide=id.p
+Redux is one of the obvious candidates for state management, but it is difficult to use and full of boilerplate code.
+The pieces in redux are not easy to change or reuse. This project you are looking at now arose out of a refactoring of
+redux projects. By utilising a functional programming technique known as optics, and more specifically lens, much of the
+complexity of redux vanishes.
 
-# Example
-(The types Msg can be found in 'LensDemo.ts)
+One of things I don't like about redux is that actions can do 'anything'. It is very hard to combine actions together.
+Lens change that model: we have the idea that a lens is focused on a bit of the state. With this state management,
+components display a subset of the json
+(just like in redux), and components can normally change just that bit of the json (unlike redux where there is no such
+protection).
+
+# When should I use this project
+
+This project isn't suitable for everything. It works best when the rendering and editing of a bit piece of state is
+split across multiple components. If there are many components that change many parts of state simultaneously then
+perhaps redux is better suited. If instead your display is split up with a 'editor component' that displays part of the
+state and lets you change that part of the state, then this project
+
+# Presentation
+
+[This presentation details how the react lens works](https://docs.google.com/presentation/d/e/2PACX-1vRvIfvQHiMw10X9bAek_hK1eE6WDqP8V4X85fJ8gT4RaQU9mPh9yu9j0bRpLnfKEptqwpLqowGy43vK/pub?start=false&loop=false&delayms=3000)
+
+# Getting started
+
+* [Getting started with a simple counter example](tutorial/counter)
+* [A more complicated example](tutorial/tictactoe)
+
+# Examples
+
+There are a number of examples in the `examples` folder.
+
+# Downloading
+
+These are npm packages. They can be accessed by
+ ```shell
+npm install @phil-rice/lens` This is the core `state management using optics` package.
 ```
-let json: Msg = {
+
+## lens
+
+See https://medium.com/@gcanti/introduction-to-optics-lenses-and-prisms-3230e73bfcfe
+
+A lens allows us to 'focus in' on a small part of a big data structure. Without these lens we have to write a lot of '
+copy code' manually. Javascript/typescript has very few built in tools for manipulating and working with immutable
+objects, and as a consequence you will here people saying `don't have deep data structures`. Lens allow us to decouple
+our code from the data structure, and allow us not to care about how deep the data is
+
+### What is a lens
+
+A lens is simply two functions. A lens that 'goes from' a `Main` to a `Child` would have signature `Lens<Main,Child`.
+The two functions have signatures `(m: Main) => Child` and `(m: Main, newChild: Child) => Main`. The first allows us to
+find the child and the second allows us to 'set' it (using the usual immutable definition of set which is 'a copy with
+this value replaced')
+
+### What does the Lens interface look like
+
+```typescript
+let json: Msg = { // Msg can be found in LensDemo.ts
     order: {
         cup: {
             size: "small",       // medium large
@@ -22,9 +73,16 @@ let json: Msg = {
         shots: 1
     }
 }
+let msgToMadeOfLens = Lens.build<Msg>('msg').then('order').then('cup').then('madeOf')
+msgToMadeOfLens.set(json, 'soy')
 ```
 
-If we are using immutable objects and we want to have a method 'setCupSize' it might look like this
+Note that the parameters to `then` are typesafe (as long as Msg is defined without wildcards). We have IDE code insight
+working with them, and we have compile errors if illegal values give compilation errors.
+
+Also note that the parameters to 'build' is just to improve the readability.
+
+Let's compare that to the code without lens
 
 ```
 function setCupSize(json: Msg, size: Cupsize): Msg {
@@ -39,23 +97,104 @@ function setCupSize(json: Msg, size: Cupsize): Msg {
     })
 }
 ```
-And it gets worse: the more nexted the worse, and if there are arrays involved... it can get error prone and messy
 
-Let's compare this code to
+And it gets worse: the more nested the worse, and if there are arrays involved this code often gets error prone and
+messy.
+
+### What is cool about Lens
+
+They are composable and simple. Given a `Lens<Main,Child>` and `Lens<Child,GrandChild>` we can create a lens from `Main`
+to `GrandChild`.
+
+```typescript
+let msgToCupLens = Lens.build<Msg>('msg').then('order').then('cup')
+let cupToMadeofLens = Lens.build<Cup>('cup').then('madeOf')
+let msgToMadeOfLens = msgToCupLens.andThen(cupToMadeofLens)
 ```
-let msgToMadeOfLens = Lens.build<Msg>().then('order').then('cup').then('madeOf')
-let setCupMadeOf = msgToMadeOfLens.set
-```
+
+### Change and lens
+
+It is common for us to want to change the structure of our data. Without lens the impact can be very high: both in the
+code and in the tests. With lens we can isolate the changes from the business logic, which means that typically we only
+have to make very few changes when we makes changes to the structure. Without lens if we aren't extremely careful (which
+may require us to program in a way that isn't idiomatic javascript/typescript)
+we couple all the business logic to the structure.
+
+If you want to play with the difference and experience it for yourself the  `dragon` example project is a great place to
+try that. It has a deeper structure than than the coffee example and has many tests. You can do things like 'remove the
+body structure' and see that the impact using lens is a few lines of code, whereas for the 'without lens' code, the
+impact is around half the entire code base. This is because lens give us the ability to decouple, and decoupling
+supports and empowers change.
+
+## examples/lens/...
+
+There are a few projects that demonstrate the use of the lens code.
+
+* The dragon example is particularly good for demonstrating how lens remove boilerplate code
+* The counter example is a good example of how easy it is to reuse these components
+    * As an exercise you could try taking the standard redux
+      counter https://github.com/reduxjs/redux/tree/master/examples/counter/src and try and have two on them on the
+      screen
+    * Note that it was trivially easy in the lens example, because the power of lens is that they make this kind of
+      reuse trivially easy
+    * Try and do it with redux without rewriting totally the dispatcher/render code... bascially react supports reuse
+      and redux doesn't.
+
+# Articles about lens
+
+* Lens in Javascript: https://medium.com/javascript-inside/an-introduction-into-lenses-in-javascript-e494948d1ea5
+* Lens in scala:  https://docs.google.com/presentation/d/1bahDdJQS3bP9HxDJTJ2YjRT30FRUL4n9mfvcUSm3X8g/edit#slide=id.p
 
 # Lens context
 
-There are many uses cases (like a gui) where there is a 'main json message' and different components
-are responsible for different parts.
+There are many uses cases (like a react gui) where there is a 'main json' and different components are responsible for
+different parts.
 
 The lens context holds
-* Domain... something to simplify message signatures (at the cost of the types signature... but use type aliases to hide this)
+
+* Domain... something to simplify message signatures (at the cost of the types signature... but use type aliases to hide
+  this)
 * Main... the main json
 * Lens... a lens to the bit of json we are interested
-* a method called whenever the main has been changed. This is used in guis (for example) to rerender the screen
-There are helper methods to make more contexts
+* a method called whenever the main has been changed. This is used in guis (for example) to rerender the screen There
+  are helper methods to make more contexts
 
+We use this extensively in our react state management. The most used methods/fields on the context are
+
+* `json()` returns the json that the context is focused on
+* `setJson(j)` Uses the lens to make a new 'main json'. Precisely what else happens is determined at the time the
+  context is created. In the react statemanagement this causes a clean re-render
+* `domain`. Gives access to the json
+* `focusOn(fieldName)` Returns a new context with a lens focused on the field name
+
+The following shows how focusOn is used to create a context suitable for child components, and how we use `.json()` to
+access the component's json
+```typescript jsx
+export function SimpleGame<Main>({context}: GameProps<Main,GameData>) {
+    return (
+        <div className='game'>
+            <NextMove context={context.focusOn('next')}/>
+            <Board context={context.focusOn('board')}/>
+        </div>)
+}
+
+export function NextMove<Main>({context}: GameProps<Main,NoughtOrCross>) {
+    return (<div> Next Move{context.json()}</div>)
+}
+```
+
+This example shows how we can use the setJson method. Note that if we wanted to we could inject the increment and decrement methods, 
+but in this example I think the code is much cleaner without. 
+
+```typescript jsx
+export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterData>) {
+    let value = context.json().value
+    let increment = () => context.setJson({value: value + 1})
+    let decrement = () => context.setJson({value: value - 1})
+    return (<p>Clicked: {value} times
+            {' '}<button onClick={increment}>+</button>
+            {' '}<button onClick={decrement}>-</button></p>)
+}
+
+
+```

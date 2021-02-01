@@ -1,4 +1,8 @@
-Examining how to get React to do 'code on demand'
+# Warning: this is still R&D
+
+The ideas here are still under development.
+
+# Examining how to get React to do 'code on demand'
 
 The idea is that parts of the json can have a `_render` field. This contains
 information on how to render that part of the json.
@@ -105,11 +109,11 @@ Among other things it makes the shas for the domain files, to allow safe executi
 So that I can demonstrate them to people using the github gui
 
 ## Why is it safe to use `Function`
-It is only safe to use function if you know exactly what is being evaled and are confident there has been no code injection.
+It is only safe to use function if you know exactly what is being evaluateded and are confident there has been no code injection.
 
 In this case we are using https://en.wikipedia.org/wiki/Content-addressable_storage. 
-* The strings that are being evaled have been pulled from a url that includes their sha. 
+* The strings that are being evaluateded have been pulled from a url that includes their sha. 
 * The sha is checked against the string
 * This means we know that the string has not been messed with
-* We `Function` it
+* `Function` it
 
