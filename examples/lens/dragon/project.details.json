@@ -5,7 +5,6 @@
   "details": {
     "links": ["@phil-rice/lens"],
     "extraDeps"   : {},
-    "extraDevDeps": {},
-    "port": 3003
+    "extraDevDeps": {}
   }
 }

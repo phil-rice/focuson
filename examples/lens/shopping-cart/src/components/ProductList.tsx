@@ -2,7 +2,7 @@
 import React from "react";
 import {BasicProductData, ShoppingCartContext} from "../domain";
 import {Lens} from "@phil-rice/lens";
-import {ItemsAndIndex} from "@phil-rice/lens/src/optics/ItemAndIndex";
+import {ItemsAndIndex} from "@phil-rice/lens";
 
 export function contextForOneProduct(context: ShoppingCartContext<BasicProductData[]>, i: number) {
     let result = ItemsAndIndex.makeContext(context, i);

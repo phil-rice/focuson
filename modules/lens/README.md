@@ -1,7 +1,19 @@
+# Getting started
+
+* [Getting started with a simple counter example](https://github.com/phil-rice/ts-lens-react/tree/master/tutorial/counter)
+* [A more complicated example](https://github.com/phil-rice/ts-lens-react/blob/master/tutorial/tictactoe)
+
+# Downloading
+
+You can install this project by
+ ```shell
+npm install @phil-rice/lens
+```
+
 # What is this project?
 
 While react is a great project, react state management leaves much to be desired. Most comparisons of frameworks such as
-angular and react will list the issue that state management in react is difficult.
+angular and react will list the issue that 'state management in react is difficult'.
 
 Redux is one of the obvious candidates for state management, but it is difficult to use and full of boilerplate code.
 The pieces in redux are not easy to change or reuse. This project you are looking at now arose out of a refactoring of
@@ -9,9 +21,9 @@ redux projects. By utilising a functional programming technique known as optics,
 complexity of redux vanishes.
 
 One of things I don't like about redux is that actions can do 'anything'. A second is that it is very hard to combine actions together: they
-are designed as 'atomic standalone components' rather than as 'composible unit'. Lens allow us 
+are designed as 'atomic standalone components' rather than as 'composible unit'. The project gives the following benefits: 
 * A much simpler and easier to read model of state management
-* Composibility so it is as easy to plug the state management together as it is to plug the components together
+* Composability so it is as easy to plug the state management together as it is to plug the components together
 * Much stronger protection about what the equivalent of actions can and cannot do
 
 We have the idea that a lens is focused on a bit of the state. With this state management,components display a subset of the json
@@ -26,42 +38,14 @@ split across multiple components. If there are many components that change many 
 perhaps redux is better suited. If instead your display is split up with a 'editor component' that displays part of the
 state and lets you change that part of the state, then this project is the clear winner
 
-# Theoretical musings about quality
-
-For me quality is about four things. I've included what is for me the reason I care about each thing. These qualities 
-are all about 'how easy is it to change my software' and 'how easy is it to test my software'
-
-* Composability (how easy can I 'plug these things together'?)
-* Decoupling (how many lines of code are impacted when I make a change?)
-* Cohesion (how many windows do I have to open to see one aspect of the code?)
-* Readability of the result (Can I come back in six months and still understand it?)
-
-In all but decoupling I feel this state management is a clear improvement over redux.When it comes to decoupling
-my experience in the projects I have looked at, this lens approach is usually better as most redux actions become bound
-to the structure. However there are projects I can visualise where redux would be more decoupled (especially if the
-redux actions actually used lens)
-
-Certainly the ability to test the code is (in my experience) far easier than with redux.
 
 # Presentation
 
 [This presentation details how the react lens works](https://docs.google.com/presentation/d/e/2PACX-1vRvIfvQHiMw10X9bAek_hK1eE6WDqP8V4X85fJ8gT4RaQU9mPh9yu9j0bRpLnfKEptqwpLqowGy43vK/pub?start=false&loop=false&delayms=3000)
 
-# Getting started
-
-* [Getting started with a simple counter example](tutorial/counter)
-* [A more complicated example](tutorial/tictactoe)
-
 # Examples
 
 There are a number of examples in the `examples` folder.
-
-# Downloading
-
-These are npm packages. They can be accessed by
- ```shell
-npm install @phil-rice/lens` This is the core `state management using optics` package.
-```
 
 ## lens
 
@@ -69,17 +53,17 @@ See https://medium.com/@gcanti/introduction-to-optics-lenses-and-prisms-3230e73b
 
 A lens allows us to 'focus in' on a small part of a big data structure. Without these lens we have to write a lot of '
 copy code' manually. Javascript/typescript has very few built in tools for manipulating and working with immutable
-objects, and as a consequence you will here people saying `don't have deep data structures`. Lens allow us to decouple
+objects, and as a consequence you will hear people saying `don't have deep data structures`. Lens allow us to decouple
 our code from the data structure, and allow us not to care about how deep the data is
 
 ### What is a lens
 
-A lens is simply two functions. A lens that 'goes from' a `Main` to a `Child` would have signature `Lens<Main,Child`.
+A lens is simply two functions. A lens that 'goes from' a `Main` to a `Child` would have signature `Lens<Main,Child>`.
 The two functions have signatures `(m: Main) => Child` and `(m: Main, newChild: Child) => Main`. The first allows us to
 find the child and the second allows us to 'set' it (using the usual immutable definition of set which is 'a copy with
 this value replaced')
 
-### What does the Lens interface look like
+### How do I use the lens code
 
 ```typescript
 let json: Msg = { // Msg can be found in LensDemo.ts
@@ -99,10 +83,10 @@ let msgToMadeOfLens = Lens.build<Msg>('msg').then('order').then('cup').then('mad
 msgToMadeOfLens.set(json, 'soy')
 ```
 
-Note that the parameters to `then` are typesafe (as long as Msg is defined without wildcards). We have IDE code insight
-working with them, and we have compile errors if illegal values give compilation errors.
+xNote that the parameters to `then` are typesafe (as long as Msg is defined without wildcards). We have IDE code insight
+working with them, and we have the compiler checking that the values we use are legal.
 
-Also note that the parameters to 'build' is just to improve the readability.
+Also note that the parameter to 'build' (`Lens.build<Msg>('msg')`)  is just to improve the readability of some error messages and testing
 
 Let's compare that to the code without lens
 
@@ -170,18 +154,16 @@ There are a few projects that demonstrate the use of the lens code.
 # Lens context
 
 There are many uses cases (like a react gui) where there is a 'main json' and different components are responsible for
-different parts.
+different parts. `LensContext` represents this. Internally it has the following
 
-The lens context holds
-
-* Domain... something to simplify message signatures (at the cost of the types signature... but use type aliases to hide
+* `domain`... something to simplify message signatures (at the cost of the types signature... but we can use type aliases to hide
   this)
-* Main... the main json
-* Lens... a lens to the bit of json we are interested
-* a method called whenever the main has been changed. This is used in guis (for example) to rerender the screen There
-  are helper methods to make more contexts
+* `main`... the main json
+* `lens` ... a lens to the bit of json we are interested
+* `dangerouslySetMain` This should not be directly called. It sets the state in the react application. Normally it is 
+  called by methods that provide cleaner access.
 
-We use this extensively in our react state management. The most used methods/fields on the context are
+We use `LensContext` extensively in our react state management. The most used methods/fields on the context are
 
 * `json()` returns the json that the context is focused on
 * `setJson(j)` Uses the lens to make a new 'main json'. Precisely what else happens is determined at the time the
@@ -206,7 +188,7 @@ export function NextMove<Main>({context}: GameProps<Main,NoughtOrCross>) {
 ```
 
 This example shows how we can use the setJson method. Note that if we wanted to we could inject the increment and decrement methods, 
-but in this example I think the code is much cleaner without. 
+but in this example I think the code is much cleaner as it is. 
 
 ```typescript jsx
 export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterData>) {
@@ -220,3 +202,20 @@ export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterD
 
 
 ```
+
+# Theoretical musings about quality
+
+For me quality is about four things. I've included what is for me the reason I care about each thing. These qualities
+are all about 'how easy is it to change my software' and 'how easy is it to test my software'
+
+* Composability (how easy can I 'plug these things together'?)
+* Decoupling (how many lines of code are impacted when I make a change?)
+* Cohesion (how many windows do I have to open to see one aspect of the code?)
+* Readability of the result (Can I come back in six months and still understand it?)
+
+In all but decoupling I feel this state management is a clear improvement over redux.When it comes to decoupling
+my experience in the projects I have looked at, this lens approach is usually better as most redux actions become bound
+to the structure. However there are projects I can visualise where redux would be more decoupled (especially if the
+redux actions actually used lens)
+
+Certainly the ability to test the code is (in my experience) far easier than with redux.

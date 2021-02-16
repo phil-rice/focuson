@@ -14,11 +14,11 @@
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "typescript": "^4.1.2",
+    "typescript": "^4.1.5",
     "crypto-js": "^4.0.0",
-    "@phil-rice/lens": "0.1.28",
-    "@phil-rice/nav": "0.1.28",
-    "@phil-rice/codeondemand": "0.1.28"
+    "@phil-rice/lens": "0.1.34",
+    "@phil-rice/nav": "0.1.34",
+    "@phil-rice/codeondemand": "0.1.34"
   },
   "description": "Demonstrating the code on demand approach for configure price quotation",
   "devDependencies": {
@@ -62,7 +62,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.1.28",
+  "version": "0.1.34",
   "template": "codeondemand",
   "details": {
     "links": [
