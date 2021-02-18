@@ -6,7 +6,7 @@ import {BoardData, GameProps} from "../GameDomain";
 let lensBuilder: Lens<BoardData, BoardData> = Lens.build('board');
 
 export function Board<Main>({context}: GameProps<Main, BoardData>) {
-    const sq = (n: number) => (<ChildFromServer render='square' context={context} lens={lensBuilder.then('squares').andThen(Lens.nth(n))}/>)
+    const sq = (n: number) => (<ChildFromServer render='square' context={context} lens={lensBuilder.focusOn('squares').andThen(Lens.nth(n))}/>)
     return (
         <div>
             <div className="board-row">{sq(0)} {sq(1)} {sq(2)}</div>

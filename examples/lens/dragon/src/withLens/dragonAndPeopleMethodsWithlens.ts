@@ -3,12 +3,12 @@ import {dragon, Dragon, Head, Hitpoint} from "../../index";
 import {Lens} from "@phil-rice/lens";
 
 let dragonL = Lens.build<Dragon>('dragon');
-let dragonBodyL = dragonL.then('body');
-let dragonContentsL: Lens<Dragon, any[]> = dragonBodyL.then('chest').then('stomach').then('contents')
-let dragonLeftWingHpL: Lens<Dragon, Hitpoint> = dragonBodyL.then('leftWing').then('hitpoints')
-let dragonRightWingHpL: Lens<Dragon, Hitpoint> = dragonBodyL.then('rightWing').then('hitpoints')
-let dragonHeadHpL: Lens<Dragon, Hitpoint> = dragonL.then('head').then('hitpoints')
-let dragonHChestHpL: Lens<Dragon, Hitpoint> = dragonBodyL.then('chest').then('hitpoints')
+let dragonBodyL = dragonL.focusOn('body');
+let dragonContentsL: Lens<Dragon, any[]> = dragonBodyL.focusOn('chest').focusOn('stomach').focusOn('contents')
+let dragonLeftWingHpL: Lens<Dragon, Hitpoint> = dragonBodyL.focusOn('leftWing').focusOn('hitpoints')
+let dragonRightWingHpL: Lens<Dragon, Hitpoint> = dragonBodyL.focusOn('rightWing').focusOn('hitpoints')
+let dragonHeadHpL: Lens<Dragon, Hitpoint> = dragonL.focusOn('head').focusOn('hitpoints')
+let dragonHChestHpL: Lens<Dragon, Hitpoint> = dragonBodyL.focusOn('chest').focusOn('hitpoints')
 
 
 export function eat<Main>(mainToStomachLens: Lens<Main, any[]>, item: any): (d: Main) => Main {return mainToStomachLens.transform(oldContents => [...oldContents, item]);}
@@ -27,8 +27,8 @@ interface Person {
 interface PersonChest {hitpoints: Hitpoint}
 
 let personL = Lens.build<Person>('person')
-let personChestHpL = personL.then('chest').then('hitpoints')
-let personHeadHpL = personL.then('head').then('hitpoints')
+let personChestHpL = personL.focusOn('chest').focusOn('hitpoints')
+let personHeadHpL = personL.focusOn('head').focusOn('hitpoints')
 
 
 

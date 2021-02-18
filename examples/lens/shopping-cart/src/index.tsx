@@ -9,8 +9,8 @@ let domain: ShoppingCartDomain = new ShoppingCartDomain(() => console.log("check
 
 let rootElement = getElement('root')
 
-let getProducts = Lens.build<AppData>('App').then('cart').then('products').get
-let priceLens = Lens.build<AppData>('App').then('cart').then('total')
+let getProducts = Lens.build<AppData>('App').focusOn('cart').focusOn('products').get
+let priceLens = Lens.build<AppData>('App').focusOn('cart').focusOn('total')
 
 
 /** Why does this return a promise? Because many pricing engines/validation etc often require a round trip to a server */

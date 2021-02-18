@@ -39,8 +39,8 @@ describe("Lens", () => {
         expect(letnstoca.description).toEqual('toC/toa')
     })
     describe("'then' should use the field names", () => {
-        let dragonStomachL: Lens<Dragon, Stomach> = Lens.build<Dragon>('dragon').then('body').then('chest').then('stomach')
-        let contentL = dragonStomachL.then('contents')
+        let dragonStomachL: Lens<Dragon, Stomach> = Lens.build<Dragon>('dragon').focusOn('body').focusOn('chest').focusOn('stomach')
+        let contentL = dragonStomachL.focusOn('contents')
         it("allow chained fors", () => {
             expect(dragonStomachL.get(dragon)).toEqual(({contents: ['the adventurer']}))
             expect(contentL.transform(old => [...old, 'moreGoodness'])(dragon)).toEqual(dragon2)

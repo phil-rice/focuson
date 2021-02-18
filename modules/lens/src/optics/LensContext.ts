@@ -42,7 +42,7 @@ export class LensContext<Domain, Main, T> {
     /** If just 'walking down the json' using field names this is great. The parameter 'fieldName' is a 'key' of the current focused place,
      * and this returns a new context focused on the json under the field name */
     focusOn<K extends keyof T>(fieldName: K): LensContext<Domain, Main, T[K]> {
-        return this.withLens(this.lens.then(fieldName))
+        return this.withLens(this.lens.focusOn(fieldName))
     }
 
     /** When we want to focus on something like 'the nth item' then 'withChildLens' is used. This returns a context focused on the block of json under the lens passed in */

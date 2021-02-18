@@ -79,11 +79,11 @@ let json: Msg = { // Msg can be found in LensDemo.ts
         shots: 1
     }
 }
-let msgToMadeOfLens = Lens.build<Msg>('msg').then('order').then('cup').then('madeOf')
+let msgToMadeOfLens = Lens.build<Msg>('msg').focusOn('order').focusOn('cup').focusOn('madeOf')
 msgToMadeOfLens.set(json, 'soy')
 ```
 
-xNote that the parameters to `then` are typesafe (as long as Msg is defined without wildcards). We have IDE code insight
+xNote that the parameters to `focusOn` are typesafe (as long as Msg is defined without wildcards). We have IDE code insight
 working with them, and we have the compiler checking that the values we use are legal.
 
 Also note that the parameter to 'build' (`Lens.build<Msg>('msg')`)  is just to improve the readability of some error messages and testing
@@ -113,8 +113,8 @@ They are composable and simple. Given a `Lens<Main,Child>` and `Lens<Child,Grand
 to `GrandChild`.
 
 ```typescript
-let msgToCupLens = Lens.build<Msg>('msg').then('order').then('cup')
-let cupToMadeofLens = Lens.build<Cup>('cup').then('madeOf')
+let msgToCupLens = Lens.build<Msg>('msg').focusOn('order').focusOn('cup')
+let cupToMadeofLens = Lens.build<Cup>('cup').focusOn('madeOf')
 let msgToMadeOfLens = msgToCupLens.andThen(cupToMadeofLens)
 ```
 

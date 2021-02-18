@@ -3,10 +3,10 @@ import {Lens, LensContext, LensProps, takeFromItemsAndAddToMain} from "@phil-ric
 import {ItemsAndIndex} from "@phil-rice/lens/src/optics/ItemAndIndex";
 
 
-export let toInventoryProductsL: Lens<AppData, InventoryItemData[]> = Lens.build<AppData>('app').then('inventory').then('products')
-export let toCartsProductL: Lens<AppData, ProductData[]> = Lens.build<AppData>('app').then('cart').then('products')
-export let inventoryItemQuantityLens: Lens<InventoryItemData, number> = Lens.build<InventoryItemData>('inventoryData').then('inventory')
-export let productDataQuantityLens: Lens<ProductData, number> = Lens.build<ProductData>('productData').then('quantity')
+export let toInventoryProductsL: Lens<AppData, InventoryItemData[]> = Lens.build<AppData>('app').focusOn('inventory').focusOn('products')
+export let toCartsProductL: Lens<AppData, ProductData[]> = Lens.build<AppData>('app').focusOn('cart').focusOn('products')
+export let inventoryItemQuantityLens: Lens<InventoryItemData, number> = Lens.build<InventoryItemData>('inventoryData').focusOn('inventory')
+export let productDataQuantityLens: Lens<ProductData, number> = Lens.build<ProductData>('productData').focusOn('quantity')
 
 export class ShoppingCartDomain {
     onCheckoutClicked: () => void
