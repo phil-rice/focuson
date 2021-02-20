@@ -47,6 +47,7 @@
   "template": "noreact",
   "name": "@phil-rice/lens",
   "description": "A simple implementation of lens using type script",
+  "ideify": "../../../../modules/lens",
   "details": {
     "publish": true,
     "links": [],
