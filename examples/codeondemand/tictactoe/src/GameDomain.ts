@@ -1,10 +1,9 @@
 //Copyright (c)2020-2021 Philip Rice. <br />Permission is hereby granted, free of charge, to any person obtaining a copyof this software and associated documentation files (the Software), to dealin the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  <br />The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS
-import {Lens, LensContext, LensProps} from "@phil-rice/lens";
-import {LoadAndCompileCache, MakeComponentFromServer} from "@phil-rice/codeondemand";
-import React from "react";
+import {Lens, LensContext, Lenses, LensProps} from "../../../../modules/lens"; //changed from @phil-rice/lens;
+import {createContext} from "react";
 
 
-export type GameProps<Main, T> = LensProps<GameDomain<Main>, Main, T>
+export type GameProps<T> = LensProps<GameData, T>
 
 export interface Link {
     href: string
@@ -28,33 +27,14 @@ export interface HasStateLens<Main> {
     stateLens: Lens<Main, NoughtOrCross>
 }
 
-export let defaultStateLens = Lens.build<GameData>('game').field('state');
+export let defaultStateLens: Lens<GameData, NoughtOrCross> = Lenses.build<GameData>('game').focusOn('state');
 
-export class GameDomain<Main> {
-    loadJson: (url: string) => Promise<void>
-    cache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>
-    stateLens: Lens<Main, NoughtOrCross>
-    nextState: NoughtOrCross = "X"
-    toggleNextState() {return this.nextState = (this.nextState === "X") ? "O" : "X"}
-    getAndToggleNextState(): NoughtOrCross {
-        let result = this.nextState;
-        this.toggleNextState();
-        return result;
-    }
-
-    constructor(componentCache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>,
-                stateLens: Lens<Main, NoughtOrCross>, loadJson: (url: string) => Promise<void>) {
-        this.cache = componentCache
-        this.stateLens = stateLens
-        this.loadJson = loadJson
-    }
-
-    invert(s: NoughtOrCross): NoughtOrCross {return (s === 'X' ? 'O' : 'X')}
-
-    setSquareAndToggleState = (context: LensContext<GameDomain<Main>, Main, NoughtOrCross>) =>
-        Lens.transform2(context.lens, this.stateLens)((sq, state) =>
-            sq === '' ? {one: state, two: this.invert(state)} : {one: sq, two: state})(context.main)
-
-
+export interface GameDomain {
+    onClickSquare: (squareContext: LensContext<GameData, NoughtOrCross>) => void,
+    loadJson: (url: string) => void
 }
 
+export const GameContext = createContext<GameDomain>({
+    onClickSquare: (squareContext: LensContext<GameData, NoughtOrCross>) => {throw Error('not defined')},
+    loadJson: (url: String) => {throw Error('not defined')}
+});

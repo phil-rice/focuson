@@ -2,24 +2,20 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom';
 
-import {getElement, LensContext} from "@phil-rice/lens";
-import {CounterData, CounterDomain, TwoCounterData} from "./domain";
+import {getElement, setJsonForFlux} from "../../../../modules/lens"; //changed from @phil-rice/lens;
 import {Counter, TwoCounter} from "./Counter";
+import {CounterData, TwoCounterData} from "./domain";
 
 
-let domain = new CounterDomain() // Domains are to allow us to dependancy inject things. We don't need it with this simple example
-
-let rootElement = getElement("root");
-
-
-let setJson1 = LensContext.setJsonForReact<CounterDomain, CounterData>(domain, 'counter',
-    c => (ReactDOM.render(<Counter context={c}/>, rootElement)))
+let oneCounterElement = getElement("oneCounter");
+let twoCounterElement = getElement("twoCounter");
 
 
-let setJson2 = LensContext.setJsonForReact<CounterDomain, TwoCounterData>(domain, 'twoCounter',
-    c => (ReactDOM.render(<TwoCounter context={c}/>, rootElement)))
+let setJson1 = setJsonForFlux<CounterData, void>('counter', c => (ReactDOM.render(<Counter context={c}/>, oneCounterElement)))
+
+let setJson2 = setJsonForFlux<TwoCounterData, void>('twoCounter', c => (ReactDOM.render(<TwoCounter context={c}/>, twoCounterElement)))
 
 setJson1({value: 0})
-// setJson2({counterOne: {value: 0}, counterTwo: {value: 0}})
+setJson2({counterOne: {value: 0}, counterTwo: {value: 0}})
 
 

@@ -4,8 +4,8 @@
  * If we find an item that matches we add the quantities to the original
  * If we don't we append the item
  */
-import {Lens} from "./Lens";
-import {Tuple} from "../utils";
+import {Lens, Lenses} from "./Lens";
+import {Tuple2} from "../utils";
 import {ItemsAndIndex} from "./ItemAndIndex";
 
 
@@ -26,7 +26,7 @@ export function addItemToBag<BagType, AddingType>(quantityL1: Lens<BagType, numb
     return (list, item) => {
         let index = list.findIndex(t => match(t, item))
         let itemQuantity = quantityL2.get(item);
-        return index < 0 ? [...list, copyItemToMain(item)] : Lens.nth <BagType>(index).andThen(quantityL1).transform(q => q + itemQuantity)(list)
+        return index < 0 ? [...list, copyItemToMain(item)] : Lenses.nth <BagType>(index).chainWith(quantityL1).transform(q => q + itemQuantity)(list)
     }
 }
 
@@ -45,7 +45,7 @@ export function takeFromItemsAndAddToMain<BagType, AddingType>(
     mainQuantityL: Lens<BagType, number>,
     itemQuantityL: Lens<AddingType, number>,
     match: (m: BagType, i: AddingType) => boolean,
-    copyItemToMain: (m: AddingType) => BagType): (tuple: Tuple<BagType[], ItemsAndIndex<AddingType>>) => Tuple<BagType[], ItemsAndIndex<AddingType>> {
+    copyItemToMain: (m: AddingType) => BagType): (tuple: Tuple2<BagType[], ItemsAndIndex<AddingType>>) => Tuple2<BagType[], ItemsAndIndex<AddingType>> {
     let addItemToMainList = addItemToBag<BagType, AddingType>(mainQuantityL, itemQuantityL, match, copyItemToMain)
     return tuple => {
         let itemWithQuantitySetToOne = itemQuantityL.set(tuple.two.item(), 1);

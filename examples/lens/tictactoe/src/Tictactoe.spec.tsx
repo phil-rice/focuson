@@ -4,8 +4,8 @@ import React from 'react';
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow, ShallowWrapper} from "enzyme";
 
-import {Lens, LensContext} from "@phil-rice/lens";
-import {Board, BoardData, GameData, GameDomain, nextStateLens, SimpleGame, Square} from "./game";
+import {focusOnNth, lensContext, LensContext} from "../../../../modules/lens"; //changed from @phil-rice/lens;
+import {Board, BoardData, GameData, nextStateLens, SimpleGame, Square} from "./game";
 
 
 enzymeSetup()
@@ -16,17 +16,15 @@ let gameJson: GameData = {"board": boardJson, next: 'X'}
 
 function setJson(json: GameData): void {throw new Error('should not be called')}
 
-let cache: any = ''//this isn't used and it's ok if it throws errors as that will indicate test failuer
-let domain = new GameDomain(nextStateLens)
-let context = LensContext.main <GameDomain, GameData>(domain, gameJson, setJson, 'game')
-function squareContext(context: LensContext<GameDomain, GameData, GameData>, n: number) {
-    return context.focusOn('board').focusOn('squares').withChildLens(Lens.nth(n))
+let context = lensContext<GameData>(gameJson, setJson, 'game')
+function squareContext(context: LensContext<GameData, GameData>, n: number) {
+    let squaresContext = context.focusOn('board').focusOn('squares');
+    return focusOnNth(squaresContext, n)
 }
 
-function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensContext<Domain, Main, Data>, expectedLensDescription: string) {
+function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensContext<Main, Data>, expectedLensDescription: string) {
     let props: any = wrapper.props()
-    let childContext: LensContext<Domain, Main, Data> = props.context
-    expect(childContext.domain).toBe(domain)
+    let childContext: LensContext<Main, Data> = props.context
     expect(childContext.lens.description).toBe(expectedLensDescription)
     expect(childContext.main).toBe(context.main)
     expect(childContext.dangerouslySetMain).toBe(context.dangerouslySetMain)
@@ -63,7 +61,7 @@ describe("Tictactoe", () => {
 
         it("should have an onclick that inverts the state, and sets the square with the current state", () => {
             let setJson = jest.fn()
-            let context = LensContext.main <GameDomain, GameData>(domain, gameJson, setJson, 'game')
+            let context = lensContext<GameData>(gameJson, setJson, 'game')
             const square = shallow(<Square context={squareContext(context, 1)}/>)
             square.simulate('click')
             expect(setJson.mock.calls.length).toBe(1)

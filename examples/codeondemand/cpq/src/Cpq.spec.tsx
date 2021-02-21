@@ -4,8 +4,8 @@ import React from 'react';
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow, ShallowWrapper} from "enzyme";
 
-import {Lens, LensContext} from "@phil-rice/lens";
-import {CpqData, CpqDomain} from "./CpqDomain";
+import {lensContext, LensContext, Lenses} from "../../../../modules/lens"; //changed from @phil-rice/lens;
+import {CpqData} from "./CpqDomain";
 import {Cpq} from "./render/Cpq";
 import {SimpleFilter} from "./render/SimpleFilter";
 
@@ -41,14 +41,11 @@ let cpqJson: CpqData = {
 
 function setJson(json: CpqData): void {throw new Error('should not be called')}
 
-let cache: any = ''//this isn't used and it's ok if it throws errors as that will indicate test failuer
-let domain = new CpqDomain(cache)
-let context = LensContext.main <CpqDomain, CpqData>(domain, cpqJson, setJson, 'cpq')
+let context = lensContext(cpqJson, setJson, 'cpq')
 
-function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensContext<Domain, Main, Data>, expectedLensDescription: string) {
+function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensContext<Main, Data>, expectedLensDescription: string) {
     let props: any = wrapper.props()
-    let childContext: LensContext<Domain, Main, Data> = props.context
-    expect(childContext.domain).toBe(domain)
+    let childContext: LensContext<Main, Data> = props.context
     expect(childContext.lens.description).toBe(expectedLensDescription)
     expect(childContext.main).toBe(context.main)
     expect(childContext.dangerouslySetMain).toBe(context.dangerouslySetMain)
@@ -64,14 +61,11 @@ describe("Code on demand CPQ", () => {
             expect(filters).toHaveLength(4)
             console.log('filters', filters)
             filters.forEach((filter, i) => compare(filter, context, `cpq/filters/[${i}]`))
-            // let componentServers = cpq.find('ComponentFromServer');
-            // expect(componentServers).toHaveLength(1)
-            // compare(componentServers.at(0), context, 'game/_embedded/board')
         })
     })
     describe("SimpleFilter", () => {
         it("should render", () => {
-            const simpleFilter = shallow(<SimpleFilter context={context.focusOn('filters').withChildLens(Lens.nth(0))}/>)
+            const simpleFilter = shallow(<SimpleFilter context={context.focusOn('filters').chainLens(Lenses.nth(0))}/>)
             let select = simpleFilter.find('select')
             expect(select).toHaveLength(1)
             expect(select.props().value).toEqual("BMW")

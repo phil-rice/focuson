@@ -1,15 +1,20 @@
 //Copyright (c)2020-2021 Philip Rice. <br />Permission is hereby granted, free of charge, to any person obtaining a copyof this software and associated documentation files (the Software), to dealin the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  <br />The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS
-import {InventoryData, inventoryItemQuantityLens, CartProps} from "../domain";
+import {CartData, InventoryData, ProductData} from "../domain";
 import React from "react";
 import {ProductList} from "./ProductList";
+import {Lens, LensContext} from "../../../../../modules/lens";
 
+interface InventoryProps<Main> {
+    context: LensContext<Main, InventoryData>,
+    addToListLens: Lens<Main, ProductData[]>
+}
 
-export function Inventory({context}: CartProps<InventoryData>) {
+export function Inventory<Main>({context, addToListLens}: InventoryProps<Main>) {
     return (<div>
         <h3>Inventory</h3>
         <ProductList context={context.focusOn('products')}
-                     quantityL={inventoryItemQuantityLens}
-                     onClick={context.domain.takeFromInventoryPutInCart} button='Add to Cart'/>
+                           addToListLens={addToListLens}
+                           button='Add to Cart'/>
     </div>)
 }
 

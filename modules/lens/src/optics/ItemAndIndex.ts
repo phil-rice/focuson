@@ -5,7 +5,7 @@ import {LensContext} from "./LensContext";
 
 export class ItemsAndIndex<T> {
     static makeLens<T>(n: number): Lens<T[], ItemsAndIndex<T>> { return new Lens<T[], ItemsAndIndex<T>>(l => new ItemsAndIndex<T>(l, n), (l, i) => i.items)}
-    static makeContext<Domain, Main, T>(context: LensContext<Domain, Main, T[]>, n: number): LensContext<Domain, Main, ItemsAndIndex<T>> {return context.withChildLens(this.makeLens(n))}
+    static makeContext<Domain, Main, T>(context: LensContext<Main, T[]>, n: number): LensContext<Main, ItemsAndIndex<T>> {return context.chainLens(this.makeLens(n))}
     items: T[]
     index: number
     item() {return this.items[this.index]}

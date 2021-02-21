@@ -1,19 +1,18 @@
 //Copyright (c)2020-2021 Philip Rice. <br />Permission is hereby granted, free of charge, to any person obtaining a copyof this software and associated documentation files (the Software), to dealin the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  <br />The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS
-import {LensContext} from "./LensContext";
-import {Lens} from "./Lens";
+import {lensContext, LensContext} from "./LensContext";
+import {Lens, Lenses} from "./Lens";
 import {Chest, dragon, Dragon, DragonDomain} from "./LensFixture";
 
 
 let initialMain = {...dragon}
-let domain = new DragonDomain()
 let setMain = jest.fn();
-let dragonC = LensContext.main(domain, dragon, setMain, "dragon")
+let dragonC = lensContext( dragon, setMain, "dragon")
 let chestC = dragonC.focusOn('body').focusOn('chest')
 let stomachC = chestC.focusOn('stomach')
 
-function setupForSetMain<Domain, Main, T>(context: LensContext<Domain, Main, T>, fn: (context: LensContext<Domain, Main, T>, setMain: jest.Mock) => void) {
+function setupForSetMain< Main, T>(context: LensContext< Main, T>, fn: (context: LensContext< Main, T>, setMain: jest.Mock) => void) {
     const setMain = jest.fn()
-    let newContext = context.withSetMain(setMain)
+    let newContext =new LensContext(context.main, setMain, context.lens)
     fn(newContext, setMain)
 }
 
@@ -23,8 +22,7 @@ function checkSetMainWas<Main>(setMain: jest.Mock, expected: Main) {
     expect(dragon).toEqual(initialMain) //just checking no sideeffects
 }
 
-function checkContext<T>(context: LensContext<DragonDomain, Dragon, T>, lensDescription: string) {
-    expect(context.domain).toEqual(domain)
+function checkContext<T>(context: LensContext< Dragon, T>, lensDescription: string) {
     expect(context.main).toEqual(dragon)
     expect(context.lens.description).toEqual(lensDescription)
     expect(context.dangerouslySetMain).toEqual(setMain)
@@ -40,11 +38,11 @@ describe("LensContext", () => {
     })
 
     it("with Lens should ignore the parent lens", () => {
-        let replace = chestC.withLens(chestC.lens.withDescription('theNewLens'))
+        let replace = chestC.copyWithLens(chestC.lens.withDescription('theNewLens'))
         checkContext(replace, 'theNewLens')
     })
     it("with withChildLens should concatenate with the parent lens", () => {
-        let child = chestC.withChildLens(Lens.identity<Chest>().withDescription('childName'))
+        let child = chestC.chainLens(Lenses.identity<Chest>().withDescription('childName'))
         checkContext(child, 'dragon/body/chest/childName')
     })
     it("setJson should call danagerouslySetMain with the result of passing main and the new json to the lens", () => {

@@ -1,5 +1,5 @@
 //Copyright (c)2020-2021 Philip Rice. <br />Permission is hereby granted, free of charge, to any person obtaining a copyof this software and associated documentation files (the Software), to dealin the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  <br />The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS
-import {focusOnNth, Lens, LensContext, LensProps} from "@phil-rice/lens";
+import {focusOnNth, Lenses, LensProps} from "../../../../modules/lens"; //changed from @phil-rice/lens;
 import * as React from "react";
 
 
@@ -11,22 +11,11 @@ export interface GameData {
 type NoughtOrCross = "O" | "X" | ""
 export interface BoardData {squares: SquareData}
 type SquareData = NoughtOrCross[]
-export let nextStateLens = Lens.build<GameData>('game').field('next')
+
 
 /** This is a helper to get rid of the noise of  LensProps<GameDomain, GameData, T> replacing it with GameProps<T> */
-export type GameProps<Main,T> = LensProps<GameDomain, Main, T>
+export type GameProps<Main, T> = LensProps<Main, T>
 
-export class GameDomain {
-    nextStateLens: Lens<GameData, NoughtOrCross>
-    constructor(nextStateLens: Lens<GameData, NoughtOrCross>) { this.nextStateLens = nextStateLens; }
-    invert(s: NoughtOrCross): NoughtOrCross {return (s === 'X' ? 'O' : 'X')};
-    setSquareAndInvertNext<Main>(context: LensContext<GameDomain, GameData, NoughtOrCross>) {
-        let next = context.jsonFromLens(this.nextStateLens)
-        if (context.json() === '')
-            context.setFromTwo(this.nextStateLens, next, this.invert(next))
-    }
-
-}
 //This is the json representation of the state of the game
 export let emptyGame: GameData = {
     "next": "X",
@@ -35,7 +24,7 @@ export let emptyGame: GameData = {
     }
 }
 
-export function SimpleGame({context}: GameProps<GameData,GameData>) {
+export function SimpleGame({context}: GameProps<GameData, GameData>) {
     return (
         <div className='game'>
             <NextMove context={context.focusOn('next')}/>
@@ -44,12 +33,12 @@ export function SimpleGame({context}: GameProps<GameData,GameData>) {
 }
 
 
-export function NextMove({context}: GameProps<GameData,NoughtOrCross>) {
+export function NextMove({context}: GameProps<GameData, NoughtOrCross>) {
     return (<div> Next Move{context.json()}</div>)
 }
 
 
-export function Board({context}: GameProps<GameData,BoardData>) {
+export function Board({context}: GameProps<GameData, BoardData>) {
     let squares = context.focusOn('squares');
     let sq = (n: number) => (<Square context={focusOnNth(squares, n)}/>)
     return (<div className='board'>
@@ -59,9 +48,16 @@ export function Board({context}: GameProps<GameData,BoardData>) {
     </div>)
 }
 
-export function Square({context}: GameProps<GameData,NoughtOrCross>) {
-    return (
-        <button className='square' onClick={() => context.domain.setSquareAndInvertNext(context)}>
-            {context.json()}
-        </button>)
+function invert(s: NoughtOrCross): NoughtOrCross {return (s === 'X' ? 'O' : 'X')}
+
+export let nextStateLens = Lenses.build<GameData>('game').focusOn('next')
+const nextValueForSquare = (sq: NoughtOrCross, next: NoughtOrCross) => next;
+const nextValueForNext = (sq: NoughtOrCross, next: NoughtOrCross) => invert(next);
+
+export function Square({context}: GameProps<GameData, NoughtOrCross>) {
+    let onClick = () => {
+        if (context.json() == '')
+            context.useOtherLensAsWell(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
+    }
+    return (<button className='square' onClick={onClick}>{context.json()}</button>)
 }

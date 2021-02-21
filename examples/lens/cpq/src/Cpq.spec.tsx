@@ -3,12 +3,12 @@ import React from 'react';
 
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {mount} from "enzyme";
-import {Cpq, CpqData, CpqDomain} from "./Cpq";
-import {LensContext} from "@phil-rice/lens";
+import {Cpq, CpqData} from "./Cpq";
+import {lensContext} from "../../../../modules/lens"; //changed from @phil-rice/lens;
 
 enzymeSetup()
 
-let json : CpqData= {
+let json: CpqData = {
     "make": {
         "filterName": "filtermake",
         "selected": "Tesla",
@@ -34,8 +34,8 @@ let json : CpqData= {
     }
 }
 
-let domain = new CpqDomain()
-let context = LensContext.main<CpqDomain, CpqData>(domain, json, () => {throw Error("Shouldn't be called")}, 'cpq')
+
+let context = lensContext<CpqData>(json, () => {throw Error("Shouldn't be called")}, 'cpq')
 
 describe("Cpq", () => {
 
@@ -50,6 +50,5 @@ describe("Cpq", () => {
         expect(cpq.find('#filterexternalPaint').props().value).toEqual("")
         expect(cpq.find('#filterleasePeriod').props().value).toEqual("")
     });
-
 
 })

@@ -19,9 +19,14 @@ export function checkIsFunction(functionToCheck: any) {
     if (!(typeof functionToCheck === "function")) throw Error('getter should be a function, instead is ' + JSON.stringify(functionToCheck))
 }
 export function identity<T>(t: T): T {return t}
-export interface Tuple<T1, T2> {
+export interface Tuple2<T1, T2> {
     one: T1,
     two: T2
+}
+export interface Tuple3<T1, T2, T3> {
+    one: T1,
+    two: T2,
+    three: T3
 }
 
 

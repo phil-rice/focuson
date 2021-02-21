@@ -1,12 +1,12 @@
 //Copyright (c)2020-2021 Philip Rice. <br />Permission is hereby granted, free of charge, to any person obtaining a copyof this software and associated documentation files (the Software), to dealin the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  <br />The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS
-import {Lens} from "@phil-rice/lens";
-import {ChildFromServer} from "@phil-rice/codeondemand";
+import {Lens, Lenses} from "../../../../../modules/lens"; //changed from @phil-rice/lens;
+import {ChildFromServer} from "../../../../../modules/codeondemand"; //changed from @phil-rice/codeondemand;
 import {BoardData, GameProps} from "../GameDomain";
 
-let lensBuilder: Lens<BoardData, BoardData> = Lens.build('board');
+let boardLens: Lens<BoardData, BoardData> = Lenses.build('board');
 
-export function Board<Main>({context}: GameProps<Main, BoardData>) {
-    const sq = (n: number) => (<ChildFromServer render='square' context={context} lens={lensBuilder.focusOn('squares').andThen(Lens.nth(n))}/>)
+export function Board({context}: GameProps< BoardData>) {
+    const sq = (n: number) => (<ChildFromServer render='square' context={context} lens={boardLens.focusOn('squares').chainWith(Lenses.nth(n))}/>)
     return (
         <div>
             <div className="board-row">{sq(0)} {sq(1)} {sq(2)}</div>
