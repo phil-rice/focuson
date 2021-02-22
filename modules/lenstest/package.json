@@ -12,13 +12,13 @@
     ]
   },
   "dependencies": {
+    "@phil-rice/lens": "0.2.2",
+    "@phil-rice/state": "0.2.2"
+  },
+  "devDependencies": {
     "@types/node": "^14.14.7",
     "npm-check-updates": "^10.0.0",
     "typescript": "^4.1.5",
-    "@phil-rice/lens": "0.2.1",
-    "@phil-rice/state": "0.2.1"
-  },
-  "devDependencies": {
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/user-event": "^12.2.0",
     "@types/jest": "^26.0.15",
@@ -45,9 +45,8 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.1",
+  "version": "0.2.2",
   "template": "noreact",
-  "name": "@phil-rice/lenstest",
   "description": "Tests the lens defined in @phil-rice/lens, and the state defined in @phil-rice/state",
   "details": {
     "ideify": true,
@@ -59,5 +58,6 @@
     "extraDeps": {},
     "extraDevDeps": {},
     "test": true
-  }
+  },
+  "name": "@phil-rice/lenstest"
 }

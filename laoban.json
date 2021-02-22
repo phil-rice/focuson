@@ -15,6 +15,7 @@
       ]
     },
     "ls":         {"description": "lists all the projects", "commands": ["js:process.cwd()"]},
+    "ls-names":         {"description": "lists all the projects and their nams ", "commands": ["js:`${process.cwd().padEnd(50)} ${projectDetails.name}`"]},
     "clean":      {"description": "removes the dist directory", "commands": ["rm -rf dist", "rm -f .status", "rm -f .log", "rm -f .profile"]},
     "lsDist":     {
       "description": "check that the directory option works", "commands": [
@@ -104,6 +105,15 @@
       "commands":     [
         {"name": "tsc", "command": "${packageManager} tsc --noEmit false --outDir dist", "status": true},
         {"name": "publish", "command": "${packageManager} publish", "status": true}
+      ],
+      "inLinksOrder": true
+    },
+    "publish-public":    {
+      "description":  "publishes the projects to npmjs as a public repo",
+      "guard":        "${projectDetails.details.publish}",
+      "commands":     [
+        {"name": "tsc", "command": "${packageManager} tsc --noEmit false --outDir dist", "status": true},
+        {"name": "publish", "command": "${packageManager} publish --access public", "status": true}
       ],
       "inLinksOrder": true
     }

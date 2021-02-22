@@ -13,12 +13,15 @@ dependancies (other than devDependencies)
 * [Getting started with a simple counter example](https://github.com/phil-rice/ts-lens-react/tree/master/tutorial/counter)
 * [A more complicated example](https://github.com/phil-rice/ts-lens-react/blob/master/tutorial/tictactoe)
 
-## Examples
-* [An example showing how much simpler lens code is than the normal copy code](examples/lens/dragon)
+## Links about lenses
 
-# Next steps
+* https://medium.com/@gcanti/introduction-to-optics-lenses-and-prisms-3230e73bfcfe
+* https://medium.com/javascript-scene/lenses-b85976cb0534
+* https://www.linkedin.com/pulse/functional-lenses-javascript-vladim%C3%ADr-gorej/
 
-This project shows the lens being used for  [State management in react](https://github.com/phil-rice/ts-lens-react/blob/master/modules/state)
+## Example projects
+* [An example showing how much simpler lens code is than the normal copy code](https://github.com/phil-rice/ts-lens-react/blob/master/examples/lens/dragon)
+* [State management in react](https://github.com/phil-rice/ts-lens-react/blob/master/modules/state)
 
 # Downloading
 
@@ -27,6 +30,10 @@ You can install this project by
  ```shell
 npm install @phil-rice/lens
 ```
+
+# Where are the tests?
+
+To keep the projects small, the tests have been moved  [here](https://github.com/phil-rice/ts-lens-react/blob/master/modules/lenstest)
 
 # Example usage
 
@@ -95,6 +102,8 @@ returns a new dragon, identical except that new one has `item` added to `oldCont
 A lens has the signature `Lens[Main,Child` and is two functions. One is a `getter` of signature `(m: Main) => Child`. The other is the `setter` which
 takes an original main, a new child and returns a new main. `(m: Main, c: Child)=> Main`.
 
+
+## The magic of composibility
 This is easy enough, but the magic comes when we discover that they are composible. It is the composibility that allows the magic of 
 ```typescript
 export let dragonContentsL: Lens<Dragon, any[]> = Lenses.build<Dragon>('dragon').focusOn('body').focusOn('chest').focusOn('stomach').focusOn('contents')
@@ -102,6 +111,14 @@ export let dragonContentsL: Lens<Dragon, any[]> = Lenses.build<Dragon>('dragon')
 Here we started with a lens that was focused on the whole dragon (not the most exciting lens), and then gradually 'focused in' on 
 the place of interest (the contents of the stomach). This works because lenses are composible. If I have a `Lens[Main,Child]` and a `Lens[Child,Grandchild]` 
 I can smash them together and create `Lens[Main,Grandchild`. Intuitively we can just thing 'focuses in on the next part'
+
+Another example can be seen here:
+
+```typescript
+let msgToCupLens = Lens.build<Msg>('msg').focusOn('order').focusOn('cup')
+let cupToMadeofLens = Lens.build<Cup>('cup').focusOn('madeOf')
+let msgToMadeOfLens = msgToCupLens.andThen(cupToMadeofLens)
+```
 
 # How can I use Lens
 

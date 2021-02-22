@@ -1,3 +1,30 @@
+# What is this project?
+
+Immutable data structures are becoming the norm in both front end and server side code. Javascript and typescript have
+become better at code for handling immutables. Projects such as 'immer' have arisen to help handle this.
+
+This project offers a very simple way to handle one of the most important tasks: accessing deep parts of data structures
+and perhaps more importantly offering easy ways to mutate them. The code is very small and light weight with no
+dependancies (other than devDependencies)
+
+# Getting started
+
+## Related projects
+
+This code uses the lens defined [here]((https://github.com/phil-rice/ts-lens-react/tree/master/modules/lens)). The
+README introduces Lens.
+
+## Tutorials
+* [Getting started with a simple counter example](https://github.com/phil-rice/ts-lens-react/tree/master/tutorial/counter)
+* [A more complicated example](https://github.com/phil-rice/ts-lens-react/blob/master/tutorial/tictactoe)
+
+## Examples
+ * [@phil-rice/example_state_cpq - the Redux 'counter' example](examples/state/counter)
+ * [@phil-rice/example_state_cpq - A 'configure price quote' example](examples/state/cpq)
+ * [@phil-rice/example_state_cart - The Redux 'shopping cart' example](examples/state/shopping-cart)
+ * [@phil-rice/example_state_tictactoe - The React tictactoe example](examples/state/shopping-cart)
+
+# What is the motivation for this project?
 
 While react is a great project, react state management leaves much to be desired. Most comparisons of frameworks such as
 angular and react will list the issue that 'state management in react is difficult'.
@@ -13,9 +40,9 @@ are designed as 'atomic standalone components' rather than as 'composible unit'.
 * Composability so it is as easy to plug the state management together as it is to plug the components together
 * Much stronger protection about what the equivalent of actions can and cannot do
 
-We have the idea that a lens is focused on a bit of the state. With this state management,components display a subset of the json
+With this project we have the idea that a lens is focused on a bit of the state. With this state management,components display a subset of the json
 (just like in redux), and components can normally change just that bit of the json (unlike redux where there is no such
-protection).
+protection). 
 
 
 # When should I use this project
@@ -30,69 +57,6 @@ state and lets you change that part of the state, then this project is the clear
 
 [This presentation details how the react lens works](https://docs.google.com/presentation/d/e/2PACX-1vRvIfvQHiMw10X9bAek_hK1eE6WDqP8V4X85fJ8gT4RaQU9mPh9yu9j0bRpLnfKEptqwpLqowGy43vK/pub?start=false&loop=false&delayms=3000)
 
-# Examples
-
-There are a number of examples in the `examples` folder.
-
-## lens
-
-See https://medium.com/@gcanti/introduction-to-optics-lenses-and-prisms-3230e73bfcfe
-
-A lens allows us to 'focus in' on a small part of a big data structure. Without these lens we have to write a lot of '
-copy code' manually. Javascript/typescript has very few built in tools for manipulating and working with immutable
-objects, and as a consequence you will hear people saying `don't have deep data structures`. Lens allow us to decouple
-our code from the data structure, and allow us not to care about how deep the data is
-
-### What is a lens
-
-A lens is simply two functions. A lens that 'goes from' a `Main` to a `Child` would have signature `Lens<Main,Child>`.
-The two functions have signatures `(m: Main) => Child` and `(m: Main, newChild: Child) => Main`. The first allows us to
-find the child and the second allows us to 'set' it (using the usual immutable definition of set which is 'a copy with
-this value replaced')
-
-### How do I use the lens code
-
-```typescript
-let json: Msg = { // Msg can be found in LensDemo.ts
-    order: {
-        cup: {
-            size: "small",       // medium large
-            madeOf: "styrofoam"  // or you could be eating in and it be a proper cup
-        },
-        milk: {
-            type: "almond",
-            amount: "splash"
-        },
-        shots: 1
-    }
-}
-let msgToMadeOfLens = Lens.build<Msg>('msg').focusOn('order').focusOn('cup').focusOn('madeOf')
-msgToMadeOfLens.set(json, 'soy')
-```
-
-xNote that the parameters to `focusOn` are typesafe (as long as Msg is defined without wildcards). We have IDE code insight
-working with them, and we have the compiler checking that the values we use are legal.
-
-Also note that the parameter to 'build' (`Lens.build<Msg>('msg')`)  is just to improve the readability of some error messages and testing
-
-Let's compare that to the code without lens
-
-```
-function setCupSize(json: Msg, size: Cupsize): Msg {
-    return ({
-        ...json,
-        order: {
-            ...json.order,
-            cup: {
-                ...json.order.cup, size
-            }
-        }
-    })
-}
-```
-
-And it gets worse: the more nested the worse, and if there are arrays involved this code often gets error prone and
-messy.
 
 ### What is cool about Lens
 

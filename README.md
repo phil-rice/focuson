@@ -45,3 +45,27 @@ Unfortunately IDEs don't seem to work well with mono repos. When using an IDE su
 
 * ideify.sh   -  This changes imports such as @phil-rice/lens to relative addresses, which allows the ide access to the code
 * prepare.sh  -  This changes the imports back again. You should do this before running anything (such as tests/the actual code in react) 
+
+# Publishing
+
+Setting up to publish
+```shell
+npm install -g npm-cli-login
+npm-cli-login -u Username -p Password -e test@example.com -r https://your-private-registry-link
+```
+
+And the publish itself
+```shell
+# From the root directory...
+# Change the version number in 'template/version.txt`
+laoban update         # updates all projects with the version number
+scripts/prepare.sh    # Removes the effects of scripts/ideify.sh
+
+laoban clean && laoban tsc && laoban test && laoban status  
+# Check that the status for tsc and tests is 'true' in all projects
+
+laoban publish
+
+```
+
+

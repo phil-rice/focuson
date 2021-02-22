@@ -17,9 +17,9 @@
     "typescript": "^4.1.5",
     "crypto-js": "^4.0.0",
     "@types/crypto-js": "^4.0.1",
-    "@phil-rice/lens": "0.2.1",
-    "@phil-rice/nav": "0.2.1",
-    "@phil-rice/codeondemand": "0.2.1"
+    "@phil-rice/lens": "0.2.2",
+    "@phil-rice/nav": "0.2.2",
+    "@phil-rice/codeondemand": "0.2.2"
   },
   "description": "Demonstrating the code on demand approach for tic_tac_toe",
   "devDependencies": {
@@ -62,7 +62,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.1",
+  "version": "0.2.2",
   "template": "codeondemand",
   "name": "@phil-rice/example_codeondemand_tictactoe",
   "details": {
