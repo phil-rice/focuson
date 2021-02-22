@@ -54,8 +54,7 @@
   ],
   "license": "MIT",
   "main": "dist/index",
-  "types": "index",
-  "name": "@phil-rice/examples_codeondemand_cpq",
+  "types": "dist/index",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -64,6 +63,7 @@
   },
   "version": "0.2.1",
   "template": "codeondemand",
+  "name": "@phil-rice/examples_codeondemand_cpq",
   "details": {
     "links": [
       "@phil-rice/lens",

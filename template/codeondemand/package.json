@@ -52,13 +52,11 @@
   "license": "MIT",
   "main": "dist/index",
   "types": "dist/index",
-  "name": "@phil-rice/codeondemand",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "types": "index",
   "version": "<version>"
 }

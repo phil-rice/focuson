@@ -8,6 +8,8 @@ This project is a number of projects bundled together in a mono repo
      * [@phil-rice/example_state_cpq - A 'configure price quote' example](examples/state/cpq)
      * [@phil-rice/example_state_cart - The Redux 'shopping cart' example](examples/state/shopping-cart)
      * [@phil-rice/example_state_tictactoe - The React tictactoe example](examples/state/shopping-cart)
+
+The code on demand is still work in progress.
 * [@phil-rice/codeondemand: Code on Demand for Restful servers that are resiliant to change (this is more R&D than the others)](modules/codeondemand/README.md)
      * [@phil-rice/example_state_tictactoe - The React tictactoe example](examples/state/shopping-cart)
      * [@phil-rice/examples_codeondemand_cpq - A 'configure price quote' example](examples/state/cpq)

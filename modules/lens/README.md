@@ -1,221 +1,124 @@
+# What is this project?
+
+Immutable data structures are becoming the norm in both front end and server side code. Javascript and typescript have
+become better at code for handling immutables. Projects such as 'immer' have arisen to help handle this.
+
+This project offers a very simple way to handle one of the most important tasks: accessing deep parts of data structures
+and perhaps more importantly offering easy ways to mutate them. The code is very small and light weight with no
+dependancies (other than devDependencies)
+
 # Getting started
 
+## Tutorials
 * [Getting started with a simple counter example](https://github.com/phil-rice/ts-lens-react/tree/master/tutorial/counter)
 * [A more complicated example](https://github.com/phil-rice/ts-lens-react/blob/master/tutorial/tictactoe)
+
+## Examples
+* [An example showing how much simpler lens code is than the normal copy code](examples/lens/dragon)
+
+# Next steps
+
+This project shows the lens being used for  [State management in react](https://github.com/phil-rice/ts-lens-react/blob/master/modules/state)
 
 # Downloading
 
 You can install this project by
+
  ```shell
 npm install @phil-rice/lens
 ```
 
-# What is this project?
+# Example usage
 
-While react is a great project, react state management leaves much to be desired. Most comparisons of frameworks such as
-angular and react will list the issue that 'state management in react is difficult'.
-
-Redux is one of the obvious candidates for state management, but it is difficult to use and full of boilerplate code.
-The pieces in redux are not easy to change or reuse. This project you are looking at now arose out of a refactoring of
-redux projects. By utilising a functional programming technique known as optics, and more specifically lens, much of the
-complexity of redux vanishes.
-
-One of things I don't like about redux is that actions can do 'anything'. A second is that it is very hard to combine actions together: they
-are designed as 'atomic standalone components' rather than as 'composible unit'. The project gives the following benefits: 
-* A much simpler and easier to read model of state management
-* Composability so it is as easy to plug the state management together as it is to plug the components together
-* Much stronger protection about what the equivalent of actions can and cannot do
-
-We have the idea that a lens is focused on a bit of the state. With this state management,components display a subset of the json
-  (just like in redux), and components can normally change just that bit of the json (unlike redux where there is no such
-  protection).
-
-
-# When should I use this project
-
-This project isn't suitable for everything. It works best when the rendering and editing of a bit piece of state is
-split across multiple components. If there are many components that change many parts of state simultaneously then
-perhaps redux is better suited. If instead your display is split up with a 'editor component' that displays part of the
-state and lets you change that part of the state, then this project is the clear winner
-
-
-# Presentation
-
-[This presentation details how the react lens works](https://docs.google.com/presentation/d/e/2PACX-1vRvIfvQHiMw10X9bAek_hK1eE6WDqP8V4X85fJ8gT4RaQU9mPh9yu9j0bRpLnfKEptqwpLqowGy43vK/pub?start=false&loop=false&delayms=3000)
-
-# Examples
-
-There are a number of examples in the `examples` folder.
-
-## lens
-
-See https://medium.com/@gcanti/introduction-to-optics-lenses-and-prisms-3230e73bfcfe
-
-A lens allows us to 'focus in' on a small part of a big data structure. Without these lens we have to write a lot of '
-copy code' manually. Javascript/typescript has very few built in tools for manipulating and working with immutable
-objects, and as a consequence you will hear people saying `don't have deep data structures`. Lens allow us to decouple
-our code from the data structure, and allow us not to care about how deep the data is
-
-### What is a lens
-
-A lens is simply two functions. A lens that 'goes from' a `Main` to a `Child` would have signature `Lens<Main,Child>`.
-The two functions have signatures `(m: Main) => Child` and `(m: Main, newChild: Child) => Main`. The first allows us to
-find the child and the second allows us to 'set' it (using the usual immutable definition of set which is 'a copy with
-this value replaced')
-
-### How do I use the lens code
+We'll start with examining how we work with a deep data structure. Here we can see a block of json representing a
+dragon. In the dragon's stomach is some hapless adventurer. Our job is to write the eat method which will return a copy
+of the dragon with the parameter added to the existing contents of the stomach
 
 ```typescript
-let json: Msg = { // Msg can be found in LensDemo.ts
-    order: {
-        cup: {
-            size: "small",       // medium large
-            madeOf: "styrofoam"  // or you could be eating in and it be a proper cup
+
+export let startDragon: Dragon = {
+    body: {
+        chest: {
+            hitpoints: 10,
+            stomach: {
+                contents: ['the adventurer']
+            }
         },
-        milk: {
-            type: "almond",
-            amount: "splash"
-        },
-        shots: 1
-    }
+        leftWing: {hitpoints: 5},
+        rightWing: {hitpoints: 4}
+    },
+    head: {hitpoints: 3, leftEye: {color: "blue"}, rightEye: {color: "green"}}
 }
-let msgToMadeOfLens = Lens.build<Msg>('msg').focusOn('order').focusOn('cup').focusOn('madeOf')
-msgToMadeOfLens.set(json, 'soy')
 ```
 
-xNote that the parameters to `focusOn` are typesafe (as long as Msg is defined without wildcards). We have IDE code insight
-working with them, and we have the compiler checking that the values we use are legal.
+Let's write it without Lens first. And once we've written it, let's consider how fragile this code is. Imagine how easy
+or hard it would be to change if the structure of the dragon changed.
 
-Also note that the parameter to 'build' (`Lens.build<Msg>('msg')`)  is just to improve the readability of some error messages and testing
+```typescript
 
-Let's compare that to the code without lens
-
-```
-function setCupSize(json: Msg, size: Cupsize): Msg {
-    return ({
-        ...json,
-        order: {
-            ...json.order,
-            cup: {
-                ...json.order.cup, size
+export function eat(dragon: Dragon, item: any): Dragon {
+    return {
+        ...dragon,
+        body: {
+            ...dragon.body,
+            chest: {
+                ...dragon.body.chest,
+                stomach: {
+                    ...dragon.body.chest.stomach,
+                    contents: [...dragon.body.chest.stomach.contents, item]
+                }
             }
         }
-    })
+    }
 }
 ```
 
-And it gets worse: the more nested the worse, and if there are arrays involved this code often gets error prone and
-messy.
-
-### What is cool about Lens
-
-They are composable and simple. Given a `Lens<Main,Child>` and `Lens<Child,GrandChild>` we can create a lens from `Main`
-to `GrandChild`.
-
+Now let's try writing it with Lenses. And once we've written it, let's consider how easy or hard it would be to change if the structure of
+the dragon changed
 ```typescript
-let msgToCupLens = Lens.build<Msg>('msg').focusOn('order').focusOn('cup')
-let cupToMadeofLens = Lens.build<Cup>('cup').focusOn('madeOf')
-let msgToMadeOfLens = msgToCupLens.andThen(cupToMadeofLens)
+export let dragonContentsL: Lens<Dragon, any[]> = Lenses.build<Dragon>('dragon').focusOn('body').focusOn('chest').focusOn('stomach').focusOn('contents')
+export let eat: (dragon: Dragon, item: any) => dragonContentsL.transform(oldContents => [...oldContents, item])(dragon);
 ```
 
-### Change and lens
+# Lenses and focus
 
-It is common for us to want to change the structure of our data. Without lens the impact can be very high: both in the
-code and in the tests. With lens we can isolate the changes from the business logic, which means that typically we only
-have to make very few changes when we makes changes to the structure. Without lens if we aren't extremely careful (which
-may require us to program in a way that isn't idiomatic javascript/typescript)
-we couple all the business logic to the structure.
+The idea behind lenses is that they are 'focused' on a small part of a big object.  In the example above the lens `dragonContentsl` was a lens that 
+given the 'main object' (a Dragon in this case) is focused on just the contents of the stomach. The lens allows us easy access to the thing that is focused
+on, and allows us to change easily (in the sense of making an immutable copy with the changes) the focused part
 
-If you want to play with the difference and experience it for yourself the  `dragon` example project is a great place to
-try that. It has a deeper structure than than the coffee example and has many tests. You can do things like 'remove the
-body structure' and see that the impact using lens is a few lines of code, whereas for the 'without lens' code, the
-impact is around half the entire code base. This is because lens give us the ability to decouple, and decoupling
-supports and empowers change.
+In the example above `dragonContentsL.transform(oldContents => [...oldContents, item])` creates a function that goes from a dragon to a new dragon. The
+only difference between the new dragon and the input dragon is the transform function applied to the contents. In otherwords it 
+returns a new dragon, identical except that new one has `item` added to `oldContents`
 
-## examples/lens/...
+# How do they work
 
-There are a few projects that demonstrate the use of the lens code.
+A lens has the signature `Lens[Main,Child` and is two functions. One is a `getter` of signature `(m: Main) => Child`. The other is the `setter` which
+takes an original main, a new child and returns a new main. `(m: Main, c: Child)=> Main`.
 
-* The dragon example is particularly good for demonstrating how lens remove boilerplate code
-* The counter example is a good example of how easy it is to reuse these components
-    * As an exercise you could try taking the standard redux
-      counter https://github.com/reduxjs/redux/tree/master/examples/counter/src and try and have two on them on the
-      screen
-    * Note that it was trivially easy in the lens example, because the power of lens is that they make this kind of
-      reuse trivially easy
-    * Try and do it with redux without rewriting totally the dispatcher/render code... bascially react supports reuse
-      and redux doesn't.
-
-# Articles about lens
-
-* Lens in Javascript: https://medium.com/javascript-inside/an-introduction-into-lenses-in-javascript-e494948d1ea5
-* Lens in scala:  https://docs.google.com/presentation/d/1bahDdJQS3bP9HxDJTJ2YjRT30FRUL4n9mfvcUSm3X8g/edit#slide=id.p
-
-# Lens context
-
-There are many uses cases (like a react gui) where there is a 'main json' and different components are responsible for
-different parts. `LensContext` represents this. Internally it has the following
-
-* `domain`... something to simplify message signatures (at the cost of the types signature... but we can use type aliases to hide
-  this)
-* `main`... the main json
-* `lens` ... a lens to the bit of json we are interested
-* `dangerouslySetMain` This should not be directly called. It sets the state in the react application. Normally it is 
-  called by methods that provide cleaner access.
-
-We use `LensContext` extensively in our react state management. The most used methods/fields on the context are
-
-* `json()` returns the json that the context is focused on
-* `setJson(j)` Uses the lens to make a new 'main json'. Precisely what else happens is determined at the time the
-  context is created. In the react statemanagement this causes a clean re-render
-* `domain`. Gives access to the json
-* `focusOn(fieldName)` Returns a new context with a lens focused on the field name
-
-The following shows how focusOn is used to create a context suitable for child components, and how we use `.json()` to
-access the component's json
-```typescript jsx
-export function SimpleGame<Main>({context}: GameProps<Main,GameData>) {
-    return (
-        <div className='game'>
-            <NextMove context={context.focusOn('next')}/>
-            <Board context={context.focusOn('board')}/>
-        </div>)
-}
-
-export function NextMove<Main>({context}: GameProps<Main,NoughtOrCross>) {
-    return (<div> Next Move{context.json()}</div>)
-}
+This is easy enough, but the magic comes when we discover that they are composible. It is the composibility that allows the magic of 
+```typescript
+export let dragonContentsL: Lens<Dragon, any[]> = Lenses.build<Dragon>('dragon').focusOn('body').focusOn('chest').focusOn('stomach').focusOn('contents')
 ```
+Here we started with a lens that was focused on the whole dragon (not the most exciting lens), and then gradually 'focused in' on 
+the place of interest (the contents of the stomach). This works because lenses are composible. If I have a `Lens[Main,Child]` and a `Lens[Child,Grandchild]` 
+I can smash them together and create `Lens[Main,Grandchild`. Intuitively we can just thing 'focuses in on the next part'
 
-This example shows how we can use the setJson method. Note that if we wanted to we could inject the increment and decrement methods, 
-but in this example I think the code is much cleaner as it is. 
+# How can I use Lens
 
-```typescript jsx
-export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterData>) {
-    let value = context.json().value
-    let increment = () => context.setJson({value: value + 1})
-    let decrement = () => context.setJson({value: value - 1})
-    return (<p>Clicked: {value} times
-            {' '}<button onClick={increment}>+</button>
-            {' '}<button onClick={decrement}>-</button></p>)
-}
+## Changing immutable structures
+(With the usual meaning of getting a copy with the difference). The above example shows a simple way to do that
 
+## Decoupling the structure from business logic
+A good example of this is in the examples code `examples/lens/dragon`. Here we can see the 'damage' method is handed a lens. 
+The damage code knows nothing about the structure of the dragon, it just knows how to go from a dragon to the hitpoints. 
+This approach of decoupling the business logic from the structure leads to code that keeps on working even when there are
+dramatic changes to the domain structures
 
-```
+## Updating multiple parts simultaneously
 
-# Theoretical musings about quality
+Imagine we have a data structure and we need to update two parts at the same time. In the tictactoe example we need
+to change the state of the current square and the value of next state. 
 
-For me quality is about four things. I've included what is for me the reason I care about each thing. These qualities
-are all about 'how easy is it to change my software' and 'how easy is it to test my software'
+We can do this quite easily by having a lens to 'part1' and a second one to 'part 2', then using the method `updateTwoValues` or 
+`transformTwoValues`. The result is a new main with both modifications applied.
 
-* Composability (how easy can I 'plug these things together'?)
-* Decoupling (how many lines of code are impacted when I make a change?)
-* Cohesion (how many windows do I have to open to see one aspect of the code?)
-* Readability of the result (Can I come back in six months and still understand it?)
-
-In all but decoupling I feel this state management is a clear improvement over redux.When it comes to decoupling
-my experience in the projects I have looked at, this lens approach is usually better as most redux actions become bound
-to the structure. However there are projects I can visualise where redux would be more decoupled (especially if the
-redux actions actually used lens)
-
-Certainly the ability to test the code is (in my experience) far easier than with redux.

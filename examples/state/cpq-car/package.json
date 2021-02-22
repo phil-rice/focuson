@@ -53,8 +53,7 @@
   ],
   "license": "MIT",
   "main": "dist/index",
-  "types": "index",
-  "name": "@phil-rice/example_state_cpq_car",
+  "types": "dist/index",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -63,6 +62,7 @@
   },
   "version": "0.2.1",
   "template": "react",
+  "name": "@phil-rice/example_state_cpq_car",
   "details": {
     "links": [
       "@phil-rice/lens",

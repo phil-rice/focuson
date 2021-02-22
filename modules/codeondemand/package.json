@@ -15,15 +15,12 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "typescript": "^4.1.5",
-    "crypto-js": "^4.0.0",
     "@phil-rice/lens": "0.2.1",
     "@phil-rice/nav": "0.2.1",
     "@phil-rice/state": "0.2.1"
   },
   "description": "This is a project that allows code to be (safely) fetched on demand from a server. The url holding the code is including in the json",
   "devDependencies": {
-    "@babel/preset-typescript": "^7.12.7",
-    "@types/crypto-js": "^4.0.1",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@testing-library/jest-dom": "^5.11.6",
@@ -54,8 +51,7 @@
   ],
   "license": "MIT",
   "main": "dist/index",
-  "types": "index",
-  "name": "@phil-rice/codeondemand",
+  "types": "dist/index",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -63,7 +59,8 @@
     "test:watch": "npm run test -- --watch"
   },
   "version": "0.2.1",
-  "template": "codeondemand",
+  "template": "react",
+  "name": "@phil-rice/codeondemand",
   "details": {
     "ideify": true,
     "publish": true,
