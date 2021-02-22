@@ -51,6 +51,7 @@
     "publish": true,
     "links": [],
     "extraDeps": {},
-    "extraDevDeps": {}
+    "extraDevDeps": {},
+    "test": true
   }
 }

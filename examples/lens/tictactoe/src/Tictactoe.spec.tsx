@@ -3,9 +3,8 @@ import React from 'react';
 
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow, ShallowWrapper} from "enzyme";
-
-import {focusOnNth, lensState,  LensState} from "@phil-rice/lens";
-import {Board, BoardData, GameData, nextStateLens, SimpleGame, Square} from "./game";
+import {focusOnNth, LensState, lensState} from "@phil-rice/state";
+import {Board, BoardData, GameData, SimpleGame, Square} from "./game";
 
 
 enzymeSetup()

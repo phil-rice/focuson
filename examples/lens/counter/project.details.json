@@ -3,7 +3,7 @@
   "name"          : "@phil-rice/lens_example_counter",
   "description"   : "The redux 'counter' example' using lens",
   "details": {
-    "links"       : ["@phil-rice/lens"],
+    "links"       : ["@phil-rice/lens", "@phil-rice/state"],
     "extraDeps"   : {},
     "extraDevDeps": {},
     "port": 3001

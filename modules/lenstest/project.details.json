@@ -1,0 +1,13 @@
+{
+  "template":    "noreact",
+  "name":        "@phil-rice/lenstest",
+  "description": "Tests the lens defined in @phil-rice/lens, and the state defined in @phil-rice/state",
+  "details":     {
+    "ideify":       true,
+    "publish":      true,
+    "links":        ["@phil-rice/lens","@phil-rice/state"],
+    "extraDeps":    {},
+    "extraDevDeps": {},
+    "test": true
+  }
+}

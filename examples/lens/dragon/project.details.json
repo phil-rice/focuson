@@ -3,8 +3,9 @@
   "name"          : "@phil-rice/lens_example_dragon",
   "description"   : "Showing how lens help in 'normal programming' without any link to react",
   "details": {
-    "links": ["@phil-rice/lens"],
+    "links": ["@phil-rice/lens", "@phil-rice/state"],
     "extraDeps"   : {},
-    "extraDevDeps": {}
+    "extraDevDeps": {},
+    "test": true
   }
 }

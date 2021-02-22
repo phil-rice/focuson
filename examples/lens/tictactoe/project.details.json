@@ -5,7 +5,8 @@
   "details": {
     "extraDeps"   : {"@phil-rice/lens": "<version>"},
     "extraDevDeps": {},
-    "links"       : ["@phil-rice/lens"],
-    "port": 3004
+    "links"       : ["@phil-rice/lens", "@phil-rice/state"],
+    "port": 3004,
+    "test": true
   }
 }

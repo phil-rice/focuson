@@ -7,6 +7,7 @@
     "extraDeps"   : {"@types/crypto-js": "^4.0.1"},
     "extraDevDeps": {},
     "port"        : 3005,
+    "test": true,
     "orgcmd": true
   }
 }

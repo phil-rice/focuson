@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {SHA256} from 'crypto-js'
 import {GameContext, GameData, GameDomain, onClickSquare} from "./GameDomain";
-import {getElement} from "@phil-rice/lens";
+import {getElement} from "@phil-rice/state";
 import {ComponentFromServer, LoadAndCompileCache, loadJsonFromUrl, MakeComponentFromServer} from "@phil-rice/codeondemand";
 import React from "react";
 

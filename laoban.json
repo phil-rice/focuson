@@ -15,6 +15,7 @@
       ]
     },
     "ls":         {"description": "lists all the projects", "commands": ["js:process.cwd()"]},
+    "clean":      {"description": "removes the dist directory", "commands": ["rm -rf dist", "rm .status", "rm .log", "rm .profile"]},
     "lsDist":     {
       "description": "check that the directory option works", "commands": [
         {"command": "js:process.cwd()", "directory": "dist"},
@@ -33,7 +34,13 @@
     },
     "test":       {
       "description": "runs ${packageManager} test",
+      "guard":       "${projectDetails.details.test}",
       "commands":    [{"name": "test", "command": "${packageManager} test", "status": true}]
+    },
+    "ls-tests":       {
+      "description": "lists the projects with tests in them",
+      "guard":       "${projectDetails.details.test}",
+      "commands":    ["js:process.cwd()"]
     },
     "slow":       {
       "description": "prints something, delays 2s, prints something",
@@ -75,10 +82,10 @@
       "guard":       "${projectDetails.details.orgcmd}",
       "commands":    [{"name": "orgcmd", "command": "orgcmd build -f", "status": true}]
     },
-    "ls-ideify": {
+    "ls-ideify":  {
       "description": "lists the projects that have an ideify setting (used to allow mono repos to work in ide",
-      "guard": "${projectDetails.details.ideify}",
-      "commands": [
+      "guard":       "${projectDetails.details.ideify}",
+      "commands":    [
         "js:`${process.cwd()} ${projectDetails.name}`"
       ]
     },

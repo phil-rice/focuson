@@ -18,7 +18,8 @@
     "react-i18next": "^11.8.5",
     "i18next": "^19.8.4",
     "@phil-rice/lens": "0.2.1",
-    "@phil-rice/nav": "0.2.1"
+    "@phil-rice/nav": "0.2.1",
+    "@phil-rice/state": "0.2.1"
   },
   "description": "A fully featured car leasing cpq",
   "devDependencies": {
@@ -65,13 +66,15 @@
   "details": {
     "links": [
       "@phil-rice/lens",
-      "@phil-rice/nav"
+      "@phil-rice/nav",
+      "@phil-rice/state"
     ],
     "extraDeps": {
       "react-i18next": "^11.8.5",
       "i18next": "^19.8.4"
     },
     "extraDevDeps": {},
+    "test": true,
     "port": 3010
   }
 }

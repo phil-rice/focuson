@@ -1,0 +1,12 @@
+{
+  "template":    "noreact",
+  "name":        "@phil-rice/state",
+  "description": "Uses the lens defined in @phil-rice/lens to implement state for tools such as react",
+  "details":     {
+    "ideify":       true,
+    "publish":      true,
+    "links":        ["@phil-rice/lens"],
+    "extraDeps":    {},
+    "extraDevDeps": {}
+  }
+}

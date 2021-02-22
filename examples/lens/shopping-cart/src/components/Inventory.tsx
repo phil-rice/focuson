@@ -2,7 +2,8 @@
 import {CartData, InventoryData, ProductData} from "../domain";
 import React from "react";
 import {ProductList} from "./ProductList";
-import {Lens, LensState} from "../../../../../modules/lens";
+import {Lens} from "@phil-rice/lens";
+import {LensState} from "@phil-rice/state";
 
 interface InventoryProps<Main> {
     context: LensState<Main, InventoryData>,

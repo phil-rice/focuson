@@ -5,8 +5,9 @@
   "details":     {
     "ideify":       true,
     "publish":      true,
-    "links":        ["@phil-rice/lens", "@phil-rice/nav"],
+    "links":        ["@phil-rice/lens", "@phil-rice/nav", "@phil-rice/state"],
     "extraDeps":    {},
-    "extraDevDeps": {}
+    "extraDevDeps": {},
+    "test":         true
   }
 }

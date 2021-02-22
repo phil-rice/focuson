@@ -2,10 +2,11 @@
 import React from 'react';
 
 import {enzymeSetup} from './enzymeAdapterSetup';
-import {render, shallow, ShallowWrapper} from "enzyme";
+import {shallow, ShallowWrapper} from "enzyme";
 
-import {Lens, lensState, LensState, Lenses} from "@phil-rice/lens";
-import {BoardData, defaultStateLens, GameContext, GameData, GameDomain, onClickSquare} from "./GameDomain";
+import {Lenses} from "@phil-rice/lens";
+import {LensState, lensState} from "@phil-rice/state";
+import {BoardData, GameData} from "./GameDomain";
 import {Board} from "./render/Board";
 import {Game} from "./render/Game";
 import {Square} from "./render/Square";

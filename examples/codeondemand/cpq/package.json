@@ -73,6 +73,7 @@
     "extraDeps": {},
     "extraDevDeps": {},
     "port": 3006,
+    "test": true,
     "orgcmd": true
   }
 }
