@@ -4,7 +4,7 @@ import React from 'react';
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow, ShallowWrapper} from "enzyme";
 
-import {lensContext, LensContext, Lenses} from "@phil-rice/lens";
+import {lensState, LensState, Lenses} from "@phil-rice/lens";
 import {CpqData} from "./CpqDomain";
 import {Cpq} from "./render/Cpq";
 import {SimpleFilter} from "./render/SimpleFilter";
@@ -41,11 +41,11 @@ let cpqJson: CpqData = {
 
 function setJson(json: CpqData): void {throw new Error('should not be called')}
 
-let context = lensContext(cpqJson, setJson, 'cpq')
+let context = lensState(cpqJson, setJson, 'cpq')
 
-function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensContext<Main, Data>, expectedLensDescription: string) {
+function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensState<Main, Data>, expectedLensDescription: string) {
     let props: any = wrapper.props()
-    let childContext: LensContext<Main, Data> = props.context
+    let childContext: LensState<Main, Data> = props.context
     expect(childContext.lens.description).toBe(expectedLensDescription)
     expect(childContext.main).toBe(context.main)
     expect(childContext.dangerouslySetMain).toBe(context.dangerouslySetMain)

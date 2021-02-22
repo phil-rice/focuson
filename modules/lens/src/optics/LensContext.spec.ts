@@ -1,18 +1,18 @@
 //Copyright (c)2020-2021 Philip Rice. <br />Permission is hereby granted, free of charge, to any person obtaining a copyof this software and associated documentation files (the Software), to dealin the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  <br />The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS
-import {lensContext, LensContext} from "./LensContext";
+import {lensState, LensState} from "./LensState";
 import {Lens, Lenses} from "./Lens";
 import {Chest, dragon, Dragon, DragonDomain} from "./LensFixture";
 
 
 let initialMain = {...dragon}
 let setMain = jest.fn();
-let dragonC = lensContext( dragon, setMain, "dragon")
+let dragonC = lensState( dragon, setMain, "dragon")
 let chestC = dragonC.focusOn('body').focusOn('chest')
 let stomachC = chestC.focusOn('stomach')
 
-function setupForSetMain< Main, T>(context: LensContext< Main, T>, fn: (context: LensContext< Main, T>, setMain: jest.Mock) => void) {
+function setupForSetMain< Main, T>(context: LensState< Main, T>, fn: (context: LensState< Main, T>, setMain: jest.Mock) => void) {
     const setMain = jest.fn()
-    let newContext =new LensContext(context.main, setMain, context.lens)
+    let newContext =new LensState(context.main, setMain, context.lens)
     fn(newContext, setMain)
 }
 
@@ -22,7 +22,7 @@ function checkSetMainWas<Main>(setMain: jest.Mock, expected: Main) {
     expect(dragon).toEqual(initialMain) //just checking no sideeffects
 }
 
-function checkContext<T>(context: LensContext< Dragon, T>, lensDescription: string) {
+function checkContext<T>(context: LensState< Dragon, T>, lensDescription: string) {
     expect(context.main).toEqual(dragon)
     expect(context.lens.description).toEqual(lensDescription)
     expect(context.dangerouslySetMain).toEqual(setMain)

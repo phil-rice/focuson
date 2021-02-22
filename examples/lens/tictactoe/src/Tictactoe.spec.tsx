@@ -4,7 +4,7 @@ import React from 'react';
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow, ShallowWrapper} from "enzyme";
 
-import {focusOnNth, lensContext, LensContext} from "@phil-rice/lens";
+import {focusOnNth, lensState,  LensState} from "@phil-rice/lens";
 import {Board, BoardData, GameData, nextStateLens, SimpleGame, Square} from "./game";
 
 
@@ -16,15 +16,15 @@ let gameJson: GameData = {"board": boardJson, next: 'X'}
 
 function setJson(json: GameData): void {throw new Error('should not be called')}
 
-let context = lensContext<GameData>(gameJson, setJson, 'game')
-function squareContext(context: LensContext<GameData, GameData>, n: number) {
+let context = lensState<GameData>(gameJson, setJson, 'game')
+function squareContext(context: LensState<GameData, GameData>, n: number) {
     let squaresContext = context.focusOn('board').focusOn('squares');
     return focusOnNth(squaresContext, n)
 }
 
-function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensContext<Main, Data>, expectedLensDescription: string) {
+function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensState<Main, Data>, expectedLensDescription: string) {
     let props: any = wrapper.props()
-    let childContext: LensContext<Main, Data> = props.context
+    let childContext: LensState<Main, Data> = props.context
     expect(childContext.lens.description).toBe(expectedLensDescription)
     expect(childContext.main).toBe(context.main)
     expect(childContext.dangerouslySetMain).toBe(context.dangerouslySetMain)
@@ -61,7 +61,7 @@ describe("Tictactoe", () => {
 
         it("should have an onclick that inverts the state, and sets the square with the current state", () => {
             let setJson = jest.fn()
-            let context = lensContext<GameData>(gameJson, setJson, 'game')
+            let context = lensState<GameData>(gameJson, setJson, 'game')
             const square = shallow(<Square context={squareContext(context, 1)}/>)
             square.simulate('click')
             expect(setJson.mock.calls.length).toBe(1)

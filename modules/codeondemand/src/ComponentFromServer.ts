@@ -1,11 +1,11 @@
 //Copyright (c)2020-2021 Philip Rice. <br />Permission is hereby granted, free of charge, to any person obtaining a copyof this software and associated documentation files (the Software), to dealin the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  <br />The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS
 import {LoadAndCompileCache} from "./LoadAndCompileCache";
 import React, {useContext} from "react";
-import {Lens, LensContext, LensProps, setJsonForFlux} from "@phil-rice/lens";
+import {Lens, LensState, LensProps, setJsonForFlux} from "@phil-rice/lens";
 import {ComponentCacheContext} from "./ComponentCacheProvider";
 
 
-export function loadJsonFromUrl<Main>(description: string, cache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>, processContext: (cache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>, c: LensContext<Main, Main>) => void): (url: string) => Promise<void> {
+export function loadJsonFromUrl<Main>(description: string, cache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>, processContext: (cache: LoadAndCompileCache<MakeComponentFromServer<React.ReactElement>>, c: LensState<Main, Main>) => void): (url: string) => Promise<void> {
     return url => {
         return fetch(url).then(r => r.json()).then(json =>
             cache.loadFromBlob(json).then(() => setJsonForFlux<Main, void>(description, c => processContext(cache, c))(json)))
@@ -17,7 +17,7 @@ interface LensPropsWithRender<Main, T, Child> extends LensProps<Main, T> {
     lens: Lens<T, Child>
 }
 
-export interface MakeComponentFromServer<ReactElement> {<Main, T>(props: LensContext<Main, T>): ReactElement}
+export interface MakeComponentFromServer<ReactElement> {<Main, T>(props: LensState<Main, T>): ReactElement}
 
 function findRenderUrl(name: string, child: any): string {
     if (child._render && name in child._render) return child._render[name]

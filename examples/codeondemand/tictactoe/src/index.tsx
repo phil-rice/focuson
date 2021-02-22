@@ -2,8 +2,8 @@
 import ReactDOM from 'react-dom';
 import './index.css';
 import {SHA256} from 'crypto-js'
-import {GameContext, GameData, GameDomain, NoughtOrCross, onClickSquare} from "./GameDomain";
-import {getElement, LensContext, Lenses} from "@phil-rice/lens";
+import {GameContext, GameData, GameDomain, onClickSquare} from "./GameDomain";
+import {getElement} from "@phil-rice/lens";
 import {ComponentFromServer, LoadAndCompileCache, loadJsonFromUrl, MakeComponentFromServer} from "@phil-rice/codeondemand";
 import React from "react";
 

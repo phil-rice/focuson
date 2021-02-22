@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {CartData, ProductData} from "../domain";
 import React from 'react';
 
-import {Lens, LensContext} from "../../../../../modules/lens";
+import {Lens, LensState} from "../../../../../modules/lens";
 import {ProductList} from "./ProductList";
 
 
@@ -13,7 +13,7 @@ function onCheckoutClicked() { console.log("Checkout clicked")}
 
 
 interface CartProps<Main> {
-    context: LensContext<Main, CartData>,
+    context: LensState<Main, CartData>,
     addToListLens: Lens<Main, ProductData[]>
 }
 

@@ -4,7 +4,7 @@ import React from 'react';
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {mount} from "enzyme";
 import {Cpq, CpqData} from "./Cpq";
-import {lensContext} from "@phil-rice/lens";
+import {lensState} from "@phil-rice/lens";
 
 enzymeSetup()
 
@@ -35,7 +35,7 @@ let json: CpqData = {
 }
 
 
-let context = lensContext<CpqData>(json, () => {throw Error("Shouldn't be called")}, 'cpq')
+let context = lensState<CpqData>(json, () => {throw Error("Shouldn't be called")}, 'cpq')
 
 describe("Cpq", () => {
 

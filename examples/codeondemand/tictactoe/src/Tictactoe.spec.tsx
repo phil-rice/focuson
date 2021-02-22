@@ -4,7 +4,7 @@ import React from 'react';
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {render, shallow, ShallowWrapper} from "enzyme";
 
-import {Lens, lensContext, LensContext, Lenses} from "@phil-rice/lens";
+import {Lens, lensState, LensState, Lenses} from "@phil-rice/lens";
 import {BoardData, defaultStateLens, GameContext, GameData, GameDomain, onClickSquare} from "./GameDomain";
 import {Board} from "./render/Board";
 import {Game} from "./render/Game";
@@ -35,14 +35,14 @@ let gameJson: GameData = {
 function setJson(json: GameData): void {throw new Error('should not be called')}
 
 let cache: any = ''//this isn't used and it's ok if it throws errors as that will indicate test failure
-let context = lensContext<GameData>(gameJson, setJson, 'game')
-function squareContext(context: LensContext<GameData, GameData>, n: number) {
+let context = lensState<GameData>(gameJson, setJson, 'game')
+function squareContext(context: LensState<GameData, GameData>, n: number) {
     return context.focusOn('_embedded').focusOn('board').focusOn('squares').chainLens(Lenses.nth(n))
 }
 
-function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensContext<Main, Data>, expectedLensDescription: string) {
+function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensState<Main, Data>, expectedLensDescription: string) {
     let props: any = wrapper.props()
-    let childContext: LensContext<Main, Data> = props.context
+    let childContext: LensState<Main, Data> = props.context
     expect(childContext.lens.description).toBe(expectedLensDescription)
     expect(childContext.main).toBe(context.main)
     expect(childContext.dangerouslySetMain).toBe(context.dangerouslySetMain)

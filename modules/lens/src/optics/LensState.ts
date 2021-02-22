@@ -3,16 +3,16 @@ import {Lens, Lenses, transformTwoValues, updateTwoValues} from "./Lens";
 
 
 export interface LensProps<Main, T> {
-    context: LensContext<Main, T>
+    context: LensState<Main, T>
 }
 
-export let focusOnNth = <Main, T>(context: LensContext<Main, T[]>, n: number) => context.chainLens(Lenses.nth(n));
+export let focusOnNth = <Main, T>(context: LensState<Main, T[]>, n: number) => context.chainLens(Lenses.nth(n));
 
-export const lensContext = <Main>(main: Main, setMain: (m: Main) => void, description: string): LensContext<Main, Main> =>
-    new LensContext(main, setMain, Lenses.identity<Main>().withDescription(description));
+export const lensState = <Main>(main: Main, setMain: (m: Main) => void, description: string): LensState<Main, Main> =>
+    new LensState(main, setMain, Lenses.identity<Main>().withDescription(description));
 
 
-export class LensContext<Main, T> {
+export class LensState<Main, T> {
     /** The full state. This should normally not be called by your code. */
     main: Main
 
@@ -31,13 +31,13 @@ export class LensContext<Main, T> {
 
     /** If just 'walking down the json' using field names this is great. The parameter 'fieldName' is a 'key' of the current focused place,
      * and this returns a new context focused on the json under the field name */
-    focusOn<K extends keyof T>(fieldName: K): LensContext<Main, T[K]> {return this.copyWithLens(this.lens.focusOn(fieldName))}
+    focusOn<K extends keyof T>(fieldName: K): LensState<Main, T[K]> {return this.copyWithLens(this.lens.focusOn(fieldName))}
 
     /** When we want to focus on something like 'the nth item' then 'withChildLens' is used. This returns a context focused on the block of json under the lens starting from 'here' */
-    chainLens<NewT>(lens: Lens<T, NewT>): LensContext<Main, NewT> { return new LensContext(this.main, this.dangerouslySetMain, this.lens.chainWith(lens)) }
+    chainLens<NewT>(lens: Lens<T, NewT>): LensState<Main, NewT> { return new LensState(this.main, this.dangerouslySetMain, this.lens.chainWith(lens)) }
 
     /** When we want to focus on something like 'the nth item' then 'withChildLens' is used. This returns a context focused on the block of json under the lens passed in */
-    copyWithLens<NewT>(lens: Lens<Main, NewT>): LensContext<Main, NewT> {return new LensContext(this.main, this.dangerouslySetMain, lens)}
+    copyWithLens<NewT>(lens: Lens<Main, NewT>): LensState<Main, NewT> {return new LensState(this.main, this.dangerouslySetMain, lens)}
 
     /** The json that this context is focused on */
     json(): T { return this.lens.get(this.main)}
@@ -81,9 +81,9 @@ export abstract class WithTwoLensAndOneTransformFn<Main, T1, T2> {
  * @param fn The function that creates a thing (for example a react component) given a context
  * @param transformJson a function that transforms the main json before it is sent back to the 'fn'
  */
-export const setJsonWithLongTransformation = <Main>(description: string, fn: (lc: LensContext<Main, Main>) => void,
+export const setJsonWithLongTransformation = <Main>(description: string, fn: (lc: LensState<Main, Main>) => void,
                                                     transformJson: (m: Main) => Promise<Main> = m => Promise.resolve(m)): (m: Main) => void =>
-    (main: Main) => transformJson(main).then(processedMain => fn(lensContext(processedMain, setJsonWithLongTransformation(description, fn, transformJson), description)))
+    (main: Main) => transformJson(main).then(processedMain => fn(lensState(processedMain, setJsonWithLongTransformation(description, fn, transformJson), description)))
 
 
 /** This is the simplest 'flux' pattern (for example we use it with react).
@@ -91,6 +91,6 @@ export const setJsonWithLongTransformation = <Main>(description: string, fn: (lc
  * @param fn The function that creates a thing (for example a react component) given a context
  */
 
-export function setJsonForFlux<Main, Result>(description: string, fn: (lc: LensContext<Main, Main>) => Result): (m: Main) => Result {
-    return (main: Main) => fn(lensContext<Main>(main, setJsonForFlux<Main, Result>(description, fn), description))
+export function setJsonForFlux<Main, Result>(description: string, fn: (lc: LensState<Main, Main>) => Result): (m: Main) => Result {
+    return (main: Main) => fn(lensState<Main>(main, setJsonForFlux<Main, Result>(description, fn), description))
 }
