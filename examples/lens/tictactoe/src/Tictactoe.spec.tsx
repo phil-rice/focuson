@@ -4,7 +4,7 @@ import React from 'react';
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow, ShallowWrapper} from "enzyme";
 
-import {focusOnNth, lensContext, LensContext} from "../../../../modules/lens"; //changed from @phil-rice/lens;
+import {focusOnNth, lensContext, LensContext} from "@phil-rice/lens";
 import {Board, BoardData, GameData, nextStateLens, SimpleGame, Square} from "./game";
 
 

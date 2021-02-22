@@ -4,7 +4,7 @@ import React from 'react';
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {mount} from "enzyme";
 import {Cpq, CpqData} from "./Cpq";
-import {lensContext} from "../../../../modules/lens"; //changed from @phil-rice/lens;
+import {lensContext} from "@phil-rice/lens";
 
 enzymeSetup()
 

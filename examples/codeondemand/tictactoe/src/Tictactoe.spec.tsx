@@ -2,10 +2,10 @@
 import React from 'react';
 
 import {enzymeSetup} from './enzymeAdapterSetup';
-import {shallow, ShallowWrapper} from "enzyme";
+import {render, shallow, ShallowWrapper} from "enzyme";
 
-import {Lens, lensContext, LensContext, Lenses} from "../../../../modules/lens"; //changed from @phil-rice/lens;
-import {BoardData, defaultStateLens, GameData, GameDomain} from "./GameDomain";
+import {Lens, lensContext, LensContext, Lenses} from "@phil-rice/lens";
+import {BoardData, defaultStateLens, GameContext, GameData, GameDomain, onClickSquare} from "./GameDomain";
 import {Board} from "./render/Board";
 import {Game} from "./render/Game";
 import {Square} from "./render/Square";
@@ -77,15 +77,21 @@ describe("Tictactoe", () => {
             const square = shallow(<Square context={squareContext(context, 0)}/>)
             expect(square.text()).toEqual('X')
         })
-        it("should have an onclick that inverts the state, and sets the square with the current state", () => {
-            let setJson = jest.fn()
-            let context = lensContext(gameJson, setJson, 'game')
-            const square = shallow(<Square context={squareContext(context, 1)}/>)
-            square.simulate('click')
-            expect(setJson.mock.calls.length).toBe(1)
-            let data: GameData = setJson.mock.calls[0][0]
-            expect(data.state).toBe('O') // inverted
-            expect(data._embedded.board.squares[1]).toBe('X')
-        })
+
+        //TODO Still working how to test context injection
+        // it("should have an onclick calls the onClickSquare in the domain", () => {
+        //     const domain: GameDomain = {loadJson: jest.fn(), onClickSquare: jest.fn()}
+        //     let context = lensContext(gameJson, jest.fn(), 'game')
+        //
+        //     jest.spyOn(Square, 'useContext')
+        //
+        //     const square = render(<Square context={squareContext(context, 1)}/>)
+        //     square.simulate('click')
+        //
+        //     expect(loadJson.mock.calls.length).toBe(1)
+        //     let data: GameData = loadJson.mock.calls[0][0]
+        //     expect(data.state).toBe('O') // inverted
+        //     expect(data._embedded.board.squares[1]).toBe('X')
+        // })
     })
 })

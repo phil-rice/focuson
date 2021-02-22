@@ -43,12 +43,12 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.0",
+  "version": "0.2.1",
   "template": "noreact",
   "name": "@phil-rice/lens",
   "description": "A simple implementation of lens using type script",
-  "ideify": "../../../../modules/lens",
   "details": {
+    "ideify": true,
     "publish": true,
     "links": [],
     "extraDeps": {},

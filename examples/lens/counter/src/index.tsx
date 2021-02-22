@@ -2,7 +2,7 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom';
 
-import {getElement, setJsonForFlux} from "../../../../modules/lens"; //changed from @phil-rice/lens;
+import {getElement, setJsonForFlux} from "@phil-rice/lens";
 import {Counter, TwoCounter} from "./Counter";
 import {CounterData, TwoCounterData} from "./domain";
 

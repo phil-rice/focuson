@@ -2,8 +2,8 @@
 import ReactDOM from 'react-dom';
 
 import {SHA256} from 'crypto-js'
-import {getElement, setJsonForFlux} from "../../../../modules/lens"; //changed from @phil-rice/lens;
-import {ComponentFromServer, LoadAndCompileCache, MakeComponentFromServer} from "../../../../modules/codeondemand"; //changed from @phil-rice/codeondemand;
+import {getElement, setJsonForFlux} from "@phil-rice/lens";
+import {ComponentFromServer, LoadAndCompileCache, MakeComponentFromServer} from "@phil-rice/codeondemand";
 import React from "react";
 import {CpqData} from "./CpqDomain";
 import {Nav} from "../../../../modules/nav";

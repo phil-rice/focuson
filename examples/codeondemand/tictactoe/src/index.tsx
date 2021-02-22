@@ -2,22 +2,13 @@
 import ReactDOM from 'react-dom';
 import './index.css';
 import {SHA256} from 'crypto-js'
-import {GameContext, GameData, GameDomain, NoughtOrCross} from "./GameDomain";
-import {getElement, LensContext, Lenses} from "../../../../modules/lens"; //changed from @phil-rice/lens;
-import {ComponentFromServer, LoadAndCompileCache, loadJsonFromUrl, MakeComponentFromServer} from "../../../../modules/codeondemand"; //changed from @phil-rice/codeondemand;
+import {GameContext, GameData, GameDomain, NoughtOrCross, onClickSquare} from "./GameDomain";
+import {getElement, LensContext, Lenses} from "@phil-rice/lens";
+import {ComponentFromServer, LoadAndCompileCache, loadJsonFromUrl, MakeComponentFromServer} from "@phil-rice/codeondemand";
 import React from "react";
 
 let cache = LoadAndCompileCache.create<MakeComponentFromServer<React.ReactElement>>((s: string) => SHA256(s).toString())
 
-
-function invert(s: NoughtOrCross): NoughtOrCross {return (s === 'X' ? 'O' : 'X')}
-export let nextStateLens = Lenses.build<GameData>('game').focusOn('state')
-const nextValueForSquare = (sq: NoughtOrCross, next: NoughtOrCross) => next;
-const nextValueForNext = (sq: NoughtOrCross, next: NoughtOrCross) => invert(next);
-function onClickSquare(squareContext: LensContext<GameData, NoughtOrCross>): void {
-    if (squareContext.json() == '')
-        squareContext.useOtherLensAsWell(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
-}
 
 let element = getElement('root')
 
