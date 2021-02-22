@@ -1,6 +1,6 @@
 {
   "template":    "react",
-  "name":        "@phil-rice/lens_example_cpq-car",
+  "name":        "@phil-rice/example_state_cpq_car",
   "description": "A fully featured car leasing cpq",
   "details":     {
     "links":        ["@phil-rice/lens", "@phil-rice/nav", "@phil-rice/state"],

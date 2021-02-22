@@ -1,0 +1,11 @@
+{
+  "template"      : "noreact",
+  "name"          : "@phil-rice/example_lens_coffee",
+  "description"   : "Showing how lens help in 'normal programming'",
+  "details": {
+    "links": ["@phil-rice/lens"],
+    "extraDeps"   : {},
+    "extraDevDeps": {},
+    "test": false
+  }
+}

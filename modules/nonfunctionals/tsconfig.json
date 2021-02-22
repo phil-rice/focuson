@@ -12,5 +12,8 @@
   "include": [
     "src/**/*.ts",
     "index.ts"
+  ],
+  "exclude": [
+    "dist"
   ]
 }

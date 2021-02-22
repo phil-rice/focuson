@@ -1,6 +1,6 @@
 {
   "template"      : "react",
-  "name"          : "@phil-rice/lens_example_counter",
+  "name"          : "@phil-rice/example_state_cpq",
   "description"   : "The redux 'counter' example' using lens",
   "details": {
     "links"       : ["@phil-rice/lens", "@phil-rice/state"],

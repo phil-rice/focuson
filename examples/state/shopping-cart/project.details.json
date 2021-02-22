@@ -1,6 +1,6 @@
 {
   "template"      : "react",
-  "name"          : "@phil-rice/lens_example_cart",
+  "name"          : "@phil-rice/example_state_cart",
   "description"   : "The redux 'shopping cart' example' using lens",
   "details": {
     "links"       : ["@phil-rice/lens", "@phil-rice/state"],

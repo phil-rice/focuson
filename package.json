@@ -3,6 +3,7 @@
   "workspaces": [
     "modules/*",
     "examples/lens/*",
+    "examples/state/*",
     "examples/codeondemand/*"
   ],
   "name": "ts-lens",

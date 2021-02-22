@@ -1,5 +1,5 @@
 //Copyright (c)2020-2021 Philip Rice. <br />Permission is hereby granted, free of charge, to any person obtaining a copyof this software and associated documentation files (the Software), to dealin the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  <br />The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS
-import {Lenses} from "@phil-rice/lens";
+import {Lens, Lenses} from "@phil-rice/lens";
 import {focusOnNth, LensProps} from "@phil-rice/state";
 import * as React from "react";
 
@@ -51,14 +51,14 @@ export function Board({context}: GameProps<GameData, BoardData>) {
 
 function invert(s: NoughtOrCross): NoughtOrCross {return (s === 'X' ? 'O' : 'X')}
 
-export let nextStateLens = Lenses.build<GameData>('game').focusOn('next')
+export let nextStateLens: Lens<GameData, NoughtOrCross> = Lenses.build<GameData>('game').focusOn('next')
 const nextValueForSquare = (sq: NoughtOrCross, next: NoughtOrCross) => next;
 const nextValueForNext = (sq: NoughtOrCross, next: NoughtOrCross) => invert(next);
 
 export function Square({context}: GameProps<GameData, NoughtOrCross>) {
     let onClick = () => {
         if (context.json() == '')
-            context.useOtherLensAsWell(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
+            context.useOtherLensAsWell<NoughtOrCross>(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
     }
     return (<button className='square' onClick={onClick}>{context.json()}</button>)
 }

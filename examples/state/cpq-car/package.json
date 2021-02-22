@@ -15,10 +15,13 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "typescript": "^4.1.5",
+    "react-i18next": "^11.8.5",
+    "i18next": "^19.8.4",
     "@phil-rice/lens": "0.2.1",
+    "@phil-rice/nav": "0.2.1",
     "@phil-rice/state": "0.2.1"
   },
-  "description": "The redux 'counter' example' using lens",
+  "description": "A fully featured car leasing cpq",
   "devDependencies": {
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -51,7 +54,7 @@
   "license": "MIT",
   "main": "dist/index",
   "types": "index",
-  "name": "@phil-rice/lens_example_counter",
+  "name": "@phil-rice/example_state_cpq_car",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -63,10 +66,15 @@
   "details": {
     "links": [
       "@phil-rice/lens",
+      "@phil-rice/nav",
       "@phil-rice/state"
     ],
-    "extraDeps": {},
+    "extraDeps": {
+      "react-i18next": "^11.8.5",
+      "i18next": "^19.8.4"
+    },
     "extraDevDeps": {},
-    "port": 3001
+    "test": true,
+    "port": 3010
   }
 }

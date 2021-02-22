@@ -18,7 +18,7 @@
     "@phil-rice/lens": "0.2.1",
     "@phil-rice/state": "0.2.1"
   },
-  "description": "The redux 'shopping cart' example' using lens",
+  "description": "The redux 'counter' example' using lens",
   "devDependencies": {
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -51,7 +51,7 @@
   "license": "MIT",
   "main": "dist/index",
   "types": "index",
-  "name": "@phil-rice/lens_example_cart",
+  "name": "@phil-rice/example_state_counter",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -67,6 +67,6 @@
     ],
     "extraDeps": {},
     "extraDevDeps": {},
-    "port": 3008
+    "port": 3001
   }
 }

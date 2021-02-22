@@ -51,7 +51,7 @@
   "license": "MIT",
   "main": "dist/index",
   "types": "index",
-  "name": "@phil-rice/tic_tac_toe_lensexample",
+  "name": "@phil-rice/example_state_tictactoe",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",

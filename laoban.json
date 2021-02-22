@@ -15,7 +15,7 @@
       ]
     },
     "ls":         {"description": "lists all the projects", "commands": ["js:process.cwd()"]},
-    "clean":      {"description": "removes the dist directory", "commands": ["rm -rf dist", "rm .status", "rm .log", "rm .profile"]},
+    "clean":      {"description": "removes the dist directory", "commands": ["rm -rf dist", "rm -f .status", "rm -f .log", "rm -f .profile"]},
     "lsDist":     {
       "description": "check that the directory option works", "commands": [
         {"command": "js:process.cwd()", "directory": "dist"},

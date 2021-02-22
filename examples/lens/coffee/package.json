@@ -46,14 +46,14 @@
   },
   "version": "0.2.1",
   "template": "noreact",
-  "name": "@phil-rice/example_lens_dragon",
-  "description": "Showing how lens help in 'normal programming' without any link to react",
+  "name": "@phil-rice/example_lens_coffee",
+  "description": "Showing how lens help in 'normal programming'",
   "details": {
     "links": [
       "@phil-rice/lens"
     ],
     "extraDeps": {},
     "extraDevDeps": {},
-    "test": true
+    "test": false
   }
 }

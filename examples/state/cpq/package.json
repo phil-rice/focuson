@@ -15,13 +15,11 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "typescript": "^4.1.5",
-    "react-i18next": "^11.8.5",
-    "i18next": "^19.8.4",
     "@phil-rice/lens": "0.2.1",
     "@phil-rice/nav": "0.2.1",
     "@phil-rice/state": "0.2.1"
   },
-  "description": "A fully featured car leasing cpq",
+  "description": "Showing how lens help in 'configure pricing quotation' examples",
   "devDependencies": {
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -54,7 +52,7 @@
   "license": "MIT",
   "main": "dist/index",
   "types": "index",
-  "name": "@phil-rice/lens_example_cpq-car",
+  "name": "@phil-rice/example_state_cpq",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "start": "react-scripts start",
@@ -69,12 +67,9 @@
       "@phil-rice/nav",
       "@phil-rice/state"
     ],
-    "extraDeps": {
-      "react-i18next": "^11.8.5",
-      "i18next": "^19.8.4"
-    },
+    "extraDeps": {},
     "extraDevDeps": {},
     "test": true,
-    "port": 3010
+    "port": 3002
   }
 }
