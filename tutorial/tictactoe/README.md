@@ -78,12 +78,11 @@ a part of the `current json`. Focused on means that the we have json with the fo
 As example, if we are focused on a square, and call `setJson` the square will be 'set' to the new value. The word 'set'
 is in quotes, because the state is not mutated: it is copied.
 
-## The main loop
+## The main 'loop'
 
 ```typescript jsx
-let setJson = LensContext.setJsonForReact<GameDomain, GameData>(domain, 'game',
-                          c => (ReactDOM.render(<SimpleGame context={c}/>, rootElement)))
-setJson(emptyGame)
+let setJson = setJsonForFlux<GameData, void>('game', (c: LensState<GameData, GameData>): void =>
+    ReactDOM.render(<SimpleGame context={c}/>, rootElement))
 ```
 
 ## Now we need to mutate the state
@@ -92,47 +91,30 @@ When we click a square there are two things that need to change
 * The value of the square: set it to 'next value'
 * The 'next value': invert it
 
-There are a number of options we could have chosen for how to mutate the state that isn't our primary focus. The one
-selected is to have a lens from the  `GameData` to the `next value`. There is a nice property of these lens that if 
-we combine two lens we can end up with a new lens.
+We use the `useOtherLensAsWell ... transformTwoValues` pattern. This is given a lens and two functions. The following 
+code demonstrates this. The two functions each get 'the current value' of the data the state is focused on, as well
+as the 'current value' of the second lens. 
+
 
 ```typescript jsx
-export class GameDomain {
-    nextStateLens = Lens.build<GameData>('game').field('next')
-    invert(s: NoughtOrCross): NoughtOrCross {return (s === 'X' ? 'O' : 'X')};
-    setSquareAndInvertNext<Main>(context: LensContext<GameDomain, GameData, NoughtOrCross>) {
-        let next = context.jsonFromLens(this.nextStateLens)
-        if (context.json() === '')
-            context.setFromTwo(this.nextStateLens, next, this.invert(next))
+//We want a lens that is focused on 'the next state'
+export let nextStateLens: Lens<GameData, NoughtOrCross> = Lenses.build<GameData>('game').focusOn('next')
+
+function invert(s: NoughtOrCross): NoughtOrCross {return (s === 'X' ? 'O' : 'X')}
+
+const nextValueForSquare = (sq: NoughtOrCross, next: NoughtOrCross) => next;
+const nextValueForNext = (sq: NoughtOrCross, next: NoughtOrCross) => invert(next);
+
+export function Square({context}: GameProps<GameData, NoughtOrCross>) {
+    let onClick = () => {
+        if (context.json() == '')
+            context.useOtherLensAsWell<NoughtOrCross>(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
     }
+    return (<button className='square' onClick={onClick}>{context.json()}</button>)
 }
 ```
 
-There are three moving parts here
-* `nextStateLens` This is a lens from GameData to `next`.
-* `invert` Given a NoughtOrCross it returns the inverted NoughtOrCross
-* `setSquareAndInvertNext`. 
-    * `let next = context.jsonFromLens(domain.nextStateLens)` This retrieves the value of `next` from the current state
-    * `if (context.json() === '')` We only set the value if it's not already empty. `context.json()` is the current square in this case
-    * `context.setFromTwo(this.nextStateLens, next, this.invert(next))` 
-        * The context has a built in lens
-        * `this.nextStatelens` is the lens from the main data to the `nextState`
-        * `next` is the value that will be written to the `context built in lens`
-        * `this.invert(next)` is the value that will be written to `next`
-        
-The only complicated thing here is the `context.setFromTwo`. It is quite a common thing to want to modify
-two parts of the data, so there is a helper method
+# Wrapping it up
 
-We also need to add an onClick method
-
-```typescript jsx
-export function Square<Main>({context}: GameProps<Main,NoughtOrCross>) {
-    return (
-        <button className='square' onClick={() => context.domain.setSquareAndInvertNext(context)}>
-            {context.json()}
-        </button>)
-}
-```
-
-
+The final code can be found [here](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/tictactoe)
 

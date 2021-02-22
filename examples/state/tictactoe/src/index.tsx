@@ -7,9 +7,7 @@ import {emptyGame, GameData, SimpleGame} from "./game";
 
 let rootElement = getElement("root");
 
-const createComponentFromContext = (c: LensState<GameData, GameData>): void =>
-    ReactDOM.render(<SimpleGame context={c}/>, rootElement)
-
-let setJson = setJsonForFlux<GameData, void>('game', createComponentFromContext)
+let setJson = setJsonForFlux<GameData, void>('game', (c: LensState<GameData, GameData>): void =>
+    ReactDOM.render(<SimpleGame context={c}/>, rootElement))
 
 setJson(emptyGame)

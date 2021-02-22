@@ -42,7 +42,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.2",
+  "version": "0.2.4",
   "template": "noreact",
   "description": "A library that allows wrapping of functions and kleislis with non functional capablities",
   "details": {

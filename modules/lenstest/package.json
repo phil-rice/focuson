@@ -12,8 +12,8 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/lens": "0.2.2",
-    "@phil-rice/state": "0.2.2"
+    "@phil-rice/lens": "0.2.4",
+    "@phil-rice/state": "0.2.4"
   },
   "devDependencies": {
     "@types/node": "^14.14.7",
@@ -45,7 +45,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.2",
+  "version": "0.2.4",
   "template": "noreact",
   "description": "Tests the lens defined in @phil-rice/lens, and the state defined in @phil-rice/state",
   "details": {

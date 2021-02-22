@@ -12,7 +12,7 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/lens": "0.2.2"
+    "@phil-rice/lens": "0.2.4"
   },
   "devDependencies": {
     "@types/node": "^14.14.7",
@@ -44,7 +44,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.2",
+  "version": "0.2.4",
   "template": "noreact",
   "description": "Uses the lens defined in @phil-rice/lens to implement state for tools such as react",
   "details": {

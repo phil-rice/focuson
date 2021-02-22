@@ -26,9 +26,6 @@ cd counter
 # Replace index.tsx
 
 ```typescript jsx
-interface CounterDomain{}
-let domain: CounterDomain = {}
-
 export interface CounterData {value: number}
 
 export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterData>) {
@@ -41,8 +38,7 @@ export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterD
 }
 
 let rootElement = getElement("root");
-let setJson = LensContext.setJsonForReact<CounterDomain, CounterData>(domain, 'counter',
-    c => (ReactDOM.render(<Counter context={c}/>, rootElement)))
+let setJson = setJsonForFlux<CounterData, void>('counter', c => (ReactDOM.render(<Counter context={c}/>, rootElement)))
 
 setJson({value: 0})
 ```
@@ -52,18 +48,6 @@ setJson({value: 0})
 yarn start
 ```
 # Let's examine the code
-
-## Domain
-```typescript jsx
-interface CounterDomain{}
-let domain: CounterDomain = {}
-```
-
-A domain is for dependency injection. Most projects need things like 'the api I call to get something', or 'complicated business logic'.
-The domain is a place we place those so that all the components can access them. 
-
-This project is so simple it has no need for dependency injection, although if we chose we could put the 'increment' / 'decrement' logic here.
-In this case I think it is cleaner and more readable not to use it
 
 ## Data model
 ```typescript jsx
@@ -129,18 +113,16 @@ json it is focused on, and a second major difference is the ease of composibilit
 ### Setting it all up
 ```typescript jsx
 let rootElement = getElement("root");
-let setJson = LensContext.setJsonForReact<CounterDomain, CounterData>(domain, 'counter',
-                            c => (ReactDOM.render(<Counter context={c}/>, rootElement)))
+let setJson = setJsonForFlux<CounterData, void>('counter', c => (ReactDOM.render(<Counter context={c}/>, rootElement)))
 
 setJson({value: 0})
 ```
 * `getElement` is basically `document.getElementById(name);` with an error reported if the name doesn't exist
-* `LensContext.setJsonForReact` is the method that sets up the data flow loop. Whenever `setJson` is called it will
+* `setJsonForFlux` is the method that sets up the data flow loop. Whenever `setJson` is called it will
 render code.
-* `(domain, 'counter', c =>` 
-     * `domain` is our 'blank' domain (not needed because this very simple application has no need for dependency injection
+* `('counter', c =>` 
      * `'counter'` is a text string used mostly while debugging
-     * `c` is the LensContext that is passed to the root component (`Counter`)
+     * `c` is the LensState that is passed to the root component (`Counter`)
 * `(ReactDOM.render(<Counter context={c}/>, rootElement)))` This is how we tell react to render the component
 
 
@@ -163,11 +145,10 @@ return (<div>
 </div>)
 }
 
-//replace the existing setJson and it's call to
-let setJson = LensContext.setJsonForReact<CounterDomain, TwoCounterData>(domain, 'twoCounter',
-    c => (ReactDOM.render(<TwoCounter context={c}/>, rootElement)))
+let setJson = setJsonForFlux<TwoCounterData, void>('twoCounter', c => (ReactDOM.render(<TwoCounter context={c}/>, twoCounterElement)))
 
 setJson({counterOne: {value: 0}, counterTwo: {value: 0}})
+
 ```
 
 Note the ease with which we write the TwoCounter component. TwoCounterData has two counters: counterOne and counterTwo. The component has two `Counter` components. One
@@ -183,7 +164,7 @@ While this is significantly less coupled than redux in most areas (you can valid
 require much effort to refactor) it is more tightly coupled in one way. In this case the `increment` and `decrement` methods are required to increment and decrement
 the value of the counter.
 
-We can remove this coupling, but in practice I actually like it! I like the fact that `increment` is clearly incrementing the value. We can imagine worlds in
+We can remove this coupling by prop drilling or by context, but in practice I actually like it! I like the fact that `increment` is clearly incrementing the value. We can imagine worlds in
 which we need to do something else at the same time and about half the time it is something like `recalculate the price of the whole json`, in which case 
 we modify the global setJson method. But we can also imagine that we might want some complex business logic. 
 
@@ -203,3 +184,7 @@ It is the case that many times we want to change two parts:
 
 In this case it's not too challenging (there are helper methods: see the tictactoe example/tutorial) but when we get to doing three or four it will become challenging
 and the readability will suffer
+
+# Wrapping it up
+
+We can find the final code [here](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/counter)

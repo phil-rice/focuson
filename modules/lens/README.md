@@ -139,3 +139,17 @@ to change the state of the current square and the value of next state.
 We can do this quite easily by having a lens to 'part1' and a second one to 'part 2', then using the method `updateTwoValues` or 
 `transformTwoValues`. The result is a new main with both modifications applied.
 
+### Change and lens
+
+It is common for us to want to change the structure of our data. Without lens the impact can be very high: both in the
+code and in the tests. With lens we can isolate the changes from the business logic, which means that typically we only
+have to make very few changes when we makes changes to the structure. Without lens if we aren't extremely careful (which
+may require us to program in a way that isn't idiomatic javascript/typescript)
+we couple all the business logic to the structure.
+
+If you want to play with the difference and experience it for yourself the  `dragon` example project is a great place to
+try that. It has a deeper structure than than the coffee example and has many tests. You can do things like 'remove the
+body structure' and see that the impact using lens is a few lines of code, whereas for the 'without lens' code, the
+impact is around half the entire code base. This is because lens give us the ability to decouple, and decoupling
+supports and empowers change.
+

@@ -1,3 +1,4 @@
-Add a 'getting started quickly'
-Azure devops: get things to compile
+Fix the name context={} in lens props
+and change the 'c' variables to 's'
+
 

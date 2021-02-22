@@ -60,12 +60,13 @@ And the publish itself
 # Change the version number in 'template/version.txt`
 laoban update         # updates all projects with the version number
 scripts/prepare.sh    # Removes the effects of scripts/ideify.sh
+yarn                  # Makes sure that everything is up to date
 
 laoban clean && laoban tsc && laoban test && laoban status  
 # Check that the status for tsc and tests is 'true' in all projects
 
-laoban publish
-
+laoban publish && laoban status  
+#Check the status of the publish
 ```
 
 

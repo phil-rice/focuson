@@ -1,31 +1,5 @@
 # What is this project?
 
-Immutable data structures are becoming the norm in both front end and server side code. Javascript and typescript have
-become better at code for handling immutables. Projects such as 'immer' have arisen to help handle this.
-
-This project offers a very simple way to handle one of the most important tasks: accessing deep parts of data structures
-and perhaps more importantly offering easy ways to mutate them. The code is very small and light weight with no
-dependancies (other than devDependencies)
-
-# Getting started
-
-## Related projects
-
-This code uses the lens defined [here]((https://github.com/phil-rice/ts-lens-react/tree/master/modules/lens)). The
-README introduces Lens.
-
-## Tutorials
-* [Getting started with a simple counter example](https://github.com/phil-rice/ts-lens-react/tree/master/tutorial/counter)
-* [A more complicated example](https://github.com/phil-rice/ts-lens-react/blob/master/tutorial/tictactoe)
-
-## Examples
- * [@phil-rice/example_state_cpq - the Redux 'counter' example](examples/state/counter)
- * [@phil-rice/example_state_cpq - A 'configure price quote' example](examples/state/cpq)
- * [@phil-rice/example_state_cart - The Redux 'shopping cart' example](examples/state/shopping-cart)
- * [@phil-rice/example_state_tictactoe - The React tictactoe example](examples/state/shopping-cart)
-
-# What is the motivation for this project?
-
 While react is a great project, react state management leaves much to be desired. Most comparisons of frameworks such as
 angular and react will list the issue that 'state management in react is difficult'.
 
@@ -42,8 +16,24 @@ are designed as 'atomic standalone components' rather than as 'composible unit'.
 
 With this project we have the idea that a lens is focused on a bit of the state. With this state management,components display a subset of the json
 (just like in redux), and components can normally change just that bit of the json (unlike redux where there is no such
-protection). 
+protection).
 
+# Getting started
+
+## Related projects
+
+This code uses the lens defined [here]((https://github.com/phil-rice/ts-lens-react/tree/master/modules/lens)). The
+README introduces Lens.
+
+## Tutorials
+* [Getting started with a simple counter example](https://github.com/phil-rice/ts-lens-react/tree/master/tutorial/counter)
+* [A more complicated example](https://github.com/phil-rice/ts-lens-react/blob/master/tutorial/tictactoe)
+
+## Examples
+ * [@phil-rice/example_state_cpq - the Redux 'counter' example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/counter)
+ * [@phil-rice/example_state_cpq - A 'configure price quote' example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/cpq)
+ * [@phil-rice/example_state_cart - The Redux 'shopping cart' example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/shopping-cart)
+ * [@phil-rice/example_state_tictactoe - The React tictactoe example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/tictactoe)
 
 # When should I use this project
 
@@ -69,57 +59,21 @@ let cupToMadeofLens = Lens.build<Cup>('cup').focusOn('madeOf')
 let msgToMadeOfLens = msgToCupLens.andThen(cupToMadeofLens)
 ```
 
-### Change and lens
-
-It is common for us to want to change the structure of our data. Without lens the impact can be very high: both in the
-code and in the tests. With lens we can isolate the changes from the business logic, which means that typically we only
-have to make very few changes when we makes changes to the structure. Without lens if we aren't extremely careful (which
-may require us to program in a way that isn't idiomatic javascript/typescript)
-we couple all the business logic to the structure.
-
-If you want to play with the difference and experience it for yourself the  `dragon` example project is a great place to
-try that. It has a deeper structure than than the coffee example and has many tests. You can do things like 'remove the
-body structure' and see that the impact using lens is a few lines of code, whereas for the 'without lens' code, the
-impact is around half the entire code base. This is because lens give us the ability to decouple, and decoupling
-supports and empowers change.
-
-## examples/lens/...
-
-There are a few projects that demonstrate the use of the lens code.
-
-* The dragon example is particularly good for demonstrating how lens remove boilerplate code
-* The counter example is a good example of how easy it is to reuse these components
-    * As an exercise you could try taking the standard redux
-      counter https://github.com/reduxjs/redux/tree/master/examples/counter/src and try and have two on them on the
-      screen
-    * Note that it was trivially easy in the lens example, because the power of lens is that they make this kind of
-      reuse trivially easy
-    * Try and do it with redux without rewriting totally the dispatcher/render code... bascially react supports reuse
-      and redux doesn't.
-
-# Articles about lens
-
-* Lens in Javascript: https://medium.com/javascript-inside/an-introduction-into-lenses-in-javascript-e494948d1ea5
-* Lens in scala:  https://docs.google.com/presentation/d/1bahDdJQS3bP9HxDJTJ2YjRT30FRUL4n9mfvcUSm3X8g/edit#slide=id.p
-
-# Lens context
+# Lens state
 
 There are many uses cases (like a react gui) where there is a 'main json' and different components are responsible for
-different parts. `LensContext` represents this. Internally it has the following
+different parts. `LensState` represents this. Internally it has the following
 
-* `domain`... something to simplify message signatures (at the cost of the types signature... but we can use type aliases to hide
-  this)
 * `main`... the main json
 * `lens` ... a lens to the bit of json we are interested
 * `dangerouslySetMain` This should not be directly called. It sets the state in the react application. Normally it is
   called by methods that provide cleaner access.
 
-We use `LensContext` extensively in our react state management. The most used methods/fields on the context are
+We use `LensState` extensively in our react state management. The most used methods/fields on the context are
 
 * `json()` returns the json that the context is focused on
 * `setJson(j)` Uses the lens to make a new 'main json'. Precisely what else happens is determined at the time the
   context is created. In the react statemanagement this causes a clean re-render
-* `domain`. Gives access to the json
 * `focusOn(fieldName)` Returns a new context with a lens focused on the field name
 
 The following shows how focusOn is used to create a context suitable for child components, and how we use `.json()` to
@@ -150,8 +104,28 @@ export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterD
             {' '}<button onClick={increment}>+</button>
             {' '}<button onClick={decrement}>-</button></p>)
 }
+```
 
+# More complicated methods
 
+It is quite common to want to change two parts of the state simultaneously. For example if we are the tictactoe came and click on a square, the lens
+for the component displaying the square is 'focusedon' the square. As well as wanting to change the square we also want to change the 'next value'.
+
+Here we are setting the two values explicitly
+```typescript
+//Setting the values explicitly
+let nextStateLens: Lens<GameData, NoughtOrCross> = Lenses.build<GameData>('game').focusOn('next')
+let squareValue='X'
+let nextValue= 'O'
+context.useOtherLensAsWell<NoughtOrCross>(nextStateLens).setTwoValues(squareValue,nextValue)
+```
+
+It is more common to want to have the new values a function of the old. Here we see `transformTwoValues`. 
+```typescript
+let nextStateLens: Lens<GameData, NoughtOrCross> = Lenses.build<GameData>('game').focusOn('next')
+let nextValueForSquare = (sq: NoughtOrCross, next: NoughtOrCross) => next;
+let nextValueForNext = (sq: NoughtOrCross, next: NoughtOrCross) => invert(next);
+context.useOtherLensAsWell<NoughtOrCross>(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
 ```
 
 # Theoretical musings about quality

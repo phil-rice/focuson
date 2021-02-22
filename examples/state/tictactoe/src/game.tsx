@@ -50,7 +50,6 @@ export function Board({context}: GameProps<GameData, BoardData>) {
 }
 
 function invert(s: NoughtOrCross): NoughtOrCross {return (s === 'X' ? 'O' : 'X')}
-
 export let nextStateLens: Lens<GameData, NoughtOrCross> = Lenses.build<GameData>('game').focusOn('next')
 const nextValueForSquare = (sq: NoughtOrCross, next: NoughtOrCross) => next;
 const nextValueForNext = (sq: NoughtOrCross, next: NoughtOrCross) => invert(next);
