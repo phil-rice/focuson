@@ -3,10 +3,10 @@
 import {LensProps} from "@phil-rice/state";
 import {CounterData, TwoCounterData} from "./domain";
 
-export function Counter<Main>({context}: LensProps<Main, CounterData>) {
-    let value = context.json().value
-    let increment = () => context.setJson({value: value + 1})
-    let decrement = () => context.setJson({value: value - 1})
+export function Counter<Main>({state}: LensProps<Main, CounterData>) {
+    let value = state.json().value
+    let increment = () => state.setJson({value: value + 1})
+    let decrement = () => state.setJson({value: value - 1})
     return (<p>
             Clicked: {value} times
             {' '}
@@ -17,9 +17,9 @@ export function Counter<Main>({context}: LensProps<Main, CounterData>) {
     )
 }
 
-export function TwoCounter<Main>({context}: LensProps<Main, TwoCounterData>) {
+export function TwoCounter<Main>({state}: LensProps<Main, TwoCounterData>) {
     return (<div>
-        <Counter context={context.focusOn('counterOne')}/>
-        <Counter context={context.focusOn('counterTwo')}/>
+        <Counter state={state.focusOn('counterOne')}/>
+        <Counter state={state.focusOn('counterTwo')}/>
     </div>)
 }

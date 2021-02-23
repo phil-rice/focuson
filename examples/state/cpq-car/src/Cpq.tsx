@@ -24,32 +24,32 @@ export interface SimpleFilterData {
 
 type CpqProps<T> = LensProps< CpqData, T>
 
-export function Cpq({context}: CpqProps<CpqData>) {
+export function Cpq({state}: CpqProps<CpqData>) {
     return (
         <div className='cpq'>
             <div className='two'>
-                <SimpleFilter context={context.focusOn('make')}/>
-                <SimpleFilter context={context.focusOn('model')}/>
-                <SimpleFilter context={context.focusOn('upholstery')}/>
-                <SimpleFilter context={context.focusOn('externalPaint')}/>
-                <SimpleFilter context={context.focusOn('leasePeriod')}/>
+                <SimpleFilter state={state.focusOn('make')}/>
+                <SimpleFilter state={state.focusOn('model')}/>
+                <SimpleFilter state={state.focusOn('upholstery')}/>
+                <SimpleFilter state={state.focusOn('externalPaint')}/>
+                <SimpleFilter state={state.focusOn('leasePeriod')}/>
             </div>
         </div>
     )
 }
 
-function SimpleFilter({context}: CpqProps<SimpleFilterData>) {
-    let filterJson = context.json();
+function SimpleFilter({state}: CpqProps<SimpleFilterData>) {
+    let filterJson = state.json();
     // console.log("SimpleFilter", filterJson, filterJson.filterName)
-    const onChange = (event: any) => {context.focusOn('selected').setJson(event.target.value) };
-    let options = context.json().options.map(o => (<option key={o}>{o}</option>))
+    const onChange = (event: any) => {state.focusOn('selected').setJson(event.target.value) };
+    let options = state.json().options.map(o => (<option key={o}>{o}</option>))
     if (filterJson === undefined)
         return null;
     else
         return (<select className='simpleFilter'
                         value={filterJson.selected ? filterJson.selected : ''}
-                        key={context.json().filterName}
-                        id={context.json().filterName}
+                        key={state.json().filterName}
+                        id={state.json().filterName}
                         onChange={onChange}>{options}</select>)
 }
 

@@ -31,12 +31,12 @@ export interface HasStateLens<Main> {
 export let defaultStateLens: Lens<GameData, NoughtOrCross> = Lenses.build<GameData>('game').focusOn('state');
 
 export interface GameDomain {
-    onClickSquare: (squareContext: LensState<GameData, NoughtOrCross>) => void,
+    onClickSquare: (squareState: LensState<GameData, NoughtOrCross>) => void,
     loadJson: (url: string) => void
 }
 
 export const GameContext = createContext<GameDomain>({
-    onClickSquare: (squareContext: LensState<GameData, NoughtOrCross>) => {throw Error('not defined')},
+    onClickSquare: (squareState: LensState<GameData, NoughtOrCross>) => {throw Error('not defined')},
     loadJson: (url: String) => {throw Error('not defined')}
 });
 
@@ -49,5 +49,5 @@ const nextValueForSquare = (sq: NoughtOrCross, next: NoughtOrCross) => next;
 const nextValueForNext = (sq: NoughtOrCross, next: NoughtOrCross) => invert(next);
 export function onClickSquare(squareContext: LensState<GameData, NoughtOrCross>): void {
     if (squareContext.json() == '')
-        squareContext.useOtherLensAsWell(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
+        squareContext.useOtherLensAsWell<NoughtOrCross>(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
 }

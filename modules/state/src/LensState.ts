@@ -4,7 +4,7 @@ import {Lens, Lenses, transformTwoValues, updateTwoValues} from "@phil-rice/lens
 
 
 export interface LensProps<Main, T> {
-    context: LensState<Main, T>
+    state: LensState<Main, T>
 }
 
 export let focusOnNth = <Main, T>(context: LensState<Main, T[]>, n: number) => context.chainLens(Lenses.nth(n));

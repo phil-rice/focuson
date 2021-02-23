@@ -5,13 +5,13 @@ import {Cart} from "./Cart";
 import {Inventory} from "./Inventory";
 import {LensProps} from "@phil-rice/state";
 
-export function ShoppingCartApp({context}: LensProps<AppData,AppData>) {
+export function ShoppingCartApp({state}: LensProps<AppData,AppData>) {
     return (<div>
             <h2>Shopping Cart Example</h2>
             <hr/>
-            <Cart context={context.focusOn('cart')} addToListLens={toInventoryProductsL}/>
+            <Cart state={state.focusOn('cart')} addToListLens={toInventoryProductsL}/>
             <hr/>
-            <Inventory context={context.focusOn('inventory')} addToListLens={toCartsProductL}/>
+            <Inventory state={state.focusOn('inventory')} addToListLens={toCartsProductL}/>
         </div>
     )
 }

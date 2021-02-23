@@ -10,10 +10,10 @@ function makeOptions(selected: string | null, values: string[]) {
     return values.map(option)
 }
 
-export function GearboxFilter<Main>({context}: LensProps<Main, CqpFilter>) {
-    const onChange = (event: any) => context.focusOn('selected').setJson(event.target.value);
-    let filterJson = context.json();
-    let options = makeOptions(filterJson.selected, context.json().legalValues);
+export function GearboxFilter<Main>({state}: LensProps<Main, CqpFilter>) {
+    const onChange = (event: any) => state.focusOn('selected').setJson(event.target.value);
+    let filterJson = state.json();
+    let options = makeOptions(filterJson.selected, state.json().legalValues);
     return (<div key={filterJson.filterName} className="gearboxFilterContainer">
         <p><span className="font-weight-bold">Filter:</span> {filterJson.filterName}</p>
         <select className="gearboxFilter" onChange={event => onChange(event)} key={`select-${filterJson.filterName}`}>{options}</select>

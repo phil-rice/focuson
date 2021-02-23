@@ -26,7 +26,7 @@ fetch("created/index.json").then(j => j.json()).then(indexJson => {
                 c => ReactDOM.render(
                     <div>
                         <Nav jsonFiles={jsonFiles} fetch={fetchData} setData={setJson}></Nav>
-                        <ComponentFromServer context={c}/>
+                        <ComponentFromServer state={c}/>
                     </div>, element))(cpqData))
     }
     fetchData(jsonFiles[0]).then(setJson)

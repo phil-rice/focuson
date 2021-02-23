@@ -4,23 +4,23 @@ import {ComponentFromServer} from "@phil-rice/codeondemand";
 import {useContext} from "react";
 
 
-export function Game<Main>({context}: GameProps<GameData>) {
+export function Game<Main>({state}: GameProps<GameData>) {
     return (<div className='game'>
         <div className={'game-info'}>
-            <p>Next turn is {context.json().state}</p>
+            <p>Next turn is {state.json().state}</p>
             <ul>
-                <LoadGame context={context.focusOn('_links').focusOn('game1')}/>
-                <LoadGame context={context.focusOn('_links').focusOn('game2')}/>
+                <LoadGame state={state.focusOn('_links').focusOn('game1')}/>
+                <LoadGame state={state.focusOn('_links').focusOn('game2')}/>
             </ul>
         </div>
         <div className='game-board'>
-            <ComponentFromServer context={context.focusOn('_embedded').focusOn('board')}/>
+            <ComponentFromServer state={state.focusOn('_embedded').focusOn('board')}/>
         </div>
     </div>)
 }
 
 export function LoadGame<Main>(props: GameProps<Link>) {
-    let url = props.context.json().href;
+    let url = props.state.json().href;
     const {loadJson} = useContext(GameContext);
     let onclick = () => loadJson(url)
     return (<li><a onClick={onclick}>{url}</a></li>)

@@ -6,14 +6,14 @@ import {Lens} from "@phil-rice/lens";
 import {LensState} from "@phil-rice/state";
 
 interface InventoryProps<Main> {
-    context: LensState<Main, InventoryData>,
+    state: LensState<Main, InventoryData>,
     addToListLens: Lens<Main, ProductData[]>
 }
 
-export function Inventory<Main>({context, addToListLens}: InventoryProps<Main>) {
+export function Inventory<Main>({state, addToListLens}: InventoryProps<Main>) {
     return (<div>
         <h3>Inventory</h3>
-        <ProductList context={context.focusOn('products')}
+        <ProductList state={state.focusOn('products')}
                            addToListLens={addToListLens}
                            button='Add to Cart'/>
     </div>)

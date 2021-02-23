@@ -4,14 +4,14 @@ import {CqpFilter} from "../CpqDomain";
 import {LensProps} from "@phil-rice/state";
 
 
-export function SimpleFilter<Main>({context}: LensProps<Main, CqpFilter>) {
-    const onChange = (event: any) => context.focusOn('selected').setJson(event.target.value);
-    let filterJson = context.json();
+export function SimpleFilter<Main>({state}: LensProps<Main, CqpFilter>) {
+    const onChange = (event: any) => state.focusOn('selected').setJson(event.target.value);
+    let filterJson = state.json();
     let options = filterJson.legalValues.map(o => (<option key={o}>{o}</option>))
     return (<div className="simpleFilterContainer"><select className='simpleFilter'
         value={filterJson.selected ? filterJson.selected : ''}
-        key={context.json().filterName}
-        id={context.json().filterName}
+        key={state.json().filterName}
+        id={state.json().filterName}
         onChange={onChange}>{options}</select></div>);
 
 }

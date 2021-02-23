@@ -24,13 +24,13 @@ let cache: ILoadAndCompileCache<R> = {
     }
 }
 
-let context = lensState<MainForTest>({value: "someTestValue", _render: {_self: "someCompUrl"}}, jest.fn(), 'mainForTest')
+let state = lensState<MainForTest>({value: "someTestValue", _render: {_self: "someCompUrl"}}, jest.fn(), 'mainForTest')
 
 describe("ComponentFromServer", () => {
     it('renders the component generated from the cache', () => {
         render(
             <ComponentCacheContext.Provider value={cache}>
-                <ComponentFromServer<MainForTest, MainForTest> context={context}/>
+                <ComponentFromServer<MainForTest, MainForTest> state={state}/>
             </ComponentCacheContext.Provider>)
         const linkElement = screen.getByText(/someCompUrl/i);
     });

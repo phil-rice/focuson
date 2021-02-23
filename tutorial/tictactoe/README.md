@@ -44,21 +44,21 @@ export let emptyGame: GameData = {
 ```typescript jsx
 export type GameProps<Main,T> = LensProps<GameDomain, Main, T>
 
-export function SimpleGame<Main>({context}: GameProps<Main,GameData>) {
+export function SimpleGame<Main>({state}: GameProps<Main,GameData>) {
     return (
         <div className='game'>
-            <NextMove context={context.focusOn('next')}/>
-            <Board context={context.focusOn('board')}/>
+            <NextMove state={state.focusOn('next')}/>
+            <Board state={state.focusOn('board')}/>
         </div>)
 }
 
-export function NextMove<Main>({context}: GameProps<Main,NoughtOrCross>) {
-    return (<div> Next Move{context.json()}</div>)
+export function NextMove<Main>({state}: GameProps<Main,NoughtOrCross>) {
+    return (<div> Next Move{state.json()}</div>)
 }
 
-export function Board<Main>({context}: GameProps<Main,BoardData>) {
-    let squares = context.focusOn('squares');
-    let sq = (n: number) => (<Square context={focusOnNth(squares, n)}/>)
+export function Board<Main>({state}: GameProps<Main,BoardData>) {
+    let squares = state.focusOn('squares');
+    let sq = (n: number) => (<Square state={focusOnNth(squares, n)}/>)
     return (<div className='board'>
         <div>{sq(0)}{sq(1)}{sq(2)}</div>
         <div>{sq(3)}{sq(4)}{sq(5)}</div>
@@ -66,8 +66,8 @@ export function Board<Main>({context}: GameProps<Main,BoardData>) {
     </div>)
 }
 
-export function Square<Main>({context}: GameProps<Main,NoughtOrCross>) {
-    return (<button className='square'>{context.json()}</button>)
+export function Square<Main>({state}: GameProps<Main,NoughtOrCross>) {
+    return (<button className='square'>{state.json()}</button>)
 }
 ```
 The key to understanding this is understanding `context.focusOn`. This method creates a new context focused on 
@@ -81,8 +81,8 @@ is in quotes, because the state is not mutated: it is copied.
 ## The main 'loop'
 
 ```typescript jsx
-let setJson = setJsonForFlux<GameData, void>('game', (c: LensState<GameData, GameData>): void =>
-    ReactDOM.render(<SimpleGame context={c}/>, rootElement))
+let setJson = setJsonForFlux<GameData, void>('game', (s: LensState<GameData, GameData>): void =>
+    ReactDOM.render(<SimpleGame state={s}/>, rootElement))
 ```
 
 ## Now we need to mutate the state
@@ -105,12 +105,12 @@ function invert(s: NoughtOrCross): NoughtOrCross {return (s === 'X' ? 'O' : 'X')
 const nextValueForSquare = (sq: NoughtOrCross, next: NoughtOrCross) => next;
 const nextValueForNext = (sq: NoughtOrCross, next: NoughtOrCross) => invert(next);
 
-export function Square({context}: GameProps<GameData, NoughtOrCross>) {
+export function Square({state}: GameProps<GameData, NoughtOrCross>) {
     let onClick = () => {
-        if (context.json() == '')
-            context.useOtherLensAsWell<NoughtOrCross>(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
+        if (state.json() == '')
+            state.useOtherLensAsWell<NoughtOrCross>(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
     }
-    return (<button className='square' onClick={onClick}>{context.json()}</button>)
+    return (<button className='square' onClick={onClick}>{state.json()}</button>)
 }
 ```
 

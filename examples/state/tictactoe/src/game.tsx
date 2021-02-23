@@ -25,23 +25,23 @@ export let emptyGame: GameData = {
     }
 }
 
-export function SimpleGame({context}: GameProps<GameData, GameData>) {
+export function SimpleGame({state}: GameProps<GameData, GameData>) {
     return (
         <div className='game'>
-            <NextMove context={context.focusOn('next')}/>
-            <Board context={context.focusOn('board')}/>
+            <NextMove state={state.focusOn('next')}/>
+            <Board state={state.focusOn('board')}/>
         </div>)
 }
 
 
-export function NextMove({context}: GameProps<GameData, NoughtOrCross>) {
-    return (<div> Next Move{context.json()}</div>)
+export function NextMove({state}: GameProps<GameData, NoughtOrCross>) {
+    return (<div> Next Move{state.json()}</div>)
 }
 
 
-export function Board({context}: GameProps<GameData, BoardData>) {
-    let squares = context.focusOn('squares');
-    let sq = (n: number) => (<Square context={focusOnNth(squares, n)}/>)
+export function Board({state}: GameProps<GameData, BoardData>) {
+    let squares = state.focusOn('squares');
+    let sq = (n: number) => (<Square state={focusOnNth(squares, n)}/>)
     return (<div className='board'>
         <div>{sq(0)}{sq(1)}{sq(2)}</div>
         <div>{sq(3)}{sq(4)}{sq(5)}</div>
@@ -54,10 +54,10 @@ export let nextStateLens: Lens<GameData, NoughtOrCross> = Lenses.build<GameData>
 const nextValueForSquare = (sq: NoughtOrCross, next: NoughtOrCross) => next;
 const nextValueForNext = (sq: NoughtOrCross, next: NoughtOrCross) => invert(next);
 
-export function Square({context}: GameProps<GameData, NoughtOrCross>) {
+export function Square({state}: GameProps<GameData, NoughtOrCross>) {
     let onClick = () => {
-        if (context.json() == '')
-            context.useOtherLensAsWell<NoughtOrCross>(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
+        if (state.json() == '')
+            state.useOtherLensAsWell<NoughtOrCross>(nextStateLens).transformTwoValues(nextValueForSquare, nextValueForNext)
     }
-    return (<button className='square' onClick={onClick}>{context.json()}</button>)
+    return (<button className='square' onClick={onClick}>{state.json()}</button>)
 }

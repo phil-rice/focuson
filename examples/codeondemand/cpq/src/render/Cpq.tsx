@@ -3,11 +3,12 @@ import {CpqData} from "../CpqDomain";
 import {ComponentFromServer} from "@phil-rice/codeondemand";
 import {Lenses} from "@phil-rice/lens";
 import {LensProps} from "@phil-rice/state";
+import {focusOnNth} from "../../../../../modules/state";
 
-export function Cpq<Main>({context}: LensProps<Main, CpqData>) {
-    const filters = context.json().filters.map((f, i) =>
-        (<ComponentFromServer key={i} context={context.focusOn('filters').chainLens(Lenses.nth(i))}/>))
-    let price: string = context.json().price.toString()
+export function Cpq<Main>({state}: LensProps<Main, CpqData>) {
+    const filters = state.json().filters.map((f, i) =>
+        (<ComponentFromServer key={i} state={focusOnNth(state.focusOn('filters'), i)}/>))
+    let price: string = state.json().price.toString()
     return (<div className='cpq'>
         <div key='summary' className='summary'>Price: {price}</div>
         <div key='filters' className='filters'>{filters}</div>

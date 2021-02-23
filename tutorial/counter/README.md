@@ -28,17 +28,17 @@ cd counter
 ```typescript jsx
 export interface CounterData {value: number}
 
-export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterData>) {
-    let value = context.json().value
-    let increment = () => context.setJson({value: value + 1})
-    let decrement = () => context.setJson({value: value - 1})
+export function Counter<Main>({state}: LensProps<Main, CounterData>) {
+    let value = state.json().value
+    let increment = () => state.setJson({value: value + 1})
+    let decrement = () => state.setJson({value: value - 1})
     return (<p>Clicked: {value} times
             {' '}<button onClick={increment}>+</button>
             {' '}<button onClick={decrement}>-</button></p>)
 }
 
 let rootElement = getElement("root");
-let setJson = setJsonForFlux<CounterData, void>('counter', c => (ReactDOM.render(<Counter context={c}/>, rootElement)))
+let setJson = setJsonForFlux<CounterData, void>('counter', s => (ReactDOM.render(<Counter state={s}/>, rootElement)))
 
 setJson({value: 0})
 ```
@@ -59,11 +59,11 @@ This is the state that a Counter needs. It could be just a 'number' if that was 
 ### The types
 
 ```typescript jsx
-export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterData>) {
+export function Counter<Main>({state}: LensProps< Main, CounterData>) {}
 ```
 * Main is the generic for 'the main data that this is a part of'. The component doesn't know anything at all about Main. 
-* LensProps<CounterDomain,Main,CounterData> is the 'properties' for this component. The three generics in LensProps are the
-dependency injection context, the 'Main' data object and the 'data that this component is focused on' (in this case CounterData)
+* LensProps<Main,CounterData> is the 'properties' for this component. The two generics in LensProps are 'Main' data object 
+  and the 'data that this component is focused on' (in this case CounterData)
 
 Note the use of the language 'the data that this component is focused on'. With this style of state management the basic
 idea is that each component is focused on some part of the Main data. The component is allowed to see and  change the data it
@@ -72,10 +72,10 @@ is focused on.
 ## The react component
 
 ```typescript jsx
-export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterData>) {
-    let value = context.json().value
-    let increment = () => context.setJson({value: value + 1})
-    let decrement = () => context.setJson({value: value - 1})
+export function Counter<Main>({state}: LensProps< Main, CounterData>) {
+    let value = state.json().value
+    let increment = () => state.setJson({value: value + 1})
+    let decrement = () => state.setJson({value: value - 1})
     return (<p>Clicked: {value} times
             {' '}<button onClick={increment}>+</button>
             {' '}<button onClick={decrement}>-</button></p>)
@@ -84,17 +84,17 @@ export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterD
 This has been taken from the redux example.
 
 This line shows how we access state. Remember that the type of data the component is focused on is a `CounterData` and
-counter data has a value field. `context.json()` returns a `CounterData` and `context.json().value` is the current numeric value of the count
+counter data has a value field. `state.json()` returns a `CounterData` and `state.json().value` is the current numeric value of the count
 ```typescript jsx
-    let value = context.json().value
+    let value = state.json().value
 ```
 
 ### Modifying the state
 
 ```typescript jsx
-export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterData>) {
-    let value = context.json().value
-    let increment = () => context.setJson({value: value + 1})
+export function Counter<Main>({state}: LensProps<CounterDomain, Main, CounterData>) {
+    let value = state.json().value
+    let increment = () => state.setJson({value: value + 1})
     //...
     return (<p>
             ...
@@ -104,26 +104,26 @@ export function Counter<Main>({context}: LensProps<CounterDomain, Main, CounterD
     )
 }
 ```
-The method `context.setJson` allows us to 'set the json' that the component is focused on. This 'setting' is actually `create an immutable copy with these changes`.
+The method `state.setJson` allows us to 'set the json' that the component is focused on. This 'setting' is actually `create an immutable copy with these changes`.
 
-The code `context.setJson(context.setJson({value: value + 1})` replaces all the boiler plate code in redux while delivering many of the same values. It handles
+The code `state.setJson(context.setJson({value: value + 1})` replaces all the boiler plate code in redux while delivering many of the same values. It handles
 data flow through the component tree. A major difference between this and redux is that idiomatic normal usage means that the component can only change the
 json it is focused on, and a second major difference is the ease of composibility. Redux actions compose poorly. These components compose beautifully
 
 ### Setting it all up
 ```typescript jsx
 let rootElement = getElement("root");
-let setJson = setJsonForFlux<CounterData, void>('counter', c => (ReactDOM.render(<Counter context={c}/>, rootElement)))
+let setJson = setJsonForFlux<CounterData, void>('counter', s => (ReactDOM.render(<Counter state={s}/>, rootElement)))
 
 setJson({value: 0})
 ```
 * `getElement` is basically `document.getElementById(name);` with an error reported if the name doesn't exist
 * `setJsonForFlux` is the method that sets up the data flow loop. Whenever `setJson` is called it will
 render code.
-* `('counter', c =>` 
+* `('counter', s =>` 
      * `'counter'` is a text string used mostly while debugging
-     * `c` is the LensState that is passed to the root component (`Counter`)
-* `(ReactDOM.render(<Counter context={c}/>, rootElement)))` This is how we tell react to render the component
+     * `s` is the LensState that is passed to the root component (`Counter`)
+* `(ReactDOM.render(<Counter state={s}/>, rootElement)))` This is how we tell react to render the component
 
 
 # Let's now modify our example
@@ -138,14 +138,14 @@ export interface TwoCounterData {
     counterTwo: CounterData
 }
 
-export function TwoCounter<Main>({context}: LensProps<CounterDomain, Main, TwoCounterData>) {
+export function TwoCounter<Main>({state}: LensProps< Main, TwoCounterData>) {
 return (<div>
-   <Counter context={context.focusOn('counterOne')}/>
-   <Counter context={context.focusOn('counterTwo')}/>
+   <Counter context={state.focusOn('counterOne')}/>
+   <Counter context={state.focusOn('counterTwo')}/>
 </div>)
 }
 
-let setJson = setJsonForFlux<TwoCounterData, void>('twoCounter', c => (ReactDOM.render(<TwoCounter context={c}/>, twoCounterElement)))
+let setJson = setJsonForFlux<TwoCounterData, void>('twoCounter', s => (ReactDOM.render(<TwoCounter state={s}/>, twoCounterElement)))
 
 setJson({counterOne: {value: 0}, counterTwo: {value: 0}})
 

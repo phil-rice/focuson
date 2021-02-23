@@ -18,7 +18,7 @@ function calculatePrice(appData: AppData) {
 }
 
 let setJson= setJsonWithLongTransformation( 'game',
-    c => (ReactDOM.render(<ShoppingCartApp context={c}/>, rootElement)), calculatePrice)
+    s => (ReactDOM.render(<ShoppingCartApp state={s}/>, rootElement)), calculatePrice)
 
 
 setJson({

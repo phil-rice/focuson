@@ -14,10 +14,10 @@ let element = getElement('root')
 
 function loadJson(url: string) {
     const domain: GameDomain = {loadJson, onClickSquare}
-    return loadJsonFromUrl<GameData>('game', cache, (cache, c) =>
+    return loadJsonFromUrl<GameData>('game', cache, (cache, s) =>
         ReactDOM.render(
             <GameContext.Provider value={domain}>
-                <ComponentFromServer context={c}/>
+                <ComponentFromServer state={s}/>
             </GameContext.Provider>, element))(url)
 }
 

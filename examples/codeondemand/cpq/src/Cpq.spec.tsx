@@ -42,31 +42,31 @@ let cpqJson: CpqData = {
 
 function setJson(json: CpqData): void {throw new Error('should not be called')}
 
-let context = lensState(cpqJson, setJson, 'cpq')
+let state = lensState(cpqJson, setJson, 'cpq')
 
-function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, context: LensState<Main, Data>, expectedLensDescription: string) {
+function compare<Domain, Main, Data>(wrapper: ShallowWrapper<any, React.Component["state"], React.Component>, state: LensState<Main, Data>, expectedLensDescription: string) {
     let props: any = wrapper.props()
     let childContext: LensState<Main, Data> = props.context
     expect(childContext.lens.description).toBe(expectedLensDescription)
-    expect(childContext.main).toBe(context.main)
-    expect(childContext.dangerouslySetMain).toBe(context.dangerouslySetMain)
+    expect(childContext.main).toBe(state.main)
+    expect(childContext.dangerouslySetMain).toBe(state.dangerouslySetMain)
 
 }
 
 describe("Code on demand CPQ", () => {
     describe("Cpq", () => {
         it("should render", () => {
-            const cpq = shallow(<Cpq context={context}/>)
+            const cpq = shallow(<Cpq state={state}/>)
             expect(cpq.find('.summary').text()).toEqual('Price: N/A')
             let filters = cpq.find('ComponentFromServer');
             expect(filters).toHaveLength(4)
             console.log('filters', filters)
-            filters.forEach((filter, i) => compare(filter, context, `cpq/filters/[${i}]`))
+            filters.forEach((filter, i) => compare(filter, state, `cpq/filters/[${i}]`))
         })
     })
     describe("SimpleFilter", () => {
         it("should render", () => {
-            const simpleFilter = shallow(<SimpleFilter context={context.focusOn('filters').chainLens(Lenses.nth(0))}/>)
+            const simpleFilter = shallow(<SimpleFilter state={state.focusOn('filters').chainLens(Lenses.nth(0))}/>)
             let select = simpleFilter.find('select')
             expect(select).toHaveLength(1)
             expect(select.props().value).toEqual("BMW")

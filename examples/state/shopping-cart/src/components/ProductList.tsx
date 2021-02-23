@@ -7,22 +7,22 @@ import {LensState} from "@phil-rice/state";
 interface ProductProps<Main> {
     addToListLens: Lens<Main, ProductData[]>,
     button: string,
-    context: LensState<Main, ProductData[]>
+    state: LensState<Main, ProductData[]>
 }
 
 interface OneProductProps<Main> extends ProductProps<Main> {
     index: number,
 }
-export function ProductList<Main>({addToListLens, button, context}: ProductProps<Main>) {
+export function ProductList<Main>({addToListLens, button, state}: ProductProps<Main>) {
     return (<div>
-        {context.json().map((p: ProductData, i: number) =>
-            <OneProduct key={p.id} context={context} index={i} addToListLens={addToListLens} button={button}/>)}
+        {state.json().map((p: ProductData, i: number) =>
+            <OneProduct key={p.id} state={state} index={i} addToListLens={addToListLens} button={button}/>)}
     </div>);
 }
 
-export function OneProduct<Main>({addToListLens, button, context, index}: OneProductProps<Main>) {
-    let p = context.json()[index]
-    let onClick = (() => removeFromContextAddToList<Main>(context, addToListLens, index))
+export function OneProduct<Main>({addToListLens, button, state, index}: OneProductProps<Main>) {
+    let p = state.json()[index]
+    let onClick = (() => removeFromContextAddToList<Main>(state, addToListLens, index))
     return (<div style={{marginBottom: 20}}>{p.title} - &#36;{p.price}{p.quantity ? ` x ${p.quantity}` : null}
         <button onClick={onClick}> {button}</button>
     </div>)

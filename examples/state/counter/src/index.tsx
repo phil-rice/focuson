@@ -11,9 +11,9 @@ let oneCounterElement = getElement("oneCounter");
 let twoCounterElement = getElement("twoCounter");
 
 
-let setJson1 = setJsonForFlux<CounterData, void>('counter', c => (ReactDOM.render(<Counter context={c}/>, oneCounterElement)))
+let setJson1 = setJsonForFlux<CounterData, void>('counter', s => (ReactDOM.render(<Counter state={s}/>, oneCounterElement)))
 
-let setJson2 = setJsonForFlux<TwoCounterData, void>('twoCounter', c => (ReactDOM.render(<TwoCounter context={c}/>, twoCounterElement)))
+let setJson2 = setJsonForFlux<TwoCounterData, void>('twoCounter', s => (ReactDOM.render(<TwoCounter state={s}/>, twoCounterElement)))
 
 setJson1({value: 0})
 setJson2({counterOne: {value: 0}, counterTwo: {value: 0}})

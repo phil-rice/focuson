@@ -11,13 +11,13 @@ let fetchUrl: (url: string) => Promise<CpqData> = (url: string) => fetch(url).th
 
 fetch("json/index.json").then(j => j.json()).then(jsonFiles => {
     console.log("fetched for nav", jsonFiles)
-    let setJson: (m: CpqData) => void = setJsonForFlux('cpq', c => {
-        console.log("settingJson to", c.json())
+    let setJson: (m: CpqData) => void = setJsonForFlux('cpq', s => {
+        console.log("settingJson to", s.json())
         console.log("jsonFiles is", jsonFiles)
         ReactDOM.render(
             <div className={'main container-fluid'}>
                 <Nav jsonFiles={jsonFiles.jsonFiles} fetch={fetchUrl} setData={setJson}/>
-                <Cpq context={c}/>
+                <Cpq state={s}/>
             </div>, rootElement)
     })
     console.log("loading", jsonFiles.jsonFiles[0])

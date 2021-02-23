@@ -34,12 +34,12 @@ let json: CpqData = {
     }
 }
 
-let context = lensState<CpqData>(json, () => {throw Error("Shouldn't be called")}, 'cpq')
+let state = lensState<CpqData>(json, () => {throw Error("Shouldn't be called")}, 'cpq')
 
 describe("Cpq", () => {
 
     it('renders the json passed to it', () => {
-        const cpq = mount(<Cpq context={context}/>)
+        const cpq = mount(<Cpq state={state}/>)
 
         expect(cpq.find(".simpleFilter")).toHaveLength(5)
 

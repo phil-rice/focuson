@@ -33,40 +33,40 @@ export interface ImageFilterOption {
 }
 type CpqProps<T> = LensProps<CpqData, T>
 
-export function Cpq({context}: CpqProps<CpqData>) {
+export function Cpq({state}: CpqProps<CpqData>) {
     return (
         <div className='cpq'>
             <div className='two'>
-                <SimpleFilter context={context.focusOn('make')}/>
-                <SimpleFilter context={context.focusOn('model')}/>
-                <SimpleFilter context={context.focusOn('upholstery')}/>
-                <SimpleFilter context={context.focusOn('externalPaint')}/>
-                <SimpleFilter context={context.focusOn('leasePeriod')}/>
+                <SimpleFilter state={state.focusOn('make')}/>
+                <SimpleFilter state={state.focusOn('model')}/>
+                <SimpleFilter state={state.focusOn('upholstery')}/>
+                <SimpleFilter state={state.focusOn('externalPaint')}/>
+                <SimpleFilter state={state.focusOn('leasePeriod')}/>
             </div>
         </div>
     )
 }
 
-function displayIfPresent<T, Result>(context: LensState<CpqData, T>, fn: () => Result): Result | null {
-    return context.json() ? fn() : null;
+function displayIfPresent<T, Result>(state: LensState<CpqData, T>, fn: () => Result): Result | null {
+    return state.json() ? fn() : null;
 }
 
 
-function RootFilter<T>({context}: CpqProps<RootFilterData<T>>, findDisplayTextFn: (option: any) => string) {
-    let filterJson = context.json();
-    const onChange = (event: any) => {context.focusOn('selected').setJson(event.target.value) };
-    let options = context.json().options.map(o => (<option key={findDisplayTextFn(o)}>{findDisplayTextFn(o)}</option>))
-    return displayIfPresent(context, () =>
+function RootFilter<T>({state}: CpqProps<RootFilterData<T>>, findDisplayTextFn: (option: any) => string) {
+    let filterJson = state.json();
+    const onChange = (event: any) => {state.focusOn('selected').setJson(event.target.value) };
+    let options = state.json().options.map(o => (<option key={findDisplayTextFn(o)}>{findDisplayTextFn(o)}</option>))
+    return displayIfPresent(state, () =>
         <select className='simpleFilter'
                 value={filterJson.selected ? filterJson.selected : ''}
-                key={context.json().filterName}
-                id={context.json().filterName}
+                key={state.json().filterName}
+                id={state.json().filterName}
                 onChange={onChange}>{options}</select>)
 }
 
-function ImagedDropDownFilter({context}: CpqProps<ImageFilterData>) {
-    return RootFilter<ImageFilterOption>({context}, o => o.name)
+function ImagedDropDownFilter({state}: CpqProps<ImageFilterData>) {
+    return RootFilter<ImageFilterOption>({state}, o => o.name)
 }
-function SimpleFilter({context}: CpqProps<SimpleFilterData>) {
-    return RootFilter<string>({context}, s => s)
+function SimpleFilter({state}: CpqProps<SimpleFilterData>) {
+    return RootFilter<string>({state}, s => s)
 }

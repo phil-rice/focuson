@@ -4,15 +4,15 @@ import {Lenses} from "@phil-rice/lens";
 import {useContext} from "react";
 
 
-function SimpleGame({context}: GameProps<GameData>) {
+function SimpleGame({state}: GameProps<GameData>) {
     return (<div className='game'>
-        <Board context={context.focusOn("_embedded").focusOn('board')}/>
+        <Board state={state.focusOn("_embedded").focusOn('board')}/>
     </div>)
 }
 
-function Board({context}: GameProps<BoardData>) {
-    let squares = context.focusOn('squares');
-    let sq = (n: number) => (<Square context={squares.chainLens(Lenses.nth(n))}/>)
+function Board({state}: GameProps<BoardData>) {
+    let squares = state.focusOn('squares');
+    let sq = (n: number) => (<Square state={squares.chainLens(Lenses.nth(n))}/>)
     return (<div className='board'>
         <div>{sq(0)}{sq(1)}{sq(2)}</div>
         <div>{sq(3)}{sq(4)}{sq(5)}</div>
@@ -22,7 +22,7 @@ function Board({context}: GameProps<BoardData>) {
 
 
 /** IF you are wondering why we have SimpleGame.square, and square and square2, it is so that we can demonstrate loading difference versions of essentially the same thing */
-function Square({context}: GameProps<NoughtOrCross>) {
+function Square({state}: GameProps<NoughtOrCross>) {
     const {onClickSquare} = useContext(GameContext);
-    return (<button className='square' onClick={() => onClickSquare(context)}>{context.json()}</button>)
+    return (<button className='square' onClick={() => onClickSquare(state)}>{state.json()}</button>)
 }

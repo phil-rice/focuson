@@ -26,20 +26,20 @@ function findRenderUrl(name: string, child: any): string {
     throw Error(`Cannot find renderUrl for  [${name}] in [${JSON.stringify(child, null, 2)}]`)
 }
 
-export function ComponentFromServer<Main, T>({context}: LensProps<Main, T>) {
+export function ComponentFromServer<Main, T>({ state}: LensProps<Main, T>) {
     const cache = useContext(ComponentCacheContext);
-    let renderUrl = findRenderUrl("_self", context.json())
+    let renderUrl = findRenderUrl("_self", state.json())
     let makeComponent = cache.getFromCache(renderUrl)
     console.log("makecomponent", makeComponent)
-    let result = makeComponent(context);
+    let result = makeComponent(state);
     console.log("madecomponent", result)
     return result
 }
 
-export function ChildFromServer<Main, T, Child>({context, render, lens}: LensPropsWithRender<Main, T, Child>) {
+export function ChildFromServer<Main, T, Child>({state, render, lens}: LensPropsWithRender<Main, T, Child>) {
     const cache = useContext(ComponentCacheContext);
-    let parentJson = context.json()
+    let parentJson = state.json()
     let renderUrl = findRenderUrl(render, parentJson)
     let makeComponent = cache.getFromCache(renderUrl)
-    return makeComponent(context.chainLens(lens))
+    return makeComponent(state.chainLens(lens))
 }

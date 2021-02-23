@@ -3,8 +3,8 @@ import {GameContext, GameProps, NoughtOrCross} from "../GameDomain";
 import {useContext} from "react";
 
 /** IF you are wondering why we have SimpleGame.square, and square and square2, it is so that we can demonstrate loading difference versions of essentially the same thing */
-export function Square({context}: GameProps<NoughtOrCross>) {
+export function Square({state}: GameProps<NoughtOrCross>) {
     const {onClickSquare} = useContext(GameContext);
-    return (<button className='square' onClick={() => onClickSquare(context)}>{context.json()}</button>)
+    return (<button className='square' onClick={() => onClickSquare(state)}>{state.json()}</button>)
 }
 

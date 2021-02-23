@@ -14,14 +14,14 @@ function onCheckoutClicked() { console.log("Checkout clicked")}
 
 
 interface CartProps<Main> {
-    context: LensState<Main, CartData>,
+    state: LensState<Main, CartData>,
     addToListLens: Lens<Main, ProductData[]>
 }
 
-export function Cart<Main>({context, addToListLens}: CartProps<Main>) {
-    let products = context.json().products
+export function Cart<Main>({state, addToListLens}: CartProps<Main>) {
+    let products = state.json().products
     const nodes = products.length > 0 ?
-        (<ProductList context={context.focusOn('products')}
+        (<ProductList state={state.focusOn('products')}
                             addToListLens={addToListLens}
                             button='Remove From Cart'/>) :
         (<em>Please add some products to cart.</em>)
@@ -29,7 +29,7 @@ export function Cart<Main>({context, addToListLens}: CartProps<Main>) {
         <div>
             <h3>Your Cart</h3>
             <div>{nodes}</div>
-            <p>Total: &#36;{context.json().total}</p>
+            <p>Total: &#36;{state.json().total}</p>
             <button onClick={onCheckoutClicked} disabled={products.length == 0}> Checkout</button>
         </div>
     )
