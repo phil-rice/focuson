@@ -50,21 +50,14 @@ Unfortunately IDEs don't seem to work well with mono repos. When using an IDE su
 
 Setting up to publish
 ```shell
-npm install -g npm-cli-login
-npm-cli-login -u Username -p Password -e test@example.com -r https://your-private-registry-link
+# From the root directory...
+scripts/prepublish.sh
+# Please check the status is suitable for publishing
 ```
 
 And the publish itself
 ```shell
 # From the root directory...
-# Change the version number in 'template/version.txt`
-laoban update         # updates all projects with the version number
-scripts/prepare.sh    # Removes the effects of scripts/ideify.sh
-yarn                  # Makes sure that everything is up to date
-
-laoban clean && laoban tsc && laoban test && laoban status  
-# Check that the status for tsc and tests is 'true' in all projects
-
 laoban publish && laoban status  
 #Check the status of the publish
 ```

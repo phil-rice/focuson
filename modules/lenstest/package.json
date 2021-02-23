@@ -12,8 +12,8 @@
     ]
   },
   "dependencies": {
-    "@focuson/lens": "0.2.5",
-    "@focuson/state": "0.2.5"
+    "@focuson/lens": "0.2.6",
+    "@focuson/state": "0.2.6"
   },
   "devDependencies": {
     "@types/node": "^14.14.7",
@@ -45,7 +45,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.5",
+  "version": "0.2.6",
   "template": "noreact",
   "description": "Tests the lens defined in @focuson/lens, and the state defined in @focuson/state",
   "details": {

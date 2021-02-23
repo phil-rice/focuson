@@ -17,7 +17,7 @@ cd tictactoe
 # Add dependencies
 
 ```shell
- yarn add @focuson/lens
+ yarn add @focuson/state
 ```
 
 ## Create the data representation
