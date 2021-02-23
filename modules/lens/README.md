@@ -28,7 +28,7 @@ dependancies (other than devDependencies)
 You can install this project by
 
  ```shell
-npm install @phil-rice/lens
+npm install @focuson/lens
 ```
 
 # Where are the tests?

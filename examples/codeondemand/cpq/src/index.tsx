@@ -2,11 +2,11 @@
 import ReactDOM from 'react-dom';
 
 import {SHA256} from 'crypto-js'
-import {getElement, setJsonForFlux} from "@phil-rice/state";
-import {ComponentFromServer, LoadAndCompileCache, MakeComponentFromServer} from "@phil-rice/codeondemand";
+import {getElement, setJsonForFlux} from "@focuson/state";
+import {ComponentFromServer, LoadAndCompileCache, MakeComponentFromServer} from "@focuson/codeondemand";
 import React from "react";
 import {CpqData} from "./CpqDomain";
-import {Nav} from "@phil-rice/nav";
+import {Nav} from "@focuson/nav";
 
 
 let cache = LoadAndCompileCache.create<MakeComponentFromServer<React.ReactElement>>((s: string) => SHA256(s).toString())

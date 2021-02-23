@@ -1,11 +1,11 @@
 {
   "template"      : "react",
-  "name"          : "@phil-rice/example_state_tictactoe",
+  "name"          : "@focuson/example_state_tictactoe",
   "description"   : "Demonstrating how lens can simplify state management in React",
   "details": {
-    "extraDeps"   : {"@phil-rice/lens": "<version>"},
+    "extraDeps"   : {"@focuson/lens": "<version>"},
     "extraDevDeps": {},
-    "links"       : ["@phil-rice/lens", "@phil-rice/state"],
+    "links"       : ["@focuson/lens", "@focuson/state"],
     "port": 3004,
     "test": true
   }

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {SHA256} from 'crypto-js'
 import {GameContext, GameData, GameDomain, onClickSquare} from "./GameDomain";
-import {getElement} from "@phil-rice/state";
-import {ComponentFromServer, LoadAndCompileCache, loadJsonFromUrl, MakeComponentFromServer} from "@phil-rice/codeondemand";
+import {getElement} from "@focuson/state";
+import {ComponentFromServer, LoadAndCompileCache, loadJsonFromUrl, MakeComponentFromServer} from "@focuson/codeondemand";
 import React from "react";
 
 let cache = LoadAndCompileCache.create<MakeComponentFromServer<React.ReactElement>>((s: string) => SHA256(s).toString())

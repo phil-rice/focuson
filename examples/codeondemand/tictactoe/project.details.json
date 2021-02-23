@@ -1,9 +1,9 @@
 {
   "template"      : "codeondemand",
-  "name"          : "@phil-rice/example_codeondemand_tictactoe",
+  "name"          : "@focuson/example_codeondemand_tictactoe",
   "description"   : "Demonstrating the code on demand approach for tic_tac_toe",
   "details": {
-    "links"       : ["@phil-rice/lens", "@phil-rice/nav", "@phil-rice/codeondemand"],
+    "links"       : ["@focuson/lens", "@focuson/nav", "@focuson/codeondemand"],
     "extraDeps"   : {"@types/crypto-js": "^4.0.1"},
     "extraDevDeps": {},
     "port"        : 3005,

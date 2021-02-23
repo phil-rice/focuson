@@ -1,11 +1,11 @@
 {
   "template":    "react",
-  "name":        "@phil-rice/codeondemand",
+  "name":        "@focuson/codeondemand",
   "description": "This is a project that allows code to be (safely) fetched on demand from a server. The url holding the code is including in the json",
   "details":     {
     "ideify":       true,
     "publish":      true,
-    "links":        ["@phil-rice/lens", "@phil-rice/nav", "@phil-rice/state"],
+    "links":        ["@focuson/lens", "@focuson/nav", "@focuson/state"],
     "extraDeps":    {},
     "extraDevDeps": {},
     "test":         true

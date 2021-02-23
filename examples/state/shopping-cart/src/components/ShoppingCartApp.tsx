@@ -3,7 +3,7 @@ import React from 'react'
 import {AppData, toCartsProductL, toInventoryProductsL} from "../domain";
 import {Cart} from "./Cart";
 import {Inventory} from "./Inventory";
-import {LensProps} from "@phil-rice/state";
+import {LensProps} from "@focuson/state";
 
 export function ShoppingCartApp({state}: LensProps<AppData,AppData>) {
     return (<div>

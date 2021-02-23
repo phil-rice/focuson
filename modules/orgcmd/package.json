@@ -50,9 +50,9 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.4",
+  "version": "0.2.5",
   "template": "noreact",
-  "name": "@phil-rice/orgcmd",
+  "name": "@focuson/orgcmd",
   "description": "Generate build suitable for code on demand",
   "details": {
     "publish": true,

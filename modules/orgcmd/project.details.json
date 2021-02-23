@@ -1,6 +1,6 @@
 {
   "template": "noreact",
-  "name": "@phil-rice/orgcmd",
+  "name": "@focuson/orgcmd",
   "description": "Generate build suitable for code on demand",
   "details": {
     "publish": true,

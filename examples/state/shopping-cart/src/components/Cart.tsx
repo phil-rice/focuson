@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import {CartData, ProductData} from "../domain";
 import React from 'react';
 
-import {Lens} from "@phil-rice/lens";
-import {LensState} from "@phil-rice/state";
+import {Lens} from "@focuson/lens";
+import {LensState} from "@focuson/state";
 import {ProductList} from "./ProductList";
 
 

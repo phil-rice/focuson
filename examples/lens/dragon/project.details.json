@@ -1,9 +1,9 @@
 {
   "template"      : "noreact",
-  "name"          : "@phil-rice/example_lens_dragon",
+  "name"          : "@focuson/example_lens_dragon",
   "description"   : "Showing how lens help in 'normal programming' without any link to react",
   "details": {
-    "links": ["@phil-rice/lens"],
+    "links": ["@focuson/lens"],
     "extraDeps"   : {},
     "extraDevDeps": {},
     "test": true

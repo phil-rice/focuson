@@ -1,6 +1,6 @@
 {
   "template":    "noreact",
-  "name":        "@phil-rice/lens",
+  "name":        "@focuson/lens",
   "description": "A simple implementation of lens using type script",
   "details":     {
     "ideify":       true,

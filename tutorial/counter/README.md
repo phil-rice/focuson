@@ -20,7 +20,7 @@ cd counter
 # Add dependencies
 
 ```shell
- yarn add @phil-rice/lens
+ yarn add @focuson/lens
 ```
 
 # Replace index.tsx

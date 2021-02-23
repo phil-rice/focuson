@@ -1,11 +1,11 @@
 {
   "template":    "noreact",
-  "name":        "@phil-rice/lenstest",
-  "description": "Tests the lens defined in @phil-rice/lens, and the state defined in @phil-rice/state",
+  "name":        "@focuson/lenstest",
+  "description": "Tests the lens defined in @focuson/lens, and the state defined in @focuson/state",
   "details":     {
     "ideify":       true,
     "publish":      true,
-    "links":        ["@phil-rice/lens","@phil-rice/state"],
+    "links":        ["@focuson/lens","@focuson/state"],
     "extraDeps":    {},
     "extraDevDeps": {},
     "test": true

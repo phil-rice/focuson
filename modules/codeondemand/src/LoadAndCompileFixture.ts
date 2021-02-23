@@ -2,7 +2,7 @@
 
 import {LoadAndCompileCache, UrlAndValueChecker} from "./LoadAndCompileCache";
 import { identity} from "../../lens";
-import {fromMap} from "@phil-rice/state";
+import {fromMap} from "@focuson/state";
 
 
 export class LoadAndCompileFixture {

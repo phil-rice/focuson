@@ -12,7 +12,7 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/lens": "^0.1.9",
+    "@focuson/lens": "^0.1.9",
     "@types/node": "^14.14.7",
     "npm-check-updates": "^10.0.0",
     "typescript": "^4.0.5"
@@ -37,7 +37,7 @@
   ],
   "license": "MIT-0",
   "main": "index",
-  "name": "@phil-rice/lens_example_dragon",
+  "name": "@focuson/lens_example_dragon",
   "repository": "git@github.com:phil-rice/ts-lens.git",
   "scripts": {
     "prepublish": "tsc",

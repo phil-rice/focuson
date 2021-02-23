@@ -27,5 +27,7 @@
   "dependencies": {
     "global": "^4.4.0",
     "npm": "7.5.4"
-  }
+  },
+  "main": "index.js",
+  "author": "phil <phil.rice@validoc.org>"
 }

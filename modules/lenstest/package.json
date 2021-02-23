@@ -12,8 +12,8 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/lens": "0.2.4",
-    "@phil-rice/state": "0.2.4"
+    "@focuson/lens": "0.2.5",
+    "@focuson/state": "0.2.5"
   },
   "devDependencies": {
     "@types/node": "^14.14.7",
@@ -45,19 +45,19 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.4",
+  "version": "0.2.5",
   "template": "noreact",
-  "description": "Tests the lens defined in @phil-rice/lens, and the state defined in @phil-rice/state",
+  "description": "Tests the lens defined in @focuson/lens, and the state defined in @focuson/state",
   "details": {
     "ideify": true,
     "publish": true,
     "links": [
-      "@phil-rice/lens",
-      "@phil-rice/state"
+      "@focuson/lens",
+      "@focuson/state"
     ],
     "extraDeps": {},
     "extraDevDeps": {},
     "test": true
   },
-  "name": "@phil-rice/lenstest"
+  "name": "@focuson/lenstest"
 }

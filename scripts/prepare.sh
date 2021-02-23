@@ -9,7 +9,7 @@ if [ $# -ne  0 ]; then
    It does this by looking for '//changed from [...]'
 
    examples
-       $me @phil-rice/lens ../../modules/lens
+       $me @focuson/lens ../../modules/lens
 
 "
  exit 2

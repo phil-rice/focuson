@@ -55,9 +55,9 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.4",
+  "version": "0.2.5",
   "template": "react",
-  "name": "@phil-rice/nav",
+  "name": "@focuson/nav",
   "details": {
     "ideify": true,
     "publish": true,

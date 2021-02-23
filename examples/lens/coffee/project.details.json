@@ -1,9 +1,9 @@
 {
   "template"      : "noreact",
-  "name"          : "@phil-rice/example_lens_coffee",
+  "name"          : "@focuson/example_lens_coffee",
   "description"   : "Showing how lens help in 'normal programming'",
   "details": {
-    "links": ["@phil-rice/lens"],
+    "links": ["@focuson/lens"],
     "extraDeps"   : {},
     "extraDevDeps": {},
     "test": false

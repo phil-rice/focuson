@@ -1,9 +1,9 @@
 {
   "template"      : "react",
-  "name"          : "@phil-rice/example_state_cpq",
+  "name"          : "@focuson/example_state_cpq",
   "description"   : "Showing how lens help in 'configure pricing quotation' examples",
   "details": {
-    "links"       : ["@phil-rice/lens", "@phil-rice/nav", "@phil-rice/state"],
+    "links"       : ["@focuson/lens", "@focuson/nav", "@focuson/state"],
     "extraDeps"   : {},
     "extraDevDeps": {},
     "test": true,

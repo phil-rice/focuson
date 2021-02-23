@@ -1,18 +1,18 @@
 # What is this project?
 
 This project is a number of projects bundled together in a mono repo
-* [@phil-rice/lens: Easy - perhaps even beautiful - code for editing deep immutable objects](modules/lens/README.md)
+* [@focuson/lens: Easy - perhaps even beautiful - code for editing deep immutable objects](modules/lens/README.md)
      * [An example showing how much simpler lens code is than the normal copy code](examples/lens/dragon)
-* [@phil-rice/state: State management for projects (including React) using the lens in the above project](modules/state/README.md)
-     * [@phil-rice/example_state_cpq - the Redux 'counter' example](examples/state/counter)
-     * [@phil-rice/example_state_cpq - A 'configure price quote' example](examples/state/cpq)
-     * [@phil-rice/example_state_cart - The Redux 'shopping cart' example](examples/state/shopping-cart)
-     * [@phil-rice/example_state_tictactoe - The React tictactoe example](examples/state/shopping-cart)
+* [@focuson/state: State management for projects (including React) using the lens in the above project](modules/state/README.md)
+     * [@focuson/example_state_cpq - the Redux 'counter' example](examples/state/counter)
+     * [@focuson/example_state_cpq - A 'configure price quote' example](examples/state/cpq)
+     * [@focuson/example_state_cart - The Redux 'shopping cart' example](examples/state/shopping-cart)
+     * [@focuson/example_state_tictactoe - The React tictactoe example](examples/state/shopping-cart)
 
 The code on demand is still work in progress.
-* [@phil-rice/codeondemand: Code on Demand for Restful servers that are resiliant to change (this is more R&D than the others)](modules/codeondemand/README.md)
-     * [@phil-rice/example_state_tictactoe - The React tictactoe example](examples/state/shopping-cart)
-     * [@phil-rice/examples_codeondemand_cpq - A 'configure price quote' example](examples/state/cpq)
+* [@focuson/codeondemand: Code on Demand for Restful servers that are resiliant to change (this is more R&D than the others)](modules/codeondemand/README.md)
+     * [@focuson/example_state_tictactoe - The React tictactoe example](examples/state/shopping-cart)
+     * [@focuson/examples_codeondemand_cpq - A 'configure price quote' example](examples/state/cpq)
 
 # Getting started
 
@@ -43,7 +43,7 @@ laoban start     # This executes 'yarn start' in all the react projects
 
 Unfortunately IDEs don't seem to work well with mono repos. When using an IDE such as IntelliJ it can be helpful to run the scripts in the `scripts` directory
 
-* ideify.sh   -  This changes imports such as @phil-rice/lens to relative addresses, which allows the ide access to the code
+* ideify.sh   -  This changes imports such as @focuson/lens to relative addresses, which allows the ide access to the code
 * prepare.sh  -  This changes the imports back again. You should do this before running anything (such as tests/the actual code in react) 
 
 # Publishing

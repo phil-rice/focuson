@@ -1,4 +1,4 @@
-import { LensContext, LensProps } from "@phil-rice/lens";
+import { LensContext, LensProps } from "@focuson/lens";
 
 export interface CpqResultData {
     result: SearchResultType

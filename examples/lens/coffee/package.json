@@ -12,7 +12,7 @@
     ]
   },
   "dependencies": {
-    "@phil-rice/lens": "0.2.4"
+    "@focuson/lens": "0.2.5"
   },
   "devDependencies": {
     "@types/node": "^14.14.7",
@@ -44,16 +44,16 @@
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.4",
+  "version": "0.2.5",
   "template": "noreact",
   "description": "Showing how lens help in 'normal programming'",
   "details": {
     "links": [
-      "@phil-rice/lens"
+      "@focuson/lens"
     ],
     "extraDeps": {},
     "extraDevDeps": {},
     "test": false
   },
-  "name": "@phil-rice/example_lens_coffee"
+  "name": "@focuson/example_lens_coffee"
 }

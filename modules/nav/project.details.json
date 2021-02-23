@@ -1,6 +1,6 @@
 {
   "template":    "react",
-  "name":        "@phil-rice/nav",
+  "name":        "@focuson/nav",
   "description": "A nav bar that allows json files to be used to display rendered components",
   "details":     {
     "ideify":       true,

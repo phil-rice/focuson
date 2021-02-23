@@ -30,10 +30,10 @@ README introduces Lens.
 * [A more complicated example](https://github.com/phil-rice/ts-lens-react/blob/master/tutorial/tictactoe)
 
 ## Examples
- * [@phil-rice/example_state_cpq - the Redux 'counter' example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/counter)
- * [@phil-rice/example_state_cpq - A 'configure price quote' example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/cpq)
- * [@phil-rice/example_state_cart - The Redux 'shopping cart' example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/shopping-cart)
- * [@phil-rice/example_state_tictactoe - The React tictactoe example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/tictactoe)
+ * [@focuson/example_state_cpq - the Redux 'counter' example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/counter)
+ * [@focuson/example_state_cpq - A 'configure price quote' example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/cpq)
+ * [@focuson/example_state_cart - The Redux 'shopping cart' example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/shopping-cart)
+ * [@focuson/example_state_tictactoe - The React tictactoe example](https://github.com/phil-rice/ts-lens-react/tree/master/examples/state/tictactoe)
 
 # When should I use this project
 

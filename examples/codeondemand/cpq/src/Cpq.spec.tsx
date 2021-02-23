@@ -4,8 +4,8 @@ import React from 'react';
 import {enzymeSetup} from './enzymeAdapterSetup';
 import {shallow, ShallowWrapper} from "enzyme";
 
-import {Lenses} from "@phil-rice/lens";
-import {lensState, LensState} from "@phil-rice/state";
+import {Lenses} from "@focuson/lens";
+import {lensState, LensState} from "@focuson/state";
 import {CpqData} from "./CpqDomain";
 import {Cpq} from "./render/Cpq";
 import {SimpleFilter} from "./render/SimpleFilter";
