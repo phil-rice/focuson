@@ -22,7 +22,7 @@ protection).
 
 ## Related projects
 
-This code uses the lens defined [here]((https://github.com/phil-rice/ts-lens-react/tree/master/modules/lens)). The
+This code uses the lens defined [here](https://github.com/phil-rice/ts-lens-react/tree/master/modules/lens). The
 README introduces Lens.
 
 ## Tutorials
