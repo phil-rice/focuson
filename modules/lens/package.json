@@ -37,12 +37,12 @@
   "license": "MIT",
   "main": "dist/index",
   "types": "dist/index",
-  "repository": "git@github.com:phil-rice/ts-lens.git",
+  "repository": "git@github.com:phil-rice/focuson.git",
   "scripts": {
     "test": "jest --config jest.config.json",
     "test:watch": "npm run test -- --watch"
   },
-  "version": "0.2.6",
+  "version": "0.2.7",
   "template": "noreact",
   "description": "A simple implementation of lens using type script",
   "details": {
